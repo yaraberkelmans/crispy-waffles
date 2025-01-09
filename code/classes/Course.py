@@ -39,6 +39,6 @@ class Course():
 
     def add_students(self):
         self.course_student_list = []
-        for student in tot_student_list:
+        for student in self.tot_student_list:
             if self.course_name in student.courses:
                 self.course_student_list.append(student.student_id)
