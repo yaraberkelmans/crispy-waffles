@@ -28,10 +28,19 @@ class Course():
             #     self.tutorials[x] = []
             stud_per_tut = len(student_list)/ tut_amount
             self.tutorials[x] = student_list[round(((x-1) * stud_per_tut)):round((x *stud_per_tut))]
-
-        print(self.tutorials)
-        print(self.tutorial_cap)
         print(len(self.tutorials.keys()))
+
+    def add_students_lab(self, student_list):
+        lab_amount = len(student_list)// int(self.labs_cap)
+        if len(student_list) % int(self.labs_cap) > 0:
+            lab_amount += 1
+        for x in range(1,lab_amount+1):
+            # if x not in self.labs:
+            #     self.labss[x] = []
+            stud_per_lab = len(student_list)/ lab_amount
+            self.labs[x] = student_list[round(((x-1) * stud_per_lab)):round((x *stud_per_lab))]
+        print(len(self.labs.keys()))
+
 
 class Location():
     def __init__(self, room_id, capacity):
@@ -81,3 +90,4 @@ with open("zalen.csv") as z:
 
 
 course_list[4].add_students_tut(student_list)
+course_list[4].add_students_lab(student_list)
