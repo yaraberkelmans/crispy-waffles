@@ -91,3 +91,4 @@ with open("zalen.csv") as z:
 
 course_list[4].add_students_tut(student_list)
 course_list[4].add_students_lab(student_list)
+#ghaallalalalalalaal
