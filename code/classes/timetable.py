@@ -9,7 +9,6 @@ class Timetable():
     def create_timetable(self)
         for day in self.days:
             for time in self.times:
-       
-        for day in days:
-            for time in times:
                 self.timetable[Timeslot(day, time)] = {}
+        
+                
