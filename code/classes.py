@@ -1,4 +1,9 @@
-from loading_data import Load_init_lists
+from code.classes.loading_data import Load_init_lists
+class Student():
+    def __init__(self, student_id, courses):
+        self.student_id = student_id
+        self.courses = courses
+
 
 class Course():
     def __init__(self, course_name, lectures_n, tutorial_n, tutorial_cap, labs_n, labs_cap, e_students):
@@ -9,14 +14,14 @@ class Course():
         self.labs_n = labs_n
         self.labs_cap = labs_cap
         self.e_students = e_students
-        self.tot_student_list = []
+
         if int(self.tutorial_n) >= 1:
             self.tutorials = {}
         if int(self.labs_n) >= 1:
             self.labs = {}
 
     def add_students_tut(self, student_list):
-        """This method adds a certain list of students to seperate tutorial groups, based on the tutorials_cap per tutorial group. The tutorials are in a dictionary with the
+        """This method adds a certain list of students to seperate tutorial groups, based on the tutorials_cap per tutorial group. The tutorials are in a dictionary with the 
         tutorial # as key and a list of students as values"""
         tut_amount = len(student_list)// int(self.tutorial_cap)
         if len(student_list) % int(self.tutorial_cap) > 0:
@@ -27,7 +32,7 @@ class Course():
         print(len(self.tutorials.keys()))
 
     def add_students_lab(self, student_list):
-        """This method adds a certain list of students to seperate lab groups, based on the labs_cap per lab group. The labs are in a dictionary with the
+        """This method adds a certain list of students to seperate lab groups, based on the labs_cap per lab group. The labs are in a dictionary with the 
         lab # as key and a list of students as values"""
         lab_amount = len(student_list)// int(self.labs_cap)
         if len(student_list) % int(self.labs_cap) > 0:
@@ -37,8 +42,15 @@ class Course():
             self.labs[x] = student_list[round(((x-1) * stud_per_lab)):round((x *stud_per_lab))]
         print(len(self.labs.keys()))
 
-    def add_students(self):
-        self.course_student_list = []
-        for student in tot_student_list:
-            if self.course_name in student.courses:
-                self.course_student_list.append(student.student_id)
+
+class Location():
+    def __init__(self, room_id, capacity):
+        self.room_id = room_id
+        self.capacity= capacity
+        self.available = True
+
+# class Timeslot():
+#     def __init__(self)
+
+course_list[4].add_students_tut(student_list)
+course_list[4].add_students_lab(student_list)

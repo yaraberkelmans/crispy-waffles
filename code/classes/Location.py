@@ -1,4 +1,4 @@
-from ..loading_data import Load_init_lists
+from .loading_data import Load_init_lists
 
 class Location():
     def __init__(self, room_id, capacity):
