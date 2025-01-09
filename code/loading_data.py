@@ -1,4 +1,4 @@
-Class Loading():
+class Load_init_lists:
     def __init__():
         self.course_list = self.load_courses
         self.student_list = self.load_students
