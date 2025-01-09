@@ -21,6 +21,7 @@ class Load_init_lists:
 
                 course = Course(course_name, lectures_n, tutorial_n, tutorial_cap, labs_n, labs_cap, e_students)
                 course_list.append(course)
+
         return course_list
  
     def load_students(self):
@@ -33,6 +34,7 @@ class Load_init_lists:
 
                 student = Student(student_id, courses)
                 student_list.append(student)
+
         return student_list
 
     def load_locations(self):
@@ -46,4 +48,5 @@ class Load_init_lists:
                 location = Location(room_id, capacity)
 
                 location_list.append(location)
+                
         return location_list
