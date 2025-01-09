@@ -1,4 +1,4 @@
-
+from .loading_data import Loading
 class Student():
     def __init__(self, student_id, courses):
         self.student_id = student_id
@@ -49,6 +49,9 @@ class Location():
         self.capacity= capacity
         self.available = True
 
+student_list = []
+course_list= []
+location_list = []
 
 course_list[4].add_students_tut(student_list)
 course_list[4].add_students_lab(student_list)
