@@ -14,6 +14,25 @@ class Course():
         self.labs_cap = labs_cap
         self.e_students = e_students
 
+        if int(self.tutorial_n) >= 1:
+            self.tutorials = {}
+        if int(self.labs_n) >= 1:
+            self.labs = {}
+
+    def add_students_tut(self, student_list):
+        tut_amount = len(student_list)// int(self.tutorial_cap)
+        if len(student_list) % int(self.tutorial_cap) > 0:
+            tut_amount += 1
+        for x in range(1,tut_amount+1):
+            # if x not in self.tutorials:
+            #     self.tutorials[x] = []
+            stud_per_tut = len(student_list)/ tut_amount
+            self.tutorials[x] = student_list[round(((x-1) * stud_per_tut)):round((x *stud_per_tut))]
+
+        print(self.tutorials)
+        print(self.tutorial_cap)
+        print(len(self.tutorials.keys()))
+
 class Location():
     def __init__(self, room_id, capacity):
         self.room_id = room_id
@@ -26,7 +45,9 @@ course_list= []
 location_list = []
 
 with open("vakken.csv") as c:
+    next(c)
     for line in c:
+
         split_data = line.split(',')
         course_name = split_data[0]
         lectures_n = split_data[1]
@@ -59,8 +80,4 @@ with open("zalen.csv") as z:
         location_list.append(location)
 
 
-print(course_list[1].course_name)
-
-print(student_list[1].student_id)
-
-print(location_list[1].room_id)
+course_list[4].add_students_tut(student_list)
