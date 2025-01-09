@@ -1,10 +1,10 @@
 class Load_init_lists:
-    def __init__():
+    def __init__(self):
         self.course_list = self.load_courses
         self.student_list = self.load_students
         self.location_list = self.load_locations
     
-    def load_courses():
+    def load_courses(self):
         course_list = []
         with open("vakken.csv") as c:
             next(c)
@@ -23,7 +23,7 @@ class Load_init_lists:
                 course_list.append(course)
         return course_list
  
-    def load_students():
+    def load_students(self):
         student_list = []
         with open("studenten_en_vakken.csv") as sv:
             for line in sv:
@@ -35,7 +35,7 @@ class Load_init_lists:
                 student_list.append(student)
         return student_list
 
-    def load_locations():
+    def load_locations(self):
         location_list = []
         with open("zalen.csv") as z:
             for line in z:
