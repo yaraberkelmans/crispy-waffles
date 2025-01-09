@@ -49,9 +49,8 @@ class Location():
         self.capacity= capacity
         self.available = True
 
-student_list = []
-course_list= []
-location_list = []
+# class Timeslot():
+#     def __init__(self)
 
 course_list[4].add_students_tut(student_list)
 course_list[4].add_students_lab(student_list)
