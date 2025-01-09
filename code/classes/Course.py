@@ -1,4 +1,4 @@
-from .loading_data import Load_init_lists
+from ..loading_data import Load_init_lists
 
 class Course():
     def __init__(self, course_name, lectures_n, tutorial_n, tutorial_cap, labs_n, labs_cap, e_students):
