@@ -3,6 +3,7 @@ import csv
 import os
 from Timeslot import Timeslot
 from Course import Course
+import random
 
 class Timetable():
     def __init__(self):
@@ -13,15 +14,20 @@ class Timetable():
         """
         self.days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
         self.times = ['9-11', '11-13', '13-15', '15-17']
+        self.locations = ['A1.04', 'A1.06', 'A1.08', 'A1.10','B0.201', 'C0.110', 'C1.112']
         self.course_classes = {}
         self.classes_list = []
+        self.timetable = {}
+    
     def create_timetable(self):
         for day in self.days:
             for time in self.times:
-                self.timetable[Timeslot(day, time)] = {}
+                self.timetable[Timeslot(day, time).name] = {}
         
     def fill_locations(self):
-        pass
+        for timeslot in self.timetable.keys():
+            for location in self.locations:
+                self.timetable[timeslot][location] = None
 
     def load_courses(self, input_file):
         self.courses = []
@@ -53,6 +59,12 @@ timetable = Timetable()
 timetable.load_courses('data/vakken.csv')
 timetable.get_classes_count()
 timetable.name_classes()
+timetable.create_timetable()
+timetable.fill_locations()
 print(timetable.courses[1].course_name)
-print(timetable.classes_list)
+'''
+for timeslot in timetable.timetable.keys():
+    print(timeslot.name)
+'''
+print(timetable.timetable)
 
