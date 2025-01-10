@@ -51,6 +51,9 @@ class Timetable():
                 for i in range(class_amount):
                     class_name = course_name + ' ' + class_type + ' ' + str(i+1)
                     self.classes_list.append(class_name)
+
+    def add_students_to_class(self):
+        pass
         
 
 print(os.getcwd())
