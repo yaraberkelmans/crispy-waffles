@@ -1,8 +1,7 @@
-from loading_data import Load_init_lists
 import csv
 import os
-from Timeslot import Timeslot
-from Course import Course
+from .Timeslot import Timeslot
+from .Course import Course
 import random
 
 class Timetable():
@@ -43,7 +42,7 @@ class Timetable():
     def get_classes_count(self):
         for course in self.courses:
             course.count_groups()
-            self.course_classes[course.course_name] = {'Lectures': course.lectures_n, 'Tutorials': course.expected_tut_n, 'Labs': course.expected_lab_n}
+            self.course_classes[course.course_name] = {'Lecture': course.lectures_n, 'Tutorial': course.expected_tut_n, 'Lab': course.expected_lab_n}
 
     def name_classes(self):
         self.classes_list = []
@@ -60,11 +59,11 @@ timetable.load_courses('data/vakken.csv')
 timetable.get_classes_count()
 timetable.name_classes()
 timetable.create_timetable()
-timetable.fill_locations()
-print(timetable.courses[1].course_name)
+timetable.initialize_locations()
+#print(timetable.courses[1].course_name)
 '''
 for timeslot in timetable.timetable.keys():
     print(timeslot.name)
 '''
-print(timetable.timetable)
+#print(timetable.timetable)
 

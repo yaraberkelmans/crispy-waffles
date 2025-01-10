@@ -1,4 +1,3 @@
-from loading_data import Load_init_lists
 import csv
 
 class Course():
