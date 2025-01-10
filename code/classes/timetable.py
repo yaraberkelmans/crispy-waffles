@@ -1,4 +1,6 @@
 from loading_data import Load_init_lists
+import csv
+import os
 
 class Timetable():
     def __init__(self):
@@ -16,3 +18,12 @@ class Timetable():
                 self.timetable[Timeslot(day, time)] = {}
         
     def fill_locations(self):
+        pass
+
+     def load_courses(self, input_file):
+        self.courses = []
+        with open(input_file, 'r') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                print(row)
+    

@@ -1,4 +1,5 @@
 from loading_data import Load_init_lists
+import csv
 
 class Course():
     def __init__(self, course_name, lectures_n, tutorial_n, tutorial_cap, labs_n, labs_cap, e_students):
@@ -40,10 +41,26 @@ class Course():
     def count_groups(self):
         if self.tutorial_n > 0:
             self.expected_tut_n = len(self.e_students) // int(self.tutorial_cap)
-            if len(student_list) % int(self.tutorial_cap) > 0:
+            if len(self.e_students) % int(self.tutorial_cap) > 0:
                 self.expected_tut_n += 1
             
         if self.labs_n > 0:
             self.expected_lab_n = len(self.e_students) // int(self.labs_cap) 
-            if len(student_list) % int(self.labs_cap) > 0:
+            if len(self.e_students) % int(self.labs_cap) > 0:
                 self.expected_lab_n += 1
+
+class CourseLoader():
+    def __init__(self, input_file):
+        self.input_file = input_file
+
+    def load_courses(self):
+        self.courses = []
+        with open(self.input_file, 'r') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                print(row)
+import os
+gcw = os.path
+
+course_loader = CourseLoader('../../data/vakken.csv')
+course_loader.load_courses()
