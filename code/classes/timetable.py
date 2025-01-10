@@ -24,7 +24,7 @@ class Timetable():
             for time in self.times:
                 self.timetable[Timeslot(day, time).name] = {}
         
-    def fill_locations(self):
+    def initialize_locations(self):
         for timeslot in self.timetable.keys():
             for location in self.locations:
                 self.timetable[timeslot][location] = None
