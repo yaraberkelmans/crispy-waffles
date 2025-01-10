@@ -2,15 +2,19 @@ from loading_data import Load_init_lists
 import csv
 
 class Course():
-    def __init__(self, course_name, lectures_n, tutorial_n, tutorial_cap, labs_n, labs_cap, e_students):
+    def __init__(self, course_name, lectures_n, tutorial_n, tutorial_cap=0, labs_n=0, labs_cap=0, e_students=0):
         self.course_name = course_name
-        self.lectures_n = lectures_n
-        self.tutorial_n = tutorial_n
-        self.tutorial_cap = tutorial_cap
-        self.labs_n = labs_n
-        self.labs_cap = labs_cap
-        self.e_students = e_students
+        self.lectures_n = int(lectures_n)
+        self.tutorial_n = int(tutorial_n)
+        
+        self.labs_n = int(labs_n)
+        
+        self.e_students = int(e_students)
         self.tot_student_list = []
+        if tutorial_cap:
+            self.tutorial_cap = int(tutorial_cap)
+        if labs_cap:
+            self.labs_cap = int(labs_cap)
         if int(self.tutorial_n) >= 1:
             self.tutorials = {}
         if int(self.labs_n) >= 1:
@@ -40,27 +44,16 @@ class Course():
 
     def count_groups(self):
         if self.tutorial_n > 0:
-            self.expected_tut_n = len(self.e_students) // int(self.tutorial_cap)
-            if len(self.e_students) % int(self.tutorial_cap) > 0:
+            self.expected_tut_n = self.e_students // self.tutorial_cap
+            if self.e_students % self.tutorial_cap > 0:
                 self.expected_tut_n += 1
-            
+        else:
+            self.expected_tut_n = 0
+
         if self.labs_n > 0:
-            self.expected_lab_n = len(self.e_students) // int(self.labs_cap) 
-            if len(self.e_students) % int(self.labs_cap) > 0:
+            self.expected_lab_n = self.e_students // self.labs_cap 
+            if self.e_students % self.labs_cap > 0:
                 self.expected_lab_n += 1
+        else:
+            self.expected_lab_n = 0
 
-class CourseLoader():
-    def __init__(self, input_file):
-        self.input_file = input_file
-
-    def load_courses(self):
-        self.courses = []
-        with open(self.input_file, 'r') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                print(row)
-import os
-gcw = os.path
-
-course_loader = CourseLoader('../../data/vakken.csv')
-course_loader.load_courses()
