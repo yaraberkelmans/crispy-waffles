@@ -10,6 +10,7 @@ class Load_init_lists:
             next(c)
             for line in c:
 
+                # line: course_name, num_lectures, num_tutorial, tutorial_cap, num_labs, lab_cap, expected_students
                 split_data = line.split(',')
                 course_name = split_data[0]
                 lectures_n = split_data[1]

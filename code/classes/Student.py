@@ -5,4 +5,4 @@ class Student():
         self.student_id = student_id
         self.courses = set(courses)
         self.is_valid = True
-        self.placed = False
+        self.placed = False    
