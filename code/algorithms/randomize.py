@@ -2,6 +2,7 @@ import random
 import copy
 
 def random_course_assignment(timetable):
+    """This function randomly assigns courses to a timetable until the amount of total classes has been assigned."""
     new_classes_list = copy.deepcopy(timetable.classes_list)
     new_timetable = copy.deepcopy(timetable.timetable)
     classes_added = 0
