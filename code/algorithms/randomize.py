@@ -1,7 +1,7 @@
 import random
 import copy
 
-def random_assignment(timetable):
+def random_course_assignment(timetable):
     new_classes_list = copy.deepcopy(timetable.classes_list)
     new_timetable = copy.deepcopy(timetable.timetable)
     classes_added = 0
@@ -16,4 +16,7 @@ def random_assignment(timetable):
             classes_added += 1
     
     return new_timetable
+
+def random_student_assignment(timetable, student_list):
+    pass
         

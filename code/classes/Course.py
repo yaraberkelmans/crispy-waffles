@@ -5,11 +5,11 @@ class Course():
         self.course_name = course_name
         self.lectures_n = int(lectures_n)
         self.tutorial_n = int(tutorial_n)
-        
+        self.student_list = []
         self.labs_n = int(labs_n)
         
         self.e_students = int(e_students)
-        self.tot_student_list = []
+        self.all_student_list = []
         if tutorial_cap:
             self.tutorial_cap = int(tutorial_cap)
         if labs_cap:
@@ -35,11 +35,19 @@ class Course():
             self.labs[x] = student_list[round(((x-1) * stud_per_lab)):round((x *stud_per_lab))]
         print(len(self.labs.keys()))
 
-    def add_students(self):
-        self.course_student_list = []
-        for student in self.tot_student_list:
+    def add_actual_students(self):
+        for student in self.all_student_list:
             if self.course_name in student.courses:
-                self.course_student_list.append(student.student_id)
+                self.student_list.append(student.student_id)
+
+    def add_individual_student(self, student):
+        if student not in self.student_list: 
+            self.student_list.append(student)
+        else:
+            print('Student already in course')
+    
+    def remove_student(self, student):
+        pass
 
     def count_groups(self):
         if self.tutorial_n > 0:

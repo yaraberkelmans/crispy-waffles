@@ -45,15 +45,21 @@ class Timetable():
             self.course_classes[course.course_name] = {'Lecture': course.lectures_n, 'Tutorial': course.expected_tut_n, 'Lab': course.expected_lab_n}
 
     def name_classes(self):
-        self.classes_list = []
+        self.classes_list = {}
         for course_name, classes_count_dict in self.course_classes.items():
             for class_type, class_amount in classes_count_dict.items():
                 for i in range(class_amount):
                     class_name = course_name + ' ' + class_type + ' ' + str(i+1)
-                    self.classes_list.append(class_name)
+                    self.classes_list[class_name] = []
 
-    def add_students_to_class(self):
-        pass
+    def add_student_to_class(self, student, class_name):
+        if class_name in self.classes_list.keys():
+            if student not in self.classes_list[class_name]:
+                self.classes_list[class_name].append(student)
+            else:
+                print('Student already in Class')
+        else:
+            print('Class does not exist')
         
 
 print(os.getcwd())
