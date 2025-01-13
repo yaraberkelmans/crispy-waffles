@@ -7,4 +7,6 @@ class Student():
         self.first_name = first_name
         self.last_name = last_name
         self.name = f'{first_name} {last_name}'
-        self.timetable = {}
+
+        # key is timeslot, value is a list of room and course, so a student knows where he need to be and which course he has
+        self.pers_timetable = {}
