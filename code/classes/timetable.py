@@ -69,7 +69,7 @@ class Timetable():
                     class_name = f'{course.course_name} {class_type} {i+1}'
                     if class_type == 'Tutorial':
                         cls = Tutorial(course.tutorial_cap, class_name)
-                    if class_type == 'Lab':
+                    elif class_type == 'Lab':
                         cls = Lab(course.lab_cap, class_name)
                     else:
                         cls = class_name

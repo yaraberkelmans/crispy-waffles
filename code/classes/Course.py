@@ -1,7 +1,7 @@
 import csv
 
 class Course():
-    def __init__(self, course_name, lectures_n, tutorial_n, tutorial_cap=0, lab_n=0, lab_cap=0, e_students=0):
+    def __init__(self, course_name, lectures_n=0, tutorial_n=0, tutorial_cap=0, lab_n=0, lab_cap=0, e_students=0):
         self.course_name = course_name
         self.lectures_n = int(lectures_n)
         self.tutorial_n = int(tutorial_n)
