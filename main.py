@@ -1,6 +1,7 @@
 from code.classes.timetable import Timetable
 from code.classes.Timeslot import Timeslot
 from code.algorithms.randomize import random_course_assignment
+from code.algorithms.randomize import random_student_assignment
 
 if __name__ == "__main__":
     # initialize timetable
@@ -14,3 +15,5 @@ if __name__ == "__main__":
     # random assignment
     randomized_timetable = random_course_assignment(timetable)
     print(randomized_timetable)
+
+    random_student_assignment(randomized_timetable, full_student_list)
