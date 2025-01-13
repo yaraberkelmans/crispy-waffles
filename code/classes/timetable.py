@@ -1,7 +1,7 @@
 import csv
 import os
 from .Timeslot import Timeslot
-from .Course import Course
+from .Course import Course, Tutorial, Lab
 import random
 from .Student import Student
 
@@ -19,7 +19,7 @@ class Timetable():
         # maybe make separate function to load locations or make the load_courses function universally usable
         self.locations = ['A1.04', 'A1.06', 'A1.08', 'A1.10','B0.201', 'C0.110', 'C1.112']
         self.classes_per_course = {}
-        self.classes_list = {}
+        self.classes_list = []
         self.timetable = {}
         self.full_student_list = []
         self.courses = []
@@ -57,17 +57,25 @@ class Timetable():
     def get_classes_count(self):
         for course in self.courses:
             course.count_groups()
-            self.classes_per_course[course.course_name] = {'Lecture': course.lectures_n,
+            self.classes_per_course[course] = {'Lecture': course.lectures_n,
                                                            'Tutorial': course.expected_tut_n,
                                                            'Lab': course.expected_lab_n}
 
     def name_classes(self):  
         # TODO: Make it list comprehension instead of loop
-        for course_name, classes_count_dict in self.classes_per_course.items():
+        for course, classes_count_dict in self.classes_per_course.items():
             for class_type, class_amount in classes_count_dict.items():
                 for i in range(class_amount):
-                    class_name = f'{course_name} {class_type} {i+1}'
-                    self.classes_list[class_name] = []
+                    class_name = f'{course.course_name} {class_type} {i+1}'
+                    if class_type == 'Tutorial':
+                        cls = Tutorial(course.tutorial_cap, class_name)
+                    if class_type == 'Lab':
+                        cls = Lab(course.lab_cap, class_name)
+                    else:
+                        cls = class_name
+                    
+                    self.classes_list.append(cls)
+                    print(f'class {class_name} added!')
 
     def add_student_to_class(self, student, class_name):
         if class_name not in self.classes_list.keys():

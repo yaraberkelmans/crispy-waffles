@@ -21,8 +21,8 @@ if __name__ == "__main__":
 
     for course in randomized_student_test.courses:
         student_count = 0
-        print(course.course_name)
+        #print(course.course_name)
         for student in course.student_list:
             student_count += 1
-            print(student.student_id)
-        print(student_count)
+            #print(student.student_id)
+        #print(student_count)

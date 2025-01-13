@@ -1,24 +1,23 @@
 import csv
 
 class Course():
-    def __init__(self, course_name, lectures_n, tutorial_n, tutorial_cap=0, labs_n=0, labs_cap=0, e_students=0):
+    def __init__(self, course_name, lectures_n, tutorial_n, tutorial_cap=0, lab_n=0, lab_cap=0, e_students=0):
         self.course_name = course_name
         self.lectures_n = int(lectures_n)
         self.tutorial_n = int(tutorial_n)
         self.student_list = []
-        self.labs_n = int(labs_n)
-        
+        self.lab_n = int(lab_n)
         self.e_students = int(e_students)
         self.all_student_list = []
         if tutorial_cap:
             self.tutorial_cap = int(tutorial_cap)
-        if labs_cap:
-            self.labs_cap = int(labs_cap)
+        if lab_cap:
+            self.lab_cap = int(lab_cap)
 
         # only create a dictionary if there are tutorials or labs for this course
         if int(self.tutorial_n) >= 1:
             self.tutorials = {}
-        if int(self.labs_n) >= 1:
+        if int(self.lab_n) >= 1:
             self.labs = {}
 
     def add_students_tut(self, student_list):
@@ -30,7 +29,7 @@ class Course():
         print(len(self.tutorials.keys()))
 
     def add_students_lab(self, student_list):
-        """This method adds a certain list of students to seperate lab groups, based on the labs_cap per lab group. The labs are in a dictionary with the
+        """This method adds a certain list of students to seperate lab groups, based on the lab_cap per lab group. The labs are in a dictionary with the
         lab # as key and a list of students as values."""
         for x in range(1,self.expected_lab_n+1):
             stud_per_lab = len(student_list)/ self.expected_lab_n
@@ -62,10 +61,21 @@ class Course():
         else:
             self.expected_tut_n = 0
 
-        if self.labs_n > 0:
-            self.expected_lab_n = self.e_students // self.labs_cap 
-            if self.e_students % self.labs_cap > 0:
+        if self.lab_n > 0:
+            self.expected_lab_n = self.e_students // self.lab_cap 
+            if self.e_students % self.lab_cap > 0:
                 self.expected_lab_n += 1
         else:
             self.expected_lab_n = 0
 
+class Tutorial(Course):
+    def __init__(self, tutorial_cap, name):
+        super().__init__(tutorial_cap)
+        self.student_list = []
+        self.name = name
+
+class Lab(Course):
+    def __init__(self, lab_cap, name):
+        super().__init__(lab_cap)
+        self.student_list = []
+        self.name = name
