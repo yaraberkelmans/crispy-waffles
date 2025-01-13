@@ -7,6 +7,7 @@ if __name__ == "__main__":
     # initialize timetable
     timetable = Timetable()
     timetable.load_courses('data/vakken.csv')
+    timetable.load_students('data/studenten_en_vakken.csv')
     timetable.get_classes_count()
     timetable.name_classes()
     timetable.create_timetable()
@@ -16,4 +17,12 @@ if __name__ == "__main__":
     randomized_timetable = random_course_assignment(timetable)
     print(randomized_timetable)
 
-    random_student_assignment(randomized_timetable, full_student_list)
+    randomized_student_test = random_student_assignment(timetable)
+
+    for course in randomized_student_test.courses:
+        student_count = 0
+        print(course.course_name)
+        for student in course.student_list:
+            student_count += 1
+            print(student.student_id)
+        print(student_count)

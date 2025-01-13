@@ -3,6 +3,7 @@ import os
 from .Timeslot import Timeslot
 from .Course import Course
 import random
+from .Student import Student
 
 class Timetable():
     def __init__(self):
@@ -20,7 +21,9 @@ class Timetable():
         self.classes_per_course = {}
         self.classes_list = {}
         self.timetable = {}
-    
+        self.full_student_list = []
+        self.courses = []
+
     def create_timetable(self):
         for day in self.days:
             for time in self.times:
@@ -32,8 +35,8 @@ class Timetable():
             for location in self.locations:
                 self.timetable[timeslot][location] = None
 
+    #TODO: een universele functie maken van alle load functies
     def load_courses(self, input_file):
-        self.courses = []
         with open(input_file, 'r') as f:
             reader = csv.DictReader(f)
             for row in reader:
@@ -42,6 +45,14 @@ class Timetable():
                                 row['#Practica'], row['Max. stud. Practicum'],
                                 row['Verwacht'])
                 self.courses.append(course)
+    
+    def load_students(self, input_file):
+        with open(input_file, 'r') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                student = Student(row['Achternaam'], row['Voornaam'], 
+                                row['Stud.Nr.'])
+                self.full_student_list.append(student)
 
     def get_classes_count(self):
         for course in self.courses:
