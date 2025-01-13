@@ -57,7 +57,8 @@ class Timetable():
                 self.full_student_list.append(student)
     
     def load_locations(self, input_file):
-        with open(input_file, 'r') as f:
+        # added encoding as the row Zaalnummer couldnt be read
+        with open(input_file, 'r', encoding='utf-8-sig') as f:
             reader = csv.DictReader(f)
             for row in reader:
                 location = Location(row['Zaalnummer'], row['Max. capaciteit'])
