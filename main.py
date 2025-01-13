@@ -39,8 +39,10 @@ if __name__ == "__main__":
                 #print(student.name)
 
     full_randomized_timetable = randomize(timetable)
-    for timeslot, location in full_randomized_timetable.items():
-        for cls in full_randomized_timetable[location]:
+    for timeslot, location in full_randomized_timetable.timetable.items():
+        print('t:',full_randomized_timetable.timetable[timeslot])
+        print('loop:',full_randomized_timetable.timetable[timeslot].keys())
+        for location, cls  in full_randomized_timetable.timetable[timeslot].items():
             print(f'Course: {cls.course_name} Class: {cls.name} Location: {location} Day: {timeslot.day} Time: {timeslot.time}')
             for student in cls.student_list:
                 print(student.name)

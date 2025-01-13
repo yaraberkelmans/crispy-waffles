@@ -71,23 +71,26 @@ class Course():
             self.expected_lab_n = 0
 
 class Tutorial(Course):
-    def __init__(self, tutorial_cap, course_name, name):
+    def __init__(self, course_name, tutorial_cap, name):
         super().__init__(course_name, tutorial_cap=tutorial_cap)
         self.capacity = tutorial_cap 
         self.student_list = []
         self.name = name
+        self.course_name = course_name
 
 class Lab(Course):
-    def __init__(self, lab_cap, course_name, name):
+    def __init__(self, course_name, lab_cap, name):
         super().__init__(course_name, lab_cap=lab_cap)
         self.capacity = lab_cap
         self.student_list = []
         self.name = name
+        self.course_name = course_name
 
 class Lecture(Course):
-    def __init__(self, e_students, course_name, name):
+    def __init__(self, course_name, e_students, name):
         #print('Lecture init:',e_students, course_name)
         super().__init__(course_name, e_students=e_students)
         self.capacity = e_students
         self.student_list = []
         self.name = name
+        self.course_name = name

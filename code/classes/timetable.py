@@ -29,7 +29,7 @@ class Timetable():
     def create_timetable(self):
         for day in self.days:
             for time in self.times:
-                self.timetable[Timeslot(day, time).name] = {}
+                self.timetable[Timeslot(day, time)] = {}
     
     # TODO: incorporate this function in create timetable or init func in a handy way to simplify (defaultdict maybe)
     def initialize_locations(self):
@@ -57,7 +57,7 @@ class Timetable():
                 self.full_student_list.append(student)
     
     def load_locations(self, input_file):
-        with open(input_file, 'r') as f:
+        with open(input_file, 'r', encoding='utf-8-sig') as f:
             reader = csv.DictReader(f)
             for row in reader:
                 location = Location(row['Zaalnummer'], row['Max. capaciteit'])
@@ -77,11 +77,11 @@ class Timetable():
                 for i in range(class_amount):
                     class_name = f'{course.course_name} {class_type} {i+1}'
                     if class_type == 'Tutorial':
-                        cls = Tutorial(course.tutorial_cap, class_name, course.course_name)
+                        cls = Tutorial(course.course_name, course.tutorial_cap, class_name)
                     elif class_type == 'Lab':
-                        cls = Lab(course.lab_cap, class_name, course.course_name)
+                        cls = Lab(course.course_name, course.lab_cap, class_name)
                     else:
-                        cls = Lecture(course.e_students, class_name, course.course_name)
+                        cls = Lecture(course.course_name, course.e_students, class_name)
                     
                     course.classes.append(cls)
                     self.classes_list.append(cls)
