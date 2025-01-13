@@ -10,7 +10,7 @@ def random_course_assignment(timetable):
     while classes_added < len(new_classes_list):
         random_timeslot = random.choice(list(new_timetable.keys()))
         random_classroom = random.choice(list(new_timetable[random_timeslot]))
-        random_class = random.choice(new_classes_list)
+        random_class = random.choice(list(new_classes_list))
 
         if new_timetable[random_timeslot][random_classroom] == None:
             new_timetable[random_timeslot][random_classroom] = random_class
