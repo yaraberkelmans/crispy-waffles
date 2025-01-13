@@ -13,12 +13,13 @@ class Course():
             self.tutorial_cap = int(tutorial_cap)
         if lab_cap:
             self.lab_cap = int(lab_cap)
+        self.classes = []
 
-        # only create a dictionary if there are tutorials or labs for this course
-        if int(self.tutorial_n) >= 1:
-            self.tutorials = {}
-        if int(self.lab_n) >= 1:
-            self.labs = {}
+        # # only create a dictionary if there are tutorials or labs for this course
+        # if int(self.tutorial_n) >= 1:
+        #     self.tutorials = {}
+        # if int(self.lab_n) >= 1:
+        #     self.labs = {}
 
     def add_students_tut(self, student_list):
         """This method adds a certain list of students to seperate tutorial groups, based on the tutorials_cap per tutorial group. The tutorials are in a dictionary with the
@@ -71,11 +72,20 @@ class Course():
 class Tutorial(Course):
     def __init__(self, tutorial_cap, name):
         super().__init__(tutorial_cap)
+        self.capacity = tutorial_cap 
         self.student_list = []
         self.name = name
 
 class Lab(Course):
     def __init__(self, lab_cap, name):
         super().__init__(lab_cap)
+        self.capacity = lab_cap
+        self.student_list = []
+        self.name = name
+
+class Lecture(Course):
+    def __init__(self, e_students, name):
+        super().__init__(e_students)
+        self.capacity = e_students
         self.student_list = []
         self.name = name

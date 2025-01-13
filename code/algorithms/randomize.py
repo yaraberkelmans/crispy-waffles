@@ -18,7 +18,7 @@ def random_course_assignment(timetable):
     
     return new_timetable
 
-def random_student_assignment(timetable):
+def random_student_course_assignment(timetable):
     new_timetable = copy.deepcopy(timetable)
     for course in new_timetable.courses:
         while len(course.student_list) < course.e_students:
@@ -26,5 +26,16 @@ def random_student_assignment(timetable):
             if random_student in course.student_list:
                 continue
             course.add_individual_student(random_student)
+    return new_timetable
+        
+def random_student_class_assignment(timetable):
+    new_timetable = copy.deepcopy(timetable)
+    for course in new_timetable.courses:
+        for cls in course.classes: 
+            while len(cls.student_list) < cls.capacity:
+                random_student = random.choice(new_timetable.full_student_list)
+                if random_student in cls.student_list:
+                    continue
+                cls.student_list.append(random_student)
     return new_timetable
         

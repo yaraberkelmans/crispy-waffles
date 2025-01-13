@@ -1,7 +1,7 @@
 import csv
 import os
 from .Timeslot import Timeslot
-from .Course import Course, Tutorial, Lab
+from .Course import Course, Tutorial, Lab, Lecture
 import random
 from .Student import Student
 
@@ -72,8 +72,9 @@ class Timetable():
                     elif class_type == 'Lab':
                         cls = Lab(course.lab_cap, class_name)
                     else:
-                        cls = class_name
+                        cls = Lecture(course.e_students, class_name)
                     
+                    course.classes.append(cls)
                     self.classes_list.append(cls)
                     print(f'class {class_name} added!')
 
