@@ -3,6 +3,8 @@ from code.classes.Timeslot import Timeslot
 from code.algorithms.randomize import random_course_assignment
 from code.algorithms.randomize import random_student_course_assignment
 from code.algorithms.randomize import random_student_class_assignment
+from code.algorithms.randomize import randomize
+
 
 if __name__ == "__main__":
     # initialize timetable
@@ -30,8 +32,15 @@ if __name__ == "__main__":
         #print(student_count)
 
     randomized_classes_test = random_student_class_assignment(timetable)
-    for course in randomized_classes_test.courses:
-        for cls in course.classes:
-            print(f'The class {cls.name} has the following students:')
+    #for course in randomized_classes_test.courses:
+       # for cls in course.classes:
+            #print(f'The class {cls.name} has the following students:')
+            #for student in cls.student_list:
+                #print(student.name)
+
+    full_randomized_timetable = randomize(timetable)
+    for timeslot, location in full_randomized_timetable.items():
+        for cls in full_randomized_timetable[location]:
+            print(f'Course: {cls.course_name} Class: {cls.name} Location: {location} Day: {timeslot.day} Time: {timeslot.time}')
             for student in cls.student_list:
                 print(student.name)

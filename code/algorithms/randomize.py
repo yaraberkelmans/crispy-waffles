@@ -1,10 +1,17 @@
 import random
 import copy
 
+def randomize(timetable):
+    randomized_courses = random_course_assignment(timetable)
+    randomized_student_couses = random_student_course_assignment(randomized_courses)
+    
+    return random_student_class_assignment(randomized_student_couses)
+
 def random_course_assignment(timetable):
     """This function randomly assigns courses to a timetable until the amount of total classes has been assigned."""
-    new_classes_list = copy.deepcopy(timetable.classes_list)
-    new_timetable = copy.deepcopy(timetable.timetable)
+    new_timetable_object = copy.deepcopy(timetable)
+    new_classes_list = new_timetable_object.classes_list
+    new_timetable = new_timetable_object.timetable
     classes_added = 0
     
     while classes_added < len(new_classes_list):
@@ -16,7 +23,7 @@ def random_course_assignment(timetable):
             new_timetable[random_timeslot][random_classroom] = random_class
             classes_added += 1
     
-    return new_timetable
+    return new_timetable_object
 
 def random_student_course_assignment(timetable):
     new_timetable = copy.deepcopy(timetable)

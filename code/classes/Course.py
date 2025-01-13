@@ -3,6 +3,7 @@ import csv
 class Course():
     def __init__(self, course_name, lectures_n=0, tutorial_n=0, tutorial_cap=0, lab_n=0, lab_cap=0, e_students=0):
         self.course_name = course_name
+        print('lectures_n:',lectures_n)
         self.lectures_n = int(lectures_n)
         self.tutorial_n = int(tutorial_n)
         self.student_list = []
@@ -70,22 +71,23 @@ class Course():
             self.expected_lab_n = 0
 
 class Tutorial(Course):
-    def __init__(self, tutorial_cap, name):
-        super().__init__(tutorial_cap)
+    def __init__(self, tutorial_cap, course_name, name):
+        super().__init__(course_name, tutorial_cap=tutorial_cap)
         self.capacity = tutorial_cap 
         self.student_list = []
         self.name = name
 
 class Lab(Course):
-    def __init__(self, lab_cap, name):
-        super().__init__(lab_cap)
+    def __init__(self, lab_cap, course_name, name):
+        super().__init__(course_name, lab_cap=lab_cap)
         self.capacity = lab_cap
         self.student_list = []
         self.name = name
 
 class Lecture(Course):
-    def __init__(self, e_students, name):
-        super().__init__(e_students)
+    def __init__(self, e_students, course_name, name):
+        #print('Lecture init:',e_students, course_name)
+        super().__init__(course_name, e_students=e_students)
         self.capacity = e_students
         self.student_list = []
         self.name = name
