@@ -9,6 +9,7 @@ if __name__ == "__main__":
     timetable = Timetable()
     timetable.load_courses('data/vakken.csv')
     timetable.load_students('data/studenten_en_vakken.csv')
+    timetable.load_locations('data/zalen.csv')
     timetable.get_classes_count()
     timetable.name_classes()
     timetable.create_timetable()

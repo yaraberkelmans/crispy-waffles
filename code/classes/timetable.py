@@ -4,6 +4,7 @@ from .Timeslot import Timeslot
 from .Course import Course, Tutorial, Lab, Lecture
 import random
 from .Student import Student
+from .Location import Location
 
 class Timetable():
     def __init__(self):
@@ -17,7 +18,8 @@ class Timetable():
 
         #TODO: remove locations list and instead use load location data into instances of location class
         # maybe make separate function to load locations or make the load_courses function universally usable
-        self.locations = ['A1.04', 'A1.06', 'A1.08', 'A1.10','B0.201', 'C0.110', 'C1.112']
+        self.locations = []
+        # ['A1.04', 'A1.06', 'A1.08', 'A1.10','B0.201', 'C0.110', 'C1.112']
         self.classes_per_course = {}
         self.classes_list = []
         self.timetable = {}
@@ -53,6 +55,13 @@ class Timetable():
                 student = Student(row['Achternaam'], row['Voornaam'], 
                                 row['Stud.Nr.'])
                 self.full_student_list.append(student)
+    
+    def load_locations(self, input_file):
+        with open(input_file, 'r') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                location = Location(row['Zaalnummer'], row['Max. capaciteit'])
+                self.locations.append(location)
 
     def get_classes_count(self):
         for course in self.courses:
