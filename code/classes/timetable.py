@@ -52,7 +52,7 @@ class Timetable():
 
     def name_classes(self):  
         # TODO: Make it list comprehension instead of loop
-        for course_name, classes_count_dict in self.course_classes.items():
+        for course_name, classes_count_dict in self.classes_per_course.items():
             for class_type, class_amount in classes_count_dict.items():
                 for i in range(class_amount):
                     class_name = f'{course_name} {class_type} {i+1}'
