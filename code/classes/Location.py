@@ -5,4 +5,4 @@ class Location():
         self.available = True
 
     def __repr__(self) -> str:
-        return f"{self.room_id} capacity:{self.capacity}"
+        return f"{self.room_id} capacity: {self.capacity}"

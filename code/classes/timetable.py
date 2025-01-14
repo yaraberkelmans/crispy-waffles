@@ -75,7 +75,7 @@ class Timetable():
         for course, classes_count_dict in self.classes_per_course.items():
             for class_type, class_amount in classes_count_dict.items():
                 for i in range(class_amount):
-                    class_name = f'{course.course_name} {class_type} {i+1}'
+                    class_name = f'{class_type} {i+1}'
                     if class_type == 'Tutorial':
                         activity = Tutorial(course.course_name, course.tutorial_cap, class_name)
                     elif class_type == 'Lab':

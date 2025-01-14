@@ -39,16 +39,19 @@ if __name__ == "__main__":
                 #print(student.name)
 
     full_randomized_timetable = randomize(timetable)
-    for timeslot, location in full_randomized_timetable.timetable.items():
-        print()
-        print("---------- ACTIVITY INFORMATION------------")
-        print('t:',full_randomized_timetable.timetable[timeslot])
-        print('loop:',full_randomized_timetable.timetable[timeslot].keys())
-        for activity  in full_randomized_timetable.timetable[timeslot].values():
+    print(full_randomized_timetable.timetable)
+    for timeslot in full_randomized_timetable.timetable.keys():
+       
+        # print('t:',full_randomized_timetable.timetable[timeslot])
+        # print('loop:',full_randomized_timetable.timetable[timeslot].keys())
+        for location, activity in full_randomized_timetable.timetable[timeslot].items():
             if activity:
-                print(type(activity))
-                print(f'Course: {activity.course_name} Class: {activity.name} Location: {location} Day: {timeslot.day} Time: {timeslot.time}')
-           
+                print()
+                print("---------- ACTIVITY INFORMATION------------")
+                print()
+                print(f'Course: {activity.course_name} Activity: {activity.name} Location: {location} Day: {timeslot.day} Time: {timeslot.time}')
+                print()
                 print("----------- STUDENTS ----------")
+                print()
                 for student in activity.student_list:
                     print(student.name)

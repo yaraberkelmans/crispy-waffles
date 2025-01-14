@@ -68,8 +68,9 @@ class Course():
                 self.expected_lab_n += 1
         else:
             self.expected_lab_n = 0
-    def __str__(self):
-        return f"Course Name: {self.course_name}, Lectures: {self.lectures_n}, Tutorials: {self.tutorial_n}, Students: {self.student_list}, Labs: {self.lab_n}, Expected Students: {self.e_students}, All Students: {self.all_student_list}"
+            
+    # def __str__(self):
+    #     return f"Course Name: {self.course_name}, Lectures: {self.lectures_n}, Tutorials: {self.tutorial_n}, Students: {self.student_list}, Labs: {self.lab_n}, Expected Students: {self.e_students}, All Students: {self.all_student_list}"
 
     def __repr__(self) -> str:
         return f"{self.course_name}"
@@ -80,7 +81,7 @@ class Tutorial(Course):
         self.capacity = tutorial_cap 
         self.student_list = []
         self.name = name
-        # self.course_name = course_name
+        
     
     def __repr__(self) -> str:
         return f"{self.course_name} {self.name}"
@@ -91,7 +92,7 @@ class Lab(Course):
         self.capacity = lab_cap
         self.student_list = []
         self.name = name
-        # self.course_name = course_name
+        
     
     def __repr__(self) -> str:
         return f"{self.course_name} {self.name}"
@@ -103,7 +104,7 @@ class Lecture(Course):
         self.capacity = e_students
         self.student_list = []
         self.name = name
-        # self.course_name = name
+        
     
     def __repr__(self) -> str:
         return f"{self.course_name} {self.name}"
