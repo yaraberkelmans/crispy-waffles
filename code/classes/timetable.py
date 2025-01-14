@@ -77,14 +77,14 @@ class Timetable():
                 for i in range(class_amount):
                     class_name = f'{course.course_name} {class_type} {i+1}'
                     if class_type == 'Tutorial':
-                        cls = Tutorial(course.course_name, course.tutorial_cap, class_name)
+                        activity = Tutorial(course.course_name, course.tutorial_cap, class_name)
                     elif class_type == 'Lab':
-                        cls = Lab(course.course_name, course.lab_cap, class_name)
+                        activity = Lab(course.course_name, course.lab_cap, class_name)
                     else:
-                        cls = Lecture(course.course_name, course.e_students, class_name)
+                        activity = Lecture(course.course_name, course.e_students, class_name)
                     
-                    course.classes.append(cls)
-                    self.classes_list.append(cls)
+                    course.classes.append(activity)
+                    self.classes_list.append(activity)
                     print(f'class {class_name} added!')
 
     def add_student_to_class(self, student, class_name):

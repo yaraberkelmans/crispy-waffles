@@ -74,9 +74,6 @@ class Course():
     def __repr__(self) -> str:
         return f"{self.course_name}"
 
-    def __repr__(self) -> str:
-        return f"{self.course_name}"
-
 class Tutorial(Course):
     def __init__(self, course_name, tutorial_cap, name):
         super().__init__(course_name, tutorial_cap=tutorial_cap)
