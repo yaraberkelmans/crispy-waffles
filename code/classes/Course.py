@@ -70,6 +70,9 @@ class Course():
         else:
             self.expected_lab_n = 0
 
+    def __repr__(self) -> str:
+        return f"{self.course_name}"
+
 class Tutorial(Course):
     def __init__(self, course_name, tutorial_cap, name):
         super().__init__(course_name, tutorial_cap=tutorial_cap)
@@ -77,6 +80,9 @@ class Tutorial(Course):
         self.student_list = []
         self.name = name
         self.course_name = course_name
+    
+    def __repr__(self) -> str:
+        return f"{self.course_name} {self.name}"
 
 class Lab(Course):
     def __init__(self, course_name, lab_cap, name):
@@ -85,6 +91,9 @@ class Lab(Course):
         self.student_list = []
         self.name = name
         self.course_name = course_name
+    
+    def __repr__(self) -> str:
+        return f"{self.course_name} {self.name}"
 
 class Lecture(Course):
     def __init__(self, course_name, e_students, name):
@@ -94,3 +103,6 @@ class Lecture(Course):
         self.student_list = []
         self.name = name
         self.course_name = name
+    
+    def __repr__(self) -> str:
+        return f"{self.course_name} {self.name}"
