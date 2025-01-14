@@ -30,7 +30,7 @@ def evening_points(timetable, malus=5):
     return total_points
 
 
-def conflict_points(timetable, malus=1):
+def check_individual_conflicts(timetable, student,  malus=1):
     """
     This function adds malus points for students who have overlapping activities in their timetable. 
     If there is an overlap, malus points will be added. It returns the total number of malus points.
@@ -55,7 +55,7 @@ def conflict_points(timetable, malus=1):
     return total_points
 
 
-def gap_hour_points(timetable, gap_malus=1, double_gap_malus=3):
+def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
     """
     This function adds malus points for students who have gap hours in their schedule. A gap hour is defined as 
     an empty time slot between two scheduled activities, for each gap hour 1 malus point is added. Additionally, if a student has two consecutive gap hours, 3 malus 
