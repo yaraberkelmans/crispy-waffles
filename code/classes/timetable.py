@@ -16,10 +16,7 @@ class Timetable():
         self.days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
         self.times = ['9-11', '11-13', '13-15', '15-17']
 
-        #TODO: remove locations list and instead use load location data into instances of location activity
-        # maybe make separate function to load locations or make the load_courses function universally usable
         self.locations = []
-        # ['A1.04', 'A1.06', 'A1.08', 'A1.10','B0.201', 'C0.110', 'C1.112']
         self.activities_per_course = {}
         self.activity_list = []
         self.timetable = {}
