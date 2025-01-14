@@ -71,6 +71,12 @@ class Course():
     def __str__(self):
         return f"Course Name: {self.course_name}, Lectures: {self.lectures_n}, Tutorials: {self.tutorial_n}, Students: {self.student_list}, Labs: {self.lab_n}, Expected Students: {self.e_students}, All Students: {self.all_student_list}"
 
+    def __repr__(self) -> str:
+        return f"{self.course_name}"
+
+    def __repr__(self) -> str:
+        return f"{self.course_name}"
+
 class Tutorial(Course):
     def __init__(self, course_name, tutorial_cap, name):
         super().__init__(course_name, tutorial_cap=tutorial_cap)
@@ -78,6 +84,9 @@ class Tutorial(Course):
         self.student_list = []
         self.name = name
         # self.course_name = course_name
+    
+    def __repr__(self) -> str:
+        return f"{self.course_name} {self.name}"
 
 class Lab(Course):
     def __init__(self, course_name, lab_cap, name):
@@ -86,6 +95,9 @@ class Lab(Course):
         self.student_list = []
         self.name = name
         # self.course_name = course_name
+    
+    def __repr__(self) -> str:
+        return f"{self.course_name} {self.name}"
 
 class Lecture(Course):
     def __init__(self, course_name, e_students, name):
@@ -95,3 +107,6 @@ class Lecture(Course):
         self.student_list = []
         self.name = name
         # self.course_name = name
+    
+    def __repr__(self) -> str:
+        return f"{self.course_name} {self.name}"

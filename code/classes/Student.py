@@ -10,3 +10,6 @@ class Student():
 
         # key is timeslot, value is a list of room and course, so a student knows where he need to be and which course he has
         self.pers_timetable = {}
+    
+    def __repr__(self) -> str:
+        return f"{self.first_name} {self.last_name}, {self.student_id}"
