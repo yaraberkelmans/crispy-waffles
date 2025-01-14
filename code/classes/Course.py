@@ -13,7 +13,7 @@ class Course():
             self.tutorial_cap = int(tutorial_cap)
         if lab_cap:
             self.lab_cap = int(lab_cap)
-        self.classes = []
+        self.activities = []
 
         # # only create a dictionary if there are tutorials or labs for this course
         # if int(self.tutorial_n) >= 1:
@@ -68,6 +68,9 @@ class Course():
                 self.expected_lab_n += 1
         else:
             self.expected_lab_n = 0
+
+   
+
             
     # def __str__(self):
     #     return f"Course Name: {self.course_name}, Lectures: {self.lectures_n}, Tutorials: {self.tutorial_n}, Students: {self.student_list}, Labs: {self.lab_n}, Expected Students: {self.e_students}, All Students: {self.all_student_list}"

@@ -16,12 +16,12 @@ class Timetable():
         self.days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
         self.times = ['9-11', '11-13', '13-15', '15-17']
 
-        #TODO: remove locations list and instead use load location data into instances of location class
+        #TODO: remove locations list and instead use load location data into instances of location activity
         # maybe make separate function to load locations or make the load_courses function universally usable
         self.locations = []
         # ['A1.04', 'A1.06', 'A1.08', 'A1.10','B0.201', 'C0.110', 'C1.112']
-        self.classes_per_course = {}
-        self.classes_list = []
+        self.activities_per_course = {}
+        self.activity_list = []
         self.timetable = {}
         self.full_student_list = []
         self.courses = []
@@ -63,46 +63,49 @@ class Timetable():
                 location = Location(row['Zaalnummer'], row['Max. capaciteit'])
                 self.locations.append(location)
 
-    def get_classes_count(self):
+    def get_activities_count(self):
         for course in self.courses:
             course.count_groups()
-            self.classes_per_course[course] = {'Lecture': course.lectures_n,
+            self.activities_per_course[course] = {'Lecture': course.lectures_n,
                                                            'Tutorial': course.expected_tut_n,
                                                            'Lab': course.expected_lab_n}
 
-    def name_classes(self):  
+    def name_activities(self):  
         # TODO: Make it list comprehension instead of loop
-        for course, classes_count_dict in self.classes_per_course.items():
-            for class_type, class_amount in classes_count_dict.items():
-                for i in range(class_amount):
-                    class_name = f'{class_type} {i+1}'
-                    if class_type == 'Tutorial':
-                        activity = Tutorial(course.course_name, course.tutorial_cap, class_name)
-                    elif class_type == 'Lab':
-                        activity = Lab(course.course_name, course.lab_cap, class_name)
+        for course, activities_count_dict in self.activities_per_course.items():
+            for activity_type, activity_amount in activities_count_dict.items():
+                for i in range(activity_amount):
+                    activity_name = f'{activity_type} {i+1}'
+                    if activity_type == 'Tutorial':
+                        activity = Tutorial(course.course_name, course.tutorial_cap, activity_name)
+                    elif activity_type == 'Lab':
+                        activity = Lab(course.course_name, course.lab_cap, activity_name)
                     else:
-                        activity = Lecture(course.course_name, course.e_students, class_name)
+                        activity = Lecture(course.course_name, course.e_students, activity_name)
                     
-                    course.classes.append(activity)
-                    self.classes_list.append(activity)
-                    print(f'class {class_name} added!')
+                    course.activities.append(activity)
+                    self.activity_list.append(activity)
+                    print(f'activity {activity_name} added!')
 
-    def add_student_to_class(self, student, class_name):
-        if class_name not in self.classes_list.keys():
-            print(f'Class {class_name} does not exist.')
+    def add_student_to_activity(self, student, activity):
+        if activity not in self.activity_list.keys():
+            print(f'activity {activity} does not exist.')
             return
         
-        if student not in self.classes_list[class_name]:
-            self.classes_list[class_name].append(student)
+        if student not in self.activity_list[activity] and student.check_validity():
+            self.activity_list[activity].append(student)
+            student.pers_timetable[activity.course_name] = activity
         else:
-            print(f'Student {student.name} already in Class {class_name}.')
+            print(f'Student {student.name} already in activity {activity}.')
+
+    
         
 
 print(os.getcwd())
 timetable = Timetable()
 timetable.load_courses('data/vakken.csv')
-timetable.get_classes_count()
-timetable.name_classes()
+timetable.get_activities_count()
+timetable.name_activities()
 timetable.create_timetable()
 timetable.initialize_locations()
 #print(timetable.courses[1].course_name)
