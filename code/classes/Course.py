@@ -3,7 +3,6 @@ import csv
 class Course():
     def __init__(self, course_name, lectures_n=0, tutorial_n=0, tutorial_cap=0, lab_n=0, lab_cap=0, e_students=0):
         self.course_name = course_name
-        print('lectures_n:',lectures_n)
         self.lectures_n = int(lectures_n)
         self.tutorial_n = int(tutorial_n)
         self.student_list = []
@@ -69,6 +68,8 @@ class Course():
                 self.expected_lab_n += 1
         else:
             self.expected_lab_n = 0
+    def __str__(self):
+        return f"Course Name: {self.course_name}, Lectures: {self.lectures_n}, Tutorials: {self.tutorial_n}, Students: {self.student_list}, Labs: {self.lab_n}, Expected Students: {self.e_students}, All Students: {self.all_student_list}"
 
 class Tutorial(Course):
     def __init__(self, course_name, tutorial_cap, name):
@@ -76,7 +77,7 @@ class Tutorial(Course):
         self.capacity = tutorial_cap 
         self.student_list = []
         self.name = name
-        self.course_name = course_name
+        # self.course_name = course_name
 
 class Lab(Course):
     def __init__(self, course_name, lab_cap, name):
@@ -84,7 +85,7 @@ class Lab(Course):
         self.capacity = lab_cap
         self.student_list = []
         self.name = name
-        self.course_name = course_name
+        # self.course_name = course_name
 
 class Lecture(Course):
     def __init__(self, course_name, e_students, name):
@@ -93,4 +94,4 @@ class Lecture(Course):
         self.capacity = e_students
         self.student_list = []
         self.name = name
-        self.course_name = name
+        # self.course_name = name

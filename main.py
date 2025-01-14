@@ -33,16 +33,22 @@ if __name__ == "__main__":
 
     randomized_classes_test = random_student_class_assignment(timetable)
     #for course in randomized_classes_test.courses:
-       # for cls in course.classes:
+       # for activity in course.classes:
             #print(f'The class {cls.name} has the following students:')
             #for student in cls.student_list:
                 #print(student.name)
 
     full_randomized_timetable = randomize(timetable)
     for timeslot, location in full_randomized_timetable.timetable.items():
+        print()
+        print("---------- ACTIVITY INFORMATION------------")
         print('t:',full_randomized_timetable.timetable[timeslot])
         print('loop:',full_randomized_timetable.timetable[timeslot].keys())
-        for location, cls  in full_randomized_timetable.timetable[timeslot].items():
-            print(f'Course: {cls.course_name} Class: {cls.name} Location: {location} Day: {timeslot.day} Time: {timeslot.time}')
-            for student in cls.student_list:
-                print(student.name)
+        for activity  in full_randomized_timetable.timetable[timeslot].values():
+            if activity:
+                print(type(activity))
+                print(f'Course: {activity.course_name} Class: {activity.name} Location: {location} Day: {timeslot.day} Time: {timeslot.time}')
+           
+                print("----------- STUDENTS ----------")
+                for student in activity.student_list:
+                    print(student.name)
