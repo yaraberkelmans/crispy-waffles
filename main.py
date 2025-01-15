@@ -48,18 +48,18 @@ if __name__ == "__main__":
         for location, activity in full_randomized_timetable.timetable[timeslot].items():
             if activity:
                 
-                print()
-                print("---------- ACTIVITY INFORMATION------------")
-                print()
-                print(f'Course: {activity.course_name} Activity: {activity.name} Location: {location} Day: {timeslot.day} Time: {timeslot.time}')
-                print()
-                print("----------- STUDENTS ----------")
-                print()
+                # print()
+                # print("---------- ACTIVITY INFORMATION------------")
+                # print()
+                # print(f'Course: {activity.course_name} Activity: {activity.name} Location: {location} Day: {timeslot.day} Time: {timeslot.time}')
+                # print()
+                # print("----------- STUDENTS ----------")
+                # print()
                 # data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course_name, 'Activiteit': activity.name, 'Student': student.name})
                 for student in activity.student_list:
-                    # print(student.name)
+                    #print(student.name)
                     data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course_name, 'Activiteit': activity.name, 'Student': student.name}) 
-        # for csv output format
+        # # for csv output format
         # for location, activity in full_randomized_timetable.timetable[timeslot].items():
         #     if activity:
         #         for student in activity.student_list:
@@ -70,11 +70,11 @@ if __name__ == "__main__":
         #             print()
                     
         #
-    # for data_row in data:
-    #     print(data_row)
+    for data_row in data:
+        print(data_row)
     
     column_names = ['Tijdslot', 'Zaal', 'Vak', 'Activiteit', 'Student']
     with open('Timetable_test.csv', 'w') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=column_names)
         writer.writeheader()
-        writer.writerows(data)
+        writer.writerows(data) 

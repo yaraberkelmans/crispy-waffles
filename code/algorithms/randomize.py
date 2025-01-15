@@ -3,9 +3,9 @@ import copy
 
 def randomize(timetable):
     randomized_courses = random_course_assignment(timetable)
-    randomized_student_couses = random_student_course_assignment(randomized_courses)
+    randomized_student_courses = random_student_course_assignment(randomized_courses)
     
-    return random_student_activity_assignment(randomized_student_couses)
+    return random_student_activity_assignment(randomized_student_courses)
 
 def random_course_assignment(timetable):
     """This function randomly assigns courses to a timetable until the amount of total activities has been assigned."""
@@ -33,6 +33,7 @@ def random_student_course_assignment(timetable):
             if random_student in course.student_list:
                 continue
             course.add_individual_student(random_student)
+            print('student added moi')
     return new_timetable
         
 def random_student_activity_assignment(timetable):
@@ -44,6 +45,8 @@ def random_student_activity_assignment(timetable):
                 if random_student in activity.student_list:
                     continue
                 activity.student_list.append(random_student)
-                
+                #
     return new_timetable
+
+#new_timetable.add_student_to_activity(random_student, activity)
         
