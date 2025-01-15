@@ -84,6 +84,7 @@ class Timetable():
                     self.activity_list.append(activity)
                     print(f'activity {activity_name} added!')
 
+    # wellicht overbodig
     def add_student_to_activity(self, student, activity):
         if activity not in self.activity_list.keys():
             print(f'activity {activity} does not exist.')

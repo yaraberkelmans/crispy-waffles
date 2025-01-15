@@ -40,9 +40,10 @@ def random_student_activity_assignment(timetable):
     for course in new_timetable.courses:
         for activity in course.activities: 
             while len(activity.student_list) < activity.capacity:
-                random_student = random.choice(new_timetable.full_student_list)
+                random_student = random.choice(course.student_list)
                 if random_student in activity.student_list:
                     continue
                 activity.student_list.append(random_student)
+                
     return new_timetable
         

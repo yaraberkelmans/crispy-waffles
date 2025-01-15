@@ -18,21 +18,21 @@ if __name__ == "__main__":
     timetable.create_timetable()
     timetable.initialize_locations()
 
-    # random assignment
-    randomized_timetable = random_course_assignment(timetable)
-    #print(randomized_timetable)
+    # # random assignment
+    # randomized_timetable = random_course_assignment(timetable)
+    # print(randomized_timetable.timetable)
 
-    randomized_student_test = random_student_course_assignment(timetable)
-    #print(len(randomized_student_test.classes_list))
-    for course in randomized_student_test.courses:
-        student_count = 0
-        #print(course.course_name)
-        for student in course.student_list:
-            student_count += 1
-            #print(student.student_id)
-        #print(student_count)
+    # randomized_student_test = random_student_course_assignment(timetable)
+    # #print(len(randomized_student_test.classes_list))
+    # for course in randomized_student_test.courses:
+    #     student_count = 0
+    #     #print(course.course_name)
+    #     for student in course.student_list:
+    #         student_count += 1
+    #         #print(student.student_id)
+    #     #print(student_count)
 
-    randomized_classes_test = random_student_activity_assignment(timetable)
+    # randomized_classes_test = random_student_activity_assignment(timetable)
     #for course in randomized_classes_test.courses:
        # for activity in course.classes:
             #print(f'The class {cls.name} has the following students:')
@@ -55,11 +55,11 @@ if __name__ == "__main__":
                 print()
                 print("----------- STUDENTS ----------")
                 print()
-                data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course_name, 'Activiteit': activity.name, 'Student': student.name})
-                #for student in activity.student_list:
-                    #print(student.name)
-                    #data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course_name, 'Activiteit': activity.name, 'Student': student.name}) 
-        # # for csv output format
+                # data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course_name, 'Activiteit': activity.name, 'Student': student.name})
+                for student in activity.student_list:
+                    # print(student.name)
+                    data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course_name, 'Activiteit': activity.name, 'Student': student.name}) 
+        # for csv output format
         # for location, activity in full_randomized_timetable.timetable[timeslot].items():
         #     if activity:
         #         for student in activity.student_list:

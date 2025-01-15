@@ -1,3 +1,5 @@
+from .Course import Course, Tutorial, Lab, Lecture
+
 class Student():
     def __init__(self, last_name, first_name, student_id, courses=[]):
         self.student_id = student_id
@@ -16,5 +18,8 @@ class Student():
         return f"{self.first_name} {self.last_name}, {self.student_id}"
     
     def check_validity(self, activity):  
-        if type(activity) not in self.pers_timetable[activity.course_name].values():
-            return True
+        for value in self.pers_timetable[activity.course_name].values():
+            if type(activity) == Tutorial or type(activity) == Lab:
+                if isinstance(activity, type(value)):
+                    return False
+        return True
