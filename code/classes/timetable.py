@@ -82,7 +82,7 @@ class Timetable():
                     
                     course.activities.append(activity)
                     self.activity_list.append(activity)
-                    print(f'activity {activity_name} added!')
+                    # print(f'activity {activity_name} added!')
 
     # wellicht overbodig
     def add_student_to_activity(self, student, activity):

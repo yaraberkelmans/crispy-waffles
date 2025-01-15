@@ -56,6 +56,8 @@ if __name__ == "__main__":
                 # print("----------- STUDENTS ----------")
                 # print()
                 data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name})
+            else:
+                data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id})
         #         for student in activity.student_list:
         #             #print(student.name)
         #             data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name, 'Student': student.name}) 

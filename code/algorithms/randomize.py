@@ -14,14 +14,15 @@ def random_course_assignment(timetable):
     new_activities_list = new_timetable_object.activity_list
     new_timetable = new_timetable_object.timetable
     activities_added = 0
-    
+    new_activities_list_choices= copy.deepcopy(new_activities_list)
     while activities_added < len(new_activities_list):
         random_timeslot = random.choice(list(new_timetable.keys()))
         random_room = random.choice(list(new_timetable[random_timeslot]))
-        random_activity = random.choice(list(new_activities_list))
+        random_activity = random.choice(list(new_activities_list_choices))
 
-        if new_timetable[random_timeslot][random_room] == None:
+        if new_timetable[random_timeslot][random_room] is None:
             new_timetable[random_timeslot][random_room] = random_activity
+            new_activities_list_choices.remove(random_activity)
             activities_added += 1
     
     return new_timetable_object
@@ -41,7 +42,7 @@ def random_student_activity_assignment(timetable):
     new_timetable = copy.deepcopy(timetable)
 
     for course in new_timetable.courses:
-        print('Course activities are:', course.activities)
+        # print('Course activities are:', course.activities)
         
         # place students into all but the last activity
         for activity in course.activities[:-1]:
@@ -57,7 +58,7 @@ def random_student_activity_assignment(timetable):
                 random_student = random.choice(valid_students)
                 new_timetable.add_student_to_activity(random_student, activity)
             
-            print(f'Course: {course}, Activity: {activity} has {len(activity.student_list)} students.')
+            # print(f'Course: {course}, Activity: {activity} has {len(activity.student_list)} students.')
 
         # place remaining students in the last activity
         last_activity = course.activities[-1]
@@ -68,6 +69,6 @@ def random_student_activity_assignment(timetable):
         for student in valid_students:
             new_timetable.add_student_to_activity(student, last_activity)
 
-        print(f'Course: {course}, Last Activity: {last_activity} has {len(last_activity.student_list)} students.')
+        # print(f'Course: {course}, Last Activity: {last_activity} has {len(last_activity.student_list)} students.')
     
     return new_timetable
