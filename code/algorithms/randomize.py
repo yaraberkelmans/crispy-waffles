@@ -19,10 +19,14 @@ def random_course_assignment(timetable):
         random_timeslot = random.choice(list(new_timetable.keys()))
         random_room = random.choice(list(new_timetable[random_timeslot]))
         random_activity = random.choice(list(new_activities_list_choices))
+        
 
         if new_timetable[random_timeslot][random_room] is None:
             new_timetable[random_timeslot][random_room] = random_activity
+            random_activity.timeslot = random_timeslot
+            random_activity.location = random_room
             new_activities_list_choices.remove(random_activity)
+            
             activities_added += 1
     
     return new_timetable_object
@@ -58,7 +62,7 @@ def random_student_activity_assignment(timetable):
                 random_student = random.choice(valid_students)
                 new_timetable.add_student_to_activity(random_student, activity)
             
-            # print(f'Course: {course}, Activity: {activity} has {len(activity.student_list)} students.')
+            print(f'Course: {course}, Activity: {activity} has {activity.student_list} students.')
 
         # place remaining students in the last activity
         last_activity = course.activities[-1]
@@ -69,6 +73,6 @@ def random_student_activity_assignment(timetable):
         for student in valid_students:
             new_timetable.add_student_to_activity(student, last_activity)
 
-        # print(f'Course: {course}, Last Activity: {last_activity} has {len(last_activity.student_list)} students.')
+        print(f'Course: {course}, Last Activity: {last_activity} has {last_activity.student_list} students.')
     
     return new_timetable

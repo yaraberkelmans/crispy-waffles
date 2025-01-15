@@ -4,6 +4,7 @@ from code.algorithms.randomize import random_course_assignment
 from code.algorithms.randomize import random_student_course_assignment
 from code.algorithms.randomize import random_student_activity_assignment
 from code.algorithms.randomize import randomize
+from code.algorithms.malus import calculate_malus
 import csv
 
 
@@ -40,12 +41,16 @@ if __name__ == "__main__":
                 #print(student.name)
 
     full_randomized_timetable = randomize(timetable)
+    # print(full_randomized_timetable.timetable)
+    malus_points = calculate_malus(full_randomized_timetable)
+    print(f'malus points is {malus_points}')
     data = []
     # print(full_randomized_timetable.timetable)
     for timeslot in full_randomized_timetable.timetable.keys():
         # print('t:',full_randomized_timetable.timetable[timeslot])
         # print('loop:',full_randomized_timetable.timetable[timeslot].keys())
         for location, activity in full_randomized_timetable.timetable[timeslot].items():
+            print(activity.student_list)
             if activity:
                 
                 # print()
@@ -56,11 +61,13 @@ if __name__ == "__main__":
                 # print("----------- STUDENTS ----------")
                 # print()
                 data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name})
+                
             else:
                 data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id})
-        #         for student in activity.student_list:
-        #             #print(student.name)
-        #             data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name, 'Student': student.name}) 
+
+            # for student in activity.student_list:
+            #         #print(student.name)
+            #     data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name, 'Student': student.name}) 
         # # # for csv output format
         # for location, activity in full_randomized_timetable.timetable[timeslot].items():
         #     if activity:

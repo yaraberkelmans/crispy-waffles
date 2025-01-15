@@ -119,8 +119,9 @@ class Tutorial():
         self.course = course  
         self.capacity = tutorial_cap
         self.student_list = []
-        #course.student_list  
         self.name = name
+        self.timeslot = None
+        self.location = None
 
     def __repr__(self):
         return f"{self.course.course_name} {self.name}"
@@ -131,8 +132,10 @@ class Lab():
         self.course = course  
         self.capacity = lab_cap
         self.student_list = []
-        #course.student_list 
+        
         self.name = name
+        self.timeslot = None
+        self.location = None
 
     def __repr__(self):
         return f"{self.course.course_name} {self.name}"
@@ -144,6 +147,8 @@ class Lecture():
         self.capacity = e_students
         self.student_list = course.student_list 
         self.name = name
+        self.timeslot = None
+        self.location = None
 
     def __repr__(self):
         return f"{self.course.course_name} {self.name}"

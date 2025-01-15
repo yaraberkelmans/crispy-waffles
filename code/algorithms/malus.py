@@ -5,11 +5,19 @@ def check_capacity(timetable, malus=1):
     It returns the total number of malus points. 
     """
     total_points = 0 
-    for timeslot, rooms in timetable.timetable.items():
+    for rooms in timetable.timetable.values():
+        # print(rooms)
         for room, activity in rooms.items():
-            if activity and len(activity.student_list) > room.capacity:
-                exceeding_students = len(activity.student_list) - room.capacity
-                total_points += exceeding_students * malus
+            # print(room.capacity)
+            
+            if activity:
+                # print('found an activity!')
+                # print('students:', activity.student_list)
+                if len(activity.student_list) > int(room.capacity):
+                    exceeding_students = len(activity.student_list) - room.capacity
+                    print(exceeding_students)
+                    total_points += exceeding_students * malus
+
     return total_points
 
 
@@ -19,36 +27,37 @@ def check_evening_slot(timetable, malus=5):
     It returns the total number of malus points. 
     """
     total_points = 0
-    evening_slots = ['17-19']
     for timeslot in timetable.timetable.keys():
-        if timeslot.time in evening_slots:
-            for room, activity in timetable.timetable[timeslot].items():
+        if timeslot.time == '17-19':
+            for activity in timetable.timetable[timeslot].values():
                 if activity:
                     total_points += malus
+
     return total_points
 
 
-def check_individual_conflicts(timetable, student,  malus=1):
+def check_individual_conflicts(timetable, malus=1):
     """
     This function adds malus points for students who have overlapping activities in their timetable. 
     If there is an overlap, malus points will be added. It returns the total number of malus points.
     """
     total_points = 0
-        for student in timetable.full_student_list:
-            # Count the number of times a student has activities in overlapping timeslots 
-            timeslot_counts = {}
-            for activity in student.activities:
-                timeslot = timetable
-                if timeslot not in timeslot_counts:
-                    timeslot_counts[timeslot] = 0
-                else: 
-                    timeslot_counts[timeslot] += 1
+    for student in timetable.full_student_list:
 
-            for count in timeslot_counts.values():
-                if count > 1:
-                    total_points += malus * (count - 1)
+        # count the number of times a student has activities in overlapping timeslots 
+        timeslot_counts = {}
+        for activity in student.activities:
+            timeslot = activity.timeslot
+            if timeslot not in timeslot_counts:
+                timeslot_counts[timeslot] = 0
+            else: 
+                timeslot_counts[timeslot] += 1
 
-        return total_points
+        for count in timeslot_counts.values():
+            if count > 1:
+                total_points += malus * (count - 1)
+
+    return total_points
 
 
 def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
@@ -63,21 +72,22 @@ def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
         - Calculate the number of gap hours for each student by looking for empty slots or double empty slots between activities.
         - mutiply gap hours by 1 malus point and double gap hours by 3 malus points 
     """
-
-    for student in timetable.full_student_list:
-
-
     total_points = 0
     return total_points
+    # for student in timetable.full_student_list:
+
+
+    # total_points = 0
+    # return total_points
 
 
 def calculate_malus(timetable):
     """
     This function calculates summes en returns the total malus points from all scheduling issues for the entire timetable.
     """
-    total_malus = (capacity_points(timetable) +
-                   evening_points(timetable) +
-                   conflict_points(timetable) +
-                   gap_hour_points(timetable))
+    total_malus = (check_capacity(timetable) +
+                   check_evening_slot(timetable) +
+                   check_individual_conflicts(timetable) +
+                   check_gap_hours(timetable))
     
     return total_malus
