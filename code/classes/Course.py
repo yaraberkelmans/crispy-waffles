@@ -21,7 +21,7 @@ class Course():
         # if int(self.lab_n) >= 1:
         #     self.labs = {}
 
-    def add_students_tut(self, student_list):
+    def add_students_tut(self, student_list, capacity):
         """This method adds a certain list of students to seperate tutorial groups, based on the tutorials_cap per tutorial group. The tutorials are in a dictionary with the
         tutorial # as key and a list of students as values."""
         for x in range(1,self.expected_tut_n+1):
@@ -118,7 +118,8 @@ class Tutorial():
     def __init__(self, course, tutorial_cap, name):
         self.course = course  
         self.capacity = tutorial_cap
-        self.student_list = course.student_list  
+        self.student_list = []
+        #course.student_list  
         self.name = name
 
     def __repr__(self):
@@ -129,7 +130,8 @@ class Lab():
     def __init__(self, course, lab_cap, name):
         self.course = course  
         self.capacity = lab_cap
-        self.student_list = course.student_list 
+        self.student_list = []
+        #course.student_list 
         self.name = name
 
     def __repr__(self):

@@ -41,10 +41,10 @@ if __name__ == "__main__":
 
     full_randomized_timetable = randomize(timetable)
     data = []
-    print(full_randomized_timetable.timetable)
+    # print(full_randomized_timetable.timetable)
     for timeslot in full_randomized_timetable.timetable.keys():
-        print('t:',full_randomized_timetable.timetable[timeslot])
-        print('loop:',full_randomized_timetable.timetable[timeslot].keys())
+        # print('t:',full_randomized_timetable.timetable[timeslot])
+        # print('loop:',full_randomized_timetable.timetable[timeslot].keys())
         for location, activity in full_randomized_timetable.timetable[timeslot].items():
             if activity:
                 
@@ -70,8 +70,8 @@ if __name__ == "__main__":
         #             print()
                     
         #
-    for data_row in data:
-        print(data_row)
+    # for data_row in data:
+    #     print(data_row)
     
     column_names = ['Tijdslot', 'Zaal', 'Vak', 'Activiteit', 'Student']
     with open('Timetable_test.csv', 'w') as csvfile:

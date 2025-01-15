@@ -11,14 +11,14 @@ class Student():
         self.last_name = last_name
         self.name = f'{first_name} {last_name}'
 
-        # key is timeslot, value is a list of room and course, so a student knows where he need to be and which course he has
+        # key is course, value is a list of activities
         self.pers_timetable = {}
     
     def __repr__(self) -> str:
         return f"{self.first_name} {self.last_name}, {self.student_id}"
     
     def check_validity(self, activity):  
-        for value in self.pers_timetable[activity.course_name].values():
+        for value in self.pers_timetable[activity.course]:
             if type(activity) == Tutorial or type(activity) == Lab:
                 if isinstance(activity, type(value)):
                     return False

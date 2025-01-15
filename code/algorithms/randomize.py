@@ -1,6 +1,7 @@
 import random
 import copy
 
+
 def randomize(timetable):
     randomized_courses = random_course_assignment(timetable)
     randomized_student_courses = random_student_course_assignment(randomized_courses)
@@ -33,19 +34,34 @@ def random_student_course_assignment(timetable):
             if random_student in course.student_list:
                 continue
             course.add_individual_student(random_student)
-            print('student added moi')
+            # print('student added moi')
     return new_timetable
         
 def random_student_activity_assignment(timetable):
     new_timetable = copy.deepcopy(timetable)
     for course in new_timetable.courses:
-        for activity in course.activities: 
+        
+        print('course activities are', course.activities)
+        for activity in course.activities[:-1]: 
+            students_left = len(activity.course.student_list) % activity.capacity
             while len(activity.student_list) < activity.capacity:
+                
                 random_student = random.choice(course.student_list)
-                if random_student in activity.student_list:
+                if random_student in activity.student_list or not random_student.check_validity(activity):
                     continue
-                activity.student_list.append(random_student)
-                #
+                # activity.student_list.append(random_student)
+                # print(random_student.pers_timetable)
+                new_timetable.add_student_to_activity(random_student, activity)
+
+            # while len(course.activities[-1].student_list) < students_left:
+            #     random_student = random.choice(course.student_list)
+            #     if random_student in activity.student_list or not random_student.check_validity(activity):
+            #         continue
+            #     new_timetable.add_student_to_activity(random_student, activity)
+
+            
+            print(f'course:{course} and activity {activity} now has these {len(activity.student_list)} students:{activity.student_list}')
+            print('next activity')
     return new_timetable
 
 #new_timetable.add_student_to_activity(random_student, activity)
