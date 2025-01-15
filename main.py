@@ -41,49 +41,55 @@ if __name__ == "__main__":
                 #print(student.name)
 
     full_randomized_timetable = randomize(timetable)
-    # print(full_randomized_timetable.timetable)
-    malus_points = calculate_malus(full_randomized_timetable)
-    print(f'malus points is {malus_points}')
-    data = []
-    # print(full_randomized_timetable.timetable)
-    for timeslot in full_randomized_timetable.timetable.keys():
-        # print('t:',full_randomized_timetable.timetable[timeslot])
-        # print('loop:',full_randomized_timetable.timetable[timeslot].keys())
-        for location, activity in full_randomized_timetable.timetable[timeslot].items():
-            print(activity.student_list)
-            if activity:
-                
-                # print()
-                # print("---------- ACTIVITY INFORMATION------------")
-                # print()
-                # print(f'Course: {activity.course_name} Activity: {activity.name} Location: {location} Day: {timeslot.day} Time: {timeslot.time}')
-                # print()
-                # print("----------- STUDENTS ----------")
-                # print()
-                data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name})
-                
-            else:
-                data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id})
-
-            # for student in activity.student_list:
-            #         #print(student.name)
-            #     data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name, 'Student': student.name}) 
-        # # # for csv output format
-        # for location, activity in full_randomized_timetable.timetable[timeslot].items():
-        #     if activity:
-        #         for student in activity.student_list:
-        #             print()
-        #             print("---------- STUDENT ------------")
-        #             print()
-        #             print(f'Student: {student}; Course: {activity.course_name}; Activity: {activity.name}; Location: {location}; Day: {timeslot.day}; Time: {timeslot.time}')
-        #             print()
-                    
-        #
-    # for data_row in data:
-    #     print(data_row)
     
-    column_names = ['Tijdslot', 'Zaal', 'Vak', 'Activiteit', 'Student']
-    with open('Timetable_test.csv', 'w') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=column_names)
-        writer.writeheader()
-        writer.writerows(data) 
+    for timeslot, rooms in full_randomized_timetable.timetable.items():
+        for room, activity in rooms.items():
+            if activity:
+                print(f"Course: {activity.course} Activity {activity.name} in {room} during {timeslot}: {len(activity.student_list)} students.")
+                print(f"Students: {[student.name for student in activity.student_list]}")
+    # # print(full_randomized_timetable.timetable)
+    # malus_points = calculate_malus(full_randomized_timetable)
+    # print(f'malus points is {malus_points}')
+    # data = []
+    # # print(full_randomized_timetable.timetable)
+    # for timeslot in full_randomized_timetable.timetable.keys():
+    #     # print('t:',full_randomized_timetable.timetable[timeslot])
+    #     # print('loop:',full_randomized_timetable.timetable[timeslot].keys())
+    #     for location, activity in full_randomized_timetable.timetable[timeslot].items():
+            
+    #         if activity:
+    #             print(activity.student_list)
+    #             # print()
+    #             # print("---------- ACTIVITY INFORMATION------------")
+    #             # print()
+    #             # print(f'Course: {activity.course_name} Activity: {activity.name} Location: {location} Day: {timeslot.day} Time: {timeslot.time}')
+    #             # print()
+    #             # print("----------- STUDENTS ----------")
+    #             # print()
+    #             data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name})
+                
+    #         else:
+    #             data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id})
+
+    #         # for student in activity.student_list:
+    #         #         #print(student.name)
+    #         #     data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name, 'Student': student.name}) 
+    #     # # # for csv output format
+    #     # for location, activity in full_randomized_timetable.timetable[timeslot].items():
+    #     #     if activity:
+    #     #         for student in activity.student_list:
+    #     #             print()
+    #     #             print("---------- STUDENT ------------")
+    #     #             print()
+    #     #             print(f'Student: {student}; Course: {activity.course_name}; Activity: {activity.name}; Location: {location}; Day: {timeslot.day}; Time: {timeslot.time}')
+    #     #             print()
+                    
+    #     #
+    # # for data_row in data:
+    # #     print(data_row)
+    
+    # column_names = ['Tijdslot', 'Zaal', 'Vak', 'Activiteit', 'Student']
+    # with open('Timetable_test.csv', 'w') as csvfile:
+    #     writer = csv.DictWriter(csvfile, fieldnames=column_names)
+    #     writer.writeheader()
+    #     writer.writerows(data) 
