@@ -13,12 +13,13 @@ class Course():
             self.tutorial_cap = int(tutorial_cap)
         if lab_cap:
             self.lab_cap = int(lab_cap)
+        self.activities = []
 
-        # only create a dictionary if there are tutorials or labs for this course
-        if int(self.tutorial_n) >= 1:
-            self.tutorials = {}
-        if int(self.lab_n) >= 1:
-            self.labs = {}
+        # # only create a dictionary if there are tutorials or labs for this course
+        # if int(self.tutorial_n) >= 1:
+        #     self.tutorials = {}
+        # if int(self.lab_n) >= 1:
+        #     self.labs = {}
 
     def add_students_tut(self, student_list):
         """This method adds a certain list of students to seperate tutorial groups, based on the tutorials_cap per tutorial group. The tutorials are in a dictionary with the
@@ -68,14 +69,45 @@ class Course():
         else:
             self.expected_lab_n = 0
 
+   
+
+            
+    # def __str__(self):
+    #     return f"Course Name: {self.course_name}, Lectures: {self.lectures_n}, Tutorials: {self.tutorial_n}, Students: {self.student_list}, Labs: {self.lab_n}, Expected Students: {self.e_students}, All Students: {self.all_student_list}"
+
+    def __repr__(self) -> str:
+        return f"{self.course_name}"
+
 class Tutorial(Course):
-    def __init__(self, tutorial_cap, name):
-        super().__init__(tutorial_cap)
+    def __init__(self, course_name, tutorial_cap, name):
+        super().__init__(course_name, tutorial_cap=tutorial_cap)
+        self.capacity = tutorial_cap 
         self.student_list = []
         self.name = name
+        
+    
+    def __repr__(self) -> str:
+        return f"{self.course_name} {self.name}"
 
 class Lab(Course):
-    def __init__(self, lab_cap, name):
-        super().__init__(lab_cap)
+    def __init__(self, course_name, lab_cap, name):
+        super().__init__(course_name, lab_cap=lab_cap)
+        self.capacity = lab_cap
         self.student_list = []
         self.name = name
+        
+    
+    def __repr__(self) -> str:
+        return f"{self.course_name} {self.name}"
+
+class Lecture(Course):
+    def __init__(self, course_name, e_students, name):
+        #print('Lecture init:',e_students, course_name)
+        super().__init__(course_name, e_students=e_students)
+        self.capacity = e_students
+        self.student_list = []
+        self.name = name
+        
+    
+    def __repr__(self) -> str:
+        return f"{self.course_name} {self.name}"

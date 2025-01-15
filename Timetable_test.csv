@@ -1,0 +1,130 @@
+Tijdslot,Zaal,Vak,Activiteit,Student
+monday 9-11,A1.04,Technology for games,Tutorial 3,Nalinie van Ierland
+monday 9-11,A1.06,Compilerbouw,Lab 2,Nalinie van Ierland
+monday 9-11,A1.08,Heuristieken 2,Lecture 1,Nalinie van Ierland
+monday 9-11,B0.201,Compilerbouw practicum,Lab 2,Nalinie van Ierland
+monday 9-11,C0.110,Moderne Databases,Lab 3,Nalinie van Ierland
+monday 9-11,C1.112,Compilerbouw,Lecture 2,Nalinie van Ierland
+monday 11-13,A1.04,Machine Learning,Lecture 2,Nalinie van Ierland
+monday 11-13,A1.08,Autonomous Agents 2,Tutorial 1,Nalinie van Ierland
+monday 11-13,A1.10,Webprogrammeren en databases,Tutorial 1,Nalinie van Ierland
+monday 11-13,B0.201,Compilerbouw,Lecture 1,Nalinie van Ierland
+monday 11-13,C0.110,Interactie-ontwerp,Lecture 2,Nalinie van Ierland
+monday 11-13,C1.112,Advanced Heuristics,Lecture 1,Nalinie van Ierland
+monday 13-15,A1.04,Data Mining,Lab 1,Nalinie van Ierland
+monday 13-15,A1.06,Collectieve Intelligentie,Tutorial 4,Nalinie van Ierland
+monday 13-15,A1.08,Heuristieken 2,Tutorial 1,Nalinie van Ierland
+monday 13-15,A1.10,Software engineering,Tutorial 1,Nalinie van Ierland
+monday 13-15,B0.201,Software engineering,Lab 2,Nalinie van Ierland
+monday 13-15,C1.112,Bioinformatica,Lecture 3,Nalinie van Ierland
+monday 15-17,A1.04,Zoeken sturen en bewegen,Lab 2,Nalinie van Ierland
+monday 15-17,A1.06,Databases 2,Tutorial 1,Nalinie van Ierland
+monday 15-17,A1.08,Databases 2,Tutorial 2,Nalinie van Ierland
+monday 15-17,A1.10,Calculus 2,Lecture 1,Nalinie van Ierland
+monday 15-17,B0.201,Lineaire Algebra,Lecture 2,Nalinie van Ierland
+monday 15-17,C0.110,Collectieve Intelligentie,Lecture 2,Nalinie van Ierland
+monday 15-17,C1.112,Webprogrammeren en databases,Tutorial 1,Nalinie van Ierland
+tuesday 9-11,A1.04,Bioinformatica,Tutorial 1,Nalinie van Ierland
+tuesday 9-11,A1.06,Kansrekenen 2,Lecture 2,Nalinie van Ierland
+tuesday 9-11,A1.10,Machine Learning,Lecture 1,Nalinie van Ierland
+tuesday 9-11,B0.201,Data Mining,Lecture 1,Nalinie van Ierland
+tuesday 9-11,C0.110,Data Mining,Lab 2,Nalinie van Ierland
+tuesday 9-11,C1.112,Compilerbouw practicum,Lab 2,Nalinie van Ierland
+tuesday 11-13,A1.04,Programmeren in Java 2,Lab 2,Nalinie van Ierland
+tuesday 11-13,A1.06,Technology for games,Lecture 1,Nalinie van Ierland
+tuesday 11-13,A1.08,Reflectie op de digitale cultuur,Lecture 2,Nalinie van Ierland
+tuesday 11-13,A1.10,Webprogrammeren en databases,Tutorial 1,Nalinie van Ierland
+tuesday 11-13,B0.201,Autonomous Agents 2,Lab 2,Nalinie van Ierland
+tuesday 11-13,C0.110,Algoritmen en complexiteit,Lab 2,Nalinie van Ierland
+tuesday 11-13,C1.112,Algoritmen en complexiteit,Tutorial 2,Nalinie van Ierland
+tuesday 13-15,A1.04,Reflectie op de digitale cultuur,Tutorial 3,Nalinie van Ierland
+tuesday 13-15,A1.06,Informatie- en organisatieontwerp,Lecture 1,Nalinie van Ierland
+tuesday 13-15,A1.08,Technology for games,Tutorial 3,Nalinie van Ierland
+tuesday 13-15,A1.10,Project Numerical Recipes,Lab 2,Nalinie van Ierland
+tuesday 13-15,B0.201,Heuristieken 2,Tutorial 2,Nalinie van Ierland
+tuesday 13-15,C0.110,Moderne Databases,Tutorial 3,Nalinie van Ierland
+tuesday 13-15,C1.112,Webprogrammeren en databases,Lecture 1,Nalinie van Ierland
+tuesday 15-17,A1.04,Collectieve Intelligentie,Tutorial 3,Nalinie van Ierland
+tuesday 15-17,A1.06,Advanced Heuristics,Lecture 1,Nalinie van Ierland
+tuesday 15-17,A1.08,Compilerbouw,Tutorial 2,Nalinie van Ierland
+tuesday 15-17,A1.10,Programmeren in Java 2,Lab 5,Nalinie van Ierland
+tuesday 15-17,B0.201,Webprogrammeren en databases,Tutorial 2,Nalinie van Ierland
+tuesday 15-17,C0.110,Software engineering,Lecture 1,Nalinie van Ierland
+tuesday 15-17,C1.112,Advanced Heuristics,Lab 3,Nalinie van Ierland
+wednesday 9-11,A1.04,Lineaire Algebra,Lecture 1,Nalinie van Ierland
+wednesday 9-11,A1.06,Project Numerical Recipes,Lab 3,Nalinie van Ierland
+wednesday 9-11,A1.08,Interactie-ontwerp,Lecture 1,Nalinie van Ierland
+wednesday 9-11,A1.10,Collectieve Intelligentie,Lab 3,Nalinie van Ierland
+wednesday 9-11,B0.201,Bioinformatica,Lecture 2,Nalinie van Ierland
+wednesday 9-11,C0.110,Bioinformatica,Tutorial 1,Nalinie van Ierland
+wednesday 9-11,C1.112,Compilerbouw,Tutorial 2,Nalinie van Ierland
+wednesday 11-13,A1.04,Compilerbouw practicum,Lab 2,Nalinie van Ierland
+wednesday 11-13,A1.06,Heuristieken 1,Tutorial 2,Nalinie van Ierland
+wednesday 11-13,A1.08,Informatie- en organisatieontwerp,Tutorial 3,Nalinie van Ierland
+wednesday 11-13,A1.10,Autonomous Agents 2,Lab 1,Nalinie van Ierland
+wednesday 11-13,B0.201,Advanced Heuristics,Lecture 1,Nalinie van Ierland
+wednesday 11-13,C0.110,Compilerbouw,Tutorial 2,Nalinie van Ierland
+wednesday 11-13,C1.112,Data Mining,Tutorial 2,Nalinie van Ierland
+wednesday 13-15,A1.04,Autonomous Agents 2,Lab 1,Nalinie van Ierland
+wednesday 13-15,A1.06,Algoritmen en complexiteit,Tutorial 2,Nalinie van Ierland
+wednesday 13-15,A1.08,Netwerken en systeembeveiliging,Lab 3,Nalinie van Ierland
+wednesday 13-15,A1.10,Autonomous Agents 2,Lab 1,Nalinie van Ierland
+wednesday 13-15,B0.201,Project Genetic Algorithms,Lab 2,Nalinie van Ierland
+wednesday 13-15,C0.110,Technology for games,Lecture 2,Nalinie van Ierland
+wednesday 13-15,C1.112,Lineaire Algebra,Lecture 2,Nalinie van Ierland
+wednesday 15-17,A1.06,Heuristieken 1,Tutorial 2,Nalinie van Ierland
+wednesday 15-17,A1.08,Data Mining,Lecture 1,Nalinie van Ierland
+wednesday 15-17,A1.10,Compilerbouw,Tutorial 1,Nalinie van Ierland
+wednesday 15-17,B0.201,Zoeken sturen en bewegen,Lab 2,Nalinie van Ierland
+wednesday 15-17,C0.110,Software engineering,Tutorial 2,Nalinie van Ierland
+wednesday 15-17,C1.112,Lineaire Algebra,Lecture 1,Nalinie van Ierland
+thursday 9-11,A1.04,Data Mining,Lab 1,Nalinie van Ierland
+thursday 9-11,A1.06,Project Genetic Algorithms,Lab 3,Nalinie van Ierland
+thursday 9-11,A1.08,Project Numerical Recipes,Lab 3,Nalinie van Ierland
+thursday 9-11,A1.10,Heuristieken 2,Lecture 1,Nalinie van Ierland
+thursday 9-11,B0.201,Databases 2,Tutorial 1,Nalinie van Ierland
+thursday 9-11,C0.110,Data Mining,Lab 1,Nalinie van Ierland
+thursday 9-11,C1.112,Collectieve Intelligentie,Lab 1,Nalinie van Ierland
+thursday 11-13,A1.04,Databases 2,Tutorial 2,Nalinie van Ierland
+thursday 11-13,A1.08,Lineaire Algebra,Lecture 2,Nalinie van Ierland
+thursday 11-13,A1.10,Algoritmen en complexiteit,Lecture 1,Nalinie van Ierland
+thursday 11-13,B0.201,Machine Learning,Lecture 2,Nalinie van Ierland
+thursday 11-13,C0.110,Informatie- en organisatieontwerp,Tutorial 1,Nalinie van Ierland
+thursday 11-13,C1.112,Machine Learning,Lecture 2,Nalinie van Ierland
+thursday 13-15,A1.04,Algoritmen en complexiteit,Lab 1,Nalinie van Ierland
+thursday 13-15,A1.06,Webprogrammeren en databases,Lecture 2,Nalinie van Ierland
+thursday 13-15,A1.10,Bioinformatica,Tutorial 2,Nalinie van Ierland
+thursday 13-15,B0.201,Heuristieken 1,Lecture 1,Nalinie van Ierland
+thursday 13-15,C1.112,Data Mining,Tutorial 2,Nalinie van Ierland
+thursday 15-17,A1.04,Collectieve Intelligentie,Lecture 3,Nalinie van Ierland
+thursday 15-17,A1.06,Architectuur en computerorganisatie,Lecture 2,Nalinie van Ierland
+thursday 15-17,A1.08,Reflectie op de digitale cultuur,Tutorial 3,Nalinie van Ierland
+thursday 15-17,A1.10,Informatie- en organisatieontwerp,Lecture 1,Nalinie van Ierland
+thursday 15-17,B0.201,Compilerbouw,Lab 2,Nalinie van Ierland
+thursday 15-17,C0.110,Architectuur en computerorganisatie,Lecture 2,Nalinie van Ierland
+friday 9-11,A1.04,Collectieve Intelligentie,Lecture 1,Nalinie van Ierland
+friday 9-11,A1.06,Algoritmen en complexiteit,Lecture 1,Nalinie van Ierland
+friday 9-11,A1.08,Software engineering,Lab 1,Nalinie van Ierland
+friday 9-11,A1.10,Reflectie op de digitale cultuur,Lecture 1,Nalinie van Ierland
+friday 9-11,B0.201,Calculus 2,Lecture 1,Nalinie van Ierland
+friday 9-11,C0.110,Software engineering,Lecture 1,Nalinie van Ierland
+friday 9-11,C1.112,Collectieve Intelligentie,Lecture 2,Nalinie van Ierland
+friday 11-13,A1.04,Informatie- en organisatieontwerp,Lecture 2,Nalinie van Ierland
+friday 11-13,A1.06,Bioinformatica,Tutorial 2,Nalinie van Ierland
+friday 11-13,A1.08,Compilerbouw,Lecture 2,Nalinie van Ierland
+friday 11-13,A1.10,Compilerbouw,Tutorial 2,Nalinie van Ierland
+friday 11-13,B0.201,Data Mining,Tutorial 3,Nalinie van Ierland
+friday 11-13,C0.110,Informatie- en organisatieontwerp,Lecture 1,Nalinie van Ierland
+friday 13-15,A1.04,Advanced Heuristics,Lab 3,Nalinie van Ierland
+friday 13-15,A1.06,Informatie- en organisatieontwerp,Tutorial 3,Nalinie van Ierland
+friday 13-15,A1.10,Webprogrammeren en databases,Lecture 1,Nalinie van Ierland
+friday 13-15,B0.201,Reflectie op de digitale cultuur,Lecture 2,Nalinie van Ierland
+friday 13-15,C0.110,Zoeken sturen en bewegen,Lab 1,Nalinie van Ierland
+friday 13-15,C1.112,Calculus 2,Tutorial 3,Nalinie van Ierland
+friday 15-17,A1.04,Informatie- en organisatieontwerp,Lecture 1,Nalinie van Ierland
+friday 15-17,A1.06,Bioinformatica,Lab 2,Nalinie van Ierland
+friday 15-17,A1.08,Autonomous Agents 2,Lab 2,Nalinie van Ierland
+friday 15-17,A1.10,Advanced Heuristics,Lab 2,Nalinie van Ierland
+friday 15-17,B0.201,Reflectie op de digitale cultuur,Tutorial 3,Nalinie van Ierland
+friday 15-17,C0.110,Kansrekenen 2,Lecture 1,Nalinie van Ierland
+friday 15-17,C1.112,Data Mining,Lab 2,Nalinie van Ierland
