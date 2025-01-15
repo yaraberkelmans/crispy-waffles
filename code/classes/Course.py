@@ -45,8 +45,10 @@ class Course():
 
     def add_individual_student(self, student):
         """This method adds an individual student to the student list of the course."""
-        if student not in self.student_list: 
+        if student not in self.student_list and self not in student.pers_timetable: 
             self.student_list.append(student)
+            student.pers_timetable[self] = []
+            
         else:
             print('Student already in course')
     
@@ -78,36 +80,68 @@ class Course():
     def __repr__(self) -> str:
         return f"{self.course_name}"
 
-class Tutorial(Course):
-    def __init__(self, course_name, tutorial_cap, name):
-        super().__init__(course_name, tutorial_cap=tutorial_cap)
-        self.capacity = tutorial_cap 
-        self.student_list = []
-        self.name = name
+# class Tutorial(Course):
+#     def __init__(self, course_name, tutorial_cap, name):
+#         super().__init__(course_name, tutorial_cap=tutorial_cap)
+#         self.capacity = tutorial_cap 
+#         self.student_list = []
+#         self.name = name
         
     
-    def __repr__(self) -> str:
-        return f"{self.course_name} {self.name}"
+#     def __repr__(self) -> str:
+#         return f"{self.course_name} {self.name}"
 
-class Lab(Course):
-    def __init__(self, course_name, lab_cap, name):
-        super().__init__(course_name, lab_cap=lab_cap)
+# class Lab(Course):
+#     def __init__(self, course_name, lab_cap, name):
+#         super().__init__(course_name, lab_cap=lab_cap)
+#         self.capacity = lab_cap
+#         self.student_list = []
+#         self.name = name
+        
+    
+#     def __repr__(self) -> str:
+#         return f"{self.course_name} {self.name}"
+
+# class Lecture(Course):
+#     def __init__(self, course_name, e_students, name):
+#         #print('Lecture init:',e_students, course_name)
+#         super().__init__(course_name, e_students=e_students)
+#         self.capacity = e_students
+#         self.student_list = []
+#         self.name = name
+        
+    
+#     def __repr__(self) -> str:
+#         return f"{self.course_name} {self.name}"
+
+class Tutorial():
+    def __init__(self, course, tutorial_cap, name):
+        self.course = course  
+        self.capacity = tutorial_cap
+        self.student_list = course.student_list  
+        self.name = name
+
+    def __repr__(self):
+        return f"{self.course.course_name} {self.name}"
+
+
+class Lab():
+    def __init__(self, course, lab_cap, name):
+        self.course = course  
         self.capacity = lab_cap
-        self.student_list = []
+        self.student_list = course.student_list 
         self.name = name
-        
-    
-    def __repr__(self) -> str:
-        return f"{self.course_name} {self.name}"
 
-class Lecture(Course):
-    def __init__(self, course_name, e_students, name):
-        #print('Lecture init:',e_students, course_name)
-        super().__init__(course_name, e_students=e_students)
+    def __repr__(self):
+        return f"{self.course.course_name} {self.name}"
+
+
+class Lecture():
+    def __init__(self, course, e_students, name):
+        self.course = course  
         self.capacity = e_students
-        self.student_list = []
+        self.student_list = course.student_list 
         self.name = name
-        
-    
-    def __repr__(self) -> str:
-        return f"{self.course_name} {self.name}"
+
+    def __repr__(self):
+        return f"{self.course.course_name} {self.name}"

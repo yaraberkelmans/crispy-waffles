@@ -77,24 +77,26 @@ class Timetable():
                 for i in range(activity_amount):
                     activity_name = f'{activity_type} {i+1}'
                     if activity_type == 'Tutorial':
-                        activity = Tutorial(course.course_name, course.tutorial_cap, activity_name)
+                        activity = Tutorial(course, course.tutorial_cap, activity_name)
                     elif activity_type == 'Lab':
-                        activity = Lab(course.course_name, course.lab_cap, activity_name)
+                        activity = Lab(course, course.lab_cap, activity_name)
                     else:
-                        activity = Lecture(course.course_name, course.e_students, activity_name)
+                        activity = Lecture(course, course.e_students, activity_name)
                     
                     course.activities.append(activity)
                     self.activity_list.append(activity)
                     print(f'activity {activity_name} added!')
 
     def add_student_to_activity(self, student, activity):
-        if activity not in self.activity_list.keys():
+        if activity not in self.activity_list:
             print(f'activity {activity} does not exist.')
             return
         
-        if student not in self.activity_list[activity] and student.check_validity():
-            self.activity_list[activity].append(student)
-            student.pers_timetable[activity.course_name] = activity
+        if student not in self.activity_list and student in activity.course.student_list:
+            if self not in student.pers_timetable:
+                student.pers_timetable[self] = []
+                activity.student_list.append(student)
+                student.pers_timetable[activity.course] = activity
         else:
             print(f'Student {student.name} already in activity {activity}.')
 

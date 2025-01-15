@@ -16,5 +16,5 @@ class Student():
         return f"{self.first_name} {self.last_name}, {self.student_id}"
     
     def check_validity(self, activity):  
-        if type(activity) not in self.pers_timetable[activity.course_name].values():
+        if type(activity) in type(self.pers_timetable[activity.course].values()):
             return True
