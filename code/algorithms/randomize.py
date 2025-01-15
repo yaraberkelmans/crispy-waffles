@@ -81,6 +81,7 @@ def random_student_activity_assignment(timetable):
 
         print(f'Course: {course}, Last Activity: {last_activity} has {len(last_activity.student_list)} students.')
     
+    # het gaat hier fout, volgensmij worden de activities in de timeslot niet geupdate.
     for timeslot, rooms in new_timetable.timetable.items():
         for room, activity in rooms.items():
             if activity:
