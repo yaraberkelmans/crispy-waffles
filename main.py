@@ -58,7 +58,7 @@ if __name__ == "__main__":
                 # data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course_name, 'Activiteit': activity.name, 'Student': student.name})
                 for student in activity.student_list:
                     #print(student.name)
-                    data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course_name, 'Activiteit': activity.name, 'Student': student.name}) 
+                    data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name, 'Student': student.name}) 
         # # for csv output format
         # for location, activity in full_randomized_timetable.timetable[timeslot].items():
         #     if activity:
