@@ -5,8 +5,8 @@ def check_capacity(timetable, malus=1):
     It returns the total number of malus points. 
     """
     total_points = 0 
-    for timeslot, rooms in timetable.timetable.items():
-        for room, activity in rooms.items():
+    for timeslot in timetable.timetable.keys():
+        for room, activity in timetable.timetable[timeslot].items():
             if activity and len(activity.student_list) > room.capacity:
                 exceeding_students = len(activity.student_list) - room.capacity
                 total_points += exceeding_students * malus
