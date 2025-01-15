@@ -23,3 +23,5 @@ class Student():
                 if isinstance(activity, type(value)):
                     return False
         return True
+
+# test because pushing is not working
