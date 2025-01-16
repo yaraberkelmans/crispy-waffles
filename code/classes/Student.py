@@ -18,10 +18,9 @@ class Student():
         return f"{self.first_name} {self.last_name}, {self.student_id}"
     
     def check_validity(self, activity):  
+        """This method checks for a student if this student has already been added to a tutorial or lab for this course. If so, it returns False."""
         for value in self.pers_timetable[activity.course]:
             if type(activity) == Tutorial or type(activity) == Lab:
                 if isinstance(activity, type(value)):
                     return False
         return True
-
-# test because pushing is not working
