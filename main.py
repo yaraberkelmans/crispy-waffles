@@ -50,14 +50,14 @@ if __name__ == "__main__":
                 
     malus_points = calculate_malus(full_randomized_timetable)
     print(f'malus points is {malus_points}')
-    # data = []
-    # # print(full_randomized_timetable.timetable)
-    # for timeslot in full_randomized_timetable.timetable.keys():
-    #     # print('t:',full_randomized_timetable.timetable[timeslot])
-    #     # print('loop:',full_randomized_timetable.timetable[timeslot].keys())
-    #     for location, activity in full_randomized_timetable.timetable[timeslot].items():
+    data = []
+    # print(full_randomized_timetable.timetable)
+    for timeslot in full_randomized_timetable.timetable.keys():
+        # print('t:',full_randomized_timetable.timetable[timeslot])
+        # print('loop:',full_randomized_timetable.timetable[timeslot].keys())
+        for location, activity in full_randomized_timetable.timetable[timeslot].items():
             
-    #         if activity:
+            if activity:
     #             print(activity.student_list)
     #             # print()
     #             # print("---------- ACTIVITY INFORMATION------------")
@@ -66,10 +66,10 @@ if __name__ == "__main__":
     #             # print()
     #             # print("----------- STUDENTS ----------")
     #             # print()
-    #             data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name})
+                 data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name})
                 
-    #         else:
-    #             data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id})
+            else:
+                 data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id})
 
     #         # for student in activity.student_list:
     #         #         #print(student.name)
@@ -93,3 +93,4 @@ if __name__ == "__main__":
     #     writer = csv.DictWriter(csvfile, fieldnames=column_names)
     #     writer.writeheader()
     #     writer.writerows(data) 
+    print(full_randomized_timetable.full_student_list[0].courses)
