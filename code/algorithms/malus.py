@@ -1,3 +1,4 @@
+
 def check_capacity(timetable, malus=1):
     """
     This function checks if any class exceeds the room's capacity and adds malus points for each extra student that exceeds the room's limit.
@@ -5,8 +6,13 @@ def check_capacity(timetable, malus=1):
     """
     total_points = 0 
     for rooms in timetable.timetable.values():
+        # print(rooms)
         for room, activity in rooms.items():
+            # print(room.capacity)
+            
             if activity:
+                # print('found an activity!')
+                # print('students:', activity.student_list)
                 if len(activity.student_list) > int(room.capacity):
                     exceeding_students = len(activity.student_list) - int(room.capacity)
                     total_points += exceeding_students * malus
@@ -14,6 +20,7 @@ def check_capacity(timetable, malus=1):
     print(f'total points for capacity is {total_points}')
 
     return total_points
+
 
 def check_evening_slot(timetable, malus=5):
     """
@@ -29,6 +36,7 @@ def check_evening_slot(timetable, malus=5):
 
     print(f'total points for evening slot is {total_points}')
     return total_points
+
 
 def check_individual_conflicts(timetable, malus=1):
     """
@@ -56,6 +64,7 @@ def check_individual_conflicts(timetable, malus=1):
 
     return total_points
 
+
 def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
     """
     This function adds malus points for students who have gap hours in their schedule. A gap hour is defined as 
@@ -68,11 +77,40 @@ def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
         - Calculate the number of gap hours for each student by looking for empty slots or double empty slots between activities.
         - mutiply gap hours by 1 malus point and double gap hours by 3 malus points 
     """
+    #  total_points = 0
     # for student in timetable.full_student_list:
-    total_points = 0
-    print(f'total points for gap hours is {total_points}')
+    #     gap_hours = {}
+    #     double_gap_hours {}
+    #     for course in student.pers_timetable.keys():
+    #         for activity in student.pers_timetable[course]:
 
-    return total_points
+
+
+    #     last_timeslot  = None  
+
+    #      for day in student_timeslot:
+    #         if last_timeslot is not None:
+    #             gap = timeslot - last_timeslot
+    #             if gap == 1:
+                    
+
+    # return total_points
+    
+
+    # total_points = 0
+    # return total_points
+
+    malus_points = {}
+    for days, timeslots in pers_timetable.items():
+        times = list(timeslots.keys())
+
+        
+
+
+
+
+
+
 
 def calculate_malus(timetable):
     """
