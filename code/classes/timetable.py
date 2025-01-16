@@ -49,8 +49,9 @@ class Timetable():
         with open(input_file, 'r') as f:
             reader = csv.DictReader(f)
             for row in reader:
+
                 student = Student(row['Achternaam'], row['Voornaam'], 
-                                row['Stud.Nr.'])
+                                row['Stud.Nr.'],[row['Vak1'], row['Vak2'], row['Vak3'], row['Vak4'], row['Vak5']])
                 self.full_student_list.append(student)
     
     def load_locations(self, input_file):
