@@ -96,7 +96,7 @@ class Timetable():
         
         if student not in activity.student_list and student in activity.course.student_list:
             activity.student_list.append(student)
-            student.pers_timetable[activity.course].append(activity)
+            student.pers_activities[activity.course].append(activity)
         else:
             print(f'Student {student.name} already in activity {activity}.')
 
@@ -108,7 +108,7 @@ class Timetable():
             for student in self.full_student_list:
                 if course.course_name in student.courses:
                     course.student_list.append(student)
-                    student.pers_timetable[course] = []
+                    student.pers_activities[course] = []
 
 
         

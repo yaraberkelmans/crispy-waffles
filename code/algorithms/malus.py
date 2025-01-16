@@ -48,8 +48,8 @@ def check_individual_conflicts(timetable, malus=1):
         
         # count the number of times a student has activities in overlapping timeslots 
         timeslot_counts = {}
-        for course in student.pers_timetable.keys():
-            for activity in student.pers_timetable[course]:
+        for course in student.pers_activities.keys():
+            for activity in student.pers_activities[course]:
                 timeslot = activity.timeslot
                 if timeslot not in timeslot_counts:
                     timeslot_counts[timeslot] = 0
@@ -81,8 +81,8 @@ def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
     # for student in timetable.full_student_list:
     #     gap_hours = {}
     #     double_gap_hours {}
-    #     for course in student.pers_timetable.keys():
-    #         for activity in student.pers_timetable[course]:
+    #     for course in student.pers_activities.keys():
+    #         for activity in student.pers_activities[course]:
 
 
 
@@ -101,7 +101,7 @@ def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
     # return total_points
 
     malus_points = {}
-    for days, timeslots in pers_timetable.items():
+    for days, timeslots in student.pers_activities.items():
         times = list(timeslots.keys())
 
         
