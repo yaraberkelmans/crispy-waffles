@@ -1,10 +1,18 @@
 class Load_init_lists:
+    """
+    This class loads and initializes course, student, and location data from a CSV files.
+    The class contains methods to load each type of data and return them as lists of objects.
+    """
+
     def __init__(self):
         self.course_list = self.load_courses
         self.student_list = self.load_students
         self.location_list = self.load_locations
     
     def load_courses(self):
+    """
+    This method loads course data from the 'vakken.csv' file and returns a list of Course objects.
+    """
         course_list = []
         with open("vakken.csv") as c:
             next(c)
@@ -26,6 +34,9 @@ class Load_init_lists:
         return course_list
  
     def load_students(self):
+        """
+        This method loads student data from the 'studenten_en_vakken.csv' file and returns a list of Student objects.
+        """
         student_list = []
         with open("studenten_en_vakken.csv") as sv:
             for line in sv:
@@ -39,6 +50,9 @@ class Load_init_lists:
         return student_list
 
     def load_locations(self):
+        """
+        This method loads location (room) data from the 'zalen.csv' file and returns a list of Location objects.
+        """
         location_list = []
         with open("zalen.csv") as z:
             for line in z:
