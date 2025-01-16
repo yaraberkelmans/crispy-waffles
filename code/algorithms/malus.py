@@ -122,3 +122,5 @@ def calculate_malus(timetable):
                    check_gap_hours(timetable))
     
     return total_malus
+
+# push not working
