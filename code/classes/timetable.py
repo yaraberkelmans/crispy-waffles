@@ -6,6 +6,8 @@ import random
 from .Student import Student
 from .Location import Location
 
+from typing import Dict
+
 class Timetable():
     def __init__(self):
         """
@@ -19,7 +21,7 @@ class Timetable():
         self.locations = []
         self.activities_per_course = {}
         self.activity_list = []
-        self.timetable = {}
+        self.timetable: Dict[Timeslot: Dict[Location: "activity"]] = {}
         self.full_student_list = []
         self.courses = []
 
@@ -84,7 +86,10 @@ class Timetable():
                     self.activity_list.append(activity)
                     # print(f'activity {activity_name} added!')
 
-    def add_student_to_activity(self, student, activity):
+    def add_student_to_activity(self, student, activity): # still not a scheduled activity
+        """
+        Currently only updates timetable.course_list!
+        """
         if activity not in self.activity_list:
             print(f'activity {activity} does not exist.')
         

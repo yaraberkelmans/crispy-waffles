@@ -14,9 +14,10 @@ def check_capacity(timetable, malus=1):
                 # print('found an activity!')
                 # print('students:', activity.student_list)
                 if len(activity.student_list) > int(room.capacity):
-                    exceeding_students = len(activity.student_list) - room.capacity
-                    print(exceeding_students)
+                    exceeding_students = len(activity.student_list) - int(room.capacity)
                     total_points += exceeding_students * malus
+    
+    print(f'total points for capacity is {total_points}')
 
     return total_points
 
@@ -33,6 +34,7 @@ def check_evening_slot(timetable, malus=5):
                 if activity:
                     total_points += malus
 
+    print(f'total points for evening slot is {total_points}')
     return total_points
 
 
@@ -46,7 +48,7 @@ def check_individual_conflicts(timetable, malus=1):
 
         # count the number of times a student has activities in overlapping timeslots 
         timeslot_counts = {}
-        for activity in student.activities:
+        for activity in student.pers_timetable.values():
             timeslot = activity.timeslot
             if timeslot not in timeslot_counts:
                 timeslot_counts[timeslot] = 0
@@ -56,6 +58,8 @@ def check_individual_conflicts(timetable, malus=1):
         for count in timeslot_counts.values():
             if count > 1:
                 total_points += malus * (count - 1)
+    
+    print(f'total points for individual conflicts is {total_points}')
 
     return total_points
 
