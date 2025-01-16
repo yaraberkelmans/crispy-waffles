@@ -5,8 +5,8 @@ import copy
 def randomize(timetable):
     new_timetable = copy.deepcopy(timetable)
     
-    randomized_student_courses = random_student_course_assignment(new_timetable)
-    randomized_student_courses_activities = random_student_activity_assignment(randomized_student_courses)
+    #randomized_student_courses = random_student_course_assignment(new_timetable)
+    randomized_student_courses_activities = random_student_activity_assignment(new_timetable)
     randomized_timetable = random_course_assignment(randomized_student_courses_activities)
     return randomized_timetable
 
@@ -59,6 +59,8 @@ def random_student_activity_assignment(timetable):
         # place students into all but the last activity
         for activity in course.activities[:-1]:
             while len(activity.student_list) < activity.capacity:
+                for student in course.student_list:
+                    print(student)
                 valid_students = [
                     st for st in course.student_list
                     if st not in activity.student_list and st.check_validity(activity)
