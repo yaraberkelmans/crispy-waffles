@@ -1,7 +1,7 @@
 class Location():
-"""
-This class represents a location (room) with an ID, capacity, and availability status.
-"""
+    """
+    This class represents a location (room) with an ID, capacity, and availability status.
+    """
     def __init__(self, room_id, capacity):
         self.room_id = room_id
         self.capacity = capacity

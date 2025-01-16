@@ -17,7 +17,7 @@ def check_capacity(timetable, malus=1):
                     exceeding_students = len(activity.student_list) - int(room.capacity)
                     total_points += exceeding_students * malus
     
-    print(f'total points for capacity is {total_points}')
+    # print(f'total points for capacity is {total_points}')
 
     return total_points
 
@@ -34,7 +34,7 @@ def check_evening_slot(timetable, malus=5):
                 if activity:
                     total_points += malus
 
-    print(f'total points for evening slot is {total_points}')
+    # print(f'total points for evening slot is {total_points}')
     return total_points
 
 
@@ -60,7 +60,7 @@ def check_individual_conflicts(timetable, malus=1):
             if count > 1:
                 total_points += malus * (count - 1)
     
-    print(f'total points for individual conflicts is {total_points}')
+    # print(f'total points for individual conflicts is {total_points}')
 
     return total_points
 
@@ -122,5 +122,3 @@ def calculate_malus(timetable):
                    check_gap_hours(timetable))
     
     return total_malus
-
-# push not working
