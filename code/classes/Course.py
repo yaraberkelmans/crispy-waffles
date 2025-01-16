@@ -15,17 +15,12 @@ class Course():
             self.lab_cap = int(lab_cap)
         self.activities = []
 
-        # # only create a dictionary if there are tutorials or labs for this course
-        # if int(self.tutorial_n) >= 1:
-        #     self.tutorials = {}
-        # if int(self.lab_n) >= 1:
-        #     self.labs = {}
 
     def add_students_tut(self, student_list, capacity):
         """This method adds a certain list of students to seperate tutorial groups, based on the tutorials_cap per tutorial group. The tutorials are in a dictionary with the
         tutorial # as key and a list of students as values."""
-        for x in range(1,self.expected_tut_n+1):
-            stud_per_tut = len(student_list)/ self.expected_tut_n
+        for x in range(1,len(self.student_list)+1):
+            stud_per_tut = len(self.student_list)/ self.expected_tut_n
             self.tutorials[x] = student_list[round(((x-1) * stud_per_tut)):round((x *stud_per_tut))]
         print(len(self.tutorials.keys()))
 
@@ -74,40 +69,6 @@ class Course():
     def __repr__(self) -> str:
         return f"{self.course_name}"
 
-# class Tutorial(Course):
-#     def __init__(self, course_name, tutorial_cap, name):
-#         super().__init__(course_name, tutorial_cap=tutorial_cap)
-#         self.capacity = tutorial_cap 
-#         self.student_list = []
-#         self.name = name
-        
-    
-#     def __repr__(self) -> str:
-#         return f"{self.course_name} {self.name}"
-
-# class Lab(Course):
-#     def __init__(self, course_name, lab_cap, name):
-#         super().__init__(course_name, lab_cap=lab_cap)
-#         self.capacity = lab_cap
-#         self.student_list = []
-#         self.name = name
-        
-    
-#     def __repr__(self) -> str:
-#         return f"{self.course_name} {self.name}"
-
-# class Lecture(Course):
-#     def __init__(self, course_name, e_students, name):
-#         #print('Lecture init:',e_students, course_name)
-#         super().__init__(course_name, e_students=e_students)
-#         self.capacity = e_students
-#         self.student_list = []
-#         self.name = name
-        
-    
-#     def __repr__(self) -> str:
-#         return f"{self.course_name} {self.name}"
-
 class Tutorial():
     def __init__(self, course, tutorial_cap, name):
         self.course = course  
@@ -118,7 +79,7 @@ class Tutorial():
         self.location = None
 
     def __repr__(self):
-        return f"{self.course.course_name} {self.name}"
+        return f"{self.course} {self.name}"
 
 
 class Lab():
@@ -132,7 +93,7 @@ class Lab():
         self.location = None
 
     def __repr__(self):
-        return f"{self.course.course_name} {self.name}"
+        return f"{self.course} {self.name}"
 
 
 class Lecture():
@@ -145,4 +106,4 @@ class Lecture():
         self.location = None
 
     def __repr__(self):
-        return f"{self.course.course_name} {self.name}"
+        return f"{self.course} {self.name}"
