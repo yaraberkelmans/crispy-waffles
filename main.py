@@ -19,28 +19,6 @@ if __name__ == "__main__":
     timetable.name_activities() # adds activity to course.activity
     timetable.create_timetable() # makes empty .timetable attr
     timetable.initialize_locations() # turns empty into None
-    
-
-    # # random assignment
-    # randomized_timetable = random_course_assignment(timetable)
-    # print(randomized_timetable.timetable)
-
-    # randomized_student_test = random_student_course_assignment(timetable)
-    # #print(len(randomized_student_test.classes_list))
-    # for course in randomized_student_test.courses:
-    #     student_count = 0
-    #     #print(course.course_name)
-    #     for student in course.student_list:
-    #         student_count += 1
-    #         #print(student.student_id)
-    #     #print(student_count)
-
-    # randomized_classes_test = random_student_activity_assignment(timetable)
-    #for course in randomized_classes_test.courses:
-       # for activity in course.classes:
-            #print(f'The class {cls.name} has the following students:')
-            #for student in cls.student_list:
-                #print(student.name)
 
     full_randomized_timetable = randomize(timetable)
     
@@ -53,10 +31,8 @@ if __name__ == "__main__":
     malus_points = calculate_malus(full_randomized_timetable)
     print(f'malus points is {malus_points}')
     data = []
-    # print(full_randomized_timetable.timetable)
+   
     for timeslot in full_randomized_timetable.timetable.keys():
-        # print('t:',full_randomized_timetable.timetable[timeslot])
-        # print('loop:',full_randomized_timetable.timetable[timeslot].keys())
         for location, activity in full_randomized_timetable.timetable[timeslot].items():
             
             if activity:
@@ -95,4 +71,5 @@ if __name__ == "__main__":
         writer = csv.DictWriter(csvfile, fieldnames=column_names)
         writer.writeheader()
         writer.writerows(data) 
+        
     # print(full_randomized_timetable.full_student_list[0].courses)
