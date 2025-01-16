@@ -45,9 +45,9 @@ class Course():
 
     def add_individual_student(self, student):
         """This method adds an individual student to the student list of the course."""
-        if student not in self.student_list and self not in student.pers_timetable: 
+        if student not in self.student_list and self not in student.pers_activities: 
             self.student_list.append(student)
-            student.pers_timetable[self] = []
+            student.pers_activities[self] = []
             
         else:
             print('Student already in course')
