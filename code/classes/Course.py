@@ -9,6 +9,8 @@ class Course():
         self.lab_n = int(lab_n)
         self.e_students = int(e_students)
         self.all_student_list = []
+        self.actual_lab_n = 0
+        self.actual_tut_n = 0
         if tutorial_cap:
             self.tutorial_cap = int(tutorial_cap)
         if lab_cap:
@@ -53,16 +55,18 @@ class Course():
     def count_groups(self):
         """This method calculates the amount of tutorial and lab groups needed to fit all the expected students."""
         if self.tutorial_n > 0:
-            self.expected_tut_n = self.e_students // self.tutorial_cap
-            if self.e_students % self.tutorial_cap > 0:
+            self.expected_tut_n = len(self.student_list) // self.tutorial_cap
+            if len(self.student_list) % self.tutorial_cap > 0:
                 self.expected_tut_n += 1
+                
         else:
             self.expected_tut_n = 0
 
         if self.lab_n > 0:
-            self.expected_lab_n = self.e_students // self.lab_cap 
-            if self.e_students % self.lab_cap > 0:
+            self.expected_lab_n = len(self.student_list) // self.lab_cap 
+            if len(self.student_list) % self.lab_cap > 0:
                 self.expected_lab_n += 1
+                
         else:
             self.expected_lab_n = 0
             

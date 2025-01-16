@@ -97,12 +97,12 @@ def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
     # return total_points
     
 
-    # total_points = 0
-    # return total_points
+    total_points = 0
+    return total_points
 
-    malus_points = {}
-    for days, timeslots in student.pers_activities.items():
-        times = list(timeslots.keys())
+    # malus_points = {}
+    # for days, timeslots in student.pers_activities.items():
+    #     times = list(timeslots.keys())
 
         
 

@@ -86,6 +86,7 @@ class Timetable():
                     course.activities.append(activity)
                     self.activity_list.append(activity)
                     # print(f'activity {activity_name} added!')
+    
 
     def add_student_to_activity(self, student, activity): # still not a scheduled activity
         """
@@ -94,7 +95,7 @@ class Timetable():
         if activity not in self.activity_list:
             print(f'activity {activity} does not exist.')
         
-        if student not in activity.student_list and student in activity.course.student_list:
+        if student not in activity.student_list and student in activity.course.student_list and (len(activity.student_list) + 1) <= activity.capacity :
             activity.student_list.append(student)
             student.pers_activities[activity.course].append(activity)
         else:
@@ -109,6 +110,22 @@ class Timetable():
                 if course.course_name in student.courses:
                     course.student_list.append(student)
                     student.pers_activities[course] = []
+
+    def remove_student_from_activity(self, student, activity):
+        if student in activity.student_list:
+            activity.student_list.remove(student)
+            student.pers_activities[activity.course].remove(activity)
+            student.pers_timetable[activity.timeslot.day].remove(activity.timeslot.time)
+
+    def swap_student_activity(self, student, activity_out, activity_in):
+        self.remove_student_from_activity(student, activity_out)
+        self.add_student_to_activity(student, activity_in)
+
+    def switch_students(self, student_1, student_2, activity_1, activity_2):
+        self.swap_student_activity(student_1, activity_1, activity_2)
+        self.swap_student_activity(student_2, activity_2, activity_1)
+
+    
 
 
         

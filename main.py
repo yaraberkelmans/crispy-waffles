@@ -14,11 +14,12 @@ if __name__ == "__main__":
     timetable.load_courses('data/vakken.csv') # adds course obj to timetable
     timetable.load_students('data/studenten_en_vakken.csv')
     timetable.load_locations('data/zalen.csv')
+    timetable.add_actual_students()
     timetable.get_activities_count() # creates expected numbers, does not add activity
     timetable.name_activities() # adds activity to course.activity
     timetable.create_timetable() # makes empty .timetable attr
     timetable.initialize_locations() # turns empty into None
-    timetable.add_actual_students()
+    
 
     # # random assignment
     # randomized_timetable = random_course_assignment(timetable)
@@ -88,7 +89,7 @@ if __name__ == "__main__":
     #     #
     # # for data_row in data:
     # #     print(data_row)
-    
+    print(full_randomized_timetable.activities_per_course)
     column_names = ['Tijdslot', 'Zaal', 'Vak', 'Activiteit', 'Student']
     with open('Timetable_test.csv', 'w') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=column_names)
