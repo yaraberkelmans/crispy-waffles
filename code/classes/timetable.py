@@ -97,6 +97,7 @@ class Timetable():
         if student not in activity.student_list and student in activity.course.student_list:
             activity.student_list.append(student)
             student.pers_activities[activity.course].append(activity)
+            student.pers_timetable[activity.timeslot.day].append(activity.timeslot.time)
         else:
             print(f'Student {student.name} already in activity {activity}.')
 

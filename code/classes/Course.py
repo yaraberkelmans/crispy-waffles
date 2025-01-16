@@ -42,6 +42,8 @@ class Course():
         """This method adds an individual student to the student list of the course."""
         if student not in self.student_list and self not in student.pers_activities: 
             self.student_list.append(student)
+
+            # pas op! maakt elke keer lege lijst met activities aan, swappen met werkgroep
             student.pers_activities[self] = []
             
         else:

@@ -1,4 +1,5 @@
 from .Course import Course, Tutorial, Lab, Lecture
+from collections import defaultdict
 
 class Student():
     def __init__(self, last_name, first_name, student_id, courses=[]):
@@ -12,7 +13,10 @@ class Student():
         self.name = f'{first_name} {last_name}'
 
         # key is course, value is a list of activities
-        self.pers_activities = {}
+        self.pers_activities = defaultdict(list)
+
+        # key is day, value is list of timeslots that are being used
+        self.pers_timetable = defaultdict(list)
     
     def __repr__(self) -> str:
         return f"{self.first_name} {self.last_name}, {self.student_id}"
