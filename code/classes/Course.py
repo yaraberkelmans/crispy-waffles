@@ -36,7 +36,7 @@ class Course():
         """This method adds a student to the course, based on the courses list in a Student instance."""
         for student in self.all_student_list:
             if self.course_name in student.courses:
-                self.student_list.append(student.student_id)
+                self.student_list.append(student)
 
     def add_individual_student(self, student):
         """This method adds an individual student to the student list of the course."""

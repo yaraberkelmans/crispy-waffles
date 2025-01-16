@@ -100,7 +100,17 @@ class Timetable():
         else:
             print(f'Student {student.name} already in activity {activity}.')
 
-    
+    def add_actual_students(self):
+        """
+        This method adds a student to the course, based on the courses list in a Student instance.
+        """
+        for course in self.courses:
+            for student in self.full_student_list:
+                if course.course_name in student.courses:
+                    course.student_list.append(student)
+                    student.pers_timetable[course] = []
+
+
         
 
 print(os.getcwd())
