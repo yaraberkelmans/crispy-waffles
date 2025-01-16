@@ -1,6 +1,9 @@
 import csv
 
 class Course():
+     """
+     This class represents a course with lectures, tutorials, labs, and students.
+     """
     def __init__(self, course_name, lectures_n=0, tutorial_n=0, tutorial_cap=0, lab_n=0, lab_cap=0, e_students=0):
         self.course_name = course_name
         self.lectures_n = int(lectures_n)
@@ -17,8 +20,10 @@ class Course():
 
 
     def add_students_tut(self, student_list, capacity):
-        """This method adds a certain list of students to seperate tutorial groups, based on the tutorials_cap per tutorial group. The tutorials are in a dictionary with the
-        tutorial # as key and a list of students as values."""
+        """
+        This method adds a certain list of students to seperate tutorial groups, based on the tutorials_cap per tutorial group. The tutorials are in a dictionary with the
+        tutorial number as key and a list of students as values.
+        """
         for x in range(1,len(self.student_list)+1):
             stud_per_tut = len(self.student_list)/ self.expected_tut_n
             self.tutorials[x] = student_list[round(((x-1) * stud_per_tut)):round((x *stud_per_tut))]
@@ -26,7 +31,7 @@ class Course():
 
     def add_students_lab(self, student_list):
         """This method adds a certain list of students to seperate lab groups, based on the lab_cap per lab group. The labs are in a dictionary with the
-        lab # as key and a list of students as values."""
+        lab number as key and a list of students as values."""
         for x in range(1,self.expected_lab_n+1):
             stud_per_lab = len(student_list)/ self.expected_lab_n
             self.labs[x] = student_list[round(((x-1) * stud_per_lab)):round((x *stud_per_lab))]
@@ -48,10 +53,15 @@ class Course():
             print('Student already in course')
     
     def remove_student(self, student):
+        """
+        This method removes an individual student from the students lis of the course.
+        """
         pass
 
     def count_groups(self):
-        """This method calculates the amount of tutorial and lab groups needed to fit all the expected students."""
+        """
+        This method calculates the amount of tutorial and lab groups needed to fit all the expected students.
+        """
         if self.tutorial_n > 0:
             self.expected_tut_n = self.e_students // self.tutorial_cap
             if self.e_students % self.tutorial_cap > 0:
@@ -67,9 +77,13 @@ class Course():
             self.expected_lab_n = 0
             
     def __repr__(self) -> str:
+        """
+        This method returns a string representation of the course name.
+        """
         return f"{self.course_name}"
 
 class Tutorial():
+      """This class epresents a tutorial group within a course."""
     def __init__(self, course, tutorial_cap, name):
         self.course = course  
         self.capacity = tutorial_cap
@@ -83,6 +97,9 @@ class Tutorial():
 
 
 class Lab():
+    """
+    This class represents a lab group within a course.
+    """
     def __init__(self, course, lab_cap, name):
         self.course = course  
         self.capacity = lab_cap
@@ -97,6 +114,9 @@ class Lab():
 
 
 class Lecture():
+    """
+    This class represents a tutorial group within a course.
+    """
     def __init__(self, course, e_students, name):
         self.course = course  
         self.capacity = e_students
