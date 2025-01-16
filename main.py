@@ -11,13 +11,13 @@ import csv
 if __name__ == "__main__":
     # initialize timetable
     timetable = Timetable()
-    timetable.load_courses('data/vakken.csv')
+    timetable.load_courses('data/vakken.csv') # adds course obj to timetable
     timetable.load_students('data/studenten_en_vakken.csv')
     timetable.load_locations('data/zalen.csv')
-    timetable.get_activities_count()
-    timetable.name_activities()
-    timetable.create_timetable()
-    timetable.initialize_locations()
+    timetable.get_activities_count() # creates expected numbers, does not add activity
+    timetable.name_activities() # adds activity to course.activity
+    timetable.create_timetable() # makes empty .timetable attr
+    timetable.initialize_locations() # turns empty into None
 
     # # random assignment
     # randomized_timetable = random_course_assignment(timetable)
@@ -47,9 +47,9 @@ if __name__ == "__main__":
             if activity:
                 print(f"Course: {activity.course} Activity {activity.name} in {room} during {timeslot}: {len(activity.student_list)} students.")
                 print(f"Students: {[student.name for student in activity.student_list]}")
-    # # print(full_randomized_timetable.timetable)
-    # malus_points = calculate_malus(full_randomized_timetable)
-    # print(f'malus points is {malus_points}')
+                
+    malus_points = calculate_malus(full_randomized_timetable)
+    print(f'malus points is {malus_points}')
     # data = []
     # # print(full_randomized_timetable.timetable)
     # for timeslot in full_randomized_timetable.timetable.keys():
