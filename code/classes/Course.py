@@ -1,5 +1,5 @@
 import csv
-
+from collections import defaultdict
 class Course():
     """
     This class represents a course with lectures, tutorials, labs, and students.
@@ -18,7 +18,7 @@ class Course():
             self.tutorial_cap = int(tutorial_cap)
         if lab_cap:
             self.lab_cap = int(lab_cap)
-        self.activities = []
+        self.activities = defaultdict(list)
 
 
     def add_students_tut(self, student_list, capacity):
@@ -73,6 +73,7 @@ class Course():
         This method calculates the amount of tutorial and lab groups needed to fit all the expected students.
         """
         if self.tutorial_n > 0:
+            self.activities['Tutorial'] = []
             self.expected_tut_n = len(self.student_list) // self.tutorial_cap
             if len(self.student_list) % self.tutorial_cap > 0:
                 self.expected_tut_n += 1
@@ -81,6 +82,7 @@ class Course():
             self.expected_tut_n = 0
 
         if self.lab_n > 0:
+            self.activities['Lab'] = []
             self.expected_lab_n = len(self.student_list) // self.lab_cap 
             if len(self.student_list) % self.lab_cap > 0:
                 self.expected_lab_n += 1

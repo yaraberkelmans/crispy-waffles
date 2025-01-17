@@ -110,7 +110,7 @@ class Timetable():
                     else:
                         activity = Lecture(course, activity_name)
                     
-                    course.activities.append(activity)
+                    course.activities[activity_type].append(activity)
                     self.activity_list.append(activity)
                     # print(f'activity {activity_name} added!')
         print(f'Timetable activities list {self.activity_list}')
@@ -168,17 +168,20 @@ class Timetable():
         """
         # self.swap_student_activity(student_1, activity_1, activity_2)
         # self.swap_student_activity(student_2, activity_2, activity_1)
-        self.remove_student_from_activity(student_1, activity_1)
-        self.remove_student_from_activity(student_2, activity_2)
-        self.add_student_to_activity(student_1, activity_2)
-        self.add_student_to_activity(student_2, activity_1)
+        if student_1 in activity_2.course.student_list and student_2 not in activity_1.student_list:
+            self.remove_student_from_activity(student_1, activity_1)
+            self.remove_student_from_activity(student_2, activity_2)
+            self.add_student_to_activity(student_1, activity_2)
+            self.add_student_to_activity(student_2, activity_1)
     
     def remove_activity_from_timetable(self, activity):
         self.timetable[activity.timeslot][activity.location] = None
 
     def add_activity_to_timetable(self, activity, new_timeslot, new_location):
-        if self.timetable[new_timeslot][new_timeslot] == None:
+        if self.timetable[new_timeslot][new_location] == None:
             self.timetable[new_timeslot][new_location] = activity
+            activity.location = new_location
+            activity.timeslot = new_timeslot
 
     # probably unnecessary
     def switch_activity_in_timetable(self, activity, new_timeslot, new_location):
@@ -188,10 +191,24 @@ class Timetable():
     def switch_activities_in_timetable(self, activity_1, activity_2):
         old_location_act_1 = activity_1.location
         old_location_act_2 = activity_2.location
+        old_timeslot_act_1 = activity_1.timeslot
+        old_timeslot_act_2 = activity_2.timeslot
+
         self.remove_activity_from_timetable(activity_1)
         self.remove_activity_from_timetable(activity_2)
-        self.add_activity_to_timetable(activity_1, old_location_act_2)
-        self.add_activity_to_timetable(activity_2, old_location_act_1)
+        self.add_activity_to_timetable(activity_1, old_timeslot_act_2, old_location_act_2)
+        self.add_activity_to_timetable(activity_2, old_timeslot_act_1, old_location_act_1)
+
+    def generate_initial_timetable(self):
+        self.load_courses('data/vakken.csv') # adds course obj to self
+        self.load_students('data/studenten_en_vakken.csv')
+        self.load_locations('data/zalen.csv')
+        self.add_actual_students_to_courses()
+        self.get_activities_count() # creates expected numbers, does not add activity
+        self.name_activities() # adds activity to course.activity
+        self.create_timetable() # makes empty .self attr
+        self.initialize_locations() # turns empty into None
+
 
 
         
