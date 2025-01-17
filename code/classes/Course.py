@@ -41,7 +41,7 @@ class Course():
             self.labs[x] = student_list[round(((x-1) * stud_per_lab)):round((x *stud_per_lab))]
         print(len(self.labs.keys()))
 
-    def add_actual_students(self):
+    def add_actual_students_to_courses(self):
         """
         This method adds a student to the course, based on the courses list in a Student instance.
         """

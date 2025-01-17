@@ -119,7 +119,7 @@ class Timetable():
     def add_student_to_activity(self, student, activity): # still not a scheduled activity
         """
         This method adds a students to an activiry if they meet the requirements and the activity is not full.
-       # Currently only updates timetable.course_list!
+        Currently only updates timetable.course_list!
         """
         if activity not in self.activity_list:
             print(f'activity {activity} does not exist.')
@@ -132,7 +132,7 @@ class Timetable():
             print(f'Student {student.name} already in activity {activity}.')
 
 
-    def add_actual_students(self):
+    def add_actual_students_to_courses(self):
         """
         This method adds a student to the course, based on the courses list in a Student instance.
         """
@@ -151,6 +151,7 @@ class Timetable():
             student.pers_activities[activity.course].remove(activity)
             student.pers_timetable[activity.timeslot.day].remove(activity.timeslot.time)
 
+    # probably unnecessary
     def swap_student_activity(self, student, activity_out, activity_in):
         """
         This method swaps a students from one activity to another. 
@@ -165,10 +166,32 @@ class Timetable():
         """
         This method switches two students between two activities.
         """
-        self.swap_student_activity(student_1, activity_1, activity_2)
-        self.swap_student_activity(student_2, activity_2, activity_1)
-
+        # self.swap_student_activity(student_1, activity_1, activity_2)
+        # self.swap_student_activity(student_2, activity_2, activity_1)
+        self.remove_student_from_activity(student_1, activity_1)
+        self.remove_student_from_activity(student_2, activity_2)
+        self.add_student_to_activity(student_1, activity_2)
+        self.add_student_to_activity(student_2, activity_1)
     
+    def remove_activity_from_timetable(self, activity):
+        self.timetable[activity.timeslot][activity.location] = None
+
+    def add_activity_to_timetable(self, activity, new_timeslot, new_location):
+        if self.timetable[new_timeslot][new_timeslot] == None:
+            self.timetable[new_timeslot][new_location] = activity
+
+    # probably unnecessary
+    def switch_activity_in_timetable(self, activity, new_timeslot, new_location):
+        self.remove_activity_from_timetable(activity)
+        self.add_activity_to_timetable(activity, new_timeslot, new_location)
+    
+    def switch_activities_in_timetable(self, activity_1, activity_2):
+        old_location_act_1 = activity_1.location
+        old_location_act_2 = activity_2.location
+        self.remove_activity_from_timetable(activity_1)
+        self.remove_activity_from_timetable(activity_2)
+        self.add_activity_to_timetable(activity_1, old_location_act_2)
+        self.add_activity_to_timetable(activity_2, old_location_act_1)
 
 
         

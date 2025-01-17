@@ -14,7 +14,7 @@ if __name__ == "__main__":
     timetable.load_courses('data/vakken.csv') # adds course obj to timetable
     timetable.load_students('data/studenten_en_vakken.csv')
     timetable.load_locations('data/zalen.csv')
-    timetable.add_actual_students()
+    timetable.add_actual_students_to_courses()
     timetable.get_activities_count() # creates expected numbers, does not add activity
     timetable.name_activities() # adds activity to course.activity
     timetable.create_timetable() # makes empty .timetable attr
