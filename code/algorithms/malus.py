@@ -71,46 +71,38 @@ def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
     an empty time slot between two scheduled activities, for each gap hour 1 malus point is added. Additionally, if a student has two consecutive gap hours, 3 malus 
     points will be applied for the double gap. 
     It returns the total number of malus points.
-
-    TODO:
-        - Loop through all students in the timetable and check their schedule for gaps between activities.
-        - Calculate the number of gap hours for each student by looking for empty slots or double empty slots between activities.
-        - mutiply gap hours by 1 malus point and double gap hours by 3 malus points 
     """
-    #  total_points = 0
-    # for student in timetable.full_student_list:
-    #     gap_hours = {}
-    #     double_gap_hours {}
-    #     for course in student.pers_activities.keys():
-    #         for activity in student.pers_activities[course]:
-
-
-
-    #     last_timeslot  = None  
-
-    #      for day in student_timeslot:
-    #         if last_timeslot is not None:
-    #             gap = timeslot - last_timeslot
-    #             if gap == 1:
-                    
-
-    # return total_points
     
+    # iterate through each student in the timetable
+    for student in timetable.full_student_list:
 
-    total_points = 0
-    return total_points
+        # iterate over each day and its timeslots in the timetable
+        for day, timeslots in student.pers_timetable.items():
 
-    # malus_points = {}
-    # for days, timeslots in student.pers_activities.items():
-    #     times = list(timeslots.keys())
+            # initialize an empty list to store active timeslots 
+            active_timeslots = []
 
+            # loop through the timeslots and add only those that have an activity, so value is not None
+            for hour, activity in timeslots.items():
+                if activity is not None:
+                    active_timeslots.append(hour)
+
+            total_points = 0
+            previous_time = None
+
+            # iterate through the active timeslots to calculate malus points for gaps
+            for i in range(len(active_timeslots) - 1):
+
+                # calculate the gap between timeslots with activities
+                gap = active_timeslots[i + 1] - active_timeslots[i]
+                
+                if gap == 2: 
+                    total_points += double_gap_malus
+                else:  
+                    total_points += gap_malus
+
+    return total_points 
         
-
-
-
-
-
-
 
 def calculate_malus(timetable):
     """
