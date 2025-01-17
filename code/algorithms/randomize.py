@@ -3,6 +3,9 @@ import copy
 
 
 def randomize(timetable):
+    """
+    This function creates a randomized version of the given timetable by assigning courses, activities and students to timeslots and rooms.
+    """
     new_timetable = copy.deepcopy(timetable)
     
     #randomized_student_courses = random_student_course_assignment(new_timetable)
@@ -11,7 +14,9 @@ def randomize(timetable):
     return randomized_timetable
 
 def random_course_assignment(timetable):
-    """This function randomly assigns courses to a timetable until the amount of total activities has been assigned."""
+    """
+    This function randomly assigns activities to timeslots and rooms in the timetable until all activities are assigned.
+    """
     # new_timetable = copy.deepcopy(timetable)
     new_timetable = timetable
     new_activities_list = []
@@ -37,6 +42,9 @@ def random_course_assignment(timetable):
     return new_timetable
 
 def random_student_course_assignment(timetable):
+    """
+    This function randomly assigns students to courses until the expected number of students per course is met.
+    """
     # new_timetable = copy.deepcopy(timetable)
     new_timetable = timetable
     for course in new_timetable.courses:
@@ -50,6 +58,9 @@ def random_student_course_assignment(timetable):
 
 
 def random_student_activity_assignment(timetable):
+    """
+    This function randomly assigns students to activities within their courses, respecting capacity constraints of the activity. 
+    """
     # new_timetable = copy.deepcopy(timetable)
     new_timetable = timetable
 
