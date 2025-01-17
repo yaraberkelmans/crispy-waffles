@@ -34,7 +34,7 @@ def check_evening_slot(timetable, malus=5):
                 if activity:
                     total_points += malus
 
-    # print(f'total points for evening slot is {total_points}')
+    print(f'total points for evening slot is {total_points}')
     return total_points
 
 
@@ -60,8 +60,7 @@ def check_individual_conflicts(timetable, malus=1):
             if count > 1:
                 total_points += malus * (count - 1)
     
-    # print(f'total points for individual conflicts is {total_points}')
-
+    print(f'total points for individual conflicts is {total_points}')
     return total_points
 
 
@@ -100,6 +99,8 @@ def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
                     total_points += double_gap_malus
                 else:  
                     total_points += gap_malus
+    
+    print(f'total points for gap hours is {total_points}')
 
     return total_points 
         
