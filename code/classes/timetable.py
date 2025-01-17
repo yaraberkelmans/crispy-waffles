@@ -108,12 +108,13 @@ class Timetable():
                     elif activity_type == 'Lab':
                         activity = Lab(course, course.lab_cap, activity_name)
                     else:
-                        activity = Lecture(course, course.e_students, activity_name)
+                        activity = Lecture(course, activity_name)
                     
                     course.activities.append(activity)
                     self.activity_list.append(activity)
                     # print(f'activity {activity_name} added!')
-    
+        print(f'Timetable activities list {self.activity_list}')
+        print(f'length: {len(self.activity_list)}')
 
     def add_student_to_activity(self, student, activity): # still not a scheduled activity
         """
@@ -126,9 +127,10 @@ class Timetable():
         if student not in activity.student_list and student in activity.course.student_list and (len(activity.student_list) + 1) <= activity.capacity :
             activity.student_list.append(student)
             student.pers_activities[activity.course].append(activity)
-            student.pers_timetable[activity.timeslot.day].append(activity.timeslot.time)
+            
         else:
             print(f'Student {student.name} already in activity {activity}.')
+
 
     def add_actual_students(self):
         """
@@ -153,8 +155,11 @@ class Timetable():
         """
         This method swaps a students from one activity to another. 
         """
-        self.remove_student_from_activity(student, activity_out)
-        self.add_student_to_activity(student, activity_in)
+        if len(activity_in.student_list) < activity_in.capacity:
+            self.remove_student_from_activity(student, activity_out)
+            self.add_student_to_activity(student, activity_in)
+        else:
+            print(f'Tried to add student {student}, to filled activity {activity_in}')
 
     def switch_students(self, student_1, student_2, activity_1, activity_2):
         """

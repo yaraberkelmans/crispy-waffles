@@ -35,3 +35,5 @@ class Student():
                     return False
         return True
     
+    def fill_pers_timetable(self, activity):
+        self.pers_timetable[activity.timeslot.day].append(activity.timeslot.time)

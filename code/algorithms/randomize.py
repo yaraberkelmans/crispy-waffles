@@ -11,29 +11,31 @@ def randomize(timetable):
     return randomized_timetable
 
 def random_course_assignment(timetable):
-    """This function randomly assigns courses to a timetable until the amount of total activities has been assigned."""
-    # new_timetable = copy.deepcopy(timetable)
-    new_timetable = timetable
-    new_activities_list = []
-    for course in new_timetable.courses:
-        for activity in course.activities:
-            new_activities_list.append(activity) #this activity list is not updated, activities are stored as attr in .course_list
+    """
+    This function randomly assigns courses to a timetable until the amount of total activities has been assigned.
+    """
+    new_timetable = copy.copy(timetable)
+    new_activities_list = copy.copy(new_timetable.activity_list)
+    print(len(new_activities_list))
+    activity_count = len(new_activities_list)
+    # for course in new_timetable.courses:
+    #     for activity in course.activities:
+    #         new_activities_list.append(activity) #this activity list is not updated, activities are stored as attr in .course_list
     new_timetable_dict = new_timetable.timetable
     activities_added = 0
-    while activities_added < len(new_activities_list):
+    while activities_added < activity_count:
         random_timeslot = random.choice(list(new_timetable_dict.keys()))
         random_room = random.choice(list(new_timetable_dict[random_timeslot]))
         random_activity = random.choice(list(new_activities_list))
-        
-
         if new_timetable_dict[random_timeslot][random_room] is None:
             new_timetable_dict[random_timeslot][random_room] = random_activity
             random_activity.timeslot = random_timeslot
             random_activity.location = random_room
             new_activities_list.remove(random_activity)
-            
+           
+            for student in random_activity.student_list:
+                student.fill_pers_timetable(random_activity)
             activities_added += 1
-    
     return new_timetable
 
 def random_student_course_assignment(timetable):

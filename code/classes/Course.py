@@ -128,10 +128,10 @@ class Lecture():
     """
     This class represents a tutorial group within a course.
     """
-    def __init__(self, course, e_students, name):
+    def __init__(self, course, name):
         self.course = course  
-        self.capacity = e_students
-        self.student_list = course.student_list 
+        self.capacity = len(course.student_list)
+        self.student_list = []
         self.name = name
         self.timeslot = None
         self.location = None
