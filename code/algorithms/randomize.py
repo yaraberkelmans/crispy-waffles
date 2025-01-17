@@ -15,9 +15,7 @@ def randomize(timetable):
 
 def random_course_assignment(timetable):
     """
-    
     This function randomly assigns activities to timeslots and rooms in the timetable until all activities are assigned.
-    
     """
     new_timetable = copy.copy(timetable)
     new_activities_list = copy.copy(new_timetable.activity_list)
