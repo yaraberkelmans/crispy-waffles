@@ -4,7 +4,7 @@ import copy
 
 def randomize(timetable):
     """
-    This function creates a randomized version of the given timetable by assigning courses, activities and students to timeslots and rooms.
+    This function creates a new random timetable by random assigning courses, activities and students to timeslots and rooms.
     """
     new_timetable = copy.deepcopy(timetable)
     
@@ -59,7 +59,8 @@ def random_student_course_assignment(timetable):
 
 def random_student_activity_assignment(timetable):
     """
-    This function randomly assigns students to activities within their courses, respecting capacity constraints of the activity. 
+    This function randomly assigns students to activities within their courses,
+    taking the capacity constraints of the activity into account. 
     """
     # new_timetable = copy.deepcopy(timetable)
     new_timetable = timetable

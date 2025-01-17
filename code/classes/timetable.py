@@ -10,7 +10,7 @@ from typing import Dict
 
 class Timetable():
     """
-    This class represents a timetable system, managing courses, students, locations and activities.
+    This class represents a timetable, consisting of courses, students, locations and activities.
     """
     def __init__(self):
         """
@@ -84,8 +84,8 @@ class Timetable():
 
     def get_activities_count(self):
         """
-        This method calculates and stores the number of lectures, tutorials and labs for eacht course 
-        and updates the activities per course dictionary. 
+        This method calculates and stores the number of lectures, tutorials and labs for each course 
+        and updates the dictionary holding activities per course. 
         """
         for course in self.courses:
             course.count_groups()
@@ -97,7 +97,7 @@ class Timetable():
         """
         This method creates and names activities (lectures, tutorials, labs) for each course based on the activities count, 
         and updates the course's activities list and the overall activity list. 
-         """
+        """
         # TODO: Make it list comprehension instead of loop
         for course, activities_count_dict in self.activities_per_course.items():
             for activity_type, activity_amount in activities_count_dict.items():
@@ -118,7 +118,7 @@ class Timetable():
 
     def add_student_to_activity(self, student, activity): # still not a scheduled activity
         """
-        This method adds a students to an activiry if they meet the requirements and the activity is not full.
+        This method adds a student to an activity of a course the student follows, if the activity is not full.
         Currently only updates timetable.course_list!
         """
         if activity not in self.activity_list:
