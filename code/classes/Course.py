@@ -128,7 +128,7 @@ class Lab():
 
 class Lecture():
     """
-    This class represents a tutorial group within a course.
+    This class represents a lecture group within a course.
     """
     def __init__(self, course, name):
         self.course = course  
