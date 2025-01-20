@@ -68,7 +68,7 @@ def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
     """
     This function adds malus points for students who have gap hours in their schedule. A gap hour is defined as 
     an empty time slot between two scheduled activities, for each gap hour 1 malus point is added. Additionally, if a student has two consecutive gap hours, 3 malus 
-    points will be applied for the double gap. 
+    points will be applied for the double gap.
     It returns the total number of malus points.
     """
     total_points = 0
@@ -85,6 +85,7 @@ def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
                 timeslot_value = convert_dict.get(timeslot)
                 difference_list.append(timeslot_value)
 
+            # we only calculate gap hours if a student had more than 1 activity that day, and we sort it chronological
             if len(difference_list) > 1:
                 difference_list.sort()
 
@@ -94,6 +95,9 @@ def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
                     # calculate the gap between timeslots with activities
                     gap = difference_list[i + 1] - difference_list[i]
                     
+                    if gap == 4:
+                        print('3 gap hours! im quiting uni! Bye:', student)
+                        total_points += 1000
                     if gap == 3: 
                         total_points += double_gap_malus
                     if gap == 2: 
