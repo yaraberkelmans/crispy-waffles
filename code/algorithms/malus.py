@@ -95,6 +95,9 @@ def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
                     # calculate the gap between timeslots with activities
                     gap = difference_list[i + 1] - difference_list[i]
                     
+                    if gap == 4:
+                        print('3 gap hours! im quiting uni! Bye:', student)
+                        total_points += 1000
                     if gap == 3: 
                         total_points += double_gap_malus
                     if gap == 2: 

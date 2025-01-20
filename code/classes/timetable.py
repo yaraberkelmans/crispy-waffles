@@ -19,7 +19,7 @@ class Timetable():
         the value is an empty diictionary.
         """
         self.days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
-        self.times = ['9-11', '11-13', '13-15', '15-17'] # evening slot
+        self.times = ['9-11', '11-13', '13-15', '15-17', '17-19']
 
         self.locations = []
         self.activities_per_course = {}
@@ -44,16 +44,10 @@ class Timetable():
         """
         for timeslot in self.timetable.keys():
             for location in self.locations:
-                self.timetable[timeslot][location] = None
-
-            """
-            if timeslot.time == '17-19' and location != 'C0.110':
-                continue
-            else:
-                self.timetable[timeslot][location] = None
-                
-            
-            """
+                if timeslot.time == '17-19' and location.room_id != 'C0.110':
+                    continue
+                else:
+                    self.timetable[timeslot][location] = None
 
     #TODO: een universele functie maken van alle load functies
     def load_courses(self, input_file):
