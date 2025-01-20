@@ -39,8 +39,7 @@ if __name__ == "__main__":
     #             print(f"Course: {activity.course} Activity {activity.name} in {room} during {timeslot}: {len(activity.student_list)} students.")
     #             print(f"Students: {[student.name for student in activity.student_list]}")
                 
-    # malus_points = calculate_malus(full_randomized_timetable)
-    # print(f'malus points is {malus_points}')
+    
     data = []
     full_randomized_timetable = randomize(timetable)
     for timeslot in full_randomized_timetable.timetable.keys():
@@ -103,5 +102,9 @@ if __name__ == "__main__":
     #print(full_randomized_timetable.full_student_list[0].pers_activities)
     #print(full_randomized_timetable.full_student_list[0].name)
     # # print(full_randomized_timetable.full_student_list[0].courses)
+
+    
+    malus_points = calculate_malus(full_randomized_timetable)
+    print(f'malus points is {malus_points}')
 
     
