@@ -6,6 +6,7 @@ from code.algorithms.randomize import random_student_activity_assignment
 from code.algorithms.randomize import randomize
 from code.algorithms.randomize import apply_random_swap
 from code.algorithms.malus import calculate_malus
+from code.algorithms.hill_climber import HillClimber
 import csv
 
 
@@ -86,25 +87,28 @@ if __name__ == "__main__":
 
     data_2 = []
     
-    for timeslot in random_swapped_timetable.timetable.keys():
-        for location, activity in random_swapped_timetable.timetable[timeslot].items():
+    # for timeslot in random_swapped_timetable.timetable.keys():
+    #     for location, activity in random_swapped_timetable.timetable[timeslot].items():
             
-            if activity:
-                for student in activity.student_list:
-                        #print(student.name)
-                    data_2.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name, 'Student': student.name}) 
+    #         if activity:
+    #             for student in activity.student_list:
+    #                     #print(student.name)
+    #                 data_2.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name, 'Student': student.name}) 
 
-    with open('Timetable_vergelijking_swap.csv', 'w') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=column_names)
-        writer.writeheader()
-        writer.writerows(data_2) 
+    # with open('Timetable_vergelijking_swap.csv', 'w') as csvfile:
+    #     writer = csv.DictWriter(csvfile, fieldnames=column_names)
+    #     writer.writeheader()
+    #     writer.writerows(data_2) 
     #print(full_randomized_timetable.full_student_list[0].pers_timetable)
     #print(full_randomized_timetable.full_student_list[0].pers_activities)
     #print(full_randomized_timetable.full_student_list[0].name)
     # # print(full_randomized_timetable.full_student_list[0].courses)
 
     
-    malus_points = calculate_malus(full_randomized_timetable)
-    print(f'malus points is {malus_points}')
+    # malus_points = calculate_malus(full_randomized_timetable)
+    # print(f'malus points is {malus_points}')
+
+    hill_climber = HillClimber(full_randomized_timetable)
+    hill_climber.run_1(100000, 10)
 
     

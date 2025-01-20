@@ -127,7 +127,6 @@ class Timetable():
         if student not in activity.student_list and student in activity.course.student_list and (len(activity.student_list) + 1) <= activity.capacity :
             activity.student_list.append(student)
             student.pers_activities[activity.course].append(activity)
-            
         else:
             print(f'Student {student.name} already in activity {activity}.')
 
@@ -149,8 +148,7 @@ class Timetable():
         if student in activity.student_list:
             activity.student_list.remove(student)
             student.pers_activities[activity.course].remove(activity)
-            student.pers_timetable[activity.timeslot.day].remove(activity.timeslot.time)
-
+            
     # probably unnecessary
     def swap_student_activity(self, student, activity_out, activity_in):
         """
@@ -173,6 +171,8 @@ class Timetable():
             self.remove_student_from_activity(student_2, activity_2)
             self.add_student_to_activity(student_1, activity_2)
             self.add_student_to_activity(student_2, activity_1)
+            student_1.update_pers_timetable(activity_2)
+            student_2.update_pers_timetable(activity_1)
     
     def remove_activity_from_timetable(self, activity):
         self.timetable[activity.timeslot][activity.location] = None
