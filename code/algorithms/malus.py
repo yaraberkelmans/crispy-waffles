@@ -77,28 +77,28 @@ def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
 
         # iterate over each day and its timeslots in the timetable
         for day, timeslots in student.pers_timetable.items():
+            difference_list= []
 
-            # initialize an empty list to store active timeslots 
-            active_timeslots = []
+            # convert the timeslots to values we can work with
+            for timeslot in timeslots:
+                timeslot_value = convert_dict.get(timeslot)
+                difference_list.append(timeslot_value)
+            print('timeslots:', timeslots, 'diff list:', difference_list)
 
-            # loop through the timeslots and add only those that have an activity, so value is not None
-            for hour, activity in timeslots.items():
-                if activity is not None:
-                    active_timeslots.append(hour)
-
-            total_points = 0
-            previous_time = None
+            if len(difference_list) > 1:
+                difference_list.sort()
+                print('and sorted:', difference_list)
 
             # iterate through the active timeslots to calculate malus points for gaps
-            for i in range(len(active_timeslots) - 1):
+                for i in range(len(difference_list) - 1):
 
-                # calculate the gap between timeslots with activities
-                gap = active_timeslots[i + 1] - active_timeslots[i]
-                
-                if gap == 2: 
-                    total_points += double_gap_malus
-                else:  
-                    total_points += gap_malus
+                    # calculate the gap between timeslots with activities
+                    gap = difference_list[i + 1] - difference_list[i]
+                    
+                    if gap == 3: 
+                        total_points += double_gap_malus
+                    if gap == 2: 
+                        total_points += gap_malus
     
     print(f'total points for gap hours is {total_points}')
 
