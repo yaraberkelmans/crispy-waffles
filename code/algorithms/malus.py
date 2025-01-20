@@ -71,7 +71,8 @@ def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
     points will be applied for the double gap. 
     It returns the total number of malus points.
     """
-    
+    total_points = 0
+    convert_dict= {'9-11': 1, '11-13': 2, '13-15':3, '15-17':4, '17-19':5}
     # iterate through each student in the timetable
     for student in timetable.full_student_list:
 
