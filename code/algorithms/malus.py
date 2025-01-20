@@ -86,11 +86,9 @@ def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
             for timeslot in timeslots:
                 timeslot_value = convert_dict.get(timeslot)
                 difference_list.append(timeslot_value)
-            print('timeslots:', timeslots, 'diff list:', difference_list)
 
             if len(difference_list) > 1:
                 difference_list.sort()
-                print('and sorted:', difference_list)
 
             # iterate through the active timeslots to calculate malus points for gaps
                 for i in range(len(difference_list) - 1):
