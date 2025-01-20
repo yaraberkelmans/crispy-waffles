@@ -72,22 +72,32 @@ def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
     It returns the total number of malus points.
     """
     
+    total_points = 0
+    convert_dict= {'9-11': 1, '11-13': 2, '13-15':3, '15-17':4, '17-19':5}
+
     # iterate through each student in the timetable
     for student in timetable.full_student_list:
 
         # iterate over each day and its timeslots in the timetable
         for day, timeslots in student.pers_timetable.items():
+            difference_list= []
+
+            # convert the timeslots to values we can work with
+            for timeslot in timeslots:
+                timeslot_value = convert_dict.get(timeslot)
+                difference_list.append(timeslot_value)
+
 
             # initialize an empty list to store active timeslots 
-            active_timeslots = []
+            # active_timeslots = []
 
-            # loop through the timeslots and add only those that have an activity, so value is not None
-            for hour, activity in timeslots.items():
-                if activity is not None:
-                    active_timeslots.append(hour)
+            # # loop through the timeslots and add only those that have an activity, so value is not None
+            # for hour, activity in timeslots.items():
+            #     if activity is not None:
+            #         active_timeslots.append(hour)
 
-            total_points = 0
-            previous_time = None
+            
+            # previous_time = None
 
             # iterate through the active timeslots to calculate malus points for gaps
             for i in range(len(active_timeslots) - 1):
