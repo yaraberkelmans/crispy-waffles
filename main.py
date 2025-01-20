@@ -110,5 +110,6 @@ if __name__ == "__main__":
 
     hill_climber = HillClimber(full_randomized_timetable)
     hill_climber.run_1(100000, 10)
+    #error
 
     
