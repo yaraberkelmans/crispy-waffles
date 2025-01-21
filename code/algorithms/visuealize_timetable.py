@@ -1,4 +1,6 @@
 import pandas as pd 
+import matplotlib.pyplot as plt
+
 # import matplotlib as plt
 def visualize_timetable(timetable_file):
     # load the data
@@ -33,14 +35,27 @@ def save_timetable_to_html(pivot_table, output_file):
     with open(output_file, 'w') as f:
         f.write(html_content)
 
-timetable_file = 'Timetable_pres.csv'
-pivot_table = visualize_timetable(timetable_file)
+def plot_malus_iter(iter_list, malus_points_list):
+    average_malus = average_malus = sum(malus_points_list)/ len(malus_points_list)
+    min_malus = min(malus_points_list)
+    min_malus_idx= malus_points_list.index(min_malus)
+    plt.plot(iter_list, malus_points_list, label= 'Malus points')
+    plt.plot(min_malus_idx, min_malus, color = 'g', marker='o', label= f'Minimum = {round(min_malus)}')
+    plt.title('Malus points per iteration')
+    plt.axhline(average_malus,xmin=0, xmax=len(malus_points_list), color = 'r', ls= '--', label= f'Average = {round(average_malus)}')
+    plt.xlabel('iterations')
+    plt.ylabel('malus points')
+    plt.legend()
+    plt.show()
 
-# save the timetable to an HTML file
-output_html_path = 'Timetable_pres.html'
-save_timetable_to_html(pivot_table, output_html_path)
+# timetable_file = 'Timetable_pres.csv'
+# pivot_table = visualize_timetable(timetable_file)
 
-print(f"Timetable saved as HTML: {output_html_path}")
+# # save the timetable to an HTML file
+# output_html_path = 'Timetable_pres.html'
+# save_timetable_to_html(pivot_table, output_html_path)
+
+# print(f"Timetable saved as HTML: {output_html_path}")
 
 
 

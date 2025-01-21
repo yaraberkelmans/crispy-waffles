@@ -9,6 +9,8 @@ from code.algorithms.malus import calculate_malus
 from code.algorithms.hill_climber import HillClimber
 from code.algorithms.visuealize_timetable import visualize_timetable
 from code.algorithms.visuealize_timetable import save_timetable_to_html
+from code.algorithms.visuealize_timetable import plot_malus_iter
+
 
 import csv
 import sys
@@ -27,23 +29,17 @@ if __name__ == "__main__":
     # timetable.initialize_locations() # turns empty into None
     timetable.generate_initial_timetable()
 
-    N=100
+    N=1000
     malus_points_list = []
+    iter_list = list(range(1, N + 1))
     for exp in range(N):
 
         full_randomized_timetable = randomize(timetable)
         malus_points = calculate_malus(full_randomized_timetable)
         malus_points_list.append(malus_points)
-    print(len(malus_points_list))
-    print(malus_points_list)
-
     
     
-
-        
-
-    # average_malus = total_malus_points/N 
-    # print(average_malus)
+    plot_malus_iter(iter_list, malus_points_list)
     
     # for timeslot, rooms in full_randomized_timetable.timetable.items():
     #     for room, activity in rooms.items():
