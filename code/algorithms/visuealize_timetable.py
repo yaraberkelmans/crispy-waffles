@@ -9,3 +9,8 @@ def visualize_timetable(timetable_file):
     
     # split up Timeslot in Day and Time to acces them individually
     df_timetable[['Day', 'Time']] = df_timetable['Tijdslot'].str.split(' ', expand=True)
+
+    pivot = pd.pivot_table(df_timetable, values = 'Activity', index = ['Day, Time'], columns = 'Zaal' )
+    print(pivot)
+
+    return pivot 
