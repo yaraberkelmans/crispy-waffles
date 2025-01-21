@@ -1,6 +1,7 @@
 import copy
 class Greedy():
     def __init__(self, timetable):
-    self.timetable = copy.copy(timetable)
+        self.timetable = copy.copy(timetable)
 
-    def 
+    def sort_locations(self):
+        pass

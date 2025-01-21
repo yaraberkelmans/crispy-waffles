@@ -1,5 +1,5 @@
-import pandas as pd
-
+import pandas as pd 
+import matplotlib as plt
 def visualize_timetable(timetable_file):
     # load the data
     df_timetable = pd.read_csv(timetable_file)
@@ -44,9 +44,35 @@ print(f"Timetable saved as HTML: {output_html_path}")
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class Visualize():
     def __init__(self):
         pass
 
-    def plot_results(self):
-        pass
+    def plot_results(self, scores):
+        iterations = len(scores)
+        plt.plot(scores, iterations)
