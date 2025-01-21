@@ -1,8 +1,8 @@
 
 def check_capacity(timetable, malus=1):
     """
-    This function checks if any class exceeds the room's capacity and adds malus points for each extra student that exceeds the room's limit.
-    It returns the total number of malus points. 
+    This function checks if any class exceeds the room's capacity and adds malus points for each extra student that 
+    exceeds the room's limit. It returns the total number of malus points. 
     """
     total_points = 0 
     for rooms in timetable.timetable.values():
@@ -16,7 +16,9 @@ def check_capacity(timetable, malus=1):
                 if len(activity.student_list) > int(room.capacity):
                     exceeding_students = len(activity.student_list) - int(room.capacity)
                     total_points += exceeding_students * malus
-    
+                    # print(activity)
+                    # print(activity.location)
+                    # print(len(activity.student_list))
     print(f'total points for capacity is {total_points}')
 
     return total_points
@@ -67,9 +69,9 @@ def check_individual_conflicts(timetable, malus=1):
 def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
     """
     This function adds malus points for students who have gap hours in their schedule. A gap hour is defined as 
-    an empty time slot between two scheduled activities, for each gap hour 1 malus point is added. Additionally, if a student has two consecutive gap hours, 3 malus 
-    points will be applied for the double gap.
-    It returns the total number of malus points.
+    an empty time slot between two scheduled activities, for each gap hour 1 malus point is added. Additionally, 
+    if a student has two consecutive gap hours, 3 malus points will be applied for the double gap. It returns 
+    the total number of malus points.
     """
     total_points = 0
     convert_dict= {'9-11': 1, '11-13': 2, '13-15':3, '15-17':4, '17-19':5}
@@ -82,6 +84,7 @@ def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
 
             # convert the timeslots to values we can work with
             for timeslot in timeslots:
+                print
                 timeslot_value = convert_dict.get(timeslot)
                 difference_list.append(timeslot_value)
 
@@ -96,7 +99,7 @@ def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
                     gap = difference_list[i + 1] - difference_list[i]
                     
                     if gap == 4:
-                        print('3 gap hours! im quiting uni! Bye:', student)
+                        #print('3 gap hours! im quiting uni! Bye:', student)
                         total_points += 1000
                     if gap == 3: 
                         total_points += double_gap_malus

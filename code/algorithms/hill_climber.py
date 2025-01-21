@@ -8,7 +8,9 @@ class HillClimber():
         #self.best_neighbour = timetable
         #self.best_neighbour_malus_points = timetable.calculate_malus() 
         self.value = calculate_malus(timetable)
-    
+        self.best_iteration = 0
+
+
     def mutate_timetable(self, new_timetable, number_of_swaps):
         for i in range(number_of_swaps):
             apply_random_swap(new_timetable)
@@ -20,17 +22,27 @@ class HillClimber():
         if new_value < old_value:
             self.timetable = new_timetable
             self.value = new_value
-        else:
-            print(f'Not better')
+            return True
+        # else:
+        #     print(f'Not better')
 
     def run_1(self, iterations, number_of_swaps):
         for iteration in range(iterations):
-            print(f'Iteration {iteration}/{iterations} now running, value of timetable malus points is now {self.value}')
+            #print(f'Iteration {iteration}/{iterations} now running, value of timetable malus points is now {self.value}')
             
-            new_timetable = copy.copy(self.timetable)
+            new_timetable = copy.deepcopy(self.timetable)
             
             self.mutate_timetable(new_timetable, number_of_swaps)
-            self.check_solution(new_timetable)
+            improved = self.check_solution(new_timetable)
+            
+            if improved:
+                self.best_iteration = iteration
+
+            i_since_last_best = iteration - self.best_iteration
+            if i_since_last_best == 500:
+                print(f'{iteration} iterations')
+                return self.value
+        return self.value
 
     # def generate_individual_neighbour(self):
     #     timetable = copy.deepcopy(self.timetable)

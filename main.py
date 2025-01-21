@@ -8,7 +8,9 @@ from code.algorithms.randomize import apply_random_swap
 from code.algorithms.malus import calculate_malus
 from code.algorithms.hill_climber import HillClimber
 import csv
-
+import sys
+import copy
+import pickle
 
 if __name__ == "__main__":
     # initialize timetable
@@ -42,48 +44,48 @@ if __name__ == "__main__":
                 
     
     data = []
-    full_randomized_timetable = randomize(timetable)
-    for timeslot in full_randomized_timetable.timetable.keys():
-        for location, activity in full_randomized_timetable.timetable[timeslot].items():
+    #full_randomized_timetable = randomize(timetable)
+    # for timeslot in full_randomized_timetable.timetable.keys():
+    #     for location, activity in full_randomized_timetable.timetable[timeslot].items():
             
-            if activity:
-    #             print(activity.student_list)
-    #             # print()
-    #             # print("---------- ACTIVITY INFORMATION------------")
-    #             # print()
-    #             # print(f'Course: {activity.course_name} Activity: {activity.name} Location: {location} Day: {timeslot.day} Time: {timeslot.time}')
-    #             # print()
-    #             # print("----------- STUDENTS ----------")
-    #             # print()
-            #      data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name})
+    #         if activity:
+    # #             print(activity.student_list)
+    # #             # print()
+    # #             # print("---------- ACTIVITY INFORMATION------------")
+    # #             # print()
+    # #             # print(f'Course: {activity.course_name} Activity: {activity.name} Location: {location} Day: {timeslot.day} Time: {timeslot.time}')
+    # #             # print()
+    # #             # print("----------- STUDENTS ----------")
+    # #             # print()
+    #         #      data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name})
                 
-            # else:
-            #      data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id})
+    #         # else:
+    #         #      data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id})
 
-                for student in activity.student_list:
-                        #print(student.name)
-                    data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name, 'Student': student.name}) 
-        # # for csv output format
-    # #     # for location, activity in full_randomized_timetable.timetable[timeslot].items():
-    # #     #     if activity:
-    # #     #         for student in activity.student_list:
-    # #     #             print()
-    # #     #             print("---------- STUDENT ------------")
-    # #     #             print()
-    # #     #             print(f'Student: {student}; Course: {activity.course_name}; Activity: {activity.name}; Location: {location}; Day: {timeslot.day}; Time: {timeslot.time}')
-    # #     #             print()
+    #             for student in activity.student_list:
+    #                     #print(student.name)
+    #                 data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name, 'Student': student.name}) 
+    #     # # for csv output format
+    # # #     # for location, activity in full_randomized_timetable.timetable[timeslot].items():
+    # # #     #     if activity:
+    # # #     #         for student in activity.student_list:
+    # # #     #             print()
+    # # #     #             print("---------- STUDENT ------------")
+    # # #     #             print()
+    # # #     #             print(f'Student: {student}; Course: {activity.course_name}; Activity: {activity.name}; Location: {location}; Day: {timeslot.day}; Time: {timeslot.time}')
+    # # #     #             print()
                     
-    # #     #
+    # # #     #
     # # # for data_row in data:
     # # #     print(data_row)
     # print(full_randomized_timetable.activities_per_course)
-    column_names = ['Tijdslot', 'Zaal', 'Vak', 'Activiteit', 'Student']
-    with open('Timetable_test.csv', 'w') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=column_names)
-        writer.writeheader()
-        writer.writerows(data) 
+    # column_names = ['Tijdslot', 'Zaal', 'Vak', 'Activiteit', 'Student']
+    # with open('Timetable_test.csv', 'w') as csvfile:
+    #     writer = csv.DictWriter(csvfile, fieldnames=column_names)
+    #     writer.writeheader()
+    #     writer.writerows(data) 
 
-    random_swapped_timetable = apply_random_swap(full_randomized_timetable)
+    #random_swapped_timetable = apply_random_swap(full_randomized_timetable)
 
     data_2 = []
     
@@ -108,8 +110,33 @@ if __name__ == "__main__":
     # malus_points = calculate_malus(full_randomized_timetable)
     # print(f'malus points is {malus_points}')
 
-    hill_climber = HillClimber(full_randomized_timetable)
-    hill_climber.run_1(100000, 10)
-    #error
+    sys.setrecursionlimit(10**6)
+    # hill_climber_hi_scores = []
+    # for i in range(200):
+    #     full_randomized_timetable = randomize(timetable)
+    #     hill_climber = HillClimber(full_randomized_timetable)
+    #     hill_climber_score = hill_climber.run_1(1000, 10)
+    #     hill_climber_hi_scores.append(hill_climber_score)
+    #     if hill_climber_score <= min(hill_climber_hi_scores):
+    #         best_timetable = copy.deepcopy(hill_climber.timetable)
+        
+    #     print(f'The score for iteration {i} is {hill_climber_score}')
 
-    
+    # print(min(hill_climber_hi_scores))
+    # with open("data/best_timetable_3.pkl", "wb") as f:
+    #     pickle.dump(best_timetable, f)
+    # print("Timetable saved.")
+
+with open("data/best_timetable_2.pkl", "rb") as f:
+    stored_timetable = pickle.load(f)
+
+print(calculate_malus(stored_timetable))
+for course in stored_timetable.courses:
+    print(f'---------------------Check for course {course}----------------------')
+    print(len(course.student_list))
+    for activity_type in course.activities.keys():
+        for activity in course.activities[activity_type]:
+            print(f'Capactity check for {activity}')
+            print(activity.location)
+            print(activity.timeslot)
+            print(len(activity.student_list))
