@@ -171,29 +171,31 @@ if __name__ == "__main__":
     #                 print(student)
         
 
-    # data = []
-    # for timeslot in stored_timetable.timetable.keys():
-    #         for location, activity in stored_timetable.timetable[timeslot].items():
-    #             if activity:
-    #                 for student in activity.student_list:
-    #                     data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name, 'Student': student.name}) 
-    #             else:
-    #                 data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id,'Vak': 'Empty'})
+    # dit uitcommenten na het aanmaken van csv, dan handmatig de C kringeltjes aanpassen en dan (naar ###)
+    data = []
+    for timeslot in stored_timetable.timetable.keys():
+            for location, activity in stored_timetable.timetable[timeslot].items():
+                if activity:
+                    for student in activity.student_list:
+                        data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name, 'Student': student.name}) 
+                else:
+                    data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id,'Vak': 'Empty'})
 
-    # column_names = ['Tijdslot', 'Zaal', 'Vak', 'Activiteit', 'Student']
-    # with open('Timetable_pres.csv', 'w') as csvfile:
-    #     writer = csv.DictWriter(csvfile, fieldnames=column_names)
-    #     writer.writeheader()
-    #     writer.writerows(data) 
+    column_names = ['Tijdslot', 'Zaal', 'Vak', 'Activiteit', 'Student']
+    with open('Timetable_pres_2.csv', 'w') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=column_names)
+        writer.writeheader()
+        writer.writerows(data) 
 
-    # # timetable_file = 'Timetable_pres.csv'
-    # # pivot_table = visualize_timetable(timetable_file)
+    ### vanaf hier nog een keer runnen
+    timetable_file = 'Timetable_pres_2.csv'
+    pivot_table = visualize_timetable(timetable_file)
 
-    # # save the timetable to an HTML file
-    # output_html_path = 'Timetable_pres.html'
-    # save_timetable_to_html(pivot_table, output_html_path)
+    # save the timetable to an HTML file
+    output_html_path = 'Timetable_pres_2.html'
+    save_timetable_to_html(pivot_table, output_html_path)
 
-    # # print(f"Timetable saved as HTML: {output_html_path}")
+    print(f"Timetable saved as HTML: {output_html_path}")
     
     # greedy = Greedy(full_randomized_timetable)
     # greedy.sort_activities_by_capacity()
