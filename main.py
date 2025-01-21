@@ -27,14 +27,21 @@ if __name__ == "__main__":
     # timetable.initialize_locations() # turns empty into None
     timetable.generate_initial_timetable()
 
-    # N=1000
-    # total_malus_points = 0
-    # for exp in range(N):
+    N=100
+    malus_points_list = []
+    for exp in range(N):
 
-    #     full_randomized_timetable = randomize(timetable)
-    #     malus_points = calculate_malus(full_randomized_timetable)
-    #     total_malus_points += malus_points
+        full_randomized_timetable = randomize(timetable)
+        malus_points = calculate_malus(full_randomized_timetable)
+        malus_points_list.append(malus_points)
+    print(len(malus_points_list))
+    print(malus_points_list)
+
     
+    
+
+        
+
     # average_malus = total_malus_points/N 
     # print(average_malus)
     
@@ -159,14 +166,14 @@ if __name__ == "__main__":
     #     writer.writeheader()
     #     writer.writerows(data) 
 
-    # timetable_file = 'Timetable_pres.csv'
-    # pivot_table = visualize_timetable(timetable_file)
+    # # timetable_file = 'Timetable_pres.csv'
+    # # pivot_table = visualize_timetable(timetable_file)
 
     # # save the timetable to an HTML file
     # output_html_path = 'Timetable_pres.html'
     # save_timetable_to_html(pivot_table, output_html_path)
 
-    # print(f"Timetable saved as HTML: {output_html_path}")
+    # # print(f"Timetable saved as HTML: {output_html_path}")
     
     # greedy = Greedy(full_randomized_timetable)
     # greedy.sort_activities_by_capacity()

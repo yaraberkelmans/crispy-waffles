@@ -1,5 +1,5 @@
 import pandas as pd 
-import matplotlib as plt
+# import matplotlib as plt
 def visualize_timetable(timetable_file):
     # load the data
     df_timetable = pd.read_csv(timetable_file)
