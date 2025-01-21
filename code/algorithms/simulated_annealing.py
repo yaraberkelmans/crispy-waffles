@@ -7,13 +7,19 @@ from .hill_climber import HillClimber
 
 class SimulatedAnnealing(HillClimber):
     """
-    
+    The SimulatedAnnealing class performs a random change to the timetable, just as in HillClimber.
+    Most of the functions are similar to those of the HillClimber class, which is why
+    we use that as a parent class.
+
+    Each improvement or equivalent solution is kept for the next iteration.
+    Also sometimes accepts solutions that are worse, depending on the current temperature.
     """
     def __init__(self, timetable, temperature=1):
-        # Use the init of the Hillclimber class
+
+        # use the init of the Hillclimber class for the timetable
         super().__init__(timetable)
 
-        # Starting temperature and current temperature
+        # starting temperature and current temperature
         self.T0 = temperature
         self.T = temperature
 
@@ -25,26 +31,23 @@ class SimulatedAnnealing(HillClimber):
         """
         self.T = self.T - (self.T0 / self.iterations)
 
-    def check_solution(self, new_graph):
+    def check_solution(self, new_timetable):
         """
         Checks and accepts better solutions than the current solution.
         Also sometimes accepts solutions that are worse, depending on the current
         temperature.
         """
-        new_value = new_graph.calculate_malus()
+        new_value = new_timetable.calculate_malus()
         old_value = self.value
 
-        # Calculate the probability of accepting this new graph
+        # calculate the probability of accepting this new timetable
         delta = new_value - old_value
         probability = math.exp(-delta / self.T)
 
-        # NOTE: Keep in mind that if we want to maximize the value, we use:
-        # delta = old_value - new_value
-
-        # Pull a random number between 0 and 1 and see if we accept the graph!
+        # pull a random number between 0 and 1 and see if we accept the timetable!
         if random.random() < probability:
-            self.graph = new_graph
+            self.timetable = new_timetable
             self.value = new_value
 
-        # Update the temperature
+        # update the temperature
         self.update_temperature()
