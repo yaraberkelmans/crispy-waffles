@@ -7,9 +7,9 @@ from code.algorithms.randomize import randomize
 from code.algorithms.randomize import apply_random_swap
 from code.algorithms.malus import calculate_malus
 from code.algorithms.hill_climber import HillClimber
-from code.algorithms.visuealize_timetable import visualize_timetable
-from code.algorithms.visuealize_timetable import save_timetable_to_html
-
+# from code.algorithms.visuealize_timetable import visualize_timetable
+# from code.algorithms.visuealize_timetable import save_timetable_to_html
+from code.algorithms.greedy import Greedy
 import csv
 import sys
 import copy
@@ -159,11 +159,16 @@ if __name__ == "__main__":
     #     writer.writeheader()
     #     writer.writerows(data) 
 
-    timetable_file = 'Timetable_pres.csv'
-    pivot_table = visualize_timetable(timetable_file)
+    # timetable_file = 'Timetable_pres.csv'
+    # pivot_table = visualize_timetable(timetable_file)
 
-    # save the timetable to an HTML file
-    output_html_path = 'Timetable_pres.html'
-    save_timetable_to_html(pivot_table, output_html_path)
+    # # save the timetable to an HTML file
+    # output_html_path = 'Timetable_pres.html'
+    # save_timetable_to_html(pivot_table, output_html_path)
 
-    print(f"Timetable saved as HTML: {output_html_path}")
+    # print(f"Timetable saved as HTML: {output_html_path}")
+    
+    # greedy = Greedy(full_randomized_timetable)
+    # greedy.sort_activities_by_capacity()
+    # for activity in full_randomized_timetable.activity_list:
+    #     print(activity, activity.capacity)
