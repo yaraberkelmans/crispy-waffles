@@ -1,8 +1,8 @@
 
 def check_capacity(timetable, malus=1):
     """
-    This function checks if any class exceeds the room's capacity and adds malus points for each extra student that exceeds the room's limit.
-    It returns the total number of malus points. 
+    This function checks if any class exceeds the room's capacity and adds malus points for each extra student that 
+    exceeds the room's limit. It returns the total number of malus points. 
     """
     total_points = 0 
     for rooms in timetable.timetable.values():
@@ -69,9 +69,9 @@ def check_individual_conflicts(timetable, malus=1):
 def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
     """
     This function adds malus points for students who have gap hours in their schedule. A gap hour is defined as 
-    an empty time slot between two scheduled activities, for each gap hour 1 malus point is added. Additionally, if a student has two consecutive gap hours, 3 malus 
-    points will be applied for the double gap.
-    It returns the total number of malus points.
+    an empty time slot between two scheduled activities, for each gap hour 1 malus point is added. Additionally, 
+    if a student has two consecutive gap hours, 3 malus points will be applied for the double gap. It returns 
+    the total number of malus points.
     """
     total_points = 0
     convert_dict= {'9-11': 1, '11-13': 2, '13-15':3, '15-17':4, '17-19':5}
