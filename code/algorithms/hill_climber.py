@@ -29,17 +29,19 @@ class HillClimber():
         for iteration in range(iterations):
             #print(f'Iteration {iteration}/{iterations} now running, value of timetable malus points is now {self.value}')
             
-            new_timetable = copy.copy(self.timetable)
+            new_timetable = copy.deepcopy(self.timetable)
             
             self.mutate_timetable(new_timetable, number_of_swaps)
-            self.check_solution(new_timetable)
+            improved = self.check_solution(new_timetable)
             
-            if self.check_solution(new_timetable):
+            if improved:
                 self.best_iteration = iteration
 
             i_since_last_best = iteration - self.best_iteration
             if i_since_last_best == 500:
+                print(f'{iteration} iterations')
                 return self.value
+        return self.value
 
     # def generate_individual_neighbour(self):
     #     timetable = copy.deepcopy(self.timetable)

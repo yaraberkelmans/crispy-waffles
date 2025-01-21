@@ -8,7 +8,7 @@ from code.algorithms.randomize import apply_random_swap
 from code.algorithms.malus import calculate_malus
 from code.algorithms.hill_climber import HillClimber
 import csv
-
+import sys
 
 if __name__ == "__main__":
     # initialize timetable
@@ -108,12 +108,12 @@ if __name__ == "__main__":
     # malus_points = calculate_malus(full_randomized_timetable)
     # print(f'malus points is {malus_points}')
 
-    
+    sys.setrecursionlimit(10**6)
     hill_climber_hi_scores = []
     for i in range(1000):
         full_randomized_timetable = randomize(timetable)
         hill_climber = HillClimber(full_randomized_timetable)
-        hill_climber_score = hill_climber.run_1(5000, 100)
+        hill_climber_score = hill_climber.run_1(1000, 100)
         hill_climber_hi_scores.append(hill_climber_score)
         print(f'The score for iteration {i} is {hill_climber_score}')
 

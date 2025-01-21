@@ -19,7 +19,7 @@ def random_course_assignment(timetable):
     """
     new_timetable = copy.copy(timetable)
     new_activities_list = copy.copy(new_timetable.activity_list)
-    print(len(new_activities_list))
+    #print(len(new_activities_list))
     activity_count = len(new_activities_list)
     # for course in new_timetable.courses:
     #     for activity in course.activities:
@@ -73,10 +73,7 @@ def random_student_activity_assignment(timetable):
                 while len(activity.student_list) < activity.capacity:
                     # for student in course.student_list:
                     #     print(student)
-                    valid_students = [
-                        st for st in course.student_list
-                        if st not in activity.student_list and st.check_validity(activity)
-                    ]
+                    valid_students = [st for st in course.student_list if st not in activity.student_list and st.check_validity(activity)]
                     if not valid_students:
 
                         # no more valid students, break to avoid infinite loop
@@ -100,7 +97,7 @@ def random_student_activity_assignment(timetable):
     return new_timetable
 
 def random_swap(timetable):
-    random_swap_function = random.choice([timetable.switch_students, timetable.switch_activities_in_timetable])
+    random_swap_function = random.choice([timetable.switch_students, timetable.switch_activities_in_timetable, timetable.swap_student_activity, timetable.switch_activity_in_timetable])
     
     return random_swap_function
 
@@ -156,5 +153,8 @@ def apply_random_swap(timetable):
         
         # print(f'The new location for {random_activity_1} is {random_activity_1.location} and the new timeslot is {random_activity_1.timeslot}')
         # print(f'The new location for {random_activity_2} is {random_activity_2.location} and the new timeslot is {random_activity_2.timeslot}')
+
+    #if random_function == timetable.swap_student_activity:
+
 
     return timetable
