@@ -98,7 +98,7 @@ def random_student_activity_assignment(timetable):
     return new_timetable
 
 def random_swap(timetable):
-    random_swap_function = random.choice([timetable.switch_students, timetable.switch_activities_in_timetable])
+    random_swap_function = random.choice([timetable.switch_students, timetable.switch_activities_in_timetable, timetable.switch_activity_in_timetable])
     
     return random_swap_function
 
@@ -139,7 +139,7 @@ def apply_random_swap(timetable):
         #     print(f'{random_student_1} is now in {random_activity_2} and {random_student_2} is now in {random_activity_1}')
 
     if random_function == timetable.switch_activities_in_timetable:
-        # print(f'Random function is {random_function}')
+        #print(f'Random function is {random_function}')
         
         random_activity_1 = random.choice(timetable.activity_list)
         random_activity_2 = random.choice(timetable.activity_list)
@@ -157,5 +157,19 @@ def apply_random_swap(timetable):
 
     #if random_function == timetable.swap_student_activity:
 
+    if random_function == timetable.switch_activity_in_timetable:
+        #print(f'The random function is {random_function}')
+        random_activity = random.choice(timetable.activity_list)
+        timetable.find_empty_locations()
+        random_timeslot = random.choice(list(timetable.empty_locations.keys()))
+        random_location = random.choice(list(timetable.empty_locations[random_timeslot]))
+        
+        # choose random activity instead of new random empty location to avoid infinite loop if all location
+        # capacities are smaller then length activity student list
+        while random_location.capacity < len(random_activity.student_list):
+            random_activity = random.choice(timetable.activity_list)
+        #print(f'Random activity chosen {random_activity}, old location: {random_activity.location} old timeslot: {random_activity.timeslot}')
+        timetable.switch_activity_in_timetable(random_activity, random_timeslot, random_location)
+        #print(f'Random activity chosen {random_activity}, new location: {random_activity.location} new timeslot: {random_activity.timeslot}')
 
     return timetable

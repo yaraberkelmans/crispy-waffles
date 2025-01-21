@@ -19,7 +19,7 @@ def check_capacity(timetable, malus=1):
                     # print(activity)
                     # print(activity.location)
                     # print(len(activity.student_list))
-    print(f'total points for capacity is {total_points}')
+    #print(f'total points for capacity is {total_points}')
 
     return total_points
 
@@ -36,7 +36,7 @@ def check_evening_slot(timetable, malus=5):
                 if activity:
                     total_points += malus
 
-    print(f'total points for evening slot is {total_points}')
+    # print(f'total points for evening slot is {total_points}')
     return total_points
 
 
@@ -62,7 +62,7 @@ def check_individual_conflicts(timetable, malus=1):
             if count > 1:
                 total_points += malus * (count - 1)
     
-    print(f'total points for individual conflicts is {total_points}')
+    # print(f'total points for individual conflicts is {total_points}')
     return total_points
 
 
@@ -106,18 +106,25 @@ def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
                     if gap == 2: 
                         total_points += gap_malus
     
-    print(f'total points for gap hours is {total_points}')
+    # print(f'total points for gap hours is {total_points}')
 
     return total_points 
         
 
-def calculate_malus(timetable):
+def calculate_malus(timetable, verbose=False):
     """
     This function calculates summes en returns the total malus points from all scheduling issues for the entire timetable.
     """
+
     total_malus = (check_capacity(timetable) +
                    check_evening_slot(timetable) +
                    check_individual_conflicts(timetable) +
                    check_gap_hours(timetable))
+    if verbose:
+        print(f'total points for gap hours is {check_gap_hours(timetable)}')
+        print(f'total points for capacity is {check_capacity(timetable)}')
+        print(f'total points for evening slots is {check_evening_slot(timetable)}')
+        print(f'total points for individual conflicts is {check_individual_conflicts(timetable)}')
+        print(f'total malus points is {total_malus}')
     
     return total_malus

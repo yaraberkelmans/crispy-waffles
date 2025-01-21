@@ -29,17 +29,19 @@ if __name__ == "__main__":
     # timetable.initialize_locations() # turns empty into None
     timetable.generate_initial_timetable()
 
-    N=1000
-    malus_points_list = []
-    iter_list = list(range(1, N + 1))
-    for exp in range(N):
+    # N=100
+    # malus_points_list = []
+    # for exp in range(N):
 
-        full_randomized_timetable = randomize(timetable)
-        malus_points = calculate_malus(full_randomized_timetable)
-        malus_points_list.append(malus_points)
+    #     full_randomized_timetable = randomize(timetable)
+    #     malus_points = calculate_malus(full_randomized_timetable)
+    #     malus_points_list.append(malus_points)
+    # print(len(malus_points_list))
+    # print(malus_points_list)
+
     
     
-    plot_malus_iter(iter_list, malus_points_list)
+    # plot_malus_iter(iter_list, malus_points_list)
     
     # for timeslot, rooms in full_randomized_timetable.timetable.items():
     #     for room, activity in rooms.items():
@@ -117,34 +119,56 @@ if __name__ == "__main__":
 
     sys.setrecursionlimit(10**6)
     # hill_climber_hi_scores = []
-    # for i in range(200):
+    # hill_climber_scores_iterations = []
+
+    # for i in range(5):
+    #     hill_climber_individual_score_iterations = []
     #     full_randomized_timetable = randomize(timetable)
     #     hill_climber = HillClimber(full_randomized_timetable)
-    #     hill_climber_score = hill_climber.run_1(1000, 10)
+    #     hill_climber_score = hill_climber.run_1(5000, 10)
+        
+    #     # append to list to make list in list for results and iterations exports
+    #     hill_climber_individual_score_iterations.append(hill_climber_score)
+    #     hill_climber_individual_score_iterations.append(hill_climber.iterations)
+
     #     hill_climber_hi_scores.append(hill_climber_score)
-    #     if hill_climber_score <= min(hill_climber_hi_scores):
-    #         best_timetable = copy.deepcopy(hill_climber.timetable)
+    #     hill_climber_scores_iterations.append(hill_climber_individual_score_iterations)
         
     #     print(f'The score for iteration {i} is {hill_climber_score}')
-
+    #     if hill_climber_score <= min(hill_climber_hi_scores):
+    #         best_timetable = copy.deepcopy(hill_climber.timetable)
+    #         with open("data/best_timetable_7.pkl", "wb") as f:
+    #             pickle.dump(best_timetable, f)
+    #             print(f"New best Timetable saved. at score {hill_climber_score}")
+        
     # print(min(hill_climber_hi_scores))
-    # with open("data/best_timetable_3.pkl", "wb") as f:
-    #     pickle.dump(best_timetable, f)
-    # print("Timetable saved.")
+    
+    # header = ['results', 'iterations']
+    # with open ('Results_and_iterations.csv', "w", newline='') as f:
+    #         writer = csv.writer(f)
+    #         writer.writerow(header)
+    #         writer.writerow(hill_climber_scores_iterations)
 
-    # with open("data/best_timetable_2.pkl", "rb") as f:
-    #     stored_timetable = pickle.load(f)
+    # with open ('Results.csv', "w", newline='') as f:
+    #         writer = csv.writer(f)
+    #         for result in hill_climber_hi_scores:
+    #             writer.writerow([result])
+    with open("data/KLOPT_NIET.pkl", "rb") as f:
+        stored_timetable = pickle.load(f)
 
-    # print(calculate_malus(stored_timetable))
-    # for course in stored_timetable.courses:
-    #     print(f'---------------------Check for course {course}----------------------')
-    #     print(len(course.student_list))
-    #     for activity_type in course.activities.keys():
-    #         for activity in course.activities[activity_type]:
-    #             print(f'Capactity check for {activity}')
-    #             print(activity.location)
-    #             print(activity.timeslot)
-    #             print(len(activity.student_list))
+    print(calculate_malus(stored_timetable, verbose=True))
+    for course in stored_timetable.courses:
+        print(f'---------------------Check for course {course}----------------------')
+        print(len(course.student_list))
+        for activity_type in course.activities.keys():
+            for activity in course.activities[activity_type]:
+                print(f'----Capactity check for {activity}----')
+                print(activity.location)
+                print(activity.timeslot)
+                print(len(activity.student_list))
+                print(f'----Student list of {activity}----')
+                for student in activity.student_list:
+                    print(student)
         
 
     # data = []
@@ -162,11 +186,16 @@ if __name__ == "__main__":
     #     writer.writeheader()
     #     writer.writerows(data) 
 
-    # timetable_file = 'Timetable_pres.csv'
-    # pivot_table = visualize_timetable(timetable_file)
+    # # timetable_file = 'Timetable_pres.csv'
+    # # pivot_table = visualize_timetable(timetable_file)
 
     # # save the timetable to an HTML file
     # output_html_path = 'Timetable_pres.html'
     # save_timetable_to_html(pivot_table, output_html_path)
 
-    # print(f"Timetable saved as HTML: {output_html_path}")
+    # # print(f"Timetable saved as HTML: {output_html_path}")
+    
+    # greedy = Greedy(full_randomized_timetable)
+    # greedy.sort_activities_by_capacity()
+    # for activity in full_randomized_timetable.activity_list:
+    #     print(activity, activity.capacity)

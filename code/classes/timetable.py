@@ -5,6 +5,7 @@ from .Course import Course, Tutorial, Lab, Lecture
 import random
 from .Student import Student
 from .Location import Location
+from collections import defaultdict
 
 from typing import Dict
 
@@ -27,6 +28,7 @@ class Timetable():
         self.timetable: Dict[Timeslot: Dict[Location: "activity"]] = {}
         self.full_student_list = []
         self.courses = []
+        self.empty_locations = defaultdict(list)
 
     def create_timetable(self):
         """
@@ -201,6 +203,13 @@ class Timetable():
         self.remove_activity_from_timetable(activity_2)
         self.add_activity_to_timetable(activity_1, old_timeslot_act_2, old_location_act_2)
         self.add_activity_to_timetable(activity_2, old_timeslot_act_1, old_location_act_1)
+
+    def find_empty_locations(self):
+        for timeslot in self.timetable.keys():
+            for location in self.timetable[timeslot]:
+                if self.timetable[timeslot][location] == None:
+                    self.empty_locations[timeslot].append(location)
+
 
     def generate_initial_timetable(self):
         self.load_courses('data/vakken.csv') # adds course obj to self
