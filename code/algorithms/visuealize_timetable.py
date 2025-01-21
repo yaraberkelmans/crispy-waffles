@@ -26,9 +26,16 @@ def visualize_timetable(timetable_file):
 
 
 
+
+
+
+
+
+
 class Visualize():
     def __init__(self):
         pass
 
-    def plot_results(self):
-        pass
+    def plot_results(self, scores):
+        iterations = len(scores)
+        plt.plot(scores, iterations)
