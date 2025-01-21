@@ -28,7 +28,7 @@ class Timetable():
         self.timetable: Dict[Timeslot: Dict[Location: "activity"]] = {}
         self.full_student_list = []
         self.courses = []
-        self.empty_locations = defaultdict(list)
+        
 
     def create_timetable(self):
         """
@@ -205,6 +205,7 @@ class Timetable():
         self.add_activity_to_timetable(activity_2, old_timeslot_act_1, old_location_act_1)
 
     def find_empty_locations(self):
+        self.empty_locations = defaultdict(list)
         for timeslot in self.timetable.keys():
             for location in self.timetable[timeslot]:
                 if self.timetable[timeslot][location] == None:
