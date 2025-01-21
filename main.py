@@ -7,6 +7,9 @@ from code.algorithms.randomize import randomize
 from code.algorithms.randomize import apply_random_swap
 from code.algorithms.malus import calculate_malus
 from code.algorithms.hill_climber import HillClimber
+from code.algorithms.visuealize_timetable import visualize_timetable
+from code.algorithms.visuealize_timetable import save_timetable_to_html
+
 import csv
 import sys
 import copy
@@ -42,7 +45,7 @@ if __name__ == "__main__":
     #             print(f"Students: {[student.name for student in activity.student_list]}")
                 
     
-    data = []
+    # data = []
     #full_randomized_timetable = randomize(timetable)
     # for timeslot in full_randomized_timetable.timetable.keys():
     #     for location, activity in full_randomized_timetable.timetable[timeslot].items():
@@ -86,7 +89,7 @@ if __name__ == "__main__":
 
     #random_swapped_timetable = apply_random_swap(full_randomized_timetable)
 
-    data_2 = []
+    # data_2 = []
     
     # for timeslot in random_swapped_timetable.timetable.keys():
     #     for location, activity in random_swapped_timetable.timetable[timeslot].items():
@@ -126,16 +129,41 @@ if __name__ == "__main__":
     #     pickle.dump(best_timetable, f)
     # print("Timetable saved.")
 
-with open("data/best_timetable_2.pkl", "rb") as f:
-    stored_timetable = pickle.load(f)
+    # with open("data/best_timetable_2.pkl", "rb") as f:
+    #     stored_timetable = pickle.load(f)
 
-print(calculate_malus(stored_timetable))
-for course in stored_timetable.courses:
-    print(f'---------------------Check for course {course}----------------------')
-    print(len(course.student_list))
-    for activity_type in course.activities.keys():
-        for activity in course.activities[activity_type]:
-            print(f'Capactity check for {activity}')
-            print(activity.location)
-            print(activity.timeslot)
-            print(len(activity.student_list))
+    # print(calculate_malus(stored_timetable))
+    # for course in stored_timetable.courses:
+    #     print(f'---------------------Check for course {course}----------------------')
+    #     print(len(course.student_list))
+    #     for activity_type in course.activities.keys():
+    #         for activity in course.activities[activity_type]:
+    #             print(f'Capactity check for {activity}')
+    #             print(activity.location)
+    #             print(activity.timeslot)
+    #             print(len(activity.student_list))
+        
+
+    # data = []
+    # for timeslot in stored_timetable.timetable.keys():
+    #         for location, activity in stored_timetable.timetable[timeslot].items():
+    #             if activity:
+    #                 for student in activity.student_list:
+    #                     data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name, 'Student': student.name}) 
+    #             else:
+    #                 data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id,'Vak': 'Empty'})
+
+    # column_names = ['Tijdslot', 'Zaal', 'Vak', 'Activiteit', 'Student']
+    # with open('Timetable_pres.csv', 'w') as csvfile:
+    #     writer = csv.DictWriter(csvfile, fieldnames=column_names)
+    #     writer.writeheader()
+    #     writer.writerows(data) 
+
+    timetable_file = 'Timetable_pres.csv'
+    pivot_table = visualize_timetable(timetable_file)
+
+    # save the timetable to an HTML file
+    output_html_path = 'Timetable_pres.html'
+    save_timetable_to_html(pivot_table, output_html_path)
+
+    print(f"Timetable saved as HTML: {output_html_path}")

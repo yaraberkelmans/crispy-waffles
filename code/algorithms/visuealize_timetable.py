@@ -33,11 +33,11 @@ def save_timetable_to_html(pivot_table, output_file):
     with open(output_file, 'w') as f:
         f.write(html_content)
 
-timetable_file = 'Timetable.csv'
+timetable_file = 'Timetable_pres.csv'
 pivot_table = visualize_timetable(timetable_file)
 
 # save the timetable to an HTML file
-output_html_path = 'Timetable.html'
+output_html_path = 'Timetable_pres.html'
 save_timetable_to_html(pivot_table, output_html_path)
 
 print(f"Timetable saved as HTML: {output_html_path}")
