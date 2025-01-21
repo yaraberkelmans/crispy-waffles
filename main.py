@@ -14,7 +14,6 @@ import csv
 import sys
 import copy
 import pickle
-
 if __name__ == "__main__":
     # initialize timetable
     timetable = Timetable()
