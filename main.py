@@ -159,11 +159,11 @@ if __name__ == "__main__":
     #     writer.writeheader()
     #     writer.writerows(data) 
 
-    timetable_file = 'Timetable_pres.csv'
-    pivot_table = visualize_timetable(timetable_file)
+    # timetable_file = 'Timetable_pres.csv'
+    # pivot_table = visualize_timetable(timetable_file)
 
-    # save the timetable to an HTML file
-    output_html_path = 'Timetable_pres.html'
-    save_timetable_to_html(pivot_table, output_html_path)
+    # # save the timetable to an HTML file
+    # output_html_path = 'Timetable_pres.html'
+    # save_timetable_to_html(pivot_table, output_html_path)
 
-    print(f"Timetable saved as HTML: {output_html_path}")
+    # print(f"Timetable saved as HTML: {output_html_path}")
