@@ -9,6 +9,8 @@ from code.algorithms.malus import calculate_malus
 from code.algorithms.hill_climber import HillClimber
 import csv
 import sys
+import copy
+import pickle
 
 if __name__ == "__main__":
     # initialize timetable
@@ -77,11 +79,11 @@ if __name__ == "__main__":
     # # # for data_row in data:
     # # #     print(data_row)
     # print(full_randomized_timetable.activities_per_course)
-    column_names = ['Tijdslot', 'Zaal', 'Vak', 'Activiteit', 'Student']
-    with open('Timetable_test.csv', 'w') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=column_names)
-        writer.writeheader()
-        writer.writerows(data) 
+    # column_names = ['Tijdslot', 'Zaal', 'Vak', 'Activiteit', 'Student']
+    # with open('Timetable_test.csv', 'w') as csvfile:
+    #     writer = csv.DictWriter(csvfile, fieldnames=column_names)
+    #     writer.writeheader()
+    #     writer.writerows(data) 
 
     #random_swapped_timetable = apply_random_swap(full_randomized_timetable)
 
@@ -109,15 +111,24 @@ if __name__ == "__main__":
     # print(f'malus points is {malus_points}')
 
     sys.setrecursionlimit(10**6)
-    hill_climber_hi_scores = []
-    for i in range(1000):
-        full_randomized_timetable = randomize(timetable)
-        hill_climber = HillClimber(full_randomized_timetable)
-        hill_climber_score = hill_climber.run_1(1000, 100)
-        hill_climber_hi_scores.append(hill_climber_score)
-        print(f'The score for iteration {i} is {hill_climber_score}')
+#     hill_climber_hi_scores = []
+#     for i in range(40):
+#         full_randomized_timetable = randomize(timetable)
+#         hill_climber = HillClimber(full_randomized_timetable)
+#         hill_climber_score = hill_climber.run_1(1000, 10)
+#         hill_climber_hi_scores.append(hill_climber_score)
+#         if hill_climber_score <= min(hill_climber_hi_scores):
+#             best_timetable = copy.deepcopy(hill_climber.timetable)
+        
+#         print(f'The score for iteration {i} is {hill_climber_score}')
 
-    print(min(hill_climber_hi_scores))
+#     print(min(hill_climber_hi_scores))
+# with open("data/best_timetable_2.pkl", "wb") as f:
+#     pickle.dump(best_timetable, f)
+# print("Timetable saved.")
 
+with open("data/best_timetable.pkl", "rb") as f:
+    stored_timetable = pickle.load(f)
 
-    
+print(calculate_malus(stored_timetable))
+print()

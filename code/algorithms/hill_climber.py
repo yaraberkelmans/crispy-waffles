@@ -9,7 +9,8 @@ class HillClimber():
         #self.best_neighbour_malus_points = timetable.calculate_malus() 
         self.value = calculate_malus(timetable)
         self.best_iteration = 0
-    
+
+
     def mutate_timetable(self, new_timetable, number_of_swaps):
         for i in range(number_of_swaps):
             apply_random_swap(new_timetable)
