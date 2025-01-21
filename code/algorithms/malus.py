@@ -17,7 +17,7 @@ def check_capacity(timetable, malus=1):
                     exceeding_students = len(activity.student_list) - int(room.capacity)
                     total_points += exceeding_students * malus
     
-    print(f'total points for capacity is {total_points}')
+    #print(f'total points for capacity is {total_points}')
 
     return total_points
 
@@ -34,7 +34,7 @@ def check_evening_slot(timetable, malus=5):
                 if activity:
                     total_points += malus
 
-    print(f'total points for evening slot is {total_points}')
+    #print(f'total points for evening slot is {total_points}')
     return total_points
 
 
@@ -60,7 +60,7 @@ def check_individual_conflicts(timetable, malus=1):
             if count > 1:
                 total_points += malus * (count - 1)
     
-    print(f'total points for individual conflicts is {total_points}')
+    #print(f'total points for individual conflicts is {total_points}')
     return total_points
 
 
@@ -82,6 +82,7 @@ def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
 
             # convert the timeslots to values we can work with
             for timeslot in timeslots:
+                print
                 timeslot_value = convert_dict.get(timeslot)
                 difference_list.append(timeslot_value)
 
@@ -96,14 +97,14 @@ def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
                     gap = difference_list[i + 1] - difference_list[i]
                     
                     if gap == 4:
-                        print('3 gap hours! im quiting uni! Bye:', student)
+                        #print('3 gap hours! im quiting uni! Bye:', student)
                         total_points += 1000
                     if gap == 3: 
                         total_points += double_gap_malus
                     if gap == 2: 
                         total_points += gap_malus
     
-    print(f'total points for gap hours is {total_points}')
+    #print(f'total points for gap hours is {total_points}')
 
     return total_points 
         
