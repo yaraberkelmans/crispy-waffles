@@ -42,38 +42,38 @@ if __name__ == "__main__":
                 
     
     data = []
-    full_randomized_timetable = randomize(timetable)
-    for timeslot in full_randomized_timetable.timetable.keys():
-        for location, activity in full_randomized_timetable.timetable[timeslot].items():
+    #full_randomized_timetable = randomize(timetable)
+    # for timeslot in full_randomized_timetable.timetable.keys():
+    #     for location, activity in full_randomized_timetable.timetable[timeslot].items():
             
-            if activity:
-    #             print(activity.student_list)
-    #             # print()
-    #             # print("---------- ACTIVITY INFORMATION------------")
-    #             # print()
-    #             # print(f'Course: {activity.course_name} Activity: {activity.name} Location: {location} Day: {timeslot.day} Time: {timeslot.time}')
-    #             # print()
-    #             # print("----------- STUDENTS ----------")
-    #             # print()
-            #      data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name})
+    #         if activity:
+    # #             print(activity.student_list)
+    # #             # print()
+    # #             # print("---------- ACTIVITY INFORMATION------------")
+    # #             # print()
+    # #             # print(f'Course: {activity.course_name} Activity: {activity.name} Location: {location} Day: {timeslot.day} Time: {timeslot.time}')
+    # #             # print()
+    # #             # print("----------- STUDENTS ----------")
+    # #             # print()
+    #         #      data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name})
                 
-            # else:
-            #      data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id})
+    #         # else:
+    #         #      data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id})
 
-                for student in activity.student_list:
-                        #print(student.name)
-                    data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name, 'Student': student.name}) 
-        # # for csv output format
-    # #     # for location, activity in full_randomized_timetable.timetable[timeslot].items():
-    # #     #     if activity:
-    # #     #         for student in activity.student_list:
-    # #     #             print()
-    # #     #             print("---------- STUDENT ------------")
-    # #     #             print()
-    # #     #             print(f'Student: {student}; Course: {activity.course_name}; Activity: {activity.name}; Location: {location}; Day: {timeslot.day}; Time: {timeslot.time}')
-    # #     #             print()
+    #             for student in activity.student_list:
+    #                     #print(student.name)
+    #                 data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name, 'Student': student.name}) 
+    #     # # for csv output format
+    # # #     # for location, activity in full_randomized_timetable.timetable[timeslot].items():
+    # # #     #     if activity:
+    # # #     #         for student in activity.student_list:
+    # # #     #             print()
+    # # #     #             print("---------- STUDENT ------------")
+    # # #     #             print()
+    # # #     #             print(f'Student: {student}; Course: {activity.course_name}; Activity: {activity.name}; Location: {location}; Day: {timeslot.day}; Time: {timeslot.time}')
+    # # #     #             print()
                     
-    # #     #
+    # # #     #
     # # # for data_row in data:
     # # #     print(data_row)
     # print(full_randomized_timetable.activities_per_course)
@@ -83,7 +83,7 @@ if __name__ == "__main__":
         writer.writeheader()
         writer.writerows(data) 
 
-    random_swapped_timetable = apply_random_swap(full_randomized_timetable)
+    #random_swapped_timetable = apply_random_swap(full_randomized_timetable)
 
     data_2 = []
     
@@ -108,8 +108,16 @@ if __name__ == "__main__":
     # malus_points = calculate_malus(full_randomized_timetable)
     # print(f'malus points is {malus_points}')
 
-    hill_climber = HillClimber(full_randomized_timetable)
-    hill_climber.run_1(100000, 10)
-    #error
+    
+    hill_climber_hi_scores = []
+    for i in range(1000):
+        full_randomized_timetable = randomize(timetable)
+        hill_climber = HillClimber(full_randomized_timetable)
+        hill_climber_score = hill_climber.run_1(5000, 100)
+        hill_climber_hi_scores.append(hill_climber_score)
+        print(f'The score for iteration {i} is {hill_climber_score}')
+
+    print(min(hill_climber_hi_scores))
+
 
     
