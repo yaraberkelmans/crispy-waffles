@@ -43,7 +43,8 @@ def random_course_assignment(timetable):
 
 def random_student_course_assignment(timetable):
     """
-    This function randomly assigns students to courses until the expected number of students per course is met.
+    This function randomly assigns students to courses 
+    until the expected number of students per course is met.
     """
     # new_timetable = copy.deepcopy(timetable)
     new_timetable = timetable
@@ -97,7 +98,7 @@ def random_student_activity_assignment(timetable):
     return new_timetable
 
 def random_swap(timetable):
-    random_swap_function = random.choice([timetable.switch_students, timetable.switch_activities_in_timetable, timetable.swap_student_activity, timetable.switch_activity_in_timetable])
+    random_swap_function = random.choice([timetable.switch_students, timetable.switch_activities_in_timetable])
     
     return random_swap_function
 

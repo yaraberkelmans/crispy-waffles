@@ -16,9 +16,9 @@ def check_capacity(timetable, malus=1):
                 if len(activity.student_list) > int(room.capacity):
                     exceeding_students = len(activity.student_list) - int(room.capacity)
                     total_points += exceeding_students * malus
-                    print(activity)
-                    print(activity.location)
-                    print(len(activity.student_list))
+                    # print(activity)
+                    # print(activity.location)
+                    # print(len(activity.student_list))
     print(f'total points for capacity is {total_points}')
 
     return total_points

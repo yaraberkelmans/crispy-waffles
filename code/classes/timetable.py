@@ -116,22 +116,22 @@ class Timetable():
                     course.activities[activity_type].append(activity)
                     self.activity_list.append(activity)
                     # print(f'activity {activity_name} added!')
-        print(f'Timetable activities list {self.activity_list}')
-        print(f'length: {len(self.activity_list)}')
+        # print(f'Timetable activities list {self.activity_list}')
+        # print(f'length: {len(self.activity_list)}')
 
     def add_student_to_activity(self, student, activity): # still not a scheduled activity
         """
         This method adds a student to an activity of a course the student follows, if the activity is not full.
         Currently only updates timetable.course_list!
         """
-        if activity not in self.activity_list:
-            print(f'activity {activity} does not exist.')
+        #if activity not in self.activity_list:
+        #    print(f'activity {activity} does not exist.')
         
         if student not in activity.student_list and student in activity.course.student_list and (len(activity.student_list) + 1) <= activity.capacity :
             activity.student_list.append(student)
             student.pers_activities[activity.course].append(activity)
-        else:
-            print(f'Student {student.name} already in activity {activity}.')
+        # else:
+        #    print(f'Student {student.name} already in activity {activity}.')
 
 
     def add_actual_students_to_courses(self):
@@ -160,8 +160,8 @@ class Timetable():
         if len(activity_in.student_list) < activity_in.capacity:
             self.remove_student_from_activity(student, activity_out)
             self.add_student_to_activity(student, activity_in)
-        else:
-            print(f'Tried to add student {student}, to filled activity {activity_in}')
+        # else:
+        #     print(f'Tried to add student {student}, to filled activity {activity_in}')
 
     def switch_students(self, student_1, student_2, activity_1, activity_2):
         """
@@ -216,7 +216,7 @@ class Timetable():
 
         
 
-print(os.getcwd())
+#print(os.getcwd())
 timetable = Timetable()
 timetable.load_courses('data/vakken.csv')
 timetable.get_activities_count()

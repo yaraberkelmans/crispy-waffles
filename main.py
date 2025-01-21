@@ -111,24 +111,32 @@ if __name__ == "__main__":
     # print(f'malus points is {malus_points}')
 
     sys.setrecursionlimit(10**6)
-#     hill_climber_hi_scores = []
-#     for i in range(40):
-#         full_randomized_timetable = randomize(timetable)
-#         hill_climber = HillClimber(full_randomized_timetable)
-#         hill_climber_score = hill_climber.run_1(1000, 10)
-#         hill_climber_hi_scores.append(hill_climber_score)
-#         if hill_climber_score <= min(hill_climber_hi_scores):
-#             best_timetable = copy.deepcopy(hill_climber.timetable)
+    # hill_climber_hi_scores = []
+    # for i in range(200):
+    #     full_randomized_timetable = randomize(timetable)
+    #     hill_climber = HillClimber(full_randomized_timetable)
+    #     hill_climber_score = hill_climber.run_1(1000, 10)
+    #     hill_climber_hi_scores.append(hill_climber_score)
+    #     if hill_climber_score <= min(hill_climber_hi_scores):
+    #         best_timetable = copy.deepcopy(hill_climber.timetable)
         
-#         print(f'The score for iteration {i} is {hill_climber_score}')
+    #     print(f'The score for iteration {i} is {hill_climber_score}')
 
-#     print(min(hill_climber_hi_scores))
-# with open("data/best_timetable_2.pkl", "wb") as f:
-#     pickle.dump(best_timetable, f)
-# print("Timetable saved.")
+    # print(min(hill_climber_hi_scores))
+    # with open("data/best_timetable_3.pkl", "wb") as f:
+    #     pickle.dump(best_timetable, f)
+    # print("Timetable saved.")
 
-with open("data/best_timetable.pkl", "rb") as f:
+with open("data/best_timetable_2.pkl", "rb") as f:
     stored_timetable = pickle.load(f)
 
 print(calculate_malus(stored_timetable))
-print()
+for course in stored_timetable.courses:
+    print(f'---------------------Check for course {course}----------------------')
+    print(len(course.student_list))
+    for activity_type in course.activities.keys():
+        for activity in course.activities[activity_type]:
+            print(f'Capactity check for {activity}')
+            print(activity.location)
+            print(activity.timeslot)
+            print(len(activity.student_list))
