@@ -27,19 +27,16 @@ if __name__ == "__main__":
     # timetable.name_activities() # adds activity to course.activity
     # timetable.create_timetable() # makes empty .timetable attr
     # timetable.initialize_locations() # turns empty into None
-    timetable.generate_initial_timetable()
+    # timetable.generate_initial_timetable()
 
-    # N=100
+    # N=1000
     # malus_points_list = []
+    # iter_list= list(range(N))
     # for exp in range(N):
 
     #     full_randomized_timetable = randomize(timetable)
     #     malus_points = calculate_malus(full_randomized_timetable)
     #     malus_points_list.append(malus_points)
-    # print(len(malus_points_list))
-    # print(malus_points_list)
-
-    
     
     # plot_malus_iter(iter_list, malus_points_list)
     

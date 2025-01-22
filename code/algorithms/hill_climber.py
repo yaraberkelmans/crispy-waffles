@@ -8,6 +8,7 @@ class HillClimber():
         #self.best_neighbour = timetable
         #self.best_neighbour_malus_points = timetable.calculate_malus() 
         self.value = calculate_malus(timetable)
+        self.iteration_values = []
         self.best_iteration = 0
         self.iterations = 0
 
@@ -78,6 +79,7 @@ class HillClimber():
 
 
     def run(self,  n_neighbours, n_swaps_per_neighbour, iterations):
+        iteration_values = []
         for iteration in range(iterations):
             neighbours = []
             print(f'Iteration {iteration}/{iterations} now running, value of timetable malus points is now {self.value}')
@@ -89,6 +91,9 @@ class HillClimber():
 
             # if iteration // 10 == 0 and n_swaps_per_neighbour > 1:
             #     n_swaps_per_neighbour -= 4
+
+            # store current malus points 
+            self.iteration_values.append(self.value)
 
             if improved:
                 self.best_iteration = iteration
