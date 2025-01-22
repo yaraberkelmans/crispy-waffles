@@ -64,3 +64,24 @@ class Visualize():
     def plot_results(self, scores):
         iterations = len(scores)
         plt.plot(scores, iterations)
+
+def barplot_malus(timetable):
+    """
+    This function creates a barplot showing showing the distribution of malus points across different categories.  
+    """
+    capacity_malus = check_capacity(timetable)
+    evening_malus = check_evening_slot(timetable)
+    conflict_malus = check_individual_conflicts(timetable)
+    gap_malus = check_gap_hours(timetable)
+
+    malus_types = ['Capacity', 'Evening slots', 'Individual conflicts' , 'Gap hours']
+
+    plt.figure(figsize=(10,6))
+    plt.bar(malus_type, malus_values, color=['red','blue', 'green', 'purple'])
+    plt.xlabel('Malus Type')
+    plt.ylabel('Malus Points')
+    plt.title('Distribution of Malus Points')
+    plt.show()
+
+
+
