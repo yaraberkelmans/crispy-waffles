@@ -137,7 +137,7 @@ if __name__ == "__main__":
     #     print(f'The score for iteration {i} is {hill_climber_score}')
     #     if hill_climber_score <= min(hill_climber_hi_scores):
     #         best_timetable = copy.deepcopy(hill_climber.timetable)
-    #         with open("data/best_timetable_for_real_this_time.pkl", "wb") as f:
+    #         with open("data/best_timetable_test.pkl", "wb") as f:
     #             pickle.dump(best_timetable, f)
     #             print(f"New best Timetable saved. at score {hill_climber_score}")
         
