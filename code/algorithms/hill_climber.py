@@ -99,6 +99,10 @@ class HillClimber():
                 print(f'{iteration} iterations')
                 self.iterations = iteration
                 return self.value
+            elif i_since_last_best > 250 and self.value > 130:
+                print(f'{iteration} iterations')
+                self.iterations = iteration
+                return self.value 
         
         self.iterations = iteration
         return self.value
