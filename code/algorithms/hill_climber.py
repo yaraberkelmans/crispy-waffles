@@ -15,7 +15,7 @@ class HillClimber():
         for i in range(number_of_swaps):
             apply_random_swap(new_timetable)
 
-    def check_solution(self, new_timetable):
+    def check_solution_1(self, new_timetable):
         new_value = calculate_malus(new_timetable)
         old_value = copy.deepcopy(self.value)
 
@@ -33,7 +33,7 @@ class HillClimber():
             new_timetable = copy.deepcopy(self.timetable)
             
             self.mutate_timetable(new_timetable, number_of_swaps)
-            improved = self.check_solution(new_timetable)
+            improved = self.check_solution_1(new_timetable)
             
             if improved:
                 self.best_iteration = iteration
@@ -46,28 +46,60 @@ class HillClimber():
         self.iterations = iteration
         return self.value
 
-    # def generate_individual_neighbour(self):
-    #     timetable = copy.deepcopy(self.timetable)
-    #     for i in range(self.n_swaps):
-    #         timetable.apply_random_swap()
-    #     self.neighbours[timetable] = None
+    def generate_individual_neighbour(self, n_swaps):
+        timetable = copy.deepcopy(self.timetable)
+        for i in range(n_swaps):
+            apply_random_swap(timetable)
+        return timetable
     
-    # def calculate_malus(self):
-    #     for neighbour in self.neighbours.keys():
-    #         malus_points = neighbour.calulate_malus()
-    #         self.neighbours[neighbour] = malus_points
 
-    # def choose_best_neighbour(self):
-    #     for neighbour, malus_points in self.neighbours.items():
-    #         if malus_points < self.best_neighbour_malus_points:
-    #             self.best_neighbour = neighbour
-    #             self.best_neighbour_malus_points = malus_points
+    def choose_best_neighbour(self, neighbours):
+        self.best_neighbour_value = None
+        self.best_neighbour = None
 
-    # def run(self,  n_neighbours, n_swaps_per_neighbour):
-    #     for i in range(n_neighbours):
-    #         self.generate_individual_neighbour()
+        for neighbour in neighbours:
+            neighbour_malus = calculate_malus(neighbour)
+            if self.best_neighbour_value == None:
+                self.best_neighbour_value = neighbour_malus
+                self.best_neighbour = neighbour
+            
+            if neighbour_malus < self.best_neighbour_value:
+                self.best_neighbour_value = neighbour_malus
+                self.best_neighbour = neighbour
+
+    def check_solution(self):
+        new_value = self.best_neighbour_value
+        old_value = copy.deepcopy(self.value)
+
+        if new_value < old_value:
+            self.timetable = self.best_neighbour
+            self.value = new_value
+            return True
+
+
+    def run(self,  n_neighbours, n_swaps_per_neighbour, iterations):
+        for iteration in range(iterations):
+            neighbours = []
+            print(f'Iteration {iteration}/{iterations} now running, value of timetable malus points is now {self.value}')
+            for i in range(n_neighbours):
+                neighbours.append(self.generate_individual_neighbour(n_swaps_per_neighbour))
+            
+            self.choose_best_neighbour(neighbours)
+            improved = self.check_solution()
+
+            # if iteration // 10 == 0 and n_swaps_per_neighbour > 1:
+            #     n_swaps_per_neighbour -= 4
+
+            if improved:
+                self.best_iteration = iteration
+
+            i_since_last_best = iteration - self.best_iteration
+            
+            if i_since_last_best == 1000:
+                print(f'{iteration} iterations')
+                self.iterations = iteration
+                return self.value
         
-    #     self.calculate_malus()
-    #     self.choose_best_neighbour()
-
+        self.iterations = iteration
+        return self.value
 

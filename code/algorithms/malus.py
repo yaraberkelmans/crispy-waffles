@@ -54,7 +54,7 @@ def check_individual_conflicts(timetable, malus=1):
             for activity in student.pers_activities[course]:
                 timeslot = activity.timeslot
                 if timeslot not in timeslot_counts:
-                    timeslot_counts[timeslot] = 0
+                    timeslot_counts[timeslot] = 1
                 else: 
                     timeslot_counts[timeslot] += 1
 

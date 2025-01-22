@@ -7,9 +7,9 @@ from code.algorithms.randomize import randomize
 from code.algorithms.randomize import apply_random_swap
 from code.algorithms.malus import calculate_malus
 from code.algorithms.hill_climber import HillClimber
-# from code.algorithms.visuealize_timetable import visualize_timetable
-# from code.algorithms.visuealize_timetable import save_timetable_to_html
-# from code.algorithms.visuealize_timetable import plot_malus_iter
+from code.algorithms.visuealize_timetable import visualize_timetable
+from code.algorithms.visuealize_timetable import save_timetable_to_html
+from code.algorithms.visuealize_timetable import plot_malus_iter
 
 
 import csv
@@ -121,11 +121,11 @@ if __name__ == "__main__":
     hill_climber_hi_scores = []
     hill_climber_scores_iterations = []
 
-    for i in range(5):
+    for i in range(100):
         hill_climber_individual_score_iterations = []
         full_randomized_timetable = randomize(timetable)
         hill_climber = HillClimber(full_randomized_timetable)
-        hill_climber_score = hill_climber.run_1(5000, 10)
+        hill_climber_score = hill_climber.run(10, 3, 10000)
         
         # append to list to make list in list for results and iterations exports
         hill_climber_individual_score_iterations.append(hill_climber_score)
@@ -137,7 +137,7 @@ if __name__ == "__main__":
         print(f'The score for iteration {i} is {hill_climber_score}')
         if hill_climber_score <= min(hill_climber_hi_scores):
             best_timetable = copy.deepcopy(hill_climber.timetable)
-            with open("data/best_timetable_7.pkl", "wb") as f:
+            with open("data/best_timetable_for_real_this_time.pkl", "wb") as f:
                 pickle.dump(best_timetable, f)
                 print(f"New best Timetable saved. at score {hill_climber_score}")
         
@@ -153,10 +153,11 @@ if __name__ == "__main__":
             writer = csv.writer(f)
             for result in hill_climber_hi_scores:
                 writer.writerow([result])
-    # with open("data/KLOPT_NIET.pkl", "rb") as f:
-    #     stored_timetable = pickle.load(f)
+    with open("data/best_timetable_7.pkl", "rb") as f:
+        stored_timetable = pickle.load(f)
 
-    # print(calculate_malus(stored_timetable, verbose=True))
+    
+    # print(calculate_malus(stored_timetable))
     # for course in stored_timetable.courses:
     #     print(f'---------------------Check for course {course}----------------------')
     #     print(len(course.student_list))
@@ -172,30 +173,30 @@ if __name__ == "__main__":
         
 
     # dit uitcommenten na het aanmaken van csv, dan handmatig de C kringeltjes aanpassen en dan (naar ###)
-    data = []
-    for timeslot in stored_timetable.timetable.keys():
-            for location, activity in stored_timetable.timetable[timeslot].items():
-                if activity:
-                    for student in activity.student_list:
-                        data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name, 'Student': student.name}) 
-                else:
-                    data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id,'Vak': 'Empty'})
+    # data = []
+    # for timeslot in stored_timetable.timetable.keys():
+    #         for location, activity in stored_timetable.timetable[timeslot].items():
+    #             if activity:
+    #                 for student in activity.student_list:
+    #                     data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name, 'Student': student.name}) 
+    #             else:
+    #                 data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id,'Vak': 'Empty'})
 
-    column_names = ['Tijdslot', 'Zaal', 'Vak', 'Activiteit', 'Student']
-    with open('Timetable_pres_2.csv', 'w') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=column_names)
-        writer.writeheader()
-        writer.writerows(data) 
+    # column_names = ['Tijdslot', 'Zaal', 'Vak', 'Activiteit', 'Student']
+    # with open('Timetable_pres_3.csv', 'w') as csvfile:
+    #     writer = csv.DictWriter(csvfile, fieldnames=column_names)
+    #     writer.writeheader()
+    #     writer.writerows(data) 
 
-    ### vanaf hier nog een keer runnen
-    timetable_file = 'Timetable_pres_2.csv'
-    pivot_table = visualize_timetable(timetable_file)
+    # ### vanaf hier nog een keer runnen
+    # timetable_file = 'Timetable_pres_3.csv'
+    # pivot_table = visualize_timetable(timetable_file)
 
-    # save the timetable to an HTML file
-    output_html_path = 'Timetable_pres_2.html'
-    save_timetable_to_html(pivot_table, output_html_path)
+    # # save the timetable to an HTML file
+    # output_html_path = 'Timetable_pres_3.html'
+    # save_timetable_to_html(pivot_table, output_html_path)
 
-    print(f"Timetable saved as HTML: {output_html_path}")
+    # print(f"Timetable saved as HTML: {output_html_path}")
     
     # greedy = Greedy(full_randomized_timetable)
     # greedy.sort_activities_by_capacity()
