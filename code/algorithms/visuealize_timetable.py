@@ -57,33 +57,6 @@ def plot_malus_iter(iter_list, malus_points_list):
 
 # print(f"Timetable saved as HTML: {output_html_path}")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class Visualize():
     def __init__(self):
         pass
