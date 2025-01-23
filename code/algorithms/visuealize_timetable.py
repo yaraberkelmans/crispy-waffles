@@ -1,5 +1,9 @@
 import pandas as pd 
 import matplotlib.pyplot as plt
+from.malus import check_capacity
+from .malus import check_evening_slot
+from .malus import check_gap_hours
+from .malus import check_individual_conflicts
 
 # import matplotlib as plt
 def visualize_timetable(timetable_file):

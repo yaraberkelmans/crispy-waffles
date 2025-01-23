@@ -10,6 +10,7 @@ from code.algorithms.hill_climber import HillClimber
 from code.algorithms.visuealize_timetable import visualize_timetable
 from code.algorithms.visuealize_timetable import save_timetable_to_html
 from code.algorithms.visuealize_timetable import plot_malus_iter
+from code.algorithms.visuealize_timetable import barplot_malus
 
 
 import csv
@@ -120,7 +121,7 @@ if __name__ == "__main__":
     hill_climber_hi_scores = []
     hill_climber_scores_iterations = []
 
-    hillclimber_range = 1000
+    hillclimber_range = 100
     for i in range(1):
         hill_climber_individual_score_iterations = []
         full_randomized_timetable = randomize(timetable)
@@ -138,9 +139,13 @@ if __name__ == "__main__":
         print(f'The score for iteration {i} is {hill_climber_score}')
         if hill_climber_score <= min(hill_climber_hi_scores):
             best_timetable = copy.deepcopy(hill_climber.timetable)
+            # barplot_malus(best_timetable)
+            # print('malus plotted')
             with open("data/best_timetable_test.pkl", "wb") as f:
                 pickle.dump(best_timetable, f)
                 print(f"New best Timetable saved. at score {hill_climber_score}")
+                
+                
         
         plot_malus_iter(list(range(1, hillclimber_range + 1)), hill_climber.iteration_values)
 
@@ -206,3 +211,8 @@ if __name__ == "__main__":
     # greedy.sort_activities_by_capacity()
     # for activity in full_randomized_timetable.activity_list:
     #     print(activity, activity.capacity)
+
+
+    barplot_malus(best_timetable)
+
+
