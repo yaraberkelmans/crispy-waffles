@@ -121,27 +121,36 @@ if __name__ == "__main__":
     hill_climber_hi_scores = []
     hill_climber_scores_iterations = []
 
-    # for i in range(100):
-    #     hill_climber_individual_score_iterations = []
-    #     full_randomized_timetable = randomize(timetable)
-    #     hill_climber = HillClimber(full_randomized_timetable)
-    #     hill_climber_score = hill_climber.run(10, 3, 10000)
+    hillclimber_range = 100
+    for i in range(1):
+        hill_climber_individual_score_iterations = []
+        full_randomized_timetable = randomize(timetable)
+        hill_climber = HillClimber(full_randomized_timetable)
+        hill_climber_score = hill_climber.run(10, 3, hillclimber_range)
+      
         
-    #     # append to list to make list in list for results and iterations exports
-    #     hill_climber_individual_score_iterations.append(hill_climber_score)
-    #     hill_climber_individual_score_iterations.append(hill_climber.iterations)
+        # append to list to make list in list for results and iterations exports
+        hill_climber_individual_score_iterations.append(hill_climber_score)
+        hill_climber_individual_score_iterations.append(hill_climber.iterations)
 
         hill_climber_hi_scores.append(hill_climber_score)
         hill_climber_scores_iterations.append(hill_climber_individual_score_iterations)
         
-    #     print(f'The score for iteration {i} is {hill_climber_score}')
-    #     if hill_climber_score <= min(hill_climber_hi_scores):
-    #         best_timetable = copy.deepcopy(hill_climber.timetable)
-    #         with open("data/best_timetable_test.pkl", "wb") as f:
-    #             pickle.dump(best_timetable, f)
-    #             print(f"New best Timetable saved. at score {hill_climber_score}")
+        print(f'The score for iteration {i} is {hill_climber_score}')
+        if hill_climber_score <= min(hill_climber_hi_scores):
+            best_timetable = copy.deepcopy(hill_climber.timetable)
+            # barplot_malus(best_timetable)
+            # print('malus plotted')
+            with open("data/best_timetable_test.pkl", "wb") as f:
+                pickle.dump(best_timetable, f)
+                print(f"New best Timetable saved. at score {hill_climber_score}")
+                
+                
         
-    # print(min(hill_climber_hi_scores))
+        plot_malus_iter(list(range(1, hillclimber_range + 1)), hill_climber.iteration_values)
+
+        
+    print(min(hill_climber_hi_scores))
     
     header = ['results', 'iterations']
     with open ('Results_and_iterations.csv', "w", newline='') as f:
@@ -149,15 +158,15 @@ if __name__ == "__main__":
             writer.writerow(header)
             writer.writerow(hill_climber_scores_iterations)
 
-    # with open ('Results.csv', "w", newline='') as f:
-    #         writer = csv.writer(f)
-    #         for result in hill_climber_hi_scores:
-    #             writer.writerow([result])
-    with open("data/best_timetable_for_real_this_time.pkl", "rb") as f:
-        stored_timetable = pickle.load(f)
+    with open ('Results.csv', "w", newline='') as f:
+            writer = csv.writer(f)
+            for result in hill_climber_hi_scores:
+                writer.writerow([result])
+    # with open("data/best_timetable_for_real_this_time.pkl", "rb") as f:
+        # stored_timetable = pickle.load(f)
 
     
-    print(calculate_malus(stored_timetable))
+    # print(calculate_malus(stored_timetable))
     # for course in stored_timetable.courses:
     #     print(f'---------------------Check for course {course}----------------------')
     #     print(len(course.student_list))
@@ -167,9 +176,9 @@ if __name__ == "__main__":
     #             print(activity.location)
     #             print(activity.timeslot)
     #             print(len(activity.student_list))
-                # print(f'----Student list of {activity}----')
-                # for student in activity.student_list:
-                #     print(student)
+    #             print(f'----Student list of {activity}----')
+    #             for student in activity.student_list:
+    #                 print(student)
         
 
     # dit uitcommenten na het aanmaken van csv, dan handmatig de C kringeltjes aanpassen en dan (naar ###)
@@ -205,5 +214,3 @@ if __name__ == "__main__":
 
 
     barplot_malus(best_timetable)
-
-
