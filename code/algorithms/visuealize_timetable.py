@@ -74,10 +74,12 @@ def barplot_malus(timetable):
     conflict_malus = check_individual_conflicts(timetable)
     gap_malus = check_gap_hours(timetable)
 
+    malus_values = [capacity_malus, evening_malus, conflict_malus, gap_malus]
+
     malus_types = ['Capacity', 'Evening slots', 'Individual conflicts' , 'Gap hours']
 
     plt.figure(figsize=(10,6))
-    plt.bar(malus_type, malus_values, color=['red','blue', 'green', 'purple'])
+    plt.bar(malus_types, malus_values, color=['red','blue', 'green', 'purple'])
     plt.xlabel('Malus Type')
     plt.ylabel('Malus Points')
     plt.title('Distribution of Malus Points')
