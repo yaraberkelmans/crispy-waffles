@@ -71,7 +71,7 @@ def random_student_activity_assignment(timetable):
         
         for activity_type in course.activities.keys():
             for activity in course.activities[activity_type][:-1]:
-                while len(activity.student_list) < activity.capacity:
+                while len(activity.student_list) < activity.initial_capacity:
                     # for student in course.student_list:
                     #     print(student)
                     valid_students = [st for st in course.student_list if st not in activity.student_list and st.check_validity(activity)]

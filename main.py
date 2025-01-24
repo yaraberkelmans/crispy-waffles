@@ -121,7 +121,7 @@ if __name__ == "__main__":
     hill_climber_hi_scores = []
     hill_climber_scores_iterations = []
 
-    hillclimber_range = 100
+    hillclimber_range = 10000
     for i in range(1):
         hill_climber_individual_score_iterations = []
         full_randomized_timetable = randomize(timetable)
