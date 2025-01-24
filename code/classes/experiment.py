@@ -1,4 +1,7 @@
 from code.algorithms.randomize import randomize
+from code.algorithms.malus import *
+
+
 import csv
 import pickle
 import copy
@@ -20,6 +23,7 @@ class Experiment():
         algorithm_params: Parameters to pass to the algorithms run method.
         """
         self.results = []  
+        self.malus_per_cat = {'capacity': 0, 'evening':  0, 'indiv_confl': 0, 'gap_hours': 0}
 
         for iter in range(self.iterations):
 
@@ -36,14 +40,23 @@ class Experiment():
             # check if this score is better
             if score < self.best_score:
                 self.best_score = score
-                self.best_timetable = copy.deepcopy(algorithm.timetable)  # Save the timetable
+                self.best_timetable = copy.deepcopy(algorithm.timetable)
+
 
                 # save the best timetable to a file
                 with open(output_file_name, "wb") as f:
                     pickle.dump(self.best_timetable, f)
                 print(f"New best timetable saved at score {score}")
+            
+            self.malus_per_cat['capacity'] += check_capacity(algorithm.timetable)
+            self.malus_per_cat['evening'] += check_evening_slot(algorithm.timetable)
+            self.malus_per_cat['indiv_confl'] += check_individual_conflicts(algorithm.timetable)
+            self.malus_per_cat['gap_hours'] += check_gap_hours(algorithm.timetable)
 
             print(f"Iteration {iter}: Score = {score}")
+
+        for cat in self.malus_per_cat.keys():
+            self.malus_per_cat[cat] = self.malus_per_cat.get(cat) / self.iterations
 
         # generate summary statistics for every experiment iteration
         scores = [result["score"] for result in self.results]

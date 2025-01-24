@@ -222,23 +222,25 @@ if __name__ == "__main__":
     experiment = Experiment(timetable, iterations=5)
 
     # run Hill Climber
-    hill_climber_summary = experiment.run_algorithm("data/best_timetable_exptest4.pkl", HillClimber, n_neighbours=10, n_swaps_per_neighbour=3, iterations=100)
+    hill_climber_summary = experiment.run_algorithm("data/best_timetable_exptest4.pkl", HillClimber, n_neighbours=10, n_swaps_per_neighbour=3, iterations=1000)
     print("Hill Climber Summary:", hill_climber_summary)
+    print('Malus per cat', experiment.malus_per_cat)
 
     # experiment = Experiment(timetable, iterations=2)
 
     # # run SimAnn
-    # sim_ann_summary = experiment.run_algorithm("data/best_timetable_exp_sim_ann_1.pkl", SimulatedAnnealing, n_neighbours=10, n_swaps_per_neighbour=3, iterations=5000)
+    # sim_ann_summary = experiment.run_algorithm("data/best_timetable_exp_sim_ann_1.pkl", SimulatedAnnealing, n_neighbours=10, n_swaps_per_neighbour=3, iterations=500)
     # print("Simulated Annealing Summary:", sim_ann_summary)
+    # print('Malus per cat', experiment.malus_per_cat)
 
     # extract malus points and iterations using a loop
-    algorithm_malus_points = []
-    iterations = []
+    # algorithm_malus_points = []
+    # iterations = []
 
     # kijken hoe goed te accessen 
     # experiment.indiv_scores is een lijst met dictionaries voor elke hill climber run
-    for run in experiment.indiv_scores.items:
-        iterations.append(result["iteration"])
-        algorithm_malus_points.append(result)
+    # for run in experiment.indiv_scores.items:
+    #     iterations.append(result["iteration"])
+    #     algorithm_malus_points.append(result)
 
-    plot_malus_iter(iterations, algorithm_malus_points)
+    # plot_malus_iter(iterations, algorithm_malus_points)

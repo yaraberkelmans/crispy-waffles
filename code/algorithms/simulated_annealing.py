@@ -22,7 +22,6 @@ class SimulatedAnnealing(HillClimber):
         # starting temperature and current temperature
         self.T0 = temperature
         self.T = temperature
-        self.iterations = 0
         
     def update_temperature(self):
         """
@@ -30,8 +29,7 @@ class SimulatedAnnealing(HillClimber):
         Temperature will become zero after all iterations passed to the run()
         method have passed.
         """
-        if self.iterations > 0:
-            self.T = self.T - (self.T0 / self.iterations)
+        self.T = self.T - (self.T0 / self.iterations)
 
     # def check_solution_1(self, new_timetable):
     #     """
