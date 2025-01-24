@@ -1,6 +1,8 @@
 import copy
 from .randomize import apply_random_swap
 from .malus import calculate_malus
+import random
+import math
 class HillClimber():
     def __init__(self, timetable):
         self.timetable = timetable
@@ -10,7 +12,7 @@ class HillClimber():
         self.value = calculate_malus(timetable)
         self.iteration_values = []
         self.best_iteration = 0
-        self.iterations = 0
+        self.iterations_ran = 0
 
     def mutate_timetable(self, new_timetable, number_of_swaps):
         for i in range(number_of_swaps):
@@ -79,7 +81,7 @@ class HillClimber():
 
 
     def run(self,  n_neighbours, n_swaps_per_neighbour, iterations):
-        iteration_values = []
+        self.iterations = iterations
         for iteration in range(iterations):
             neighbours = []
             print(f'Iteration {iteration}/{iterations} now running, value of timetable malus points is now {self.value}')
@@ -102,13 +104,77 @@ class HillClimber():
             
             if i_since_last_best == 1000:
                 print(f'{iteration} iterations')
-                self.iterations = iteration
+                self.iterations_ran = iteration
                 return self.value
             elif i_since_last_best > 250 and self.value > 130:
                 print(f'{iteration} iterations')
-                self.iterations = iteration
+                self.iterations_ran = iteration
                 return self.value 
         
-        self.iterations = iteration
+        self.iterations_ran = iteration
         return self.value
 
+    def check_solution_sim_ann(self):
+        """
+        Checks and accepts better solutions than the current solution.
+        Also sometimes accepts solutions that are worse, depending on the current
+        temperature.
+        """
+        new_value = self.best_neighbour_value
+        old_value = self.value
+
+        # calculate the probability of accepting this new timetable
+        delta = new_value - old_value
+
+        # prevent crashing for huge improvements, eg delta = -1000
+        if delta < -1:
+            delta = -1
+            
+
+        # with negative delta, so an improvement, prob is always more than 1, so always larger than random.random()
+        probability = math.exp(-delta / self.T)
+
+        # update the temperature
+        self.update_temperature()
+
+        # pull a random number between 0 and 1 and see if we accept the timetable!
+        if random.random() < probability:
+            self.timetable = self.best_neighbour
+            self.value = new_value
+            return True
+        
+    def update_temperature(self):
+        """
+        This function implements a *linear* cooling scheme.
+        Temperature will become zero after all iterations passed to the run()
+        method have passed.
+        """
+        if self.iterations > 0:
+            self.T = self.T - (self.T0 / self.iterations)
+
+    def check_solution_1(self, new_timetable):
+        """
+        Checks and accepts better solutions than the current solution.
+        Also sometimes accepts solutions that are worse, depending on the current
+        temperature.
+        """
+        new_value = calculate_malus(new_timetable)
+        old_value = self.value
+
+        # calculate the probability of accepting this new timetable
+        delta = new_value - old_value
+
+        # prevent crashing for huge improvements
+        if delta < -1:
+            delta = -1
+
+        # with negative delta, so an improvement, prob is always more than 1, so always larger than random.random()
+        probability = math.exp(-delta / self.T)
+
+        # pull a random number between 0 and 1 and see if we accept the timetable!
+        if random.random() < probability:
+            self.timetable = new_timetable
+            self.value = new_value
+
+        # update the temperature
+        self.update_temperature()
