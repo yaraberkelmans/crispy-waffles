@@ -219,10 +219,10 @@ if __name__ == "__main__":
 
 
 
-    experiment = Experiment(timetable, iterations=5)
+    experiment = Experiment(timetable, iterations=2)
 
     # run Hill Climber
-    hill_climber_summary = experiment.run_algorithm("data/best_timetable_exptest4.pkl", HillClimber, n_neighbours=10, n_swaps_per_neighbour=3, iterations=1000)
+    hill_climber_summary = experiment.run_algorithm("data/best_timetable_exptest5.pkl", HillClimber, n_neighbours=10, n_swaps_per_neighbour=3, iterations=100)
     print("Hill Climber Summary:", hill_climber_summary)
     print('Malus per cat', experiment.malus_per_cat)
 
@@ -239,8 +239,12 @@ if __name__ == "__main__":
 
     # kijken hoe goed te accessen 
     # experiment.indiv_scores is een lijst met dictionaries voor elke hill climber run
-    # for run in experiment.indiv_scores.items:
-    #     iterations.append(result["iteration"])
+    # for iteration, malus in experiment.indiv_scores.items():
+    #     iterations.append([])
     #     algorithm_malus_points.append(result)
 
-    # plot_malus_iter(iterations, algorithm_malus_points)
+    print(experiment.indiv_scores)
+    for hc in experiment.indiv_scores:
+        print(hc)
+        print(list(hc.keys()))
+        plot_malus_iter(list(hc.keys()), list(hc.values()))
