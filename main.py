@@ -230,3 +230,13 @@ if __name__ == "__main__":
     # run SimAnn
     sim_ann_summary = experiment.run_algorithm("data/best_timetable_exp_sim_ann_1.pkl", SimulatedAnnealing, n_neighbours=10, n_swaps_per_neighbour=3, iterations=5000)
     print("Simulated Annealing Summary:", sim_ann_summary)
+
+    # extract malus points and iterations using a loop
+    sim_ann_malus_points = []
+    iterations = []
+
+    for result in experiment.results:
+        iterations.append(result["iteration"])
+        sim_ann_malus_points.append(result["score"])
+
+    plot_malus_iter(iterations, sim_ann_malus_points)
