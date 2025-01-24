@@ -29,7 +29,7 @@ class HillClimber():
 
     def run_1(self, iterations, number_of_swaps):
         for iteration in range(iterations):
-            #print(f'Iteration {iteration}/{iterations} now running, value of timetable malus points is now {self.value}')
+            print(f'Iteration {iteration}/{iterations} now running, value of timetable malus points is now {self.value}')
             
             new_timetable = copy.deepcopy(self.timetable)
             
