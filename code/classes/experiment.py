@@ -1,7 +1,7 @@
 from code.algorithms.randomize import randomize
 import csv
 import pickle
-class Experiment():
+class Experiment(): 
     def __init__(self, timetable, iterations):
         self.timetable = timetable
         self.iterations = iterations
@@ -20,6 +20,8 @@ class Experiment():
                     "all_scores": scores}
         
         return summary
+
+
 
     def export_results(self):
         with open ('Results.csv', "a", newline='') as f:

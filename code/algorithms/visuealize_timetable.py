@@ -90,4 +90,3 @@ def barplot_malus(timetable):
     plt.show()
 
 
-
