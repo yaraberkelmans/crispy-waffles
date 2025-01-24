@@ -25,7 +25,7 @@ class Experiment():
             # create a randomized starting timetable before running the algorithm
             randomized_timetable = randomize(self.timetable)
             algorithm = algorithm_class(randomized_timetable)
-            score = algorithm.run_1(**algorithm_params)
+            score = algorithm.run(**algorithm_params)
 
             # save the result for this iteration
             self.results.append({"iteration": iter, "score": score})
