@@ -28,7 +28,7 @@ class Timetable():
         self.timetable: Dict[Timeslot: Dict[Location: "activity"]] = {}
         self.full_student_list = []
         self.courses = []
-        
+        self.conflict_student = []
 
     def create_timetable(self):
         """
@@ -212,6 +212,9 @@ class Timetable():
             for location in self.timetable[timeslot]:
                 if self.timetable[timeslot][location] == None:
                     self.empty_locations[timeslot].append(location)
+
+    def sort_priority_queue(self):
+        self.conflict_student.sort(key=lambda student: student.conflict_points)
 
 
     def generate_initial_timetable(self):

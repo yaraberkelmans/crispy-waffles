@@ -65,8 +65,12 @@ def check_individual_conflicts(timetable, malus=1):
 
         for count in timeslot_counts.values():
             if count > 1:
-                total_points += malus * (count - 1)
-    
+                individual_points = malus * (count - 1)
+                total_points += individual_points
+
+                # keep track of students with conflict for queue
+                student.conflict_points = individual_points
+                timetable.conflict_students.append(student)
     # print(f'total points for individual conflicts is {total_points}')
     return total_points
 

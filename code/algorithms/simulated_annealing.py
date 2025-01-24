@@ -22,7 +22,6 @@ class SimulatedAnnealing(HillClimber):
         # starting temperature and current temperature
         self.T0 = temperature
         self.T = temperature
-
         self.iterations = 0
         
     def update_temperature(self):

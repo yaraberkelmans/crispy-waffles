@@ -141,10 +141,6 @@ class Lecture():
         self.timeslot = None
         self.location = None
         self.over_capacity = 0
-        self.initial_capacity = 
-
-        # to avoid conflict in random student activity assignment
-        self.initial_capacity = len(course.student_list)
 
         # to avoid conflict in random student activity assignment
         self.initial_capacity = len(course.student_list)
