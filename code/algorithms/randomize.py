@@ -41,21 +41,21 @@ def random_course_assignment(timetable):
             activities_added += 1
     return new_timetable
 
-def random_student_course_assignment(timetable):
-    """
-    This function randomly assigns students to courses 
-    until the expected number of students per course is met.
-    """
-    # new_timetable = copy.deepcopy(timetable)
-    new_timetable = timetable
-    for course in new_timetable.courses:
-        while len(course.student_list) < course.e_students:
-            random_student = random.choice(new_timetable.full_student_list)
-            if random_student in course.student_list:
-                continue
-            course.add_individual_student(random_student)
-            # print('student added moi')
-    return new_timetable
+# def random_student_course_assignment(timetable):
+#     """
+#     This function randomly assigns students to courses 
+#     until the expected number of students per course is met.
+#     """
+#     # new_timetable = copy.deepcopy(timetable)
+#     new_timetable = timetable
+#     for course in new_timetable.courses:
+#         while len(course.student_list) < course.e_students:
+#             random_student = random.choice(new_timetable.full_student_list)
+#             if random_student in course.student_list:
+#                 continue
+#             course.add_individual_student(random_student)
+#             # print('student added moi')
+#     return new_timetable
 
 
 def random_student_activity_assignment(timetable):
@@ -71,7 +71,7 @@ def random_student_activity_assignment(timetable):
         
         for activity_type in course.activities.keys():
             for activity in course.activities[activity_type][:-1]:
-                while len(activity.student_list) < activity.capacity:
+                while len(activity.student_list) < activity.initial_capacity:
                     # for student in course.student_list:
                     #     print(student)
                     valid_students = [st for st in course.student_list if st not in activity.student_list and st.check_validity(activity)]

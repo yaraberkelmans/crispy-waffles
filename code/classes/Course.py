@@ -104,6 +104,8 @@ class Tutorial():
         self.name = name
         self.timeslot = None
         self.location = None
+        self.over_capacity = False
+        self.initial_capacity =  
 
     def __repr__(self):
         return f"{self.course} {self.name}"
@@ -117,10 +119,11 @@ class Lab():
         self.course = course  
         self.capacity = lab_cap
         self.student_list = []
-        
+        self.over_capacity = 0
         self.name = name
         self.timeslot = None
         self.location = None
+        self.initial_capacity = 
 
     def __repr__(self):
         return f"{self.course} {self.name}"
@@ -137,6 +140,8 @@ class Lecture():
         self.name = name
         self.timeslot = None
         self.location = None
+        self.over_capacity = 0
+        self.initial_capacity = 
 
     def __repr__(self):
         return f"{self.course} {self.name}"
