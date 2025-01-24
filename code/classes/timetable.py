@@ -109,9 +109,11 @@ class Timetable():
                 for i in range(activity_amount):
                     activity_name = f'{activity_type} {i+1}'
                     if activity_type == 'Tutorial':
-                        activity = Tutorial(course, course.tutorial_cap, activity_name)
+                        initial_capacity = len(course.student_list) / activity_amount
+                        activity = Tutorial(course, course.tutorial_cap, initial_capacity, activity_name)
                     elif activity_type == 'Lab':
-                        activity = Lab(course, course.lab_cap, activity_name)
+                        initial_capacity = len(course.student_list) / activity_amount
+                        activity = Lab(course, course.lab_cap, initial_capacity, activity_name)
                     else:
                         activity = Lecture(course, activity_name)
                     
