@@ -11,6 +11,8 @@ from code.algorithms.visuealize_timetable import visualize_timetable
 from code.algorithms.visuealize_timetable import save_timetable_to_html
 from code.algorithms.visuealize_timetable import plot_malus_iter
 from code.algorithms.visuealize_timetable import barplot_malus
+from code.classes.experiment import Experiment
+from code.algorithms.simulated_annealing import SimulatedAnnealing
 
 
 import csv
@@ -118,52 +120,52 @@ if __name__ == "__main__":
     # print(f'malus points is {malus_points}')
 
     sys.setrecursionlimit(10**6)
-    hill_climber_hi_scores = []
-    hill_climber_scores_iterations = []
+    #####
+    # hill_climber_hi_scores = []
+    # hill_climber_scores_iterations = []
 
-    hillclimber_range = 10000
-    for i in range(1):
-        hill_climber_individual_score_iterations = []
-        full_randomized_timetable = randomize(timetable)
-        hill_climber = HillClimber(full_randomized_timetable)
-        hill_climber_score = hill_climber.run(10, 3, hillclimber_range)
+    # hillclimber_range = 100
+    # for i in range(1):
+    #     hill_climber_individual_score_iterations = []
+    #     full_randomized_timetable = randomize(timetable)
+    #     hill_climber = HillClimber(full_randomized_timetable)
+    #     hill_climber_score = hill_climber.run(10, 3, hillclimber_range)
       
         
-        # append to list to make list in list for results and iterations exports
-        hill_climber_individual_score_iterations.append(hill_climber_score)
-        hill_climber_individual_score_iterations.append(hill_climber.iterations)
+    #     # append to list to make list in list for results and iterations exports
+    #     hill_climber_individual_score_iterations.append(hill_climber_score)
+    #     hill_climber_individual_score_iterations.append(hill_climber.iterations)
 
-        hill_climber_hi_scores.append(hill_climber_score)
-        hill_climber_scores_iterations.append(hill_climber_individual_score_iterations)
+    #     hill_climber_hi_scores.append(hill_climber_score)
+    #     hill_climber_scores_iterations.append(hill_climber_individual_score_iterations)
         
-        print(f'The score for iteration {i} is {hill_climber_score}')
-        if hill_climber_score <= min(hill_climber_hi_scores):
-            best_timetable = copy.deepcopy(hill_climber.timetable)
-            # barplot_malus(best_timetable)
-            # print('malus plotted')
-            with open("data/best_timetable_test.pkl", "wb") as f:
-                pickle.dump(best_timetable, f)
-                print(f"New best Timetable saved. at score {hill_climber_score}")
-                
-                
-        
-        plot_malus_iter(list(range(1, hillclimber_range + 1)), hill_climber.iteration_values)
+    #     print(f'The score for iteration {i} is {hill_climber_score}')
+    #     if hill_climber_score <= min(hill_climber_hi_scores):
+    #         best_timetable = copy.deepcopy(hill_climber.timetable)
+    #         # barplot_malus(best_timetable)
+    #         # print('malus plotted')
+    #         with open("data/best_timetable_test.pkl", "wb") as f:
+    #             pickle.dump(best_timetable, f)
+    #             print(f"New best Timetable saved. at score {hill_climber_score}")
+    #####
+            
+    #     plot_malus_iter(list(range(1, hillclimber_range + 1)), hill_climber.iteration_values)
 
         
-    print(min(hill_climber_hi_scores))
+    # print(min(hill_climber_hi_scores))
     
-    header = ['results', 'iterations']
-    with open ('Results_and_iterations.csv', "w", newline='') as f:
-            writer = csv.writer(f)
-            writer.writerow(header)
-            writer.writerow(hill_climber_scores_iterations)
+    # header = ['results', 'iterations']
+    # with open ('Results_and_iterations.csv', "w", newline='') as f:
+    #         writer = csv.writer(f)
+    #         writer.writerow(header)
+    #         writer.writerow(hill_climber_scores_iterations)
 
-    with open ('Results.csv', "w", newline='') as f:
-            writer = csv.writer(f)
-            for result in hill_climber_hi_scores:
-                writer.writerow([result])
-    # with open("data/best_timetable_for_real_this_time.pkl", "rb") as f:
-        # stored_timetable = pickle.load(f)
+    # with open ('Results.csv', "w", newline='') as f:
+    #         writer = csv.writer(f)
+    #         for result in hill_climber_hi_scores:
+    #             writer.writerow([result])
+    # with open("data/best_timetable_exptest3.pkl", "rb") as f:
+    #     stored_timetable = pickle.load(f)
 
     
     # print(calculate_malus(stored_timetable))
@@ -213,4 +215,18 @@ if __name__ == "__main__":
     #     print(activity, activity.capacity)
 
 
-    barplot_malus(best_timetable)
+    # barplot_malus(best_timetable)
+
+
+
+    experiment = Experiment(timetable, iterations=5)
+
+    # run Hill Climber
+    hill_climber_summary = experiment.run_algorithm("data/best_timetable_exptest3.pkl", HillClimber, n_neighbours=10, n_swaps_per_neighbour=3, iterations=100)
+    print("Hill Climber Summary:", hill_climber_summary)
+
+    experiment = Experiment(timetable, iterations=5)
+
+    # run SimAnn
+    sim_ann_summary = experiment.run_algorithm("data/best_timetable_exp_sim_ann_1.pkl", SimulatedAnnealing, iterations=1000, number_of_swaps= 8)
+    print("Simulated Annealing Summary:", sim_ann_summary)
