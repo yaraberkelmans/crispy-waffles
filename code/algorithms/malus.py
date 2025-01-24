@@ -1,10 +1,11 @@
 
-def check_capacity(timetable, malus=1):
+def check_capacity(timetable, malus=1, return_details = False):
     """
     This function checks if any class exceeds the room's capacity and adds malus points for each extra student that 
     exceeds the room's limit. It returns the total number of malus points. 
     """
     total_points = 0 
+    details = []
     for rooms in timetable.timetable.values():
         # print(rooms)
         for room, activity in rooms.items():
@@ -16,13 +17,17 @@ def check_capacity(timetable, malus=1):
                 if len(activity.student_list) > int(room.capacity):
                     exceeding_students = len(activity.student_list) - int(room.capacity)
                     total_points += exceeding_students * malus
+                    if exceeding_students > 0:
+                        activity.over_capacity = exceeding_students
+                    # if return_details:
+                    #     details.append(activity)
                     # print(activity)
                     # print(activity.location)
                     # print(len(activity.student_list))
     #print(f'total points for capacity is {total_points}')
 
+    #return details if return_details else total_points
     return total_points
-
 
 def check_evening_slot(timetable, malus=5):
     """
@@ -128,3 +133,6 @@ def calculate_malus(timetable, verbose=False):
         print(f'total malus points is {total_malus}')
     
     return total_malus
+
+
+

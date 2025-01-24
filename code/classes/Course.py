@@ -104,6 +104,7 @@ class Tutorial():
         self.name = name
         self.timeslot = None
         self.location = None
+        self.over_capacity = False
         self.initial_capacity = initial_capacity
 
     def __repr__(self):
@@ -118,7 +119,7 @@ class Lab():
         self.course = course  
         self.capacity = lab_cap
         self.student_list = []
-        
+        self.over_capacity = 0
         self.name = name
         self.timeslot = None
         self.location = None
@@ -139,6 +140,11 @@ class Lecture():
         self.name = name
         self.timeslot = None
         self.location = None
+        self.over_capacity = 0
+        self.initial_capacity = 
+
+        # to avoid conflict in random student activity assignment
+        self.initial_capacity = len(course.student_list)
 
         # to avoid conflict in random student activity assignment
         self.initial_capacity = len(course.student_list)
