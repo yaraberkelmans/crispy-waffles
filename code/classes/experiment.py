@@ -10,6 +10,7 @@ class Experiment():
         self.results = []
         self.best_timetable = None
         self.best_score = float('inf')
+        self.indiv_scores = []
     
     def run_algorithm(self, output_file_name, algorithm_class, **algorithm_params):
         """
@@ -26,6 +27,8 @@ class Experiment():
             randomized_timetable = randomize(self.timetable)
             algorithm = algorithm_class(randomized_timetable)
             score = algorithm.run(**algorithm_params)
+
+            self.indiv_scores.append(algorithm.iteration_values)
 
             # save the result for this iteration
             self.results.append({"iteration": iter, "score": score})

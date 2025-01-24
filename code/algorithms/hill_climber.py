@@ -10,7 +10,7 @@ class HillClimber():
         #self.best_neighbour = timetable
         #self.best_neighbour_malus_points = timetable.calculate_malus() 
         self.value = calculate_malus(timetable)
-        self.iteration_values = []
+        self.iteration_values = {}
         self.best_iteration = 0
         self.iterations_ran = 0
 
@@ -95,7 +95,7 @@ class HillClimber():
             #     n_swaps_per_neighbour -= 4
 
             # store current malus points 
-            self.iteration_values.append(self.value)
+            self.iteration_values[iteration] = self.value
 
             if improved:
                 self.best_iteration = iteration
