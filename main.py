@@ -222,10 +222,10 @@ if __name__ == "__main__":
     experiment = Experiment(timetable, iterations=5)
 
     # run Hill Climber
-    hill_climber_summary = experiment.run_algorithm("data/best_timetable_exptest3.pkl", HillClimber, n_neighbours=10, n_swaps_per_neighbour=3, iterations=100)
-    print("Hill Climber Summary:", hill_climber_summary)
+    # hill_climber_summary = experiment.run_algorithm("data/best_timetable_exptest3.pkl", HillClimber, n_neighbours=10, n_swaps_per_neighbour=3, iterations=100)
+    # print("Hill Climber Summary:", hill_climber_summary)
 
-    experiment = Experiment(timetable, iterations=5)
+    # experiment = Experiment(timetable, iterations=5)
 
     # run SimAnn
     sim_ann_summary = experiment.run_algorithm("data/best_timetable_exp_sim_ann_1.pkl", SimulatedAnnealing, iterations=1000, number_of_swaps= 8)
