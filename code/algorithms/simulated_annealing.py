@@ -23,25 +23,31 @@ class SimulatedAnnealing(HillClimber):
         self.T0 = temperature
         self.T = temperature
 
+        self.iterations = 0
+        
     def update_temperature(self):
         """
         This function implements a *linear* cooling scheme.
         Temperature will become zero after all iterations passed to the run()
         method have passed.
         """
-        self.T = self.T - (self.T0 / self.iterations)
+        if self.iterations > 0:
+            self.T = self.T - (self.T0 / self.iterations)
 
-    def check_solution(self, new_timetable):
+    def check_solution_1(self, new_timetable):
         """
         Checks and accepts better solutions than the current solution.
         Also sometimes accepts solutions that are worse, depending on the current
         temperature.
         """
-        new_value = new_timetable.calculate_malus()
+        new_value = calculate_malus(new_timetable)
         old_value = self.value
 
         # calculate the probability of accepting this new timetable
         delta = new_value - old_value
+        print(delta)
+
+        # with negative delta, so an improvement, prob is always more than 1, so always larger than random.random()
         probability = math.exp(-delta / self.T)
 
         # pull a random number between 0 and 1 and see if we accept the timetable!
@@ -51,3 +57,9 @@ class SimulatedAnnealing(HillClimber):
 
         # update the temperature
         self.update_temperature()
+
+        
+
+        
+
+        
