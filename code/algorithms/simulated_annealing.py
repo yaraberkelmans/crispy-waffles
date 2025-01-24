@@ -45,7 +45,10 @@ class SimulatedAnnealing(HillClimber):
 
         # calculate the probability of accepting this new timetable
         delta = new_value - old_value
-        print(delta)
+
+        # prevent crashing for huge improvements
+        if delta < -1:
+            delta = -1
 
         # with negative delta, so an improvement, prob is always more than 1, so always larger than random.random()
         probability = math.exp(-delta / self.T)
@@ -57,6 +60,37 @@ class SimulatedAnnealing(HillClimber):
 
         # update the temperature
         self.update_temperature()
+
+    def check_solution(self):
+        """
+        Checks and accepts better solutions than the current solution.
+        Also sometimes accepts solutions that are worse, depending on the current
+        temperature.
+        """
+        new_value = self.best_neighbour_value
+        old_value = self.value
+
+        # calculate the probability of accepting this new timetable
+        delta = new_value - old_value
+
+        # prevent crashing for huge improvements, eg delta = -1000
+        if delta < -1:
+            delta = -1
+            
+
+        # with negative delta, so an improvement, prob is always more than 1, so always larger than random.random()
+        probability = math.exp(-delta / self.T)
+
+        # update the temperature
+        self.update_temperature()
+
+        # pull a random number between 0 and 1 and see if we accept the timetable!
+        if random.random() < probability:
+            self.timetable = self.best_neighbour
+            self.value = new_value
+            return True
+
+        
 
         
 

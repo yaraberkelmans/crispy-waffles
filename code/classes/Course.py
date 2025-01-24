@@ -97,7 +97,7 @@ class Tutorial():
     """
     This class epresents a tutorial group within a course.
     """
-    def __init__(self, course, tutorial_cap, name):
+    def __init__(self, course, tutorial_cap, initial_capacity, name):
         self.course = course  
         self.capacity = tutorial_cap
         self.student_list = []
@@ -105,7 +105,7 @@ class Tutorial():
         self.timeslot = None
         self.location = None
         self.over_capacity = False
-        self.initial_capacity =  
+        self.initial_capacity = initial_capacity
 
     def __repr__(self):
         return f"{self.course} {self.name}"
@@ -115,7 +115,7 @@ class Lab():
     """
     This class represents a lab group within a course.
     """
-    def __init__(self, course, lab_cap, name):
+    def __init__(self, course, lab_cap, initial_capacity, name):
         self.course = course  
         self.capacity = lab_cap
         self.student_list = []
@@ -123,7 +123,7 @@ class Lab():
         self.name = name
         self.timeslot = None
         self.location = None
-        self.initial_capacity = 
+        self.initial_capacity = initial_capacity
 
     def __repr__(self):
         return f"{self.course} {self.name}"
@@ -142,6 +142,12 @@ class Lecture():
         self.location = None
         self.over_capacity = 0
         self.initial_capacity = 
+
+        # to avoid conflict in random student activity assignment
+        self.initial_capacity = len(course.student_list)
+
+        # to avoid conflict in random student activity assignment
+        self.initial_capacity = len(course.student_list)
 
     def __repr__(self):
         return f"{self.course} {self.name}"
