@@ -22,7 +22,7 @@ class Experiment():
         self.best_score = float('inf')
         
     
-    def run_algorithm(self, output_file_name, algorithm_class, verbose = False, **algorithm_params):
+    def run_algorithm(self, algorithm_class, file_name_addition = '', verbose = False, **algorithm_params):
         """
         This method runs a given algorithm for a number of iterations in experiment. Parameters are:
         output_file name: A name for the pickle file where the best timetable is stored in
@@ -31,11 +31,11 @@ class Experiment():
         """
         self.results = []  
         self.malus_per_cat = {'capacity': 0, 'evening':  0, 'indiv_confl': 0, 'gap_hours': 0}
-        self.output_file_name = output_file_name
 
-        """
-        format for saving files
-        """
+        # create a format for output file name based on the algorithm params
+        params_string = '_'.join(f"{key}:{value}" for key, value in algorithm_params.items())
+        self.output_file_name = f'{algorithm_class.__name__}_{params_string}_{file_name_addition}'
+        
         
         for iter in range(self.iterations):
 
@@ -44,7 +44,7 @@ class Experiment():
             algorithm = algorithm_class(randomized_timetable)
             score = algorithm.run(**algorithm_params)
 
-            ## add a dictionary to the list with malus points per iteration for each algorithm run
+            # add a dictionary to the list with malus points per iteration for each algorithm run
             self.indiv_scores.append(algorithm.iteration_values)
 
             # save the result for this iteration
@@ -57,7 +57,7 @@ class Experiment():
 
 
                 # save the best timetable to a file
-                with open(f'{output_file_name}_best_timetable.pkl', "wb") as f:
+                with open(f'{self.output_file_name}_best_timetable.pkl', "wb") as f:
                     pickle.dump(self.best_timetable, f)
                 if verbose:
                     print(f"New best timetable saved at score {score}")
@@ -69,7 +69,7 @@ class Experiment():
             self.malus_per_cat['gap_hours'] += check_gap_hours(algorithm.timetable)
 
             # be sure to save all timetables for analyzing
-            with open(f'{output_file_name}_all_timetables.pkl', "ab") as f:
+            with open(f'{self.output_file_name}_all_timetables.pkl', "ab") as f:
                 pickle.dump(self.best_timetable, f)
             if verbose:
                 print(f"Timetable saved at score {score}")
