@@ -264,6 +264,8 @@ if __name__ == "__main__":
             for activity in student.conflict_activities[timeslot]:
                 print(activity, activity.timeslot)
 
+    # switch_conflict_student(stored_timetable)
+
     # extract malus points and iterations using a loop
     # algorithm_malus_points = []
     # iterations = []
@@ -282,18 +284,18 @@ if __name__ == "__main__":
 
 
     # test the barplot_hillclimber_performance function
-    barplot_hillclimber_performance(
-        hillclimber=hill_climber,
-        iterations=50,
-        parameter_values=[6, 7, 10],  
-        parameter_name="swaps",
-        fixed_neighbours=10
-    )
+    # barplot_hillclimber_performance(
+    #     hillclimber=hill_climber,
+    #     iterations=50,
+    #     parameter_values=[6, 7, 10],  
+    #     parameter_name="swaps",
+    #     fixed_neighbours=10
+    # )
 
-    barplot_hillclimber_performance(
-        hillclimber=hill_climber,
-        iterations=50,
-        parameter_values=[8, 10, 12],  
-        parameter_name="neighbours",
-        fixed_swaps=4
-    )
+    # barplot_hillclimber_performance(
+    #     hillclimber=hill_climber,
+    #     iterations=50,
+    #     parameter_values=[8, 10, 12],  
+    #     parameter_name="neighbours",
+    #     fixed_swaps=4
+    # )
