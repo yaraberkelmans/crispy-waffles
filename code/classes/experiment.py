@@ -33,7 +33,7 @@ class Experiment():
         self.malus_per_cat = {'capacity': 0, 'evening':  0, 'indiv_confl': 0, 'gap_hours': 0}
 
         # create a format for output file name based on the algorithm params
-        params_string = '_'.join(f"{key}:{value}" for key, value in algorithm_params.items())
+        params_string = '_'.join(f"{key}_{value}" for key, value in algorithm_params.items())
         self.output_file_name = f'{folder_path}{algorithm_class.__name__}_{params_string}_{file_name_addition}'
         
         
