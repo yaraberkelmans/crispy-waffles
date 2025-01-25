@@ -74,10 +74,18 @@ class Experiment():
             if verbose:
                 print(f"Timetable saved at score {score}")
                 print(f"Iteration {iter}: Score = {score}")
+            
+            ###
+            with open(f'{self.output_file_name}_experiment_info.pkl', "wb") as f:
+                pickle.dump(self.indiv_scores, f)
+            ###
 
         # calculate the average malus points per category
         for cat in self.malus_per_cat.keys():
             self.malus_per_cat[cat] = self.malus_per_cat.get(cat) / self.iterations
+        
+        
+        
 
         # generate summary statistics for every experiment iteration
         scores = [result["score"] for result in self.results]
