@@ -28,7 +28,7 @@ class Student():
     def check_validity(self, activity):  
         """
         This method checks for a student if this student has already been added to a tutorial or lab for this course.
-        If so, it returns False otherwis it return True.
+        If so, it returns False otherwise it returns True.
         """
         for value in self.pers_activities[activity.course]:
             if type(activity) == Tutorial or type(activity) == Lab:

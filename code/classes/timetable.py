@@ -33,7 +33,7 @@ class Timetable():
     def create_timetable(self):
         """
         This method initializes the timetable by creating a Timeslot instance for each combination of day and time 
-        and maps each Timeslot to an empty dictionary. 
+        and puts each Timeslot in an empty dictionary. 
         """
         for day in self.days:
             for time in self.times:
@@ -182,9 +182,15 @@ class Timetable():
             student_2.update_pers_timetable(activity_1)
     
     def remove_activity_from_timetable(self, activity):
+        """
+        This method removes an activity from the timetable by setting its timeslot and location to None. 
+        """
         self.timetable[activity.timeslot][activity.location] = None
 
     def add_activity_to_timetable(self, activity, new_timeslot, new_location):
+        """
+        This method add an activity to a new timeslot and location in the timetable if the slot is still available. 
+        """
         if self.timetable[new_timeslot][new_location] == None:
             self.timetable[new_timeslot][new_location] = activity
             activity.location = new_location
@@ -192,10 +198,16 @@ class Timetable():
 
     # probably unnecessary
     def switch_activity_in_timetable(self, activity, new_timeslot, new_location):
+        """
+        This method moves an activity to a new timeslot and location.  
+        """
         self.remove_activity_from_timetable(activity)
         self.add_activity_to_timetable(activity, new_timeslot, new_location)
     
     def switch_activities_in_timetable(self, activity_1, activity_2):
+        """
+        This method moves an activity to a new timeslot and location. 
+        """
         old_location_act_1 = activity_1.location
         old_location_act_2 = activity_2.location
         old_timeslot_act_1 = activity_1.timeslot
@@ -207,6 +219,9 @@ class Timetable():
         self.add_activity_to_timetable(activity_2, old_timeslot_act_1, old_location_act_1)
 
     def find_empty_locations(self):
+        """
+        This method identifies empty locations in the timetable for each timslot and stores them in a dictionary.  
+        """
         self.empty_locations = defaultdict(list)
         for timeslot in self.timetable.keys():
             for location in self.timetable[timeslot]:
@@ -214,10 +229,16 @@ class Timetable():
                     self.empty_locations[timeslot].append(location)
 
     def sort_priority_queue(self):
+        """
+        This method sorts the students with individual conflicts in ascending order based on their conflict malus points.  
+        """
         self.conflict_students.sort(key=lambda student: student.conflict_points)
 
 
     def generate_initial_timetable(self):
+        """
+        This method generates and creates the initial timetable. 
+        """
         self.load_courses('data/vakken.csv') # adds course obj to self
         self.load_students('data/studenten_en_vakken.csv')
         self.load_locations('data/zalen.csv')

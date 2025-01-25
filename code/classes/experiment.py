@@ -7,6 +7,10 @@ import pickle
 import copy
 
 class Experiment():
+    """
+    This class experiments by running an algorithm on a timetable for a given number of iterations.
+    and keeps track of the best timetable, scores, and malus points per category.
+    """
     def __init__(self, timetable, iterations):
         self.timetable = timetable
         self.iterations = iterations
@@ -17,7 +21,7 @@ class Experiment():
     
     def run_algorithm(self, output_file_name, algorithm_class, **algorithm_params):
         """
-        Run a given algorithm for a number of iterations in experiment. Parameters are:
+        This method runs a given algorithm for a number of iterations in experiment. Parameters are:
         output_file name: A name for the pickle file where the best timetable is stored in
         algorithm_class: The class of the algorithm to run
         algorithm_params: Parameters to pass to the algorithms run method.
