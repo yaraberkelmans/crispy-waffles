@@ -21,6 +21,7 @@ import sys
 import copy
 import pickle
 if __name__ == "__main__":
+
     # initialize timetable
     timetable = Timetable()
     timetable.load_courses('data/vakken.csv') # adds course obj to timetable
@@ -223,14 +224,16 @@ if __name__ == "__main__":
     # experiment = Experiment(timetable, iterations=100)
 
     # # run Hill Climber
-    # hill_climber_summary = experiment.run_algorithm("data/best_timetable_exptest_12_neighbours.pkl", HillClimber, n_neighbours=12, n_swaps_per_neighbour=3, iterations=15000)
+    # hill_climber_summary = experiment.run_algorithm("data/best_timetable_exptest_12_neighbours.pkl", HillClimber, verbose=True, verbose_alg=True,
+    #                                                   n_neighbours=12, n_swaps_per_neighbour=3, iterations=15000)
     # print("Hill Climber Summary:", hill_climber_summary)
     # print('Malus per cat', experiment.malus_per_cat)
 
     # experiment = Experiment(timetable, iterations=3)
 
     # # run SimAnn
-    # sim_ann_summary = experiment.run_algorithm("data/neighbour_n_exp_3_swaps/exp_sim_ann_10_neighbours_3_swaps", SimulatedAnnealing, n_neighbours=10, n_swaps_per_neighbour=3, iterations=15)
+    # sim_ann_summary = experiment.run_algorithm("data/neighbour_n_exp_3_swaps/exp_sim_ann_10_neighbours_3_swaps", SimulatedAnnealing, verbose=True, verbose_alg=True, 
+    #                                              n_neighbours=10, n_swaps_per_neighbour=3, iterations=15)
     # print("Simulated Annealing Summary:", sim_ann_summary)
     # print('Malus per cat', experiment.malus_per_cat)
 
