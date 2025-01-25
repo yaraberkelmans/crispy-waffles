@@ -79,6 +79,7 @@ class Experiment():
             with open(f'{self.output_file_name}_experiment_info.pkl', "wb") as f:
                 pickle.dump(self.indiv_scores, f)
             ### check
+            ### dubbel check
 
         # calculate the average malus points per category
         for cat in self.malus_per_cat.keys():
