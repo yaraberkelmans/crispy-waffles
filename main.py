@@ -11,6 +11,7 @@ from code.algorithms.visuealize_timetable import visualize_timetable
 from code.algorithms.visuealize_timetable import save_timetable_to_html
 from code.algorithms.visuealize_timetable import plot_malus_iter
 from code.algorithms.visuealize_timetable import barplot_malus
+from code.algorithms.visuealize_timetable import barplot_hillclimber_performance
 from code.classes.experiment import Experiment
 from code.algorithms.simulated_annealing import SimulatedAnnealing
 
@@ -127,8 +128,8 @@ if __name__ == "__main__":
     # hillclimber_range = 100
     # for i in range(1):
     #     hill_climber_individual_score_iterations = []
-    #     full_randomized_timetable = randomize(timetable)
-    #     hill_climber = HillClimber(full_randomized_timetable)
+    full_randomized_timetable = randomize(timetable)
+    hill_climber = HillClimber(full_randomized_timetable)
     #     hill_climber_score = hill_climber.run(10, 3, hillclimber_range)
       
         
@@ -253,3 +254,21 @@ if __name__ == "__main__":
     #     print(hc)
     #     print(list(hc.keys()))
     #     plot_malus_iter(list(hc.keys()), list(hc.values()))
+
+
+    # test the barplot_hillclimber_performance function
+    barplot_hillclimber_performance(
+        hillclimber=hill_climber,
+        iterations=50,
+        parameter_values=[6, 7, 10],  
+        parameter_name="swaps",
+        fixed_neighbours=10
+    )
+
+    barplot_hillclimber_performance(
+        hillclimber=hill_climber,
+        iterations=50,
+        parameter_values=[8, 10, 12],  
+        parameter_name="neighbours",
+        fixed_swaps=4
+    )

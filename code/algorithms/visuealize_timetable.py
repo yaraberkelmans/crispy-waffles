@@ -4,6 +4,7 @@ from .malus import check_capacity
 from .malus import check_evening_slot
 from .malus import check_gap_hours
 from .malus import check_individual_conflicts
+from .malus import calculate_malus
 
 # import matplotlib as plt
 def visualize_timetable(timetable_file):
@@ -61,14 +62,6 @@ def plot_malus_iter(iter_list, malus_points_list):
 
 # print(f"Timetable saved as HTML: {output_html_path}")
 
-class Visualize():
-    def __init__(self):
-        pass
-
-    def plot_results(self, scores):
-        iterations = len(scores)
-        plt.plot(scores, iterations)
-
 def barplot_malus(timetable):
     """
     This function creates a barplot showing showing the distribution of malus points across different categories.  
@@ -89,4 +82,86 @@ def barplot_malus(timetable):
     plt.title('Distribution of Malus Points')
     plt.show()
 
+# # Plots all the different values of swaps/neighbours as lines
+# def plot_hillclimber_performance(hillclimber, parameter_values, parameter_name, iterations, fixed_swaps=None, fixed_neighbours=None):
+#     """
+#     This function plots the malus points per iteration for different numbers of swaps and neighbors.
+#     """
+
+#     if parameter_name not in ["swaps", "neighbours"]:
+#         raise ValueError('parameter_name must be swaps or neighbours')
+
+#     results = {}
+
+#     # store results for each parameter value
+#     for parameter_value in parameter_values:
+#         hillclimber.value = calculate_malus(hillclimber.timetable) 
+#         hillclimber.iteration_values = {}  
+
+#         if parameter_name == "swaps":
+#             hillclimber.run(fixed_neighbours, parameter_value, iterations)
+#         elif parameter_name == "neighbours":
+#             hillclimber.run(parameter_value, fixed_swaps, iterations)
+
+#         results[parameter_value] = list(hillclimber.iteration_values.values())
+
+#     # plot the results
+#     plt.figure(figsize=(12, 6))
+#     for parameter_value, malus_values in results.items():
+#         plt.plot(range(len(malus_values)), malus_values, label=f"{parameter_value} {parameter_name}")
+#     plt.title(f"Malus vs. Iterations for Different Numbers of {parameter_name}")
+#     plt.xlabel("Iterations")
+#     plt.ylabel("Malus Points")
+#     plt.legend()
+#     plt.show()
+
+
+def barplot_hillclimber_performance(hillclimber, iterations, parameter_values, parameter_name, fixed_swaps=None, fixed_neighbours=None):
+    """
+    This function creates a barplot of the average total malus points for different numbers of swaps or neighbors.
+    """
+
+    if parameter_name not in ["swaps", "neighbours"]:
+        raise ValueError('parameter_name must be "swaps" or "neighbours"')
+
+    average_results = {}
+
+    # collect results for each parameter value
+    for parameter_value in parameter_values:
+        total_malus = []
+
+        for i in range(iterations):
+            hillclimber.value = calculate_malus(hillclimber.timetable)
+            hillclimber.iteration_values = {} 
+
+            if parameter_name == "swaps":
+                hillclimber.run(fixed_neighbours, parameter_value, iterations)
+            elif parameter_name == "neighbours":
+                hillclimber.run(parameter_value, fixed_swaps, iterations)
+
+            # store the final malus value after all iterations
+            total_malus.append(hillclimber.value)
+
+        # calculate and store the average malus for this parameter value
+        average_results[parameter_value] = sum(total_malus) / len(total_malus)
+
+    
+    labels = []
+    for parameter_value in parameter_values:
+        labels.append(str(parameter_value))
+    values = list(average_results.values())
+    colors = ['red', 'orange', 'yellow', 'green']
+
+    # plot the results
+    plt.figure(figsize=(10, 6))
+    plt.bar(
+        labels,
+        values,
+        color= colors,
+        alpha=0.8
+    )
+    plt.title(f"Average Total Malus Points for Different Numbers of {parameter_name}")
+    plt.xlabel(f"Number of {parameter_name}")
+    plt.ylabel("Average Total Malus Points")
+    plt.show()
 
