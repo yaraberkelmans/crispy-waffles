@@ -249,9 +249,6 @@ class Timetable():
         self.initialize_locations() # turns empty into None
 
 
-
-        
-
 #print(os.getcwd())
 timetable = Timetable()
 timetable.load_courses('data/vakken.csv')

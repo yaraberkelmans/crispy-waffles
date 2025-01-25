@@ -1,8 +1,11 @@
 import copy
-from .randomize import apply_random_swap
-from .malus import calculate_malus
 import random
 import math
+
+from .randomize import apply_random_swap
+from .malus import calculate_malus
+
+
 class HillClimber():
     def __init__(self, timetable):
         self.timetable = timetable
@@ -17,37 +20,6 @@ class HillClimber():
     def mutate_timetable(self, new_timetable, number_of_swaps):
         for i in range(number_of_swaps):
             apply_random_swap(new_timetable)
-
-    def check_solution_1(self, new_timetable):
-        new_value = calculate_malus(new_timetable)
-        old_value = copy.deepcopy(self.value)
-
-        if new_value < old_value:
-            self.timetable = new_timetable
-            self.value = new_value
-            return True
-        # else:
-        #     print(f'Not better')
-
-    def run_1(self, iterations, number_of_swaps):
-        for iteration in range(iterations):
-            print(f'Iteration {iteration}/{iterations} now running, value of timetable malus points is now {self.value}')
-            
-            new_timetable = copy.deepcopy(self.timetable)
-            
-            self.mutate_timetable(new_timetable, number_of_swaps)
-            improved = self.check_solution_1(new_timetable)
-            
-            if improved:
-                self.best_iteration = iteration
-
-            i_since_last_best = iteration - self.best_iteration
-            if i_since_last_best == 500:
-                print(f'{iteration} iterations')
-                self.iterations = iteration
-                return self.value
-        self.iterations = iteration
-        return self.value
 
     def generate_individual_neighbour(self, n_swaps):
         timetable = copy.deepcopy(self.timetable)
@@ -80,11 +52,12 @@ class HillClimber():
             return True
 
 
-    def run(self,  n_neighbours, n_swaps_per_neighbour, iterations):
+    def run(self,  n_neighbours, n_swaps_per_neighbour, iterations, verbose_alg = False):
         self.iterations = iterations
         for iteration in range(iterations):
             neighbours = []
-            print(f'Iteration {iteration}/{iterations} now running, value of timetable malus points is now {self.value}')
+            if verbose_alg:
+                print(f'Iteration {iteration}/{iterations} now running, value of timetable malus points is now {self.value}')
             for i in range(n_neighbours):
                 neighbours.append(self.generate_individual_neighbour(n_swaps_per_neighbour))
             
@@ -113,4 +86,6 @@ class HillClimber():
         
         self.iterations_ran = iteration
         return self.value
+
+
 

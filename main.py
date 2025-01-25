@@ -11,6 +11,7 @@ from code.algorithms.visuealize_timetable import visualize_timetable
 from code.algorithms.visuealize_timetable import save_timetable_to_html
 from code.algorithms.visuealize_timetable import plot_malus_iter
 from code.algorithms.visuealize_timetable import barplot_malus
+from code.algorithms.visuealize_timetable import barplot_hillclimber_performance
 from code.classes.experiment import Experiment
 from code.algorithms.simulated_annealing import SimulatedAnnealing
 
@@ -20,6 +21,7 @@ import sys
 import copy
 import pickle
 if __name__ == "__main__":
+
     # initialize timetable
     timetable = Timetable()
     timetable.load_courses('data/vakken.csv') # adds course obj to timetable
@@ -130,8 +132,8 @@ if __name__ == "__main__":
     # hillclimber_range = 100
     # for i in range(1):
     #     hill_climber_individual_score_iterations = []
-    #     full_randomized_timetable = randomize(timetable)
-    #     hill_climber = HillClimber(full_randomized_timetable)
+    full_randomized_timetable = randomize(timetable)
+    hill_climber = HillClimber(full_randomized_timetable)
     #     hill_climber_score = hill_climber.run(10, 3, hillclimber_range)
       
         
@@ -225,14 +227,16 @@ if __name__ == "__main__":
     # experiment = Experiment(timetable, iterations=100)
 
     # # run Hill Climber
-    # hill_climber_summary = experiment.run_algorithm("data/best_timetable_exptest_12_neighbours.pkl", HillClimber, n_neighbours=12, n_swaps_per_neighbour=3, iterations=15000)
+    # hill_climber_summary = experiment.run_algorithm("data/best_timetable_exptest_12_neighbours.pkl", HillClimber, verbose=True, verbose_alg=True,
+    #                                                   n_neighbours=12, n_swaps_per_neighbour=3, iterations=15000)
     # print("Hill Climber Summary:", hill_climber_summary)
     # print('Malus per cat', experiment.malus_per_cat)
 
     # experiment = Experiment(timetable, iterations=3)
 
-    # run SimAnn
-    # sim_ann_summary = experiment.run_algorithm("data/neighbour_n_exp_3_swaps/exp_sim_ann_10_neighbours_3_swaps", SimulatedAnnealing, n_neighbours=10, n_swaps_per_neighbour=3, iterations=15)
+    # # run SimAnn
+    # sim_ann_summary = experiment.run_algorithm("data/neighbour_n_exp_3_swaps/exp_sim_ann_10_neighbours_3_swaps", SimulatedAnnealing, verbose=True, verbose_alg=True, 
+    #                                              n_neighbours=10, n_swaps_per_neighbour=3, iterations=15)
     # print("Simulated Annealing Summary:", sim_ann_summary)
     # print('Malus per cat', experiment.malus_per_cat)
 
@@ -275,3 +279,21 @@ if __name__ == "__main__":
     #     print(hc)
     #     print(list(hc.keys()))
     #     plot_malus_iter(list(hc.keys()), list(hc.values()))
+
+
+    # test the barplot_hillclimber_performance function
+    barplot_hillclimber_performance(
+        hillclimber=hill_climber,
+        iterations=50,
+        parameter_values=[6, 7, 10],  
+        parameter_name="swaps",
+        fixed_neighbours=10
+    )
+
+    barplot_hillclimber_performance(
+        hillclimber=hill_climber,
+        iterations=50,
+        parameter_values=[8, 10, 12],  
+        parameter_name="neighbours",
+        fixed_swaps=4
+    )

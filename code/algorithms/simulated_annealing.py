@@ -31,33 +31,6 @@ class SimulatedAnnealing(HillClimber):
         """
         self.T = self.T - (self.T0 / self.iterations)
 
-    # def check_solution_1(self, new_timetable):
-    #     """
-    #     Checks and accepts better solutions than the current solution.
-    #     Also sometimes accepts solutions that are worse, depending on the current
-    #     temperature.
-    #     """
-    #     new_value = calculate_malus(new_timetable)
-    #     old_value = self.value
-
-    #     # calculate the probability of accepting this new timetable
-    #     delta = new_value - old_value
-
-    #     # prevent crashing for huge improvements
-    #     if delta < -1:
-    #         delta = -1
-
-    #     # with negative delta, so an improvement, prob is always more than 1, so always larger than random.random()
-    #     probability = math.exp(-delta / self.T)
-
-    #     # pull a random number between 0 and 1 and see if we accept the timetable!
-    #     if random.random() < probability:
-    #         self.timetable = new_timetable
-    #         self.value = new_value
-
-    #     # update the temperature
-    #     self.update_temperature()
-
     def check_solution(self):
         """
         Checks and accepts better solutions than the current solution.
@@ -70,13 +43,19 @@ class SimulatedAnnealing(HillClimber):
         # calculate the probability of accepting this new timetable
         delta = new_value - old_value
 
-        # prevent crashing for huge improvements, eg delta = -1000
-        if delta < -1:
-            delta = -1
-            
-
         # with negative delta, so an improvement, prob is always more than 1, so always larger than random.random()
-        probability = math.exp(-delta / self.T)
+        prob_before_exp = -delta / self.T
+
+        # cap to prevent math range error
+        if prob_before_exp > 1:
+            prob_before_exp = 1
+
+        # cap to prevent math range error, -709 is the minimum value my calculater was still able to give a result
+        if prob_before_exp < -709:
+            prob_before_exp = -709
+
+        
+        probability = math.exp(prob_before_exp)
 
         # update the temperature
         self.update_temperature()
