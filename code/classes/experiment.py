@@ -15,11 +15,14 @@ class Experiment():
         self.timetable = timetable
         self.iterations = iterations
         self.results = []
+        self.indiv_scores = []
+
+        # initialize with none and inf to be sure the first timetable always overwrites the variables
         self.best_timetable = None
         self.best_score = float('inf')
-        self.indiv_scores = []
+        
     
-    def run_algorithm(self, output_file_name, algorithm_class, **algorithm_params):
+    def run_algorithm(self, output_file_name, algorithm_class, verbose = False, **algorithm_params):
         """
         This method runs a given algorithm for a number of iterations in experiment. Parameters are:
         output_file name: A name for the pickle file where the best timetable is stored in
@@ -29,6 +32,11 @@ class Experiment():
         self.results = []  
         self.malus_per_cat = {'capacity': 0, 'evening':  0, 'indiv_confl': 0, 'gap_hours': 0}
         self.output_file_name = output_file_name
+
+        """
+        format for saving files
+        """
+        
         for iter in range(self.iterations):
 
             # create a randomized starting timetable before running the algorithm
@@ -36,6 +44,7 @@ class Experiment():
             algorithm = algorithm_class(randomized_timetable)
             score = algorithm.run(**algorithm_params)
 
+            ## add a dictionary to the list with malus points per iteration for each algorithm run
             self.indiv_scores.append(algorithm.iteration_values)
 
             # save the result for this iteration
@@ -50,18 +59,23 @@ class Experiment():
                 # save the best timetable to a file
                 with open(f'{output_file_name}_best_timetable.pkl', "wb") as f:
                     pickle.dump(self.best_timetable, f)
-                print(f"New best timetable saved at score {score}")
+                if verbose:
+                    print(f"New best timetable saved at score {score}")
             
+            # calculate the malus points per category for this timetable and add to the total dictionary
             self.malus_per_cat['capacity'] += check_capacity(algorithm.timetable)
             self.malus_per_cat['evening'] += check_evening_slot(algorithm.timetable)
             self.malus_per_cat['indiv_confl'] += check_individual_conflicts(algorithm.timetable)
             self.malus_per_cat['gap_hours'] += check_gap_hours(algorithm.timetable)
 
+            # be sure to save all timetables for analyzing
             with open(f'{output_file_name}_all_timetables.pkl', "ab") as f:
                 pickle.dump(self.best_timetable, f)
-            print(f"Timetable saved at score {score}")
-            print(f"Iteration {iter}: Score = {score}")
+            if verbose:
+                print(f"Timetable saved at score {score}")
+                print(f"Iteration {iter}: Score = {score}")
 
+        # calculate the average malus points per category
         for cat in self.malus_per_cat.keys():
             self.malus_per_cat[cat] = self.malus_per_cat.get(cat) / self.iterations
 
@@ -71,6 +85,7 @@ class Experiment():
                     "average_score": sum(scores) / len(scores),
                     "all_scores": scores}
         self.export_results()
+
         return summary
 
 
