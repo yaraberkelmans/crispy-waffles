@@ -51,25 +51,38 @@ def check_individual_conflicts(timetable, malus=1):
     If there is an overlap, malus points will be added. It returns the total number of malus points.
     """
     total_points = 0
+    timetable.conflict_students = []
     for student in timetable.full_student_list:
         
         # count the number of times a student has activities in overlapping timeslots 
         timeslot_counts = {}
+
+        # keeps track of which activities cause conflict
+        conflict_dict = {}
+
         for course in student.pers_activities.keys():
             for activity in student.pers_activities[course]:
                 timeslot = activity.timeslot
                 if timeslot not in timeslot_counts:
                     timeslot_counts[timeslot] = 1
+                    conflict_dict[timeslot] = [activity]
                 else: 
                     timeslot_counts[timeslot] += 1
+                    conflict_dict[timeslot].append(activity)
 
-        for count in timeslot_counts.values():
+        student.conflict_points = 0
+        student.conflict_activities = {}
+        
+        for timeslot, count in timeslot_counts.items():
             if count > 1:
                 individual_points = malus * (count - 1)
                 total_points += individual_points
 
+                # track conflicting activities
+                student.conflict_activities[timeslot] = conflict_dict[timeslot]
+
                 # keep track of students with conflict for queue
-                student.conflict_points = individual_points
+                student.conflict_points += individual_points
                 timetable.conflict_students.append(student)
     # print(f'total points for individual conflicts is {total_points}')
     return total_points
