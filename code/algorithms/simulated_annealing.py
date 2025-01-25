@@ -50,7 +50,7 @@ class SimulatedAnnealing(HillClimber):
         if prob_before_exp > 1:
             prob_before_exp = 1
 
-        # cap to prevent math range error, t-709 is the minimum value my calculater was still able to give a result
+        # cap to prevent math range error, -709 is the minimum value my calculater was still able to give a result
         if prob_before_exp < -709:
             prob_before_exp = -709
 
