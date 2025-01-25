@@ -64,7 +64,7 @@ class Course():
     
     def remove_student(self, student):
         """
-        This method removes an individual student from the students lis of the course.
+        This method removes an individual student from the students list of the course.
         """
         pass
 
@@ -95,7 +95,7 @@ class Course():
 
 class Tutorial():
     """
-    This class epresents a tutorial group within a course.
+    This class represents a tutorial group within a course.
     """
     def __init__(self, course, tutorial_cap, initial_capacity, name):
         self.course = course  
