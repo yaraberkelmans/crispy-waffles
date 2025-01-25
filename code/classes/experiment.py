@@ -24,7 +24,7 @@ class Experiment():
         """
         self.results = []  
         self.malus_per_cat = {'capacity': 0, 'evening':  0, 'indiv_confl': 0, 'gap_hours': 0}
-
+        self.output_file_name = output_file_name
         for iter in range(self.iterations):
 
             # create a randomized starting timetable before running the algorithm
@@ -44,7 +44,7 @@ class Experiment():
 
 
                 # save the best timetable to a file
-                with open(output_file_name, "wb") as f:
+                with open(f'{output_file_name}_best_timetable.pkl', "wb") as f:
                     pickle.dump(self.best_timetable, f)
                 print(f"New best timetable saved at score {score}")
             
@@ -53,6 +53,9 @@ class Experiment():
             self.malus_per_cat['indiv_confl'] += check_individual_conflicts(algorithm.timetable)
             self.malus_per_cat['gap_hours'] += check_gap_hours(algorithm.timetable)
 
+            with open(f'{output_file_name}_all_timetables.pkl', "ab") as f:
+                pickle.dump(self.best_timetable, f)
+            print(f"Timetable saved at score {score}")
             print(f"Iteration {iter}: Score = {score}")
 
         for cat in self.malus_per_cat.keys():
@@ -63,13 +66,13 @@ class Experiment():
         summary = {"best_score": self.best_score,
                     "average_score": sum(scores) / len(scores),
                     "all_scores": scores}
-
+        self.export_results()
         return summary
 
 
 
     def export_results(self):
-        with open ('Results.csv', "a", newline='') as f:
+        with open (f'{self.output_file_name}_Results.csv', "a", newline='') as f:
             writer = csv.writer(f)
 
             writer.writerow(self.results)
