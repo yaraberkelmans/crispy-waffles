@@ -235,7 +235,7 @@ if __name__ == "__main__":
     experiment = Experiment(timetable, iterations=2)
 
     # # # run SimAnn
-    sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, "data/neighbour_n_exp_3_swaps/", verbose=True, verbose_alg=True, 
+    sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, verbose=True, verbose_alg=True, 
                                                  n_neighbours=10, n_swaps_per_neighbour=3, iterations=10)
     print("Simulated Annealing Summary:", sim_ann_summary)
     print('Malus per cat', experiment.malus_per_cat)
