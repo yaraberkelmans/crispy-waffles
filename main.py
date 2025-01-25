@@ -132,8 +132,7 @@ if __name__ == "__main__":
     # hillclimber_range = 100
     # for i in range(1):
     #     hill_climber_individual_score_iterations = []
-    full_randomized_timetable = randomize(timetable)
-    hill_climber = HillClimber(full_randomized_timetable)
+    # 
     #     hill_climber_score = hill_climber.run(10, 3, hillclimber_range)
       
         
@@ -232,11 +231,11 @@ if __name__ == "__main__":
     # print("Hill Climber Summary:", hill_climber_summary)
     # print('Malus per cat', experiment.malus_per_cat)
 
-    # experiment = Experiment(timetable, iterations=3)
+    # experiment = Experiment(timetable, iterations=5)
 
-    # # run SimAnn
-    # sim_ann_summary = experiment.run_algorithm("data/neighbour_n_exp_3_swaps/exp_sim_ann_10_neighbours_3_swaps", SimulatedAnnealing, verbose=True, verbose_alg=True, 
-    #                                              n_neighbours=10, n_swaps_per_neighbour=3, iterations=15)
+    # # # run SimAnn
+    # sim_ann_summary = experiment.run_algorithm("data/switch_conflict_students_test_tables/sim_ann_10_neigh_3_swap_6", SimulatedAnnealing, verbose=True, verbose_alg=True, 
+    #                                              n_neighbours=10, n_swaps_per_neighbour=3, iterations=15000)
     # print("Simulated Annealing Summary:", sim_ann_summary)
     # print('Malus per cat', experiment.malus_per_cat)
 
@@ -251,20 +250,20 @@ if __name__ == "__main__":
 
     # calculate_malus(stored_timetables[1], verbose=True)
 
-    with open('data/best_timetable_exp_sim_ann_1.pkl', 'rb') as f:
+    with open('data/switch_conflict_students_test_tables/sim_ann_10_neigh_3_swap_best_timetable.pkl', 'rb') as f:
         stored_timetable = pickle.load(f)
 
     
     calculate_malus(stored_timetable, verbose=True)
-    print(stored_timetable.conflict_students)
-    for student in stored_timetable.conflict_students:
-        print(f'\nStudent: {student} has the following conflicts: \n')
-        for timeslot in student.conflict_activities.keys():
-            print(f'Timeslot {timeslot} has the following conflicting acitvities:')
-            for activity in student.conflict_activities[timeslot]:
-                print(activity, activity.timeslot)
+    # print(stored_timetable.conflict_students)
+    # for student in stored_timetable.conflict_students:
+    #     print(f'\nStudent: {student} has the following conflicts: \n')
+    #     for timeslot in student.conflict_activities.keys():
+    #         print(f'Timeslot {timeslot} has the following conflicting acitvities:')
+    #         for activity in student.conflict_activities[timeslot]:
+    #             print(activity, activity.timeslot)
 
-    # switch_conflict_student(stored_timetable)
+    switch_conflict_student(stored_timetable)
 
     # extract malus points and iterations using a loop
     # algorithm_malus_points = []

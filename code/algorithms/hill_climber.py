@@ -75,6 +75,9 @@ class HillClimber():
 
             i_since_last_best = iteration - self.best_iteration
             
+            if iteration > 1000 and self.value > 1000:
+                return self.value
+
             if i_since_last_best == 1000:
                 print(f'{iteration} iterations')
                 self.iterations_ran = iteration

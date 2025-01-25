@@ -127,15 +127,15 @@ def random_students_swap(timetable):
         random_student_1 = random.choice(random_activity_1.student_list)
         random_student_2 = random.choice(random_activity_2.student_list)
 
-        print(f'The chosen activity type is {random_activity_type} and the chosen activities are {random_activity_1} and {random_activity_2}')
-        print(f'The chosen students are {random_student_1} from {random_activity_1} and {random_student_2} from {random_activity_2}')
-        print(f'Student list check for activity 1: {random_activity_1.student_list}')
-        print(f'Student list check for activity 2: {random_activity_2.student_list}')
+        # print(f'The chosen activity type is {random_activity_type} and the chosen activities are {random_activity_1} and {random_activity_2}')
+        # print(f'The chosen students are {random_student_1} from {random_activity_1} and {random_student_2} from {random_activity_2}')
+        # print(f'Student list check for activity 1: {random_activity_1.student_list}')
+        # print(f'Student list check for activity 2: {random_activity_2.student_list}')
 
         timetable.switch_students(random_student_1, random_student_2, random_activity_1, random_activity_2)
 
-        if random_student_1 in random_activity_2.student_list and random_student_2 in random_activity_1.student_list:
-            print(f'{random_student_1} is now in {random_activity_2} and {random_student_2} is now in {random_activity_1}')
+        # if random_student_1 in random_activity_2.student_list and random_student_2 in random_activity_1.student_list:
+        #     print(f'{random_student_1} is now in {random_activity_2} and {random_student_2} is now in {random_activity_1}')
 
         return timetable
 
@@ -147,13 +147,13 @@ def random_activities_swap(timetable):
     while random_activity_1 == random_activity_2:
         random_activity_2 = random.choice(timetable.activity_list)
     
-    print(f'The chosen activities and their information are {random_activity_1} Old timeslot: {random_activity_1.timeslot}, Old location{random_activity_1.location}')
-    print(f'and {random_activity_2}, Old timeslot: {random_activity_2.timeslot}, Old location{random_activity_2.location}')
+    # print(f'The chosen activities and their information are {random_activity_1} Old timeslot: {random_activity_1.timeslot}, Old location{random_activity_1.location}')
+    # print(f'and {random_activity_2}, Old timeslot: {random_activity_2.timeslot}, Old location{random_activity_2.location}')
     
     timetable.switch_activities_in_timetable(random_activity_1, random_activity_2)
     
-    print(f'The new location for {random_activity_1} is {random_activity_1.location} and the new timeslot is {random_activity_1.timeslot}')
-    print(f'The new location for {random_activity_2} is {random_activity_2.location} and the new timeslot is {random_activity_2.timeslot}')
+    # print(f'The new location for {random_activity_1} is {random_activity_1.location} and the new timeslot is {random_activity_1.timeslot}')
+    # print(f'The new location for {random_activity_2} is {random_activity_2.location} and the new timeslot is {random_activity_2.timeslot}')
     return timetable
 
 def random_activity_location_swap(timetable):
@@ -166,9 +166,9 @@ def random_activity_location_swap(timetable):
     # capacities are smaller then length activity student list
     while random_location.capacity < len(random_activity.student_list):
         random_activity = random.choice(timetable.activity_list)
-    print(f'Random activity chosen {random_activity}, old location: {random_activity.location} old timeslot: {random_activity.timeslot}')
+    # print(f'Random activity chosen {random_activity}, old location: {random_activity.location} old timeslot: {random_activity.timeslot}')
     timetable.switch_activity_in_timetable(random_activity, random_timeslot, random_location)
-    print(f'Random activity chosen {random_activity}, new location: {random_activity.location} new timeslot: {random_activity.timeslot}')
+    # print(f'Random activity chosen {random_activity}, new location: {random_activity.location} new timeslot: {random_activity.timeslot}')
 
     return timetable
 
@@ -176,7 +176,7 @@ def switch_conflict_student(timetable):
     
     # make sure to stop after 10 attempts if all conflict students only have lectures 
     # or for every student every other group for conflict activity type is full
-    for i in range(10):
+    for i in range(20):
         random_conflict_student = random.choice(timetable.conflict_students)
         print(f'Chosen student is {random_conflict_student}')
 
@@ -185,6 +185,11 @@ def switch_conflict_student(timetable):
 
         conflict_activity_list = random_conflict_student.conflict_activities[random_conflict_timeslot]
         random_conflict_activity = random.choice(conflict_activity_list)
+        print(random_conflict_student, random_conflict_activity, random_conflict_student.conflict_activities)
+        
+        # try the other activity if lecture is chosen
+        if random_conflict_activity.activity_type == 'Lecture':
+            random_conflict_activity = random.choice(conflict_activity_list)
 
         if random_conflict_activity.activity_type == 'Lecture':
             continue
@@ -217,7 +222,7 @@ def switch_conflict_student(timetable):
         print(random_conflict_activity.student_list)
 
         timetable.swap_student_activity(random_conflict_student, random_conflict_activity, random_new_group)
-        
+
         print(f'\nSwitched {random_conflict_student} from {random_conflict_activity} to {random_new_group} \n')
         print(f'----------Student list for {random_new_group}-----------')
         print(random_new_group.student_list)
@@ -231,15 +236,15 @@ def apply_random_swap(timetable):
     random_function = random_swap(timetable)
     
     if random_function == timetable.switch_students:
-        print(f'Random function is {random_function}')
+        # print(f'Random function is {random_function}')
         swapped_timetable = random_students_swap(timetable)
 
     if random_function == timetable.switch_activities_in_timetable:
-        print(f'Random function is {random_function}')
+        # print(f'Random function is {random_function}')
         swapped_timetable = random_activities_swap(timetable)
     
     if random_function == timetable.switch_activity_in_timetable:
-        print(f'The random function is {random_function}')
+        # print(f'The random function is {random_function}')
         swapped_timetable = random_activity_location_swap(timetable)
 
     return swapped_timetable
