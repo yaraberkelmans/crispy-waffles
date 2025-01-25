@@ -219,19 +219,24 @@ if __name__ == "__main__":
 
 
 
-    experiment = Experiment(timetable, iterations=2)
-
-    # run Hill Climber
-    hill_climber_summary = experiment.run_algorithm("data/best_timetable_exptest5.pkl", HillClimber, n_neighbours=10, n_swaps_per_neighbour=3, iterations=100)
-    print("Hill Climber Summary:", hill_climber_summary)
-    print('Malus per cat', experiment.malus_per_cat)
-
     # experiment = Experiment(timetable, iterations=2)
 
+    # # run Hill Climber
+    # hill_climber_summary = experiment.run_algorithm("data/best_timetable_exptest5.pkl", HillClimber, n_neighbours=10, n_swaps_per_neighbour=3, iterations=100)
+    # print("Hill Climber Summary:", hill_climber_summary)
+    # print('Malus per cat', experiment.malus_per_cat)
+
+    # experiment = Experiment(timetable, iterations=50)
+
     # # run SimAnn
-    # sim_ann_summary = experiment.run_algorithm("data/best_timetable_exp_sim_ann_1.pkl", SimulatedAnnealing, n_neighbours=10, n_swaps_per_neighbour=3, iterations=500)
+    # sim_ann_summary = experiment.run_algorithm("data/best_timetable_exp_sim_ann_2.pkl", SimulatedAnnealing, n_neighbours=10, n_swaps_per_neighbour=3, iterations=15000)
     # print("Simulated Annealing Summary:", sim_ann_summary)
     # print('Malus per cat', experiment.malus_per_cat)
+
+    with open("data/best_timetable_exp_sim_ann_1.pkl", "rb") as f:
+        stored_timetable = pickle.load(f)
+    
+    calculate_malus(stored_timetable, verbose=True)
 
     # extract malus points and iterations using a loop
     # algorithm_malus_points = []
@@ -243,8 +248,8 @@ if __name__ == "__main__":
     #     iterations.append([])
     #     algorithm_malus_points.append(result)
 
-    print(experiment.indiv_scores)
-    for hc in experiment.indiv_scores:
-        print(hc)
-        print(list(hc.keys()))
-        plot_malus_iter(list(hc.keys()), list(hc.values()))
+    # print(experiment.indiv_scores)
+    # for hc in experiment.indiv_scores:
+    #     print(hc)
+    #     print(list(hc.keys()))
+    #     plot_malus_iter(list(hc.keys()), list(hc.values()))
