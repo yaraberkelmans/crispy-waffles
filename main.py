@@ -30,18 +30,16 @@ if __name__ == "__main__":
     timetable.initialize_locations() # turns empty into None
     # timetable.generate_initial_timetable()
 
-    # N=10
-    # malus_points_list = []
-    # iter_list= list(range(1, N + 1))
-    # for exp in range(N):
-    #     print("Iteration")
-    #     full_randomized_timetable = randomize(timetable)
-    #     print("Iteration 2")
-    #     malus_points = calculate_malus(full_randomized_timetable)
-    #     print("Iteration 3")
-    #     malus_points_list.append(malus_points)
+    N=100
+    malus_points_list = []
+    iter_list= list(range(1, N + 1))
+    for exp in range(N):
+        full_randomized_timetable = randomize(timetable)
+        malus_points = calculate_malus(full_randomized_timetable)
+        malus_points_list.append(malus_points)
     
     # plot_malus_iter(iter_list, malus_points_list)
+    malus_per_experiment_step(malus_points_list)
     
     # for timeslot, rooms in full_randomized_timetable.timetable.items():
     #     for room, activity in rooms.items():
