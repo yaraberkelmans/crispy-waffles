@@ -7,11 +7,7 @@ from code.algorithms.randomize import randomize
 from code.algorithms.randomize import *
 from code.algorithms.malus import calculate_malus
 from code.algorithms.hill_climber import HillClimber
-from code.algorithms.visuealize_timetable import visualize_timetable
-from code.algorithms.visuealize_timetable import save_timetable_to_html
-from code.algorithms.visuealize_timetable import plot_malus_iter
-from code.algorithms.visuealize_timetable import barplot_malus
-from code.algorithms.visuealize_timetable import barplot_hillclimber_performance
+from code.algorithms.visuealize_timetable import *
 from code.classes.experiment import Experiment
 from code.algorithms.simulated_annealing import SimulatedAnnealing
 
@@ -232,13 +228,13 @@ if __name__ == "__main__":
     # print("Hill Climber Summary:", hill_climber_summary)
     # print('Malus per cat', experiment.malus_per_cat)
 
-    experiment = Experiment(timetable, iterations=2)
+    # experiment = Experiment(timetable, iterations=30)
 
-    # # # run SimAnn
-    sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, "data/swap_per_neighbour_experiments/", verbose=True, verbose_alg=True, 
-                                                 n_neighbours=10, n_swaps_per_neighbour=3, iterations=10)
-    print("Simulated Annealing Summary:", sim_ann_summary)
-    print('Malus per cat', experiment.malus_per_cat)
+    # # # # run SimAnn
+    # sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, "data/swap_per_neighbour_experiments/", verbose=True, verbose_alg=False, 
+    #                                              n_neighbours=10, n_swaps_per_neighbour=5, iterations=20000)
+    # print("Simulated Annealing Summary:", sim_ann_summary)
+    # print('Malus per cat', experiment.malus_per_cat)
 
     # stored_timetables = []
     # with open("data/neighbour_n_exp_3_swaps/exp_sim_ann_10_neighbours_3_swaps_all_timetables.pkl", "rb") as f:
@@ -251,11 +247,30 @@ if __name__ == "__main__":
 
     # calculate_malus(stored_timetables[1], verbose=True)
 
-    # with open('data/switch_conflict_students_test_tables/sim_ann_10_neigh_3_swap_best_timetable.pkl', 'rb') as f:
-    #     stored_timetable = pickle.load(f)
+    # calculate malus points and distribution for best timetable
+    with open('data/swap_per_neighbour_experiments/SimulatedAnnealing_n_neighbours_10_n_swaps_per_neighbour_2_iterations_20000__best_timetable.pkl', 'rb') as f:
+        stored_timetable = pickle.load(f)
+    calculate_malus(stored_timetable, verbose=True)
 
+    # plot the malus points per iteration for each experiment iteration
+    with open('data/swap_per_neighbour_experiments/SimulatedAnnealing_n_neighbours_10_n_swaps_per_neighbour_2_iterations_20000__experiment_info.pkl', 'rb') as f:
+        stored_experiment_scores = pickle.load(f)
     
-    # calculate_malus(stored_timetable, verbose=True)
+    for alg in stored_experiment_scores:
+        plot_malus_iter(list(alg.keys()), list(alg.values()))
+
+    # plot the end maluspoints for each iteration to get a distribution (all_timetables is not working yet)
+    with open('data/swap_per_neighbour_experiments/SimulatedAnnealing_n_neighbours_10_n_swaps_per_neighbour_2_iterations_20000__all_timetables.pkl', 'rb') as f:
+        all_stored_timetables = pickle.load(f)
+    
+    
+    
+    malus_per_timetable = []
+    for alg in stored_experiment_scores:
+        min_malus_points = min(list(alg.values()))
+        malus_per_timetable.append(min_malus_points)
+    
+    malus_per_experiment_step(malus_per_timetable)
     # print(stored_timetable.conflict_students)
     # for student in stored_timetable.conflict_students:
     #     print(f'\nStudent: {student} has the following conflicts: \n')
@@ -277,10 +292,7 @@ if __name__ == "__main__":
     #     algorithm_malus_points.append(result)
 
     # print(experiment.indiv_scores)
-    # for hc in experiment.indiv_scores:
-    #     print(hc)
-    #     print(list(hc.keys()))
-    #     plot_malus_iter(list(hc.keys()), list(hc.values()))
+    
 
 
     # test the barplot_hillclimber_performance function
