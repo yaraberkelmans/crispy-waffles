@@ -110,7 +110,7 @@ def random_swap(timetable):
 
         # give 60% chance to pick switch conflict student
         if random.random() > 0.4:
-            random_swap_function = timetable.switch_conflict_student
+            random_swap_function = switch_conflict_student
             return random_swap_function
     
     # choose a random swap
