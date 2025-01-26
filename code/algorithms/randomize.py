@@ -117,7 +117,7 @@ def random_swap(timetable):
     random_swap_function = random.choice([timetable.switch_students, 
                                           timetable.switch_activities_in_timetable, 
                                           timetable.switch_activity_in_timetable, 
-                                          timetable.switch_conflict_student])
+                                          switch_conflict_student])
     
     return random_swap_function
 
@@ -223,14 +223,14 @@ def switch_conflict_student(timetable):
     # or for every student every other group for conflict activity type is full
     for i in range(20):
         random_conflict_student = random.choice(timetable.conflict_students)
-        print(f'Chosen student is {random_conflict_student}')
+        # print(f'Chosen student is {random_conflict_student}')
 
         random_conflict_timeslot = random.choice(list(random_conflict_student.conflict_activities.keys()))
-        print(f'Chosen timeslot is {random_conflict_timeslot}')
+        # print(f'Chosen timeslot is {random_conflict_timeslot}')
 
         conflict_activity_list = random_conflict_student.conflict_activities[random_conflict_timeslot]
         random_conflict_activity = random.choice(conflict_activity_list)
-        print(random_conflict_student, random_conflict_activity, random_conflict_student.conflict_activities)
+        # print(random_conflict_student, random_conflict_activity, random_conflict_student.conflict_activities)
         
         # try the other activity if lecture is chosen
         # if random_conflict_activity.activity_type == 'Lecture':
@@ -262,19 +262,19 @@ def switch_conflict_student(timetable):
         if random_conflict_activity == random_new_group or len(random_new_group.student_list) >= random_new_group.capacity:
             continue
         
-        print(f'\nSwitch {random_conflict_student} from {random_conflict_activity} to {random_new_group} \n')
-        print(f'----------Student list for {random_new_group}-----------')
-        print(random_new_group.student_list)
-        print(f'----------Student list for {random_conflict_activity}-----------')
-        print(random_conflict_activity.student_list)
+        # print(f'\nSwitch {random_conflict_student} from {random_conflict_activity} to {random_new_group} \n')
+        # print(f'----------Student list for {random_new_group}-----------')
+        # print(random_new_group.student_list)
+        # print(f'----------Student list for {random_conflict_activity}-----------')
+        # print(random_conflict_activity.student_list)
 
         timetable.swap_student_activity(random_conflict_student, random_conflict_activity, random_new_group)
 
-        print(f'\nSwitched {random_conflict_student} from {random_conflict_activity} to {random_new_group} \n')
-        print(f'----------Student list for {random_new_group}-----------')
-        print(random_new_group.student_list)
-        print(f'----------Student list for {random_conflict_activity}-----------')
-        print(random_conflict_activity.student_list)
+        # print(f'\nSwitched {random_conflict_student} from {random_conflict_activity} to {random_new_group} \n')
+        # print(f'----------Student list for {random_new_group}-----------')
+        # print(random_new_group.student_list)
+        # print(f'----------Student list for {random_conflict_activity}-----------')
+        # print(random_conflict_activity.student_list)
 
         return timetable
     return timetable
@@ -297,9 +297,9 @@ def apply_random_swap(timetable):
         # print(f'The random function is {random_function}')
         swapped_timetable = random_activity_location_swap(timetable)
 
-    if random_function == timetable.switch_conflict_student:
+    if random_function == switch_conflict_student:
 
-        swapped_timetable = timetable.switch_conflict_student(timetable)
+        swapped_timetable = switch_conflict_student(timetable)
 
     return swapped_timetable
 

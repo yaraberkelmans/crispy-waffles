@@ -30,15 +30,15 @@ if __name__ == "__main__":
     timetable.initialize_locations() # turns empty into None
     # timetable.generate_initial_timetable()
 
-    N=10000
-    malus_points_list = []
-    iter_list= list(range(1, N + 1))
-    for exp in range(N):
-        full_randomized_timetable = randomize(timetable)
-        malus_points = calculate_malus(full_randomized_timetable)
-        malus_points_list.append(malus_points)
+    # N=10000
+    # malus_points_list = []
+    # iter_list= list(range(1, N + 1))
+    # for exp in range(N):
+    #     full_randomized_timetable = randomize(timetable)
+    #     malus_points = calculate_malus(full_randomized_timetable)
+    #     malus_points_list.append(malus_points)
     
-    plot_malus_histogram(malus_points_list)
+    # plot_malus_histogram(malus_points_list)
     
     # for timeslot, rooms in full_randomized_timetable.timetable.items():
     #     for room, activity in rooms.items():
@@ -225,22 +225,22 @@ if __name__ == "__main__":
     # print("Hill Climber Summary:", hill_climber_summary)
     # print('Malus per cat', experiment.malus_per_cat)
 
-    # experiment = Experiment(timetable, iterations=50)
+    experiment = Experiment(timetable, iterations=3)
 
     # # # run SimAnn
-    sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, "data/swap_per_neighbour_experiments/", verbose=True, verbose_alg=True, 
-                                                 n_neighbours=10, n_swaps_per_neighbour=3, iterations=10)
+    sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing,'data/conflict_test/', verbose=True, verbose_alg=True, 
+                                                 n_neighbours=8, n_swaps_per_neighbour=3, iterations=10)
     print("Simulated Annealing Summary:", sim_ann_summary)
     print('Malus per cat', experiment.malus_per_cat)
 
-    stored_timetables = []
-    with open("data/neighbour_n_exp_3_swaps/HillClimber_n_neighbours_8_n_swaps_per_neighbour_3_iterations_20000__all_timetables.pkl", "rb") as f:
-        while True:
-            try:
-                timetable_obj = pickle.load(f)
-                stored_timetables.append(timetable_obj)
-            except EOFError:
-                break
+    # stored_timetables = []
+    # with open("data/neighbour_n_exp_3_swaps/HillClimber_n_neighbours_8_n_swaps_per_neighbour_3_iterations_20000__all_timetables.pkl", "rb") as f:
+    #     while True:
+    #         try:
+    #             timetable_obj = pickle.load(f)
+    #             stored_timetables.append(timetable_obj)
+    #         except EOFError:
+    #             break
 
     # calculate_malus(stored_timetables[1], verbose=True)
 
