@@ -59,6 +59,24 @@ def plot_malus_iter(iter_list, malus_points_list, title='Malus points per iterat
     plt.legend()
     plt.show()
 
+def plot_malus_histogram(malus_points_list, bins=20, title='Histogram of Malus Points'):
+    """
+    This function creates a histogram of malus points to visualize their distribution.
+    """
+
+    average_malus = sum(malus_points_list) / len(malus_points_list)
+    min_malus = min(malus_points_list)
+
+    # plot histogram
+    plt.hist(malus_points_list, bins=bins, color='blue', edgecolor='black')
+    plt.axvline(average_malus, color='red', linestyle='--', label=f'Average = {round(average_malus)}')
+    plt.axvline(min_malus, color='green', linestyle='-', label=f'Minimum = {round(min_malus)}')
+    plt.title(title)
+    plt.xlabel('Malus Points')
+    plt.ylabel('Frequency')
+    plt.legend()
+    plt.show()
+
 # timetable_file = 'Timetable_pres.csv'
 # pivot_table = visualize_timetable(timetable_file)
 
