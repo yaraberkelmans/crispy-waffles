@@ -7,11 +7,7 @@ from code.algorithms.randomize import randomize
 from code.algorithms.randomize import *
 from code.algorithms.malus import calculate_malus
 from code.algorithms.hill_climber import HillClimber
-from code.algorithms.visuealize_timetable import visualize_timetable
-from code.algorithms.visuealize_timetable import save_timetable_to_html
-from code.algorithms.visuealize_timetable import plot_malus_iter
-from code.algorithms.visuealize_timetable import barplot_malus
-from code.algorithms.visuealize_timetable import barplot_hillclimber_performance
+from code.algorithms.visuealize_timetable import *
 from code.classes.experiment import Experiment
 from code.algorithms.simulated_annealing import SimulatedAnnealing
 
@@ -34,18 +30,15 @@ if __name__ == "__main__":
     timetable.initialize_locations() # turns empty into None
     # timetable.generate_initial_timetable()
 
-    # N=10
-    # malus_points_list = []
-    # iter_list= list(range(1, N + 1))
-    # for exp in range(N):
-    #     print("Iteration")
-    #     full_randomized_timetable = randomize(timetable)
-    #     print("Iteration 2")
-    #     malus_points = calculate_malus(full_randomized_timetable)
-    #     print("Iteration 3")
-    #     malus_points_list.append(malus_points)
+    N=10000
+    malus_points_list = []
+    iter_list= list(range(1, N + 1))
+    for exp in range(N):
+        full_randomized_timetable = randomize(timetable)
+        malus_points = calculate_malus(full_randomized_timetable)
+        malus_points_list.append(malus_points)
     
-    # plot_malus_iter(iter_list, malus_points_list)
+    plot_malus_histogram(malus_points_list)
     
     # for timeslot, rooms in full_randomized_timetable.timetable.items():
     #     for room, activity in rooms.items():
@@ -234,11 +227,11 @@ if __name__ == "__main__":
 
     # experiment = Experiment(timetable, iterations=50)
 
-    # # # # run SimAnn
-    # sim_ann_summary = experiment.run_algorithm(HillClimber, 'data/neighbour_n_exp_3_swaps/', verbose=True, verbose_alg=True, 
-    #                                              n_neighbours=14, n_swaps_per_neighbour=3, iterations=20000)
-    # print("Simulated Annealing Summary:", sim_ann_summary)
-    # print('Malus per cat', experiment.malus_per_cat)
+    # # # run SimAnn
+    sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, "data/swap_per_neighbour_experiments/", verbose=True, verbose_alg=True, 
+                                                 n_neighbours=10, n_swaps_per_neighbour=3, iterations=10)
+    print("Simulated Annealing Summary:", sim_ann_summary)
+    print('Malus per cat', experiment.malus_per_cat)
 
     stored_timetables = []
     with open("data/neighbour_n_exp_3_swaps/HillClimber_n_neighbours_8_n_swaps_per_neighbour_3_iterations_20000__all_timetables.pkl", "rb") as f:
@@ -249,16 +242,31 @@ if __name__ == "__main__":
             except EOFError:
                 break
 
-    calculate_malus(stored_timetables[1], verbose=True)
-    count = 0
-    for timetable in stored_timetables:
-        count+=1
-    print(count)
-    # with open('data/neighbour_n_exp_3_swaps/SimulatedAnnealing_n_neighbours_8_n_swaps_per_neighbour_3_iterations_20000__best_timetable.pkl', 'rb') as f:
-    #     stored_timetable = pickle.load(f)
+    # calculate_malus(stored_timetables[1], verbose=True)
 
-    
+    # with open('data/switch_conflict_students_test_tables/sim_ann_10_neigh_3_swap_best_timetable.pkl', 'rb') as f:
+    #     stored_timetable = pickle.load(f)
     # calculate_malus(stored_timetable, verbose=True)
+
+    # # plot the malus points per iteration for each experiment iteration
+    # with open('data/swap_per_neighbour_experiments/SimulatedAnnealing_n_neighbours_10_n_swaps_per_neighbour_2_iterations_20000__experiment_info.pkl', 'rb') as f:
+    #     stored_experiment_scores = pickle.load(f)
+    
+    # for alg in stored_experiment_scores:
+    #     plot_malus_iter(list(alg.keys()), list(alg.values()))
+
+    # # plot the end maluspoints for each iteration to get a distribution (all_timetables is not working yet)
+    # with open('data/swap_per_neighbour_experiments/SimulatedAnnealing_n_neighbours_10_n_swaps_per_neighbour_2_iterations_20000__all_timetables.pkl', 'rb') as f:
+    #     all_stored_timetables = pickle.load(f)
+    
+    
+    
+    # malus_per_timetable = []
+    # for alg in stored_experiment_scores:
+    #     min_malus_points = min(list(alg.values()))
+    #     malus_per_timetable.append(min_malus_points)
+    
+    # malus_per_experiment_step(malus_per_timetable)
     # print(stored_timetable.conflict_students)
     # for student in stored_timetable.conflict_students:
     #     print(f'\nStudent: {student} has the following conflicts: \n')
@@ -292,10 +300,7 @@ if __name__ == "__main__":
     #     algorithm_malus_points.append(result)
 
     # print(experiment.indiv_scores)
-    # for hc in experiment.indiv_scores:
-    #     print(hc)
-    #     print(list(hc.keys()))
-    #     plot_malus_iter(list(hc.keys()), list(hc.values()))
+    
 
 
     # test the barplot_hillclimber_performance function

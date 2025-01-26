@@ -40,16 +40,40 @@ def save_timetable_to_html(pivot_table, output_file):
     with open(output_file, 'w') as f:
         f.write(html_content)
 
-def plot_malus_iter(iter_list, malus_points_list):
+def plot_malus_iter(iter_list, malus_points_list, title='Malus points per iteration'):
+    """
+    This function plots the progress of the malus points per iteration in one algorithm run. It takes the iterations and malus_points as arguments, 
+    which are both lists.
+    """
     average_malus = average_malus = sum(malus_points_list)/ len(malus_points_list)
     min_malus = min(malus_points_list)
     min_malus_idx= malus_points_list.index(min_malus)
+
+    # plot functions
     plt.plot(iter_list, malus_points_list, label= 'Malus points')
     plt.plot(min_malus_idx, min_malus, color = 'g', marker='o', label= f'Minimum = {round(min_malus)}')
-    plt.title('Malus points per iteration')
+    plt.title(title)
     plt.axhline(average_malus,xmin=0, xmax=len(malus_points_list), color = 'r', ls= '--', label= f'Average = {round(average_malus)}')
     plt.xlabel('iterations')
     plt.ylabel('malus points')
+    plt.legend()
+    plt.show()
+
+def plot_malus_histogram(malus_points_list, bins=20, title='Histogram of Malus Points'):
+    """
+    This function creates a histogram of malus points to visualize their distribution.
+    """
+
+    average_malus = sum(malus_points_list) / len(malus_points_list)
+    min_malus = min(malus_points_list)
+
+    # plot histogram
+    plt.hist(malus_points_list, bins=bins, color='blue', edgecolor='black')
+    plt.axvline(average_malus, color='red', linestyle='--', label=f'Average = {round(average_malus)}')
+    plt.axvline(min_malus, color='green', linestyle='-', label=f'Minimum = {round(min_malus)}')
+    plt.title(title)
+    plt.xlabel('Malus Points')
+    plt.ylabel('Frequency')
     plt.legend()
     plt.show()
 
@@ -163,5 +187,15 @@ def barplot_hillclimber_performance(hillclimber, iterations, parameter_values, p
     plt.title(f"Average Total Malus Points for Different Numbers of {parameter_name}")
     plt.xlabel(f"Number of {parameter_name}")
     plt.ylabel("Average Total Malus Points")
+    plt.show()
+
+def malus_per_experiment_step(malus_points, title='Malus points distribution'):
+    """
+    This function plots the distribution of malus points of the resulting timetables of the iterations of the experiment.
+    """
+    plt.hist(malus_points)
+    plt.xlabel('Malus Points')
+    plt.ylabel('Frequency')
+    plt.title(title)
     plt.show()
 
