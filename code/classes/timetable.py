@@ -100,23 +100,34 @@ class Timetable():
 
     def name_activities(self):  
         """
-        This method creates and names activities (lectures, tutorials, labs) for each course based on the activities count, 
-        and updates the course's activities list and the overall activity list. 
+        This method creates and names activities (lectures, tutorials, labs) for each 
+        course based on the activities count, and adds these activities to each respective 
+        course's activities list and the timetable activity list. 
         """
         # TODO: Make it list comprehension instead of loop
+        # loop over each courses' activities
         for course, activities_count_dict in self.activities_per_course.items():
             for activity_type, activity_amount in activities_count_dict.items():
                 for i in range(activity_amount):
+
+                    # make names for each activity based on their activity type
                     activity_name = f'{activity_type} {i+1}'
+
+                    # make an instance of each activity
                     if activity_type == 'Tutorial':
+
+                        # spread students evenly across each group
                         initial_capacity = len(course.student_list) / activity_amount
                         activity = Tutorial(course, course.tutorial_cap, initial_capacity, activity_name)
+                    
                     elif activity_type == 'Lab':
                         initial_capacity = len(course.student_list) / activity_amount
                         activity = Lab(course, course.lab_cap, initial_capacity, activity_name)
+                    
                     else:
                         activity = Lecture(course, activity_name)
                     
+                
                     course.activities[activity_type].append(activity)
                     self.activity_list.append(activity)
                     # print(f'activity {activity_name} added!')
@@ -125,12 +136,14 @@ class Timetable():
 
     def add_student_to_activity(self, student, activity): # still not a scheduled activity
         """
-        This method adds a student to an activity of a course the student follows, if the activity is not full.
-        Currently only updates timetable.course_list!
+        This method adds a student to an activity of a course the student follows, if the
+        activity is not full and then updates the activity student list and the students'
+        personal activities.
         """
         #if activity not in self.activity_list:
         #    print(f'activity {activity} does not exist.')
         
+        # check if student is not already in activity and student will fit in activity
         if student not in activity.student_list and student in activity.course.student_list and (len(activity.student_list) + 1) <= activity.capacity :
             activity.student_list.append(student)
             student.pers_activities[activity.course].append(activity)
@@ -140,7 +153,9 @@ class Timetable():
 
     def add_actual_students_to_courses(self):
         """
-        This method adds a student to the course, based on the courses list in a Student instance.
+        This method loops over each course and each student in the full student list and 
+        then adds the student to the course if it attends the course. It then updates the
+        courses' student list and the students personal activities.
         """
         for course in self.courses:
             for student in self.full_student_list:
@@ -156,7 +171,7 @@ class Timetable():
             activity.student_list.remove(student)
             student.pers_activities[activity.course].remove(activity)
             
-    # probably unnecessary
+    
     def swap_student_activity(self, student, activity_out, activity_in):
         """
         This method swaps a students from one activity to another. 
@@ -164,12 +179,14 @@ class Timetable():
         if len(activity_in.student_list) < activity_in.capacity:
             self.remove_student_from_activity(student, activity_out)
             self.add_student_to_activity(student, activity_in)
+            student.update_pers_timetable(activity_in)
         # else:
         #     print(f'Tried to add student {student}, to filled activity {activity_in}')
 
     def switch_students(self, student_1, student_2, activity_1, activity_2):
         """
-        This method switches two students between two activities.
+        This method switches two students from the same course between two activities if
+        they are not in the same activity.
         """
         # self.swap_student_activity(student_1, activity_1, activity_2)
         # self.swap_student_activity(student_2, activity_2, activity_1)
@@ -201,13 +218,16 @@ class Timetable():
         """
         This method moves an activity to a new timeslot and location.  
         """
+
         self.remove_activity_from_timetable(activity)
         self.add_activity_to_timetable(activity, new_timeslot, new_location)
     
+
     def switch_activities_in_timetable(self, activity_1, activity_2):
         """
         This method moves an activity to a new timeslot and location. 
         """
+        
         old_location_act_1 = activity_1.location
         old_location_act_2 = activity_2.location
         old_timeslot_act_1 = activity_1.timeslot
@@ -220,7 +240,8 @@ class Timetable():
 
     def find_empty_locations(self):
         """
-        This method identifies empty locations in the timetable for each timslot and stores them in a dictionary.  
+        This method loops over all timeslot and location pairs and finds adds all pairs 
+        not containing an activity to a empty locations list  
         """
         self.empty_locations = defaultdict(list)
         for timeslot in self.timetable.keys():
@@ -228,6 +249,7 @@ class Timetable():
                 if self.timetable[timeslot][location] == None:
                     self.empty_locations[timeslot].append(location)
 
+    # probably unnecessary
     def sort_priority_queue(self):
         """
         This method sorts the students with individual conflicts in ascending order based on their conflict malus points.  

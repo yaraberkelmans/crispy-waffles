@@ -74,6 +74,8 @@ def check_individual_conflicts(timetable, malus=1):
         student.conflict_activities = {}
         
         for timeslot, count in timeslot_counts.items():
+            
+            # if there is more than 1 activity in a timeslot 
             if count > 1:
                 individual_points = malus * (count - 1)
                 total_points += individual_points

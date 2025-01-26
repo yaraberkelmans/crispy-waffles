@@ -1,6 +1,6 @@
 import random
 import copy
-
+from .malus import *
 
 def randomize(timetable):
     """
@@ -98,52 +98,82 @@ def random_student_activity_assignment(timetable):
     return new_timetable
 
 def random_swap(timetable):
-    random_swap_function = random.choice([timetable.switch_students, timetable.switch_activities_in_timetable, timetable.switch_activity_in_timetable])
+    """
+    This function randomly chooses 1 out of 4 swaps. The 4 swaps are: switch_students,
+    switch_activities_in_timetable, switch_activity_in_timetable and switch_conflict_student.
+    Also if gap hour malus points are under 30, there is a 70% chance switch_conflict_student
+    gets picked to prioritize swapping students with individual conflict when approaching the end.
+    """
+
+    # check if malus for gap hours is sub 30
+    if check_gap_hours(timetable) < 30:
+
+        # give 60% chance to pick switch conflict student
+        if random.random() > 0.4:
+            random_swap_function = timetable.switch_conflict_student
+            return random_swap_function
+    
+    # choose a random swap
+    random_swap_function = random.choice([timetable.switch_students, 
+                                          timetable.switch_activities_in_timetable, 
+                                          timetable.switch_activity_in_timetable, 
+                                          timetable.switch_conflict_student])
     
     return random_swap_function
 
 
 def random_students_swap(timetable):
+    """
+    This function randomly chooses a course, then chooses a random activity type
+    either tutorial or lab and then chooses two different groups within this course
+    and activity type to pick a student out of each of the groups and then switches them
+    from group. 
+    """
      #print(f'The random function is {random_function}')
+    random_course = random.choice(timetable.courses)
+
+    # avoid courses containing only lectures
+    while list(random_course.activities.keys()) == ['Lecture']:
         random_course = random.choice(timetable.courses)
 
-        # avoid courses containing only lectures
-        while list(random_course.activities.keys()) == ['Lecture']:
-            random_course = random.choice(timetable.courses)
+    random_activity_type = random.choice(list(random_course.activities.keys()))
 
+    # avoid lectures and other activities with less than 2 groups
+    while random_activity_type == 'Lecture' or len(random_course.activities[random_activity_type]) < 2:
         random_activity_type = random.choice(list(random_course.activities.keys()))
 
-        # avoid lectures and other activities with less than 2 groups
-        while random_activity_type == 'Lecture' or len(random_course.activities[random_activity_type]) < 2:
-            random_activity_type = random.choice(list(random_course.activities.keys()))
+    random_activity_1 = random.choice(list(random_course.activities[random_activity_type]))
+    random_activity_2 = random.choice(list(random_course.activities[random_activity_type]))
 
-        random_activity_1 = random.choice(list(random_course.activities[random_activity_type]))
+    # avoids choosing same activity group
+    while random_activity_1 == random_activity_2:
         random_activity_2 = random.choice(list(random_course.activities[random_activity_type]))
 
-        # avoids choosing same activity group
-        while random_activity_1 == random_activity_2:
-            random_activity_2 = random.choice(list(random_course.activities[random_activity_type]))
+    random_student_1 = random.choice(random_activity_1.student_list)
+    random_student_2 = random.choice(random_activity_2.student_list)
 
-        random_student_1 = random.choice(random_activity_1.student_list)
-        random_student_2 = random.choice(random_activity_2.student_list)
+    # print(f'The chosen activity type is {random_activity_type} and the chosen activities are {random_activity_1} and {random_activity_2}')
+    # print(f'The chosen students are {random_student_1} from {random_activity_1} and {random_student_2} from {random_activity_2}')
+    # print(f'Student list check for activity 1: {random_activity_1.student_list}')
+    # print(f'Student list check for activity 2: {random_activity_2.student_list}')
 
-        # print(f'The chosen activity type is {random_activity_type} and the chosen activities are {random_activity_1} and {random_activity_2}')
-        # print(f'The chosen students are {random_student_1} from {random_activity_1} and {random_student_2} from {random_activity_2}')
-        # print(f'Student list check for activity 1: {random_activity_1.student_list}')
-        # print(f'Student list check for activity 2: {random_activity_2.student_list}')
+    timetable.switch_students(random_student_1, random_student_2, random_activity_1, random_activity_2)
 
-        timetable.switch_students(random_student_1, random_student_2, random_activity_1, random_activity_2)
+    # if random_student_1 in random_activity_2.student_list and random_student_2 in random_activity_1.student_list:
+    #     print(f'{random_student_1} is now in {random_activity_2} and {random_student_2} is now in {random_activity_1}')
 
-        # if random_student_1 in random_activity_2.student_list and random_student_2 in random_activity_1.student_list:
-        #     print(f'{random_student_1} is now in {random_activity_2} and {random_student_2} is now in {random_activity_1}')
-
-        return timetable
+    return timetable
 
 
 def random_activities_swap(timetable):
+    """
+    This function chooses two random activities and then switches their timeslots
+    and locations to switch them around in the timetable.
+    """
     random_activity_1 = random.choice(timetable.activity_list)
     random_activity_2 = random.choice(timetable.activity_list)
     
+    # if the same activities are chosen pick a new activity
     while random_activity_1 == random_activity_2:
         random_activity_2 = random.choice(timetable.activity_list)
     
@@ -157,8 +187,16 @@ def random_activities_swap(timetable):
     return timetable
 
 def random_activity_location_swap(timetable):
+    """
+    This function randomly chooses an activity to switch to a random empty
+    location.
+    """
     random_activity = random.choice(timetable.activity_list)
+
+    # refresh empty location list
     timetable.find_empty_locations()
+
+    # choose from empty locations
     random_timeslot = random.choice(list(timetable.empty_locations.keys()))
     random_location = random.choice(list(timetable.empty_locations[random_timeslot]))
     
@@ -166,6 +204,7 @@ def random_activity_location_swap(timetable):
     # capacities are smaller then length activity student list
     while random_location.capacity < len(random_activity.student_list):
         random_activity = random.choice(timetable.activity_list)
+    
     # print(f'Random activity chosen {random_activity}, old location: {random_activity.location} old timeslot: {random_activity.timeslot}')
     timetable.switch_activity_in_timetable(random_activity, random_timeslot, random_location)
     # print(f'Random activity chosen {random_activity}, new location: {random_activity.location} new timeslot: {random_activity.timeslot}')
@@ -173,8 +212,14 @@ def random_activity_location_swap(timetable):
     return timetable
 
 def switch_conflict_student(timetable):
+    """
+    This function chooses a student out of students that have conflicting activities. It
+    tries to do this 20 times to prevent choosing a student that only has lectures as 
+    conflicting activities (because each student following a course attends each lecture) or
+    choosing a student for who all conflicting activity groups are full.
+    """
     
-    # make sure to stop after 10 attempts if all conflict students only have lectures 
+    # make sure to stop after 20 attempts if all conflict students only have lectures 
     # or for every student every other group for conflict activity type is full
     for i in range(20):
         random_conflict_student = random.choice(timetable.conflict_students)
@@ -188,15 +233,17 @@ def switch_conflict_student(timetable):
         print(random_conflict_student, random_conflict_activity, random_conflict_student.conflict_activities)
         
         # try the other activity if lecture is chosen
-        if random_conflict_activity.activity_type == 'Lecture':
-            random_conflict_activity = random.choice(conflict_activity_list)
+        # if random_conflict_activity.activity_type == 'Lecture':
+        #     random_conflict_activity = random.choice(conflict_activity_list)
 
+        # go to next iteration of loop if chosen activity type is lecture
         if random_conflict_activity.activity_type == 'Lecture':
             continue
 
         conflict_course = random_conflict_activity.course
         conflict_activity_type = random_conflict_activity.activity_type
 
+        # check if there are at least 2 groups for chosen activity type
         if len(conflict_course.activities[conflict_activity_type]) < 2:
             continue
         
@@ -233,6 +280,9 @@ def switch_conflict_student(timetable):
     return timetable
 
 def apply_random_swap(timetable):
+    """
+    This function apply the random swap chosen in the random_swap function.
+    """
     random_function = random_swap(timetable)
     
     if random_function == timetable.switch_students:
@@ -246,6 +296,10 @@ def apply_random_swap(timetable):
     if random_function == timetable.switch_activity_in_timetable:
         # print(f'The random function is {random_function}')
         swapped_timetable = random_activity_location_swap(timetable)
+
+    if random_function == timetable.switch_conflict_student:
+
+        swapped_timetable = timetable.switch_conflict_student(timetable)
 
     return swapped_timetable
 

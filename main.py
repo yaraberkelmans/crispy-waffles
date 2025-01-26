@@ -232,26 +232,29 @@ if __name__ == "__main__":
     # print("Hill Climber Summary:", hill_climber_summary)
     # print('Malus per cat', experiment.malus_per_cat)
 
-    experiment = Experiment(timetable, iterations=2)
+    # experiment = Experiment(timetable, iterations=50)
 
-    # # # run SimAnn
-    sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, "data/swap_per_neighbour_experiments/", verbose=True, verbose_alg=True, 
-                                                 n_neighbours=10, n_swaps_per_neighbour=3, iterations=10)
-    print("Simulated Annealing Summary:", sim_ann_summary)
-    print('Malus per cat', experiment.malus_per_cat)
+    # # # # run SimAnn
+    # sim_ann_summary = experiment.run_algorithm(HillClimber, 'data/neighbour_n_exp_3_swaps/', verbose=True, verbose_alg=True, 
+    #                                              n_neighbours=14, n_swaps_per_neighbour=3, iterations=20000)
+    # print("Simulated Annealing Summary:", sim_ann_summary)
+    # print('Malus per cat', experiment.malus_per_cat)
 
-    # stored_timetables = []
-    # with open("data/neighbour_n_exp_3_swaps/exp_sim_ann_10_neighbours_3_swaps_all_timetables.pkl", "rb") as f:
-    #     while True:
-    #         try:
-    #             timetable_obj = pickle.load(f)
-    #             stored_timetables.append(timetable_obj)
-    #         except EOFError:
-    #             break
+    stored_timetables = []
+    with open("data/neighbour_n_exp_3_swaps/HillClimber_n_neighbours_8_n_swaps_per_neighbour_3_iterations_20000__all_timetables.pkl", "rb") as f:
+        while True:
+            try:
+                timetable_obj = pickle.load(f)
+                stored_timetables.append(timetable_obj)
+            except EOFError:
+                break
 
-    # calculate_malus(stored_timetables[1], verbose=True)
-
-    # with open('data/switch_conflict_students_test_tables/sim_ann_10_neigh_3_swap_best_timetable.pkl', 'rb') as f:
+    calculate_malus(stored_timetables[1], verbose=True)
+    count = 0
+    for timetable in stored_timetables:
+        count+=1
+    print(count)
+    # with open('data/neighbour_n_exp_3_swaps/SimulatedAnnealing_n_neighbours_8_n_swaps_per_neighbour_3_iterations_20000__best_timetable.pkl', 'rb') as f:
     #     stored_timetable = pickle.load(f)
 
     
@@ -263,8 +266,20 @@ if __name__ == "__main__":
     #         print(f'Timeslot {timeslot} has the following conflicting acitvities:')
     #         for activity in student.conflict_activities[timeslot]:
     #             print(activity, activity.timeslot)
+    # for i in range(16):
+    #     switch_conflict_student(stored_timetable)
+    #     calculate_malus(stored_timetable, verbose=True)
+    # print(stored_timetable.conflict_students)
+    # for student in stored_timetable.conflict_students:
+    #     print(f'\nStudent: {student} has the following conflicts: \n')
+    #     for timeslot in student.conflict_activities.keys():
+    #         print(f'Timeslot {timeslot} has the following conflicting acitvities:')
+    #         for activity in student.conflict_activities[timeslot]:
+    #             print(activity, activity.timeslot)
+    
+    # for timeslot in stored_timetable.timetable.keys():
+    #     print(timeslot, stored_timetable.timetable[timeslot])
 
-    # switch_conflict_student(stored_timetable)
 
     # extract malus points and iterations using a loop
     # algorithm_malus_points = []
