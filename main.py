@@ -225,11 +225,11 @@ if __name__ == "__main__":
     # print("Hill Climber Summary:", hill_climber_summary)
     # print('Malus per cat', experiment.malus_per_cat)
 
-    experiment = Experiment(timetable, iterations=1)
+    experiment = Experiment(timetable, iterations=5)
 
     # # # run SimAnn
     sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing,'data/conflict_test/', verbose=True, verbose_alg=True, 
-                                                 n_neighbours=8, n_swaps_per_neighbour=3, iterations=20000)
+                                                 n_neighbours=10, n_swaps_per_neighbour=3, iterations=20000)
     print("Simulated Annealing Summary:", sim_ann_summary)
     print('Malus per cat', experiment.malus_per_cat)
 
