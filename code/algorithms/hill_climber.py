@@ -80,7 +80,7 @@ class HillClimber():
             return True
 
     # TODO ADD DOCSTRINGS!!!
-    def run(self,  neighbours_, swaps_per_neighbour, iterations, verbose_alg = False):
+    def run(self, neighbours_, swaps_per_neighbour, iterations, verbose_alg = False):
         self.iterations = iterations
         
         for iteration in range(iterations):

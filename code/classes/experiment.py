@@ -22,7 +22,7 @@ class Experiment():
         self.best_score = float('inf')
         
     
-    def run_algorithm(self, algorithm_class, folder_path='data/', file_name_addition = '', verbose = False, **algorithm_params):
+    def run_algorithm(self, algorithm_class, folder_path='data/', file_name_addition = '', verbose = False, temperature=None, **algorithm_params):
         """
         This method runs a given algorithm for a number of iterations in experiment. Parameters are:
         output_file name: A name for the pickle file where the best timetable is stored in
@@ -35,6 +35,8 @@ class Experiment():
         self.alg_params = algorithm_params
         # create a format for output file name based on the algorithm params
         params_string = '_'.join(f"{value}_{key}" for key, value in algorithm_params.items() if key != 'verbose_alg')
+        if temperature:
+            file_name_addition += f'_Temp={temperature}'
         self.output_file_name = f'{folder_path}{algorithm_class.__name__}_{params_string}_{file_name_addition}'
         self.malus_per_cat_list = []
         self.all_timetables = defaultdict(list)
@@ -44,7 +46,7 @@ class Experiment():
 
             # create a randomized starting timetable before running the algorithm
             randomized_timetable = randomize(self.timetable)
-            algorithm = algorithm_class(randomized_timetable)
+            algorithm = algorithm_class(randomized_timetable, temperature=temperature)
             score = algorithm.run(**algorithm_params)
             self.all_timetables[iter].append(algorithm.timetable)
             # add a dictionary to the list with malus points per iteration for each algorithm run
@@ -69,10 +71,10 @@ class Experiment():
             # calculate the malus points per category for this timetable and add to the total dictionary
            
             # be sure to save all timetables for analyzing
-            # with open(f'{self.output_file_name}_all_timetables.pkl', "ab") as f:
-            #     pickle.dump(self.best_timetable, f)
+            with open(f'{self.output_file_name}_results.pkl', "ab") as f:
+                pickle.dump(self.results, f)
             if verbose:
-                print(f"Timetable saved at score {score}")
+                print(f"Result saved at score {score}")
                 print(f"Iteration {iter}: Score = {score}")
             
             ### check
@@ -80,6 +82,7 @@ class Experiment():
                 pickle.dump(self, f)
             ### check
             ### dubbel check
+            #### triple check
 
         # calculate the average malus points per category
         #self.calculate_average_malus()
@@ -94,8 +97,6 @@ class Experiment():
         self.export_results()
 
         return summary
-
-
 
     def export_results(self):
         with open (f'{self.output_file_name}_Results.csv', "a", newline='') as f:

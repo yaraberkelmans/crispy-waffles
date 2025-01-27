@@ -11,24 +11,21 @@ from code.algorithms.visuealize_timetable import *
 from code.classes.experiment import Experiment
 from code.algorithms.simulated_annealing import SimulatedAnnealing
 
-
 import csv
 import sys
 import copy
 import pickle
-if __name__ == "__main__":
 
+#
+import cProfile
+import pstats
+#
+
+if __name__ == "__main__":
+    # def main():
     # initialize timetable
     timetable = Timetable()
-    timetable.load_courses('data/vakken.csv') # adds course obj to timetable
-    timetable.load_students('data/studenten_en_vakken.csv')
-    timetable.load_locations('data/zalen.csv')
-    timetable.add_actual_students_to_courses()
-    timetable.get_activities_count() # creates expected numbers, does not add activity
-    timetable.name_activities() # adds activity to course.activity
-    timetable.create_timetable() # makes empty .timetable attr
-    timetable.initialize_locations() # turns empty into None
-    # timetable.generate_initial_timetable()
+    timetable.generate_initial_timetable()
 
     # N=10000
     # malus_points_list = []
@@ -39,81 +36,12 @@ if __name__ == "__main__":
     #     malus_points_list.append(malus_points)
     
     # plot_malus_histogram(malus_points_list)
-    
-    # for timeslot, rooms in full_randomized_timetable.timetable.items():
-    #     for room, activity in rooms.items():
-    #         if activity:
-    #             print(f"Course: {activity.course} Activity {activity.name} in {room} during {timeslot}: {len(activity.student_list)} students.")
-    #             print(f"Students: {[student.name for student in activity.student_list]}")
                 
-    
-    # data = []
-    #full_randomized_timetable = randomize(timetable)
-    # for timeslot in full_randomized_timetable.timetable.keys():
-    #     for location, activity in full_randomized_timetable.timetable[timeslot].items():
-            
-    #         if activity:
-    # #             print(activity.student_list)
-    # #             # print()
-    # #             # print("---------- ACTIVITY INFORMATION------------")
-    # #             # print()
-    # #             # print(f'Course: {activity.course_name} Activity: {activity.name} Location: {location} Day: {timeslot.day} Time: {timeslot.time}')
-    # #             # print()
-    # #             # print("----------- STUDENTS ----------")
-    # #             # print()
-    #         #      data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name})
-                
-    #         # else:
-    #         #      data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id})
-
-    #             for student in activity.student_list:
-    #                     #print(student.name)
-    #                 data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name, 'Student': student.name}) 
-    #     # # for csv output format
-    # # #     # for location, activity in full_randomized_timetable.timetable[timeslot].items():
-    # # #     #     if activity:
-    # # #     #         for student in activity.student_list:
-    # # #     #             print()
-    # # #     #             print("---------- STUDENT ------------")
-    # # #     #             print()
-    # # #     #             print(f'Student: {student}; Course: {activity.course_name}; Activity: {activity.name}; Location: {location}; Day: {timeslot.day}; Time: {timeslot.time}')
-    # # #     #             print()
-                    
-    # # #     #
-    # # # for data_row in data:
-    # # #     print(data_row)
-    # print(full_randomized_timetable.activities_per_course)
-    # column_names = ['Tijdslot', 'Zaal', 'Vak', 'Activiteit', 'Student']
-    # with open('Timetable_test.csv', 'w') as csvfile:
-    #     writer = csv.DictWriter(csvfile, fieldnames=column_names)
-    #     writer.writeheader()
-    #     writer.writerows(data) 
-
     # test new apply_random_swap
     # full_randomized_timetable = randomize(timetable)
     
     # random_swapped_timetable = apply_random_swap(full_randomized_timetable)
 
-    # data_2 = []
-    
-    # for timeslot in random_swapped_timetable.timetable.keys():
-    #     for location, activity in random_swapped_timetable.timetable[timeslot].items():
-            
-    #         if activity:
-    #             for student in activity.student_list:
-    #                     #print(student.name)
-    #                 data_2.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name, 'Student': student.name}) 
-
-    # with open('Timetable_vergelijking_swap.csv', 'w') as csvfile:
-    #     writer = csv.DictWriter(csvfile, fieldnames=column_names)
-    #     writer.writeheader()
-    #     writer.writerows(data_2) 
-    #print(full_randomized_timetable.full_student_list[0].pers_timetable)
-    #print(full_randomized_timetable.full_student_list[0].pers_activities)
-    #print(full_randomized_timetable.full_student_list[0].name)
-    # # print(full_randomized_timetable.full_student_list[0].courses)
-
-    
     # malus_points = calculate_malus(full_randomized_timetable)
     # print(f'malus points is {malus_points}')
 
@@ -128,7 +56,7 @@ if __name__ == "__main__":
     # full_randomized_timetable = randomize(timetable)
     # hill_climber = HillClimber(full_randomized_timetable)
     #     hill_climber_score = hill_climber.run(10, 3, hillclimber_range)
-      
+    
         
     #     # append to list to make list in list for results and iterations exports
     #     hill_climber_individual_score_iterations.append(hill_climber_score)
@@ -322,3 +250,27 @@ if __name__ == "__main__":
     #     parameter_name="neighbours",
     #     fixed_swaps=4
     # )
+
+    results_iter_malus_per_alg_temp100 = load_pickle_file("data/SIM_ANN_temperature_tests/SimulatedAnnealing_8_neighbours__2_swaps_per_neighbour_2500_iterations__Temp=100_experiment_info.pkl")
+    print(results_iter_malus_per_alg_temp100)
+    # for alg in results_iter_malus_per_alg_temp100:
+    plot_malus_iter(results_iter_malus_per_alg_temp100, title='Malus drop for Temp = 100')
+
+    # results_iter_malus_per_alg_temp50 = load_pickle_file("data/SIM_ANN_temperature_tests/SimulatedAnnealing_8_neighbours__2_swaps_per_neighbour_2500_iterations__Temp=50_experiment_info.pkl")
+    # for alg in results_iter_malus_per_alg_temp50:
+    #     plot_malus_iter(list(alg.keys()), list(alg.values()), title='Malus drop for Temp = 50')
+    
+    # results_iter_malus_per_alg_temp1 = load_pickle_file("data/SIM_ANN_temperature_tests/SimulatedAnnealing_8_neighbours__2_swaps_per_neighbour_2500_iterations__Temp=1_experiment_info.pkl")
+    # for alg in results_iter_malus_per_alg_temp1:
+    #     plot_malus_iter(list(alg.keys()), list(alg.values()), title='Malus drop for Temp = 1')
+    
+   
+    ## profile the main function
+    ## create a profiler and save the results in a file
+    # profiler = cProfile.Profile()
+    # profiler.enable()
+    # main()
+    # profiler.disable()
+    # profiler.dump_stats("data/profile_test/profile_results.prof")  # Save binary profile data
+
+

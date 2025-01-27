@@ -1,10 +1,13 @@
 import pandas as pd 
 import matplotlib.pyplot as plt
+import pickle
+
 from .malus import check_capacity
 from .malus import check_evening_slot
 from .malus import check_gap_hours
 from .malus import check_individual_conflicts
 from .malus import calculate_malus
+
 
 # import matplotlib as plt
 def visualize_timetable(timetable_file):
@@ -40,18 +43,26 @@ def save_timetable_to_html(pivot_table, output_file):
     with open(output_file, 'w') as f:
         f.write(html_content)
 
-def plot_malus_iter(iter_list, malus_points_list, title='Malus points per iteration'):
+def plot_malus_iter(scores_per_iter_alg, title='Malus points per iteration'):
     """
     This function plots the progress of the malus points per iteration in one algorithm run. It takes the iterations and malus_points as arguments, 
     which are both lists.
     """
+    total_iters = 0
+    malus_points_list = []
+    for alg_dict in scores_per_iter_alg:
+        malus_points_list.extend(alg_dict.values())
+        total_iters += len(alg_dict.keys())
+
+    iter_list = list(range(total_iters))
+
     average_malus = average_malus = sum(malus_points_list)/ len(malus_points_list)
     min_malus = min(malus_points_list)
-    min_malus_idx= malus_points_list.index(min_malus)
+    
 
     # plot functions
     plt.plot(iter_list, malus_points_list, label= 'Malus points')
-    plt.plot(min_malus_idx, min_malus, color = 'g', marker='o', label= f'Minimum = {round(min_malus)}')
+    # plt.plot(min_malus_idx, min_malus, color = 'g', marker='o', label= f'Minimum = {round(min_malus)}')
     plt.title(title)
     plt.axhline(average_malus,xmin=0, xmax=len(malus_points_list), color = 'r', ls= '--', label= f'Average = {round(average_malus)}')
     plt.xlabel('iterations')
@@ -199,7 +210,14 @@ def malus_per_experiment_step(malus_points, title='Malus points distribution'):
     plt.title(title)
     plt.show()
 
-
+def load_pickle_file(filepath):
+    """
+    This function loads a pickle file into a variable so we can use it for further examination.
+    Only workt for lists, dictionaries or single objects. Not for multiple object in 1 file. 
+    """
+    with open(filepath, 'rb') as f:
+        variable = pickle.load(f)
+    return variable
 
 
 
