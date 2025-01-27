@@ -44,6 +44,7 @@ class Experiment():
             algorithm = algorithm_class(randomized_timetable)
             score = algorithm.run(**algorithm_params)
             self.all_timetables.append(algorithm.timetable)
+
             # add a dictionary to the list with malus points per iteration for each algorithm run
             self.indiv_scores.append(algorithm.iteration_values)
 
@@ -75,19 +76,14 @@ class Experiment():
                 print(f"Result saved at score {score}")
                 print(f"Iteration {iter}: Score = {score}")
             
-            ### check
+            # save the indic_scores list as experiment info
             with open(f'{self.output_file_name}_experiment_info.pkl', "wb") as f:
                 pickle.dump(self.indiv_scores, f)
-            ### check
-            ### dubbel check
 
         # calculate the average malus points per category
         for cat in self.malus_per_cat.keys():
             self.malus_per_cat[cat] = self.malus_per_cat.get(cat) / self.iterations
         
-        
-        
-
         # generate summary statistics for every experiment iteration
         scores = [result["score"] for result in self.results]
         summary = {"best_score": self.best_score,
@@ -96,8 +92,6 @@ class Experiment():
         self.export_results()
 
         return summary
-
-
 
     def export_results(self):
         with open (f'{self.output_file_name}_Results.csv', "a", newline='') as f:
