@@ -90,13 +90,13 @@ class HillClimber():
         for iteration in range(iterations):
             neighbours = []
             
-            # if iteration == 0:
-            #     print(f'Algorithm running, starting first iteration at {self.value} maluspoints')
-            # if iteration % 500 == 0:
-            #     print(f'Now at iteration {iteration} with {self.value} malus points')
+            if iteration == 0:
+                print(f'Algorithm running, starting first iteration at {self.value} maluspoints')
+            if iteration % 500 == 0:
+                print(f'Now at iteration {iteration} with {self.value} malus points')
 
-            # if verbose_alg:
-            #     print(f'Iteration {iteration}/{iterations} now running, value of timetable malus points is now {self.value}')
+            if verbose_alg:
+                print(f'Iteration {iteration}/{iterations} now running, value of timetable malus points is now {self.value}')
             
             for i in range(neighbours_):
                 neighbours.append(self.generate_individual_neighbour(swaps_per_neighbour))
