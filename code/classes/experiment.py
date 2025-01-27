@@ -52,7 +52,7 @@ class Experiment():
             # add a dictionary to the list with malus points per iteration for each algorithm run
             self.indiv_scores.append(algorithm.iteration_values)
 
-            # save the result for this iteration
+            # save the result for this iterationƒ
             self.results.append({"iteration": iter, "score": score})
 
             # check if this score is better
@@ -113,8 +113,23 @@ class Experiment():
         self.malus_per_cat_list.append(self.malus_per_cat)
 
     def calculate_average_malus(self):
-         for cat in self.malus_per_cat.keys():
-            self.malus_per_cat[cat] = self.malus_per_cat.get(cat) / self.iterations
+        """
+        This method combines all malus_per_cat_dictionaries into one dictionary
+        holding the average malus of all dictionaries together per catgory. 
+        """
+        total_malus = {}
+        
+        # calculate total malus per category 
+        for malus_dict in self.malus_per_cat_list:
+            for cat, value in malus_dict.items():
+                total_malus[cat] += value
+
+        # calculate average malus per category 
+        for cat in total_malus:
+            total_malus[cat] /=  len(self.malus_per_cat_list)
+
+        return total_malus
+            
 
     def check_folder_existence(self, folder_path):
         if not os.path.exists(folder_path):
