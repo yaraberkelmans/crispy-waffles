@@ -18,13 +18,9 @@ class HillClimber():
     """
     def __init__(self, timetable):
         self.timetable = timetable
-        #self.neighbours = {}
-        #self.best_neighbour = timetable
-        #self.best_neighbour_malus_points = timetable.calculate_malus() 
         self.value = calculate_malus(timetable)
         self.iteration_values = {}
         self.best_iteration = 0
-        self.iterations_ran = 0
 
     def mutate_timetable(self, new_timetable, number_of_swaps):
         """
@@ -42,6 +38,7 @@ class HillClimber():
         timetable = copy.deepcopy(self.timetable)
         for i in range(n_swaps):
             apply_random_swap(timetable)
+
         return timetable
     
 
@@ -51,11 +48,14 @@ class HillClimber():
         malus scores. It then stores the neighbour with the best malus score
         in self.
         """
+        # reset neighbours for a new iteration
         self.best_neighbour_value = None
         self.best_neighbour = None
 
         for neighbour in neighbours:
             neighbour_malus = calculate_malus(neighbour)
+
+            # with the first neighbour always overwrite the best neighbour
             if self.best_neighbour_value == None:
                 self.best_neighbour_value = neighbour_malus
                 self.best_neighbour = neighbour
@@ -77,22 +77,26 @@ class HillClimber():
         if new_value < old_value:
             self.timetable = self.best_neighbour
             self.value = new_value
+
             return True
 
-    # TODO ADD DOCSTRINGS!!!
-    def run(self, neighbours, swaps_per_neighbour, iterations, verbose_alg = False):
+    # TODO ADD DOCSTRINGS!!! echt doen hoorrr
+    def run(self, neighbours_, swaps_per_neighbour, iterations, verbose_alg = False):
+        """
+        
+        """
         self.iterations = iterations
         
         for iteration in range(iterations):
-            neighbour_list = []
+            neighbours = []
             
             if verbose_alg:
                 print(f'Iteration {iteration}/{iterations} now running, value of timetable malus points is now {self.value}')
             
-            for i in range(neighbours):
-                neighbour_list.append(self.generate_individual_neighbour(swaps_per_neighbour))
+            for i in range(neighbours_):
+                neighbours.append(self.generate_individual_neighbour(swaps_per_neighbour))
             
-            self.choose_best_neighbour(neighbour_list)
+            self.choose_best_neighbour(neighbours)
             improved = self.check_solution()
 
             self.iteration_values[iteration] = self.value
@@ -102,20 +106,16 @@ class HillClimber():
 
             i_since_last_best = iteration - self.best_iteration
             
+            # if the value of the best timetable is not less than 50 at iteration 10000 the loop stops
             if iteration == 10000 and self.value > 50:
                 return self.value
 
+            # if there hasnt been an improvement in 1000 iterations the loop stops
             if i_since_last_best == 1000:
                 print(f'{iteration} iterations')
-                self.iterations_ran = iteration
+
                 return self.value
-            
-            # elif i_since_last_best > 250 and self.value > 130:
-            #     print(f'{iteration} iterations')
-            #     self.iterations_ran = iteration
-            #     return self.value 
         
-        self.iterations_ran = iteration
         return self.value
 
 
