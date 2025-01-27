@@ -69,10 +69,10 @@ class Experiment():
             self.malus_per_cat['gap_hours'] += check_gap_hours(algorithm.timetable)
 
             # be sure to save all timetables for analyzing
-            with open(f'{self.output_file_name}_all_timetables.pkl', "ab") as f:
-                pickle.dump(self.best_timetable, f)
+            with open(f'{self.output_file_name}_results.pkl', "ab") as f:
+                pickle.dump(self.results, f)
             if verbose:
-                print(f"Timetable saved at score {score}")
+                print(f"Result saved at score {score}")
                 print(f"Iteration {iter}: Score = {score}")
             
             ### check
