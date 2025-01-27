@@ -70,12 +70,8 @@ class Experiment():
             self.update_total_malus(algorithm)
             # calculate the malus points per category for this timetable and add to the total dictionary
            
-            # be sure to save all timetables for analyzing
-            with open(f'{self.output_file_name}_results.pkl', "ab") as f:
-                pickle.dump(self.results, f)
-            if verbose:
-                print(f"Result saved at score {score}")
-                print(f"Iteration {iter}: Score = {score}")
+            
+           
             
             ### check
             with open(f'{self.output_file_name}_experiment_instance.pkl', "wb") as f:
@@ -83,20 +79,25 @@ class Experiment():
             ### check
             ### dubbel check
             #### triple check
-
+            if verbose:
+               print('Experiment saved!')
         # calculate the average malus points per category
         #self.calculate_average_malus()
         
         
 
         # generate summary statistics for every experiment iteration
-        scores = [result["score"] for result in self.results]
-        summary = {"best_score": self.best_score,
-                    "average_score": sum(scores) / len(scores),
-                    "all_scores": scores}
+        self.scores = [result["score"] for result in self.results]
+        self.summary = {"best_score": self.best_score,
+                    "average_score": sum(self.scores) / len(self.scores),
+                    "all_scores": self.scores}
+        
+        with open(f'{self.output_file_name}_experiment_instance.pkl', "wb") as f:
+            pickle.dump(self, f)
+        
         self.export_results()
 
-        return summary
+        return self.summary
 
     def export_results(self):
         with open (f'{self.output_file_name}_Results.csv', "a", newline='') as f:

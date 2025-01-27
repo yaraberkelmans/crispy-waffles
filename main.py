@@ -153,13 +153,13 @@ if __name__ == "__main__":
     # print("Hill Climber Summary:", hill_climber_summary)
     # print('Malus per cat', experiment.malus_per_cat)
 
-    # experiment = Experiment(timetable, iterations=3)
+    experiment = Experiment(timetable, iterations=3)
 
-    # # # # run SimAnn
-    # sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, 'data/experiment_pickle_test/', verbose=True, verbose_alg=True, 
-    #                                              neighbours_=2, swaps_per_neighbour=2, iterations=10)
-    # print("Simulated Annealing Summary:", sim_ann_summary)
-    # print('Malus per cat', experiment.malus_per_cat)
+    # # # run SimAnn
+    sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, 'data/experiment_pickle_test/', verbose=True, verbose_alg=True, 
+                                                 neighbours=2, swaps_per_neighbour=2, iterations=10, temperature=1)
+    print("Simulated Annealing Summary:", sim_ann_summary)
+    print('Malus per cat', experiment.malus_per_cat)
 
     # stored_timetables = []
     # with open("data/neighbour_n_exp_3_swaps/HillClimber_n_neighbours_8_n_swaps_per_neighbour_3_iterations_20000__all_timetables.pkl", "rb") as f:
@@ -172,12 +172,13 @@ if __name__ == "__main__":
 
     # calculate_malus(stored_timetables[1], verbose=True)
 
-    with open('data/conflict_test/SimulatedAnnealing_8_neighbours__3_swaps_per_neighbour_20000_iterations__experiment_info.pkl', 'rb') as f:
+    with open('data/experiment_pickle_test/SimulatedAnnealing_2_neighbours_2_swaps_per_neighbour_10_iterations__Temp=1_experiment_instance.pkl', 'rb') as f:
         stored_experiment = pickle.load(f)
     #calculate_malus(stored_timetable, verbose=True)
-    #print(stored_experiment.alg_params)
+    print(stored_experiment.alg_params)
+    print(stored_experiment.summary)
 
-    plot_malus_iter_test(stored_experiment)
+    # plot_malus_iter_test(stored_experiment)
 
     # # plot the malus points per iteration for each experiment iteration
     # with open('data/swap_per_neighbour_experiments/SimulatedAnnealing_n_neighbours_10_n_swaps_per_neighbour_2_iterations_20000__experiment_info.pkl', 'rb') as f:
@@ -251,10 +252,10 @@ if __name__ == "__main__":
     #     fixed_swaps=4
     # )
 
-    results_iter_malus_per_alg_temp100 = load_pickle_file("data/SIM_ANN_temperature_tests/SimulatedAnnealing_8_neighbours__2_swaps_per_neighbour_2500_iterations__Temp=100_experiment_info.pkl")
-    print(results_iter_malus_per_alg_temp100)
-    # for alg in results_iter_malus_per_alg_temp100:
-    plot_malus_iter(results_iter_malus_per_alg_temp100, title='Malus drop for Temp = 100')
+    # results_iter_malus_per_alg_temp100 = load_pickle_file("data/SIM_ANN_temperature_tests/SimulatedAnnealing_8_neighbours__2_swaps_per_neighbour_2500_iterations__Temp=100_experiment_info.pkl")
+    # print(results_iter_malus_per_alg_temp100)
+    # # for alg in results_iter_malus_per_alg_temp100:
+    # plot_malus_iter(results_iter_malus_per_alg_temp100, title='Malus drop for Temp = 100')
 
     # results_iter_malus_per_alg_temp50 = load_pickle_file("data/SIM_ANN_temperature_tests/SimulatedAnnealing_8_neighbours__2_swaps_per_neighbour_2500_iterations__Temp=50_experiment_info.pkl")
     # for alg in results_iter_malus_per_alg_temp50:
