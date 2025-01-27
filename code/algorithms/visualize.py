@@ -1,5 +1,6 @@
 import pandas as pd 
 import matplotlib.pyplot as plt
+import seaborn as sns 
 import pickle
 import csv
 
@@ -206,7 +207,7 @@ def malus_per_experiment_step(malus_points, title='Malus points distribution'):
     plt.title(title)
     plt.show()
 
-def load_pickle_file(filepath):
+def load_pickle_data(filepath):
     """
     This function loads a pickle file into a variable so we can use it for further examination.
     Only workt for lists, dictionaries or single objects. Not for multiple object in 1 file. 
@@ -255,4 +256,35 @@ def timetable_to_csv(timetable, output_filepath):
     with open(f'{output_filepath}.csv', 'w') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=column_names)
         writer.writeheader()
-        writer.writerows(data) 
+        writer.writerows(data)
+
+def load_experiment_data(file_paths): 
+    """
+    Takes a list of (pickle) filepaths 
+    """
+    combined_data = []
+    for file_path in file_paths:
+        experiment = load_pickle_data(file_path)
+
+        for iteration in experiment.malus_per_cat_list:
+            total_malus = sum(iteration.values())
+            combined_data.append({
+                "total_malus": total_malus,
+                "swaps_per_neighbour": experiment.alg_params["swaps_per_neighbour"],
+                "neighbours": experiment.alg_params["neighbours_"]
+            })
+
+    return pd.DataFrame(combined_data)
+
+def plot_experiment_results(malus_df): 
+    sns.set_theme(style= "darkgrid")
+    plot = sns.displot(malus_df, x = "total_malus", col = "swaps_per_neighbour", row="neighbours",  binwidth=3, height=3, facet_kws=dict(margin_titles=True),
+    )
+
+    plot.set_axis_labels("Total Malus Points", "Frequenty")
+    plot.set_titlesplot.set_titles(row_template="Neighbours = {row_name}", col_template="Swaps = {col_name}")
+    plt.show()
+
+
+
+
