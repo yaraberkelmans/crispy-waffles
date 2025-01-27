@@ -63,7 +63,8 @@ class SimulatedAnnealing(HillClimber):
         if random.random() < probability:
             self.timetable = self.best_neighbour
             self.value = new_value
-            return True
+            if new_value < old_value:
+                return True
 
         
 

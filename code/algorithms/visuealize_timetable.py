@@ -220,18 +220,6 @@ def load_pickle_file(filepath):
     return variable
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 def plot_malus_iter_test(score_dict_list, title='Malus per iteration'):
     total_iterations = 0
     for dict in score_dict_list:

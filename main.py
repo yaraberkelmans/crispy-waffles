@@ -153,11 +153,11 @@ if __name__ == "__main__":
     # print("Hill Climber Summary:", hill_climber_summary)
     # print('Malus per cat', experiment.malus_per_cat)
 
-    experiment = Experiment(timetable, iterations=3)
+    experiment = Experiment(timetable, iterations=10)
 
     # # # run SimAnn
-    sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, 'data/experiment_pickle_test/', verbose=True, verbose_alg=True, 
-                                                 neighbours=2, swaps_per_neighbour=2, iterations=10, temperature=1)
+    sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, 'data/final_runs/', verbose=True, verbose_alg=True, 
+                                                 neighbours=9, swaps_per_neighbour=3, iterations=20000, temperature=1)
     print("Simulated Annealing Summary:", sim_ann_summary)
     print('Malus per cat', experiment.malus_per_cat)
 
@@ -172,11 +172,11 @@ if __name__ == "__main__":
 
     # calculate_malus(stored_timetables[1], verbose=True)
 
-    with open('data/experiment_pickle_test/SimulatedAnnealing_2_neighbours_2_swaps_per_neighbour_10_iterations__Temp=1_experiment_instance.pkl', 'rb') as f:
-        stored_experiment = pickle.load(f)
-    #calculate_malus(stored_timetable, verbose=True)
-    print(stored_experiment.alg_params)
-    print(stored_experiment.summary)
+    # with open('data/experiment_pickle_test/SimulatedAnnealing_2_neighbours_2_swaps_per_neighbour_10_iterations__Temp=1_experiment_instance.pkl', 'rb') as f:
+    #     stored_experiment = pickle.load(f)
+    # #calculate_malus(stored_timetable, verbose=True)
+    # print(stored_experiment.alg_params)
+    # print(stored_experiment.summary)
 
     # plot_malus_iter_test(stored_experiment)
 
