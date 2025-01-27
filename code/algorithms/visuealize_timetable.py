@@ -1,7 +1,5 @@
 import pandas as pd 
 import matplotlib.pyplot as plt
-import pickle
-
 from .malus import check_capacity
 from .malus import check_evening_slot
 from .malus import check_gap_hours
@@ -9,8 +7,10 @@ from .malus import check_individual_conflicts
 from .malus import calculate_malus
 
 
-# import matplotlib as plt
 def visualize_timetable(timetable_file):
+    """
+    This function takes a csv timetable file and outputs it as a html timetable. 
+    """
     # load the data
     df_timetable = pd.read_csv(timetable_file)
 
@@ -43,26 +43,18 @@ def save_timetable_to_html(pivot_table, output_file):
     with open(output_file, 'w') as f:
         f.write(html_content)
 
-def plot_malus_iter(scores_per_iter_alg, title='Malus points per iteration'):
+def plot_malus_iter(iter_list, malus_points_list, title='Malus points per iteration'):
     """
     This function plots the progress of the malus points per iteration in one algorithm run. It takes the iterations and malus_points as arguments, 
     which are both lists.
     """
-    total_iters = 0
-    malus_points_list = []
-    for alg_dict in scores_per_iter_alg:
-        malus_points_list.extend(alg_dict.values())
-        total_iters += len(alg_dict.keys())
-
-    iter_list = list(range(total_iters))
-
     average_malus = average_malus = sum(malus_points_list)/ len(malus_points_list)
     min_malus = min(malus_points_list)
-    
+    min_malus_idx= malus_points_list.index(min_malus)
 
     # plot functions
     plt.plot(iter_list, malus_points_list, label= 'Malus points')
-    # plt.plot(min_malus_idx, min_malus, color = 'g', marker='o', label= f'Minimum = {round(min_malus)}')
+    plt.plot(min_malus_idx, min_malus, color = 'g', marker='o', label= f'Minimum = {round(min_malus)}')
     plt.title(title)
     plt.axhline(average_malus,xmin=0, xmax=len(malus_points_list), color = 'r', ls= '--', label= f'Average = {round(average_malus)}')
     plt.xlabel('iterations')
@@ -74,7 +66,6 @@ def plot_malus_histogram(malus_points_list, bins=20, title='Histogram of Malus P
     """
     This function creates a histogram of malus points to visualize their distribution.
     """
-
     average_malus = sum(malus_points_list) / len(malus_points_list)
     min_malus = min(malus_points_list)
 
@@ -117,41 +108,10 @@ def barplot_malus(timetable):
     plt.title('Distribution of Malus Points')
     plt.show()
 
-# # Plots all the different values of swaps/neighbours as lines
-# def plot_hillclimber_performance(hillclimber, parameter_values, parameter_name, iterations, fixed_swaps=None, fixed_neighbours=None):
-#     """
-#     This function plots the malus points per iteration for different numbers of swaps and neighbors.
-#     """
-
-#     if parameter_name not in ["swaps", "neighbours"]:
-#         raise ValueError('parameter_name must be swaps or neighbours')
-
-#     results = {}
-
-#     # store results for each parameter value
-#     for parameter_value in parameter_values:
-#         hillclimber.value = calculate_malus(hillclimber.timetable) 
-#         hillclimber.iteration_values = {}  
-
-#         if parameter_name == "swaps":
-#             hillclimber.run(fixed_neighbours, parameter_value, iterations)
-#         elif parameter_name == "neighbours":
-#             hillclimber.run(parameter_value, fixed_swaps, iterations)
-
-#         results[parameter_value] = list(hillclimber.iteration_values.values())
-
-#     # plot the results
-#     plt.figure(figsize=(12, 6))
-#     for parameter_value, malus_values in results.items():
-#         plt.plot(range(len(malus_values)), malus_values, label=f"{parameter_value} {parameter_name}")
-#     plt.title(f"Malus vs. Iterations for Different Numbers of {parameter_name}")
-#     plt.xlabel("Iterations")
-#     plt.ylabel("Malus Points")
-#     plt.legend()
-#     plt.show()
 
 
-def barplot_hillclimber_performance(hillclimber, iterations, parameter_values, parameter_name, fixed_swaps=None, fixed_neighbours=None):
+
+def barplot_algorithm_performance(algorithm_instance, iterations, parameter_values, parameter_name, fixed_swaps=None, fixed_neighbours=None):
     """
     This function creates a barplot of the average total malus points for different numbers of swaps or neighbors.
     """
@@ -166,16 +126,16 @@ def barplot_hillclimber_performance(hillclimber, iterations, parameter_values, p
         total_malus = []
 
         for i in range(iterations):
-            hillclimber.value = calculate_malus(hillclimber.timetable)
-            hillclimber.iteration_values = {} 
+            algorithm_instance.value = calculate_malus(algorithm_instance.timetable)
+            algorithm_instance.iteration_values = {} 
 
             if parameter_name == "swaps":
-                hillclimber.run(fixed_neighbours, parameter_value, iterations)
+                algorithm_instance.run(fixed_neighbours, parameter_value, iterations)
             elif parameter_name == "neighbours":
-                hillclimber.run(parameter_value, fixed_swaps, iterations)
+                algorithm_instance.run(parameter_value, fixed_swaps, iterations)
 
             # store the final malus value after all iterations
-            total_malus.append(hillclimber.value)
+            total_malus.append(algorithm_instance.value)
 
         # calculate and store the average malus for this parameter value
         average_results[parameter_value] = sum(total_malus) / len(total_malus)
@@ -200,43 +160,36 @@ def barplot_hillclimber_performance(hillclimber, iterations, parameter_values, p
     plt.ylabel("Average Total Malus Points")
     plt.show()
 
-def malus_per_experiment_step(malus_points, title='Malus points distribution'):
-    """
-    This function plots the distribution of malus points of the resulting timetables of the iterations of the experiment.
-    """
-    plt.hist(malus_points)
-    plt.xlabel('Malus Points')
-    plt.ylabel('Frequency')
-    plt.title(title)
-    plt.show()
-
-def load_pickle_file(filepath):
-    """
-    This function loads a pickle file into a variable so we can use it for further examination.
-    Only workt for lists, dictionaries or single objects. Not for multiple object in 1 file. 
-    """
-    with open(filepath, 'rb') as f:
-        variable = pickle.load(f)
-    return variable
+# def malus_per_experiment_step(malus_points, title='Malus points distribution'):
+#     """
+#     This function plots the distribution of malus points of the resulting timetables of the iterations of the experiment.
+#     """
+#     plt.hist(malus_points)
+#     plt.xlabel('Malus Points')
+#     plt.ylabel('Frequency')
+#     plt.title(title)
+#     plt.show() 
 
 
-def plot_malus_iter_test(score_dict_list, title='Malus per iteration'):
-    total_iterations = 0
-    for dict in score_dict_list:
-        x_values = []
-        y_values = []
-        for score in dict.values():
-           
-            if len(x_values) < 500:
-                total_iterations += 1
-                y_values.append(score)
-                x_values.append(total_iterations)
-            
-        plt.plot(x_values, y_values, color='b' )#lw=0.5)
-    
-    plt.title(title)
-    #plt.axhline(average_malus,xmin=0, xmax=len(malus_points_list), color = 'r', ls= '--', label= f'Average = {round(average_malus)}')
-    plt.xlabel('iterations')
-    plt.ylabel('malus points')
-    plt.legend()
-    plt.show()
+
+
+def extract_parameters_from_filename_simple(filename):
+    """
+    Extracts the number of neighbours and swaps from the filename.
+    """
+    # split the filename into parts
+    parts = filename.split('_')
+
+    # initialize the parameters
+    neighbours = None
+    swaps = None
+
+    # extract "neighbours" and "swaps" by index
+    neighbours_index = parts.index("neighbours")
+    neighbours = int(parts[neighbours_index + 1]) 
+
+    swaps_index = parts.index("neighbour")
+    swaps = int(parts[swaps_index + 1]) 
+
+    return {"neighbours": neighbours, "swaps": swaps}   
+

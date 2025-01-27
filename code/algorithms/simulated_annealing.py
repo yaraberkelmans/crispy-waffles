@@ -42,18 +42,17 @@ class SimulatedAnnealing(HillClimber):
         # calculate the probability of accepting this new timetable
         delta = new_value - old_value
 
-        # with negative delta, so an improvement, prob is always more than 1, so always larger than random.random()
+        # with negative delta (so an improvement) prob is always more than 1 so always larger than random.random()
         prob_before_exp = -delta / self.T
 
         # cap to prevent math range error
         if prob_before_exp > 1:
             prob_before_exp = 1
 
-        # cap to prevent math range error, -709 is the minimum value my calculater was still able to give a result
+        # cap to prevent math range error as -709 is the minimum value my calculator was still able to give a result
         if prob_before_exp < -709:
             prob_before_exp = -709
 
-        
         probability = math.exp(prob_before_exp)
 
         # update the temperature
@@ -63,6 +62,7 @@ class SimulatedAnnealing(HillClimber):
         if random.random() < probability:
             self.timetable = self.best_neighbour
             self.value = new_value
+            
             if new_value < old_value:
                 return True
 
