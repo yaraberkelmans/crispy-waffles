@@ -1,16 +1,15 @@
 import pandas as pd 
 import matplotlib.pyplot as plt
 import pickle
+import csv
 
-from .malus import check_capacity
-from .malus import check_evening_slot
-from .malus import check_gap_hours
-from .malus import check_individual_conflicts
-from .malus import calculate_malus
+from .malus import *
 
 
-# import matplotlib as plt
 def visualize_timetable(timetable_file):
+    """
+    This function loads a csv file and turns it into a pivot table.
+    """
     # load the data
     df_timetable = pd.read_csv(timetable_file)
 
@@ -35,13 +34,18 @@ def visualize_timetable(timetable_file):
 
     return pivot
 
+
 def save_timetable_to_html(pivot_table, output_file):
+    """
+    This function converts a pivot table to an html file.
+    """
     # convert the pivot table to an HTML file
     html_content = pivot_table.to_html()
 
     # write the HTML content to a file
     with open(output_file, 'w') as f:
         f.write(html_content)
+
 
 def plot_malus_iter(scores_per_iter_alg, title='Malus points per iteration'):
     """
@@ -59,7 +63,6 @@ def plot_malus_iter(scores_per_iter_alg, title='Malus points per iteration'):
     average_malus = average_malus = sum(malus_points_list)/ len(malus_points_list)
     min_malus = min(malus_points_list)
     
-
     # plot functions
     plt.plot(iter_list, malus_points_list, label= 'Malus points')
     # plt.plot(min_malus_idx, min_malus, color = 'g', marker='o', label= f'Minimum = {round(min_malus)}')
@@ -69,6 +72,7 @@ def plot_malus_iter(scores_per_iter_alg, title='Malus points per iteration'):
     plt.ylabel('malus points')
     plt.legend()
     plt.show()
+
 
 def plot_malus_histogram(malus_points_list, bins=20, title='Histogram of Malus Points'):
     """
@@ -88,14 +92,6 @@ def plot_malus_histogram(malus_points_list, bins=20, title='Histogram of Malus P
     plt.legend()
     plt.show()
 
-# timetable_file = 'Timetable_pres.csv'
-# pivot_table = visualize_timetable(timetable_file)
-
-# # save the timetable to an HTML file
-# output_html_path = 'Timetable_pres.html'
-# save_timetable_to_html(pivot_table, output_html_path)
-
-# print(f"Timetable saved as HTML: {output_html_path}")
 
 def barplot_malus(timetable):
     """
@@ -240,3 +236,23 @@ def plot_malus_iter_test(score_dict_list, title='Malus per iteration'):
     plt.ylabel('malus points')
     plt.legend()
     plt.show()
+
+def timetable_to_csv(timetable, output_filepath):
+    """
+    
+    """
+    data = []
+    for timeslot in timetable.timetable.keys():
+            for location, activity in timetable.timetable[timeslot].items():
+                if activity:
+                    for student in activity.student_list:
+                        data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id, 'Vak': activity.course, 'Activiteit': activity.name, 'Student': student.name}) 
+                else:
+                    data.append({'Tijdslot':timeslot.name, 'Zaal': location.room_id,'Vak': 'Empty'})
+
+    column_names = ['Tijdslot', 'Zaal', 'Vak', 'Activiteit', 'Student']
+    
+    with open(f'{output_filepath}.csv', 'w') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=column_names)
+        writer.writeheader()
+        writer.writerows(data) 
