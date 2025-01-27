@@ -52,7 +52,7 @@ class Experiment():
             # add a dictionary to the list with malus points per iteration for each algorithm run
             self.indiv_scores.append(algorithm.iteration_values)
 
-            # save the result for this iterationƒ
+            # save the result for this iteration
             self.results.append({"iteration": iter, "score": score})
 
             # check if this score is better
