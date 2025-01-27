@@ -225,13 +225,13 @@ if __name__ == "__main__":
     # print("Hill Climber Summary:", hill_climber_summary)
     # print('Malus per cat', experiment.malus_per_cat)
 
-    experiment = Experiment(timetable, iterations=10)
+    # experiment = Experiment(timetable, iterations=3)
 
-    # # # run SimAnn
-    sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, verbose=True, verbose_alg=True, 
-                                                 neighbours_=8, swaps_per_neighbour=3, iterations=20000)
-    print("Simulated Annealing Summary:", sim_ann_summary)
-    print('Malus per cat', experiment.malus_per_cat)
+    # # # # run SimAnn
+    # sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, 'data/experiment_pickle_test/', verbose=True, verbose_alg=True, 
+    #                                              neighbours_=2, swaps_per_neighbour=2, iterations=10)
+    # print("Simulated Annealing Summary:", sim_ann_summary)
+    # print('Malus per cat', experiment.malus_per_cat)
 
     # stored_timetables = []
     # with open("data/neighbour_n_exp_3_swaps/HillClimber_n_neighbours_8_n_swaps_per_neighbour_3_iterations_20000__all_timetables.pkl", "rb") as f:
@@ -244,9 +244,12 @@ if __name__ == "__main__":
 
     # calculate_malus(stored_timetables[1], verbose=True)
 
-    # with open('data/conflict_test/SimulatedAnnealing_n_neighbours_8_n_swaps_per_neighbour_3_iterations_20000__best_timetable_33malus.pkl', 'rb') as f:
-    #     stored_timetable = pickle.load(f)
-    # calculate_malus(stored_timetable, verbose=True)
+    with open('data/conflict_test/SimulatedAnnealing_8_neighbours__3_swaps_per_neighbour_20000_iterations__experiment_info.pkl', 'rb') as f:
+        stored_experiment = pickle.load(f)
+    #calculate_malus(stored_timetable, verbose=True)
+    #print(stored_experiment.alg_params)
+
+    plot_malus_iter_test(stored_experiment)
 
     # # plot the malus points per iteration for each experiment iteration
     # with open('data/swap_per_neighbour_experiments/SimulatedAnnealing_n_neighbours_10_n_swaps_per_neighbour_2_iterations_20000__experiment_info.pkl', 'rb') as f:

@@ -108,7 +108,6 @@ def check_gap_hours(timetable, gap_malus=1, double_gap_malus=3):
 
             # convert the timeslots to values we can work with
             for timeslot in timeslots:
-                print
                 timeslot_value = convert_dict.get(timeslot)
                 difference_list.append(timeslot_value)
 

@@ -1,7 +1,7 @@
 from code.algorithms.randomize import randomize
 from code.algorithms.malus import *
-
-
+from collections import defaultdict
+import os
 import csv
 import pickle
 import copy
@@ -30,20 +30,23 @@ class Experiment():
         algorithm_params: Parameters to pass to the algorithms run method.
         """
         self.results = []  
-        self.malus_per_cat = {'capacity': 0, 'evening':  0, 'indiv_confl': 0, 'gap_hours': 0}
-
+        
+        self.check_folder_existence(folder_path)
+        self.alg_params = algorithm_params
         # create a format for output file name based on the algorithm params
         params_string = '_'.join(f"{value}_{key}" for key, value in algorithm_params.items() if key != 'verbose_alg')
         self.output_file_name = f'{folder_path}{algorithm_class.__name__}_{params_string}_{file_name_addition}'
-        
-        self.all_timetables = []
+        self.malus_per_cat_list = []
+        self.all_timetables = defaultdict(list)
         for iter in range(self.iterations):
+
+            self.malus_per_cat = {'capacity': 0, 'evening':  0, 'indiv_confl': 0, 'gap_hours': 0}
 
             # create a randomized starting timetable before running the algorithm
             randomized_timetable = randomize(self.timetable)
             algorithm = algorithm_class(randomized_timetable)
             score = algorithm.run(**algorithm_params)
-            self.all_timetables.append(algorithm.timetable)
+            self.all_timetables[iter].append(algorithm.timetable)
             # add a dictionary to the list with malus points per iteration for each algorithm run
             self.indiv_scores.append(algorithm.iteration_values)
 
@@ -62,12 +65,9 @@ class Experiment():
                 if verbose:
                     print(f"New best timetable saved at score {score}")
             
+            self.update_total_malus(algorithm)
             # calculate the malus points per category for this timetable and add to the total dictionary
-            self.malus_per_cat['capacity'] += check_capacity(algorithm.timetable)
-            self.malus_per_cat['evening'] += check_evening_slot(algorithm.timetable)
-            self.malus_per_cat['indiv_confl'] += check_individual_conflicts(algorithm.timetable)
-            self.malus_per_cat['gap_hours'] += check_gap_hours(algorithm.timetable)
-
+           
             # be sure to save all timetables for analyzing
             # with open(f'{self.output_file_name}_all_timetables.pkl', "ab") as f:
             #     pickle.dump(self.best_timetable, f)
@@ -76,15 +76,13 @@ class Experiment():
                 print(f"Iteration {iter}: Score = {score}")
             
             ### check
-            with open(f'{self.output_file_name}_experiment_info.pkl', "wb") as f:
-                pickle.dump(self.indiv_scores, f)
+            with open(f'{self.output_file_name}_experiment_instance.pkl', "wb") as f:
+                pickle.dump(self, f)
             ### check
             ### dubbel check
 
         # calculate the average malus points per category
-        for cat in self.malus_per_cat.keys():
-            self.malus_per_cat[cat] = self.malus_per_cat.get(cat) / self.iterations
-        
+        #self.calculate_average_malus()
         
         
 
@@ -104,3 +102,19 @@ class Experiment():
             writer = csv.writer(f)
 
             writer.writerow(self.results)
+
+    def update_total_malus(self, algorithm):
+        self.malus_per_cat['capacity'] = check_capacity(algorithm.timetable)
+        self.malus_per_cat['evening'] = check_evening_slot(algorithm.timetable)
+        self.malus_per_cat['indiv_confl'] = check_individual_conflicts(algorithm.timetable)
+        self.malus_per_cat['gap_hours'] = check_gap_hours(algorithm.timetable)
+        self.malus_per_cat_list.append(self.malus_per_cat)
+
+    def calculate_average_malus(self):
+         for cat in self.malus_per_cat.keys():
+            self.malus_per_cat[cat] = self.malus_per_cat.get(cat) / self.iterations
+
+    def check_folder_existence(self, folder_path):
+        if not os.path.exists(folder_path):
+            os.makedirs(folder_path)  
+        

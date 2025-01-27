@@ -199,3 +199,38 @@ def malus_per_experiment_step(malus_points, title='Malus points distribution'):
     plt.title(title)
     plt.show()
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def plot_malus_iter_test(score_dict_list, title='Malus per iteration'):
+    total_iterations = 0
+    for dict in score_dict_list:
+        x_values = []
+        y_values = []
+        for score in dict.values():
+           
+            if len(x_values) < 500:
+                total_iterations += 1
+                y_values.append(score)
+                x_values.append(total_iterations)
+            
+        plt.plot(x_values, y_values, color='b' )#lw=0.5)
+    
+    plt.title(title)
+    #plt.axhline(average_malus,xmin=0, xmax=len(malus_points_list), color = 'r', ls= '--', label= f'Average = {round(average_malus)}')
+    plt.xlabel('iterations')
+    plt.ylabel('malus points')
+    plt.legend()
+    plt.show()
