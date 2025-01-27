@@ -213,7 +213,7 @@ def random_activity_location_swap(timetable):
 
 def switch_conflict_student(timetable):
     """
-    This function chooses a student out of students that have conflicting activities. It
+    This function chooses a student out of all students that have conflicting activities. It
     tries to do this 20 times to prevent choosing a student that only has lectures as 
     conflicting activities (because each student following a course attends each lecture) or
     choosing a student for who all conflicting activity groups are full.
@@ -269,7 +269,7 @@ def switch_conflict_student(timetable):
         # print(random_conflict_activity.student_list)
 
         timetable.swap_student_activity(random_conflict_student, random_conflict_activity, random_new_group)
-
+        check_individual_conflicts(timetable)
         # print(f'\nSwitched {random_conflict_student} from {random_conflict_activity} to {random_new_group} \n')
         # print(f'----------Student list for {random_new_group}-----------')
         # print(random_new_group.student_list)

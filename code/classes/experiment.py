@@ -33,17 +33,17 @@ class Experiment():
         self.malus_per_cat = {'capacity': 0, 'evening':  0, 'indiv_confl': 0, 'gap_hours': 0}
 
         # create a format for output file name based on the algorithm params
-        params_string = '_'.join(f"{key}_{value}" for key, value in algorithm_params.items() if key != 'verbose_alg')
+        params_string = '_'.join(f"{value}_{key}" for key, value in algorithm_params.items() if key != 'verbose_alg')
         self.output_file_name = f'{folder_path}{algorithm_class.__name__}_{params_string}_{file_name_addition}'
         
-        
+        self.all_timetables = []
         for iter in range(self.iterations):
 
             # create a randomized starting timetable before running the algorithm
             randomized_timetable = randomize(self.timetable)
             algorithm = algorithm_class(randomized_timetable)
             score = algorithm.run(**algorithm_params)
-
+            self.all_timetables.append(algorithm.timetable)
             # add a dictionary to the list with malus points per iteration for each algorithm run
             self.indiv_scores.append(algorithm.iteration_values)
 

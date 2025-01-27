@@ -221,7 +221,7 @@ if __name__ == "__main__":
 
     # # run Hill Climber
     # hill_climber_summary = experiment.run_algorithm("data/best_timetable_exptest_12_neighbours.pkl", HillClimber, verbose=True, verbose_alg=True,
-    #                                                   n_neighbours=12, n_swaps_per_neighbour=3, iterations=15000)
+    #                                                   neighbours_=12, swaps_per_neighbour=3, iterations=15000)
     # print("Hill Climber Summary:", hill_climber_summary)
     # print('Malus per cat', experiment.malus_per_cat)
 
@@ -244,7 +244,7 @@ if __name__ == "__main__":
 
     # calculate_malus(stored_timetables[1], verbose=True)
 
-    # with open('data/switch_conflict_students_test_tables/sim_ann_10_neigh_3_swap_best_timetable.pkl', 'rb') as f:
+    # with open('data/conflict_test/SimulatedAnnealing_n_neighbours_8_n_swaps_per_neighbour_3_iterations_20000__best_timetable_33malus.pkl', 'rb') as f:
     #     stored_timetable = pickle.load(f)
     # calculate_malus(stored_timetable, verbose=True)
 
