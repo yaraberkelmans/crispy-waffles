@@ -153,13 +153,13 @@ if __name__ == "__main__":
     # print("Hill Climber Summary:", hill_climber_summary)
     # print('Malus per cat', experiment.malus_per_cat)
 
-    experiment = Experiment(timetable, iterations=10)
+    # experiment = Experiment(timetable, iterations=10)
 
-    # # # run SimAnn
-    sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, 'data/final_runs/', verbose=True, verbose_alg=True, 
-                                                 neighbours=9, swaps_per_neighbour=3, iterations=20000, temperature=1)
-    print("Simulated Annealing Summary:", sim_ann_summary)
-    print('Malus per cat', experiment.malus_per_cat)
+    # # # # run SimAnn
+    # sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, 'data/final_runs/', verbose=True, verbose_alg=True, 
+    #                                              neighbours=9, swaps_per_neighbour=3, iterations=20000, temperature=1)
+    # print("Simulated Annealing Summary:", sim_ann_summary)
+    # print('Malus per cat', experiment.malus_per_cat)
 
     # stored_timetables = []
     # with open("data/neighbour_n_exp_3_swaps/HillClimber_n_neighbours_8_n_swaps_per_neighbour_3_iterations_20000__all_timetables.pkl", "rb") as f:
@@ -172,11 +172,11 @@ if __name__ == "__main__":
 
     # calculate_malus(stored_timetables[1], verbose=True)
 
-    # with open('data/experiment_pickle_test/SimulatedAnnealing_2_neighbours_2_swaps_per_neighbour_10_iterations__Temp=1_experiment_instance.pkl', 'rb') as f:
-    #     stored_experiment = pickle.load(f)
-    # #calculate_malus(stored_timetable, verbose=True)
-    # print(stored_experiment.alg_params)
-    # print(stored_experiment.summary)
+    with open('data/final_runs/SimulatedAnnealing_9_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl', 'rb') as f:
+        stored_experiment = pickle.load(f)
+    # calculate_malus(stored_experiment, verbose=True)
+    print(stored_experiment.results)
+    #print(stored_experiment.summary)
 
     # plot_malus_iter_test(stored_experiment)
 
