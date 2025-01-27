@@ -270,18 +270,3 @@ class Timetable():
         self.create_timetable() # makes empty .self attr
         self.initialize_locations() # turns empty into None
 
-
-#print(os.getcwd())
-timetable = Timetable()
-timetable.load_courses('data/vakken.csv')
-timetable.get_activities_count()
-timetable.name_activities()
-timetable.create_timetable()
-timetable.initialize_locations()
-#print(timetable.courses[1].course_name)
-'''
-for timeslot in timetable.timetable.keys():
-    print(timeslot.name)
-'''
-#print(timetable.timetable)
-

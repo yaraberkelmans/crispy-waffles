@@ -16,8 +16,13 @@ import sys
 import copy
 import pickle
 
-if __name__ == "__main__":
+#
+import cProfile
+import pstats
+#
 
+if __name__ == "__main__":
+    # def main():
     # initialize timetable
     timetable = Timetable()
     timetable.generate_initial_timetable()
@@ -51,7 +56,7 @@ if __name__ == "__main__":
     # full_randomized_timetable = randomize(timetable)
     # hill_climber = HillClimber(full_randomized_timetable)
     #     hill_climber_score = hill_climber.run(10, 3, hillclimber_range)
-      
+    
         
     #     # append to list to make list in list for results and iterations exports
     #     hill_climber_individual_score_iterations.append(hill_climber_score)
@@ -148,13 +153,13 @@ if __name__ == "__main__":
     # print("Hill Climber Summary:", hill_climber_summary)
     # print('Malus per cat', experiment.malus_per_cat)
 
-    experiment = Experiment(timetable, iterations=30)
+    # experiment = Experiment(timetable, iterations=5)
 
-    # # # run SimAnn
-    sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing,'data/26-1-25_overnight_run/', verbose=True, verbose_alg=True, 
-                                                 neighbours_=8, swaps_per_neighbour=2, iterations=15000)
-    print("Simulated Annealing Summary:", sim_ann_summary)
-    print('Malus per cat', experiment.malus_per_cat)
+    # # # # run SimAnn
+    # sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing,'data/profile_test/', verbose=True, verbose_alg=True, temperature=50,
+    #                                             neighbours_=8, swaps_per_neighbour=2, iterations=2500)
+    # print("Simulated Annealing Summary:", sim_ann_summary)
+    # print('Malus per cat', experiment.malus_per_cat)
 
     # stored_timetables = []
     # with open("data/neighbour_n_exp_3_swaps/HillClimber_n_neighbours_8_n_swaps_per_neighbour_3_iterations_20000__all_timetables.pkl", "rb") as f:
@@ -242,3 +247,27 @@ if __name__ == "__main__":
     #     parameter_name="neighbours",
     #     fixed_swaps=4
     # )
+
+    results_iter_malus_per_alg_temp100 = load_pickle_file("data/SIM_ANN_temperature_tests/SimulatedAnnealing_8_neighbours__2_swaps_per_neighbour_2500_iterations__Temp=100_experiment_info.pkl")
+    print(results_iter_malus_per_alg_temp100)
+    # for alg in results_iter_malus_per_alg_temp100:
+    plot_malus_iter(results_iter_malus_per_alg_temp100, title='Malus drop for Temp = 100')
+
+    # results_iter_malus_per_alg_temp50 = load_pickle_file("data/SIM_ANN_temperature_tests/SimulatedAnnealing_8_neighbours__2_swaps_per_neighbour_2500_iterations__Temp=50_experiment_info.pkl")
+    # for alg in results_iter_malus_per_alg_temp50:
+    #     plot_malus_iter(list(alg.keys()), list(alg.values()), title='Malus drop for Temp = 50')
+    
+    # results_iter_malus_per_alg_temp1 = load_pickle_file("data/SIM_ANN_temperature_tests/SimulatedAnnealing_8_neighbours__2_swaps_per_neighbour_2500_iterations__Temp=1_experiment_info.pkl")
+    # for alg in results_iter_malus_per_alg_temp1:
+    #     plot_malus_iter(list(alg.keys()), list(alg.values()), title='Malus drop for Temp = 1')
+    
+   
+    ## profile the main function
+    ## create a profiler and save the results in a file
+    # profiler = cProfile.Profile()
+    # profiler.enable()
+    # main()
+    # profiler.disable()
+    # profiler.dump_stats("data/profile_test/profile_results.prof")  # Save binary profile data
+
+

@@ -22,7 +22,7 @@ class Experiment():
         self.best_score = float('inf')
         
     
-    def run_algorithm(self, algorithm_class, folder_path='data/', file_name_addition = '', verbose = False, **algorithm_params):
+    def run_algorithm(self, algorithm_class, folder_path='data/', file_name_addition = '', verbose = False, temperature=None, **algorithm_params):
         """
         This method runs a given algorithm for a number of iterations in experiment. Parameters are:
         output_file name: A name for the pickle file where the best timetable is stored in
@@ -34,6 +34,8 @@ class Experiment():
 
         # create a format for output file name based on the algorithm params
         params_string = '_'.join(f"{value}_{key}" for key, value in algorithm_params.items() if key != 'verbose_alg')
+        if temperature:
+            file_name_addition += f'_Temp={temperature}'
         self.output_file_name = f'{folder_path}{algorithm_class.__name__}_{params_string}_{file_name_addition}'
         
         self.all_timetables = []
@@ -41,7 +43,7 @@ class Experiment():
 
             # create a randomized starting timetable before running the algorithm
             randomized_timetable = randomize(self.timetable)
-            algorithm = algorithm_class(randomized_timetable)
+            algorithm = algorithm_class(randomized_timetable, temperature=temperature)
             score = algorithm.run(**algorithm_params)
             self.all_timetables.append(algorithm.timetable)
 

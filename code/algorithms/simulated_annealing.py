@@ -1,7 +1,6 @@
 import random
 import math
 
-from .malus import calculate_malus
 from .hill_climber import HillClimber
 
 
