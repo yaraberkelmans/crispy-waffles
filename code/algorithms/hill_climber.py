@@ -80,22 +80,21 @@ class HillClimber():
             return True
 
     # TODO ADD DOCSTRINGS!!!
-    def run(self,  n_neighbours, n_swaps_per_neighbour, iterations, verbose_alg = False):
+    def run(self,  neighbours_, swaps_per_neighbour, iterations, verbose_alg = False):
         self.iterations = iterations
+        
         for iteration in range(iterations):
             neighbours = []
+            
             if verbose_alg:
                 print(f'Iteration {iteration}/{iterations} now running, value of timetable malus points is now {self.value}')
-            for i in range(n_neighbours):
-                neighbours.append(self.generate_individual_neighbour(n_swaps_per_neighbour))
+            
+            for i in range(neighbours_):
+                neighbours.append(self.generate_individual_neighbour(swaps_per_neighbour))
             
             self.choose_best_neighbour(neighbours)
             improved = self.check_solution()
 
-            # if iteration // 10 == 0 and n_swaps_per_neighbour > 1:
-            #     n_swaps_per_neighbour -= 4
-
-            # store current malus points 
             self.iteration_values[iteration] = self.value
 
             if improved:
@@ -103,17 +102,18 @@ class HillClimber():
 
             i_since_last_best = iteration - self.best_iteration
             
-            if iteration > 1000 and self.value > 1000:
+            if iteration == 10000 and self.value > 50:
                 return self.value
 
             if i_since_last_best == 1000:
                 print(f'{iteration} iterations')
                 self.iterations_ran = iteration
                 return self.value
-            elif i_since_last_best > 250 and self.value > 130:
-                print(f'{iteration} iterations')
-                self.iterations_ran = iteration
-                return self.value 
+            
+            # elif i_since_last_best > 250 and self.value > 130:
+            #     print(f'{iteration} iterations')
+            #     self.iterations_ran = iteration
+            #     return self.value 
         
         self.iterations_ran = iteration
         return self.value
