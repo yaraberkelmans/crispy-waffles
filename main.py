@@ -38,12 +38,12 @@ if __name__ == "__main__":
     # print('Malus per cat', experiment.malus_per_cat)
 
 
-    # # -------------------------------------------------------Simulated Annealing -----------------------------------------------
+    # ------------------------------------------------------ Simulated Annealing -----------------------------------------------
     experiment = Experiment(timetable, iterations=10)
 
     # run SimAnn
-    sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, 'data/final_runs/', verbose=True, verbose_alg=False, 
-                                                 neighbours=7, swaps_per_neighbour=2, iterations=10)
+    sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, 'data/final_runs_3/', verbose=True, verbose_alg=False, 
+                                                 neighbours=9, swaps_per_neighbour=2, iterations=20000, temperature=2.5)
     print("Simulated Annealing Summary:", sim_ann_summary)
     print('Malus per cat', experiment.malus_per_cat)
 
@@ -85,22 +85,25 @@ if __name__ == "__main__":
     #         with open(file_name, "wb") as f:
     #             pickle.dump(experiment, f)
 
-    file_paths = [
-        "test_data/experiment_sim_ann_1_7.pkl",
-        "test_data/experiment_sim_ann_1_8.pkl",
-        "test_data/experiment_sim_ann_1_9.pkl",
-        "test_data/experiment_sim_ann_2_7.pkl",
-        "test_data/experiment_sim_ann_2_8.pkl",
-        "test_data/experiment_sim_ann_2_9.pkl",
-        "test_data/experiment_sim_ann_3_7.pkl",
-        "test_data/experiment_sim_ann_3_8.pkl",
-        "test_data/experiment_sim_ann_3_9.pkl",
-    ]
+    # file_paths = [
+    #     "test_data/experiment_sim_ann_1_7.pkl",
+    #     "test_data/experiment_sim_ann_1_8.pkl",
+    #     "test_data/experiment_sim_ann_1_9.pkl",
+    #     "test_data/experiment_sim_ann_2_7.pkl",
+    #     "test_data/experiment_sim_ann_2_8.pkl",
+    #     "test_data/experiment_sim_ann_2_9.pkl",
+    #     "test_data/experiment_sim_ann_3_7.pkl",
+    #     "test_data/experiment_sim_ann_3_8.pkl",
+    #     "test_data/experiment_sim_ann_3_9.pkl",
+    # ]
 
-    malus_df = load_experiment_data(file_paths)
+    # malus_df = load_experiment_data(file_paths)
         
-    print(malus_df.head(10))
+    # print(malus_df.head(10))
         
-    plot_experiment_results(malus_df)
+    # plot_experiment_results(malus_df)
 
+# ----------------------- Experiment loader --------------------------
+exp = load_pickle_data('data/final_runs/SimulatedAnnealing_9_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl')
+print(exp.results)
 

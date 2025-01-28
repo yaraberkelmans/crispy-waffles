@@ -116,7 +116,7 @@ class HillClimber():
                 return self.value
 
             # if there hasnt been an improvement in 1000 iterations the loop stops
-            if i_since_last_best == 1000:
+            if i_since_last_best == 1000 and self.value > 37:
                 print(f'{iteration} iterations')
 
                 return self.value

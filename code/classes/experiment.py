@@ -41,7 +41,8 @@ class Experiment():
         self.malus_per_cat_list = []
         self.all_timetables = defaultdict(list)
         for iter in range(self.iterations):
-
+            if verbose:
+                print(f'Algorithm {iter} now running!')
             self.malus_per_cat = {'capacity': 0, 'evening':  0, 'indiv_confl': 0, 'gap_hours': 0}
 
             # create a randomized starting timetable before running the algorithm
