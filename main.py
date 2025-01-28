@@ -68,7 +68,7 @@ if __name__ == "__main__":
     """
     # # -------------------------------------------------------Simulated Annealing -----------------------------------------------
 
-    # experiment = Experiment(timetable, iterations=10)
+    experiment = Experiment(timetable, iterations=10)
 
     # run SimAnn
     sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, 'data/final_runs_3/', verbose=True, verbose_alg=False, 
