@@ -2,7 +2,6 @@ import csv
 import sys
 import copy
 import pickle
-import numpy as np
 
 #
 import cProfile
@@ -34,12 +33,12 @@ if __name__ == "__main__":
     Script:
 
     """
-    # # -------------------------------------------------------- Hill Climber -----------------------------------------------------
-    # experiment = Experiment(timetable, iterations=10)
+    # # # -------------------------------------------------------- Hill Climber -----------------------------------------------------
+    # experiment = Experiment(timetable, iterations=30)
 
     # # run Hill Climber
-    # hill_climber_summary = experiment.run_algorithm("data/best_timetable_exptest_12_neighbours.pkl", HillClimber, verbose=True, verbose_alg=True,
-    #                                                   neighbours=12, swaps_per_neighbour=3, iterations=15000)
+    # hill_climber_summary = experiment.run_algorithm( HillClimber, "data/final_runs/", verbose=True, verbose_alg=True,
+    #                                                   neighbours=1, swaps_per_neighbour=3, iterations=20000)
     # print("Hill Climber Summary:", hill_climber_summary)
     # print('Malus per cat', experiment.malus_per_cat)
 
@@ -130,17 +129,17 @@ if __name__ == "__main__":
     #         with open(file_name, "wb") as f:
     #             pickle.dump(experiment, f)
 
-    file_paths = [
-        "data/final_runs/SimulatedAnnealing_7_neighbours_1_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-        "data/final_runs/SimulatedAnnealing_7_neighbours_2_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-        "data/final_runs/SimulatedAnnealing_7_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-        "data/final_runs/SimulatedAnnealing_8_neighbours_1_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-        "data/final_runs/SimulatedAnnealing_8_neighbours_2_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-        "data/final_runs/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-        "data/final_runs/SimulatedAnnealing_9_neighbours_1_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-        "data/final_runs/SimulatedAnnealing_9_neighbours_2_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-        "data/final_runs/SimulatedAnnealing_9_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-    ]
+    # file_paths = [
+    #     "data/final_runs/SimulatedAnnealing_7_neighbours_1_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "data/final_runs/SimulatedAnnealing_7_neighbours_2_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "data/final_runs/SimulatedAnnealing_7_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "data/final_runs/SimulatedAnnealing_8_neighbours_1_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "data/final_runs/SimulatedAnnealing_8_neighbours_2_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "data/final_runs/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "data/final_runs/SimulatedAnnealing_9_neighbours_1_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "data/final_runs/SimulatedAnnealing_9_neighbours_2_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "data/final_runs/SimulatedAnnealing_9_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    # ]
 
 
 #     # malus_df = load_experiment_data(file_paths)
@@ -222,5 +221,11 @@ if __name__ == "__main__":
 # print(len(total_malus))
 
 # plot_malus_histogram(total_malus, info='neighbours: 8, swaps: 3, iterations: 20000, temp: 1', suptitle='Simulated Annealing Malus Point Distribution', export=True, output_file_name='data/Sim_ann_8n_3s')
-   
 
+
+
+
+low_malus_timetable = load_pickle_data('data/conflict_test/29_malus_SimulatedAnnealing_8_neighbours__3_swaps_per_neighbour_20000_iterations__best_timetable.pkl')
+timetable_to_csv(low_malus_timetable, 'best_timetable_29_malus')
+pivot = visualize_timetable('best_timetable_29_malus.csv')
+save_timetable_to_html(pivot, 'best_timetable_ever_made_in_the_history_of_lectures_en_lesroosters_better_than_verenigde_bond_dieren_ofzo_made_by_the_crispy_waffles.html')
