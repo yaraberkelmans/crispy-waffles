@@ -47,8 +47,9 @@ def save_timetable_to_html(pivot_table, output_file_name):
     with open(output_file_name, 'w') as f:
         f.write(html_content)
 
+
 # TODO: pas docstring aan
-def plot_malus_iter_connected(scores_per_iter_alg, output_file_name, title='Malus points per iteration'):
+def plot_malus_iter_connected(scores_per_iter_alg, output_file_name=None, info=None, export =False, suptitle='Malus points per iteration'):
     """
     This function plots the progress of the malus points per iteration in one algorithm run. It takes the iterations and malus_points as arguments, 
     which are both lists.
@@ -62,23 +63,24 @@ def plot_malus_iter_connected(scores_per_iter_alg, output_file_name, title='Malu
 
     iter_list = list(range(total_iters))
 
-    average_malus = average_malus = sum(malus_points_list)/ len(malus_points_list)
+    average_malus = sum(malus_points_list)/ len(malus_points_list)
     min_malus = min(malus_points_list)
     
     # plot functions
     plt.plot(iter_list, malus_points_list, label= 'Malus points')
     # plt.plot(min_malus_idx, min_malus, color = 'g', marker='o', label= f'Minimum = {round(min_malus)}')
-    plt.title(title)
+    plt.title(info, loc='left', fontsize=10)
+    plt.suptitle(suptitle)
     plt.axhline(average_malus,xmin=0, xmax=len(malus_points_list), color = 'r', ls= '--', label= f'Average = {round(average_malus)}')
     plt.xlabel('iterations')
     plt.ylabel('malus points')
     plt.legend()
+    if export:
+        plt.savefig(output_file_name)
     plt.show()
-    plt.savefig(output_file_name)
     
 
-
-def plot_malus_histogram(malus_points_list, output_file_name, bins=20, title='Histogram of Malus Points'):
+def plot_malus_histogram(malus_points_list, output_file_name=None, bins=20, info=None, export=False, suptitle='Histogram of Malus Points'):
     """
     This function creates a histogram of malus points to visualize their distribution.
     """
@@ -87,19 +89,20 @@ def plot_malus_histogram(malus_points_list, output_file_name, bins=20, title='Hi
     min_malus = min(malus_points_list)
 
     # plot histogram
-    plt.hist(malus_points_list, bins=bins, color='blue', edgecolor='black')
+    sns.histplot(malus_points_list, kde= True, edgecolor='black')
     plt.axvline(average_malus, color='red', linestyle='--', label=f'Average = {round(average_malus)}')
     plt.axvline(min_malus, color='green', linestyle='-', label=f'Minimum = {round(min_malus)}')
-    plt.title(title)
+    plt.title(info, loc='left', fontsize=10)
     plt.xlabel('Malus Points')
     plt.ylabel('Frequency')
+    plt.suptitle(suptitle)
     plt.legend()
+    if export:
+        plt.savefig(output_file_name)
     plt.show()
-    plt.savefig(output_file_name)
+   
     
-
-
-def barplot_malus_per_category(timetable, output_file_name):
+def barplot_malus_per_category(timetable, output_file_name=None, info=None, export=False, suptitle= 'Distribution of Malus Points'):
     """
     This function creates a barplot showing showing the distribution of malus points across different categories.  
     """
@@ -116,21 +119,25 @@ def barplot_malus_per_category(timetable, output_file_name):
     plt.bar(malus_types, malus_values, color=['red','blue', 'green', 'purple'])
     plt.xlabel('Malus Type')
     plt.ylabel('Malus Points')
-    plt.title('Distribution of Malus Points')
+    plt.title(info, loc='left', fontsize=10)
+    plt.suptitle(suptitle)
+    if export:
+        plt.savefig(output_file_name)
     plt.show()
-    plt.savefig(output_file_name)
     
 
-def malus_per_experiment_step(malus_points, output_file_name, title='Malus points distribution'):
+def malus_per_experiment_step(malus_points, output_file_name=None, info=None, export=False, suptitle='Malus points distribution'):
     """
     This function plots the distribution of malus points of the resulting timetables of the iterations of the experiment.
     """
     plt.hist(malus_points)
     plt.xlabel('Malus Points')
     plt.ylabel('Frequency')
-    plt.title(title)
+    plt.title(info, loc='left', fontsize=10)
+    plt.suptitle(suptitle)
+    if export:
+        plt.savefig(output_file_name)
     plt.show()
-    plt.savefig(output_file_name)
     
 
 def load_pickle_data(filepath):
@@ -143,7 +150,7 @@ def load_pickle_data(filepath):
     return variable
 
 # TODO: pas docstring aan
-def plot_malus_iter_disconnected(score_dict_list, output_file_name, title='Malus per iteration'):
+def plot_malus_iter_disconnected(score_dict_list, output_file_name=None, info=None, export=False, suptitle='Malus per iteration'):
     """
     This function plots the malus points per iteration from a list of dictionaries containing maluspoints. 
     """
@@ -160,13 +167,15 @@ def plot_malus_iter_disconnected(score_dict_list, output_file_name, title='Malus
             
         plt.plot(x_values, y_values, color='b' )#lw=0.5)
 
-    plt.title(title)
+    plt.title(info, loc='left', fontsize=10)
+    plt.suptitle(suptitle)
+
     #plt.axhline(average_malus,xmin=0, xmax=len(malus_points_list), color = 'r', ls= '--', label= f'Average = {round(average_malus)}')
     plt.xlabel('iterations')
     plt.ylabel('malus points')
-    plt.legend()
+    if export:
+        plt.savefig(output_file_name)
     plt.show()
-    plt.savefig(output_file_name)
     
 
 def timetable_to_csv(timetable, output_filepath):
@@ -189,6 +198,7 @@ def timetable_to_csv(timetable, output_filepath):
         writer.writeheader()
         writer.writerows(data)
 
+
 def load_experiment_data(file_paths): 
     """
     This function takes a list of (pickle) filepaths and turns it in a combined dataframe. 
@@ -207,7 +217,8 @@ def load_experiment_data(file_paths):
 
     return pd.DataFrame(combined_data)
 
-def plot_experiment_results(malus_df, output_file_name): 
+
+def plot_experiment_results(malus_df, output_file_name=None, export=False): 
     """
     This function plots the combinations of number of neigbours vs. the number of swaps and their distribution of maluspoints. 
     """
@@ -218,6 +229,8 @@ def plot_experiment_results(malus_df, output_file_name):
 
     plot.set_axis_labels("Total Malus Points", "Frequenty")
     plot.set_titles(row_template="Neighbours = {row_name}", col_template="Swaps = {col_name}")
+    if export: 
+        plt.savefig(output_file_name)
     plt.show()
     plt.savefig(output_file_name)
 

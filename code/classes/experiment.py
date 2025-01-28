@@ -1,7 +1,7 @@
 from code.algorithms.randomize import randomize
 from code.algorithms.malus import *
 from collections import defaultdict
-
+from code.algorithms.simulated_annealing import *
 import os
 import csv
 import pickle
@@ -54,7 +54,10 @@ class Experiment():
 
             # create a randomized starting timetable before running the algorithm
             randomized_timetable = randomize(self.timetable)
-            algorithm = algorithm_class(randomized_timetable, temperature=temperature)
+            if algorithm_class == SimulatedAnnealing:
+                algorithm = algorithm_class(randomized_timetable, temperature=temperature)
+            else:
+                algorithm = algorithm_class(randomized_timetable)
             score = algorithm.run(**algorithm_params)
             self.all_timetables[iter].append(algorithm.timetable)
 
