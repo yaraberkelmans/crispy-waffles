@@ -3,10 +3,8 @@ import sys
 import copy
 import pickle
 
-#
 import cProfile
 import pstats
-#
 
 from code.classes.timetable import Timetable
 from code.algorithms.randomize import random_course_assignment
