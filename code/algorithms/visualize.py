@@ -202,6 +202,7 @@ def load_experiment_data(file_paths):
                 "total_malus": total_malus,
                 "swaps_per_neighbour": experiment.alg_params["swaps_per_neighbour"],
                 "neighbours": experiment.alg_params["neighbours"]
+                "neighbours": experiment.alg_params["neighbours"]
             })
 
     return pd.DataFrame(combined_data)
@@ -211,8 +212,10 @@ def plot_experiment_results(malus_df, output_file_name):
     This function plots the combinations of number of neigbours vs. the number of swaps and their distribution of maluspoints. 
     """
     sns.set_theme(style= "darkgrid")
-    plot = sns.displot(malus_df, x = "total_malus", col = "swaps_per_neighbour", row="neighbours",  binwidth=100, height=3, facet_kws=dict(margin_titles=True),
+    plot = sns.displot(malus_df, x = "total_malus", col = "swaps_per_neighbour", row="neighbours", binrange=(0,100), binwidth=5, height=3, facet_kws=dict(margin_titles=True),
     )
+   
+
     plot.set_axis_labels("Total Malus Points", "Frequenty")
     plot.set_titles(row_template="Neighbours = {row_name}", col_template="Swaps = {col_name}")
     plt.show()

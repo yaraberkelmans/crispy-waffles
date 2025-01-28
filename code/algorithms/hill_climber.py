@@ -81,27 +81,25 @@ class HillClimber():
             return True
 
     # TODO ADD DOCSTRINGS!!! echt doen hoorrr
-    def run(self, neighbours_, swaps_per_neighbour, iterations, verbose_alg = False):
+    def run(self, neighbours, swaps_per_neighbour, iterations, verbose_alg = False):
         """
         
         """
         self.iterations = iterations
         
         for iteration in range(iterations):
-            neighbours = []
+            neighbour_list = []
             
-            # if iteration == 0:
-            #     print(f'Algorithm running, starting first iteration at {self.value} maluspoints')
-            # if iteration % 500 == 0:
-            #     print(f'Now at iteration {iteration} with {self.value} malus points')
+            if iteration % 500 == 0:
+                print(f'Now at iteration {iteration} with {self.value} malus points')
 
-            # if verbose_alg:
-            #     print(f'Iteration {iteration}/{iterations} now running, value of timetable malus points is now {self.value}')
+            if verbose_alg:
+                print(f'Iteration {iteration}/{iterations} now running, value of timetable malus points is now {self.value}')
             
-            for i in range(neighbours_):
-                neighbours.append(self.generate_individual_neighbour(swaps_per_neighbour))
+            for i in range(neighbours):
+                neighbour_list.append(self.generate_individual_neighbour(swaps_per_neighbour))
             
-            self.choose_best_neighbour(neighbours)
+            self.choose_best_neighbour(neighbour_list)
             improved = self.check_solution()
 
             self.iteration_values[iteration] = self.value
@@ -116,7 +114,7 @@ class HillClimber():
                 return self.value
 
             # if there hasnt been an improvement in 1000 iterations the loop stops
-            if i_since_last_best == 1000:
+            if i_since_last_best == 1000 and self.value > 37:
                 print(f'{iteration} iterations')
 
                 return self.value
