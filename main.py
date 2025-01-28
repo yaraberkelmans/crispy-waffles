@@ -2,6 +2,7 @@ import csv
 import sys
 import copy
 import pickle
+import numpy as np
 
 #
 import cProfile
@@ -142,48 +143,84 @@ if __name__ == "__main__":
     ]
 
 
-    malus_df = load_experiment_data(file_paths)
+#     # malus_df = load_experiment_data(file_paths)
         
-    print(malus_df)
+#     # print(malus_df)
         
-    plot_experiment_results(malus_df, 'test_plot')
+#     # plot_experiment_results(malus_df, 'test_plot')
 
-# ----------------------- Experiment loader --------------------------
-exp = load_pickle_data('data/neighbour_n_exp_3_swaps/HillClimber_n_neighbours_8_n_swaps_per_neighbour_3_iterations_20000__experiment_info.pkl')
-print(exp)
+# # ----------------------- Experiment loader --------------------------
+# # exp = load_pickle_data('data/neighbour_n_exp_3_swaps/HillClimber_n_neighbours_8_n_swaps_per_neighbour_3_iterations_20000__experiment_info.pkl')
+# # print(exp)
 
+# # exp2 = load_pickle_data('data/neighbour_n_exp_3_swaps/SimulatedAnnealing_n_neighbours_8_n_swaps_per_neighbour_3_iterations_20000__experiment_info.pkl')
 
-
-
-
-
+# # results = []
 
 
+# exp_3 = load_pickle_data('data/final_runs/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl')
+
+# exp_4 = load_pickle_data('data/final_runs_2/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl')
+
+# exp_5 = load_pickle_data('data/final_runs_3/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl')
+
+# print(len(exp_5.results))
+# print(len(exp_4.results))
+# print(len(exp_3.results))
 
 
+# # print(len(results))
+
+# # # file_paths_best_timetable_only = [
+# # #     ''
+# # # ]
+# # # best_timetables = collect_best_timetables(root_dir="data")
+# # # for timetable in best_timetables:
+# # #     malus_points = calculate_malus(timetable))
 
 
+# def get_result_from_idiv_values(exp):
+#     malus_list = []
+#     count = 0
+#     for alg_run in exp:
+#         last_value = alg_run[max(alg_run.keys())]
+#         if last_value < 1000:
+#             malus_list.append(last_value)
+#             count += 1
+#     return malus_list
 
-# file_paths_best_timetable_only = [
-#     ''
-# ]
-# best_timetables = collect_best_timetables(root_dir="data")
-# for timetable in best_timetables:
-#     malus_points = calculate_malus(timetable))
 
-malus_list = []
-count = 0
-for alg_run in exp:
-    last_value = alg_run[max(alg_run.keys())]
-    if last_value < 1000:
-        malus_list.append(last_value)
-        count += 1
-print(malus_list)
-print(count )
-plot_malus_histogram(malus_list)
-    # if last_value < 1000:
-    #     malus_per_run
+# # malus_list_1 = get_result_from_idiv_values(exp2)
+# # print(len(malus_list_1))
 
    
 
+# info = load_pickle_data('data/conflict_test/SimulatedAnnealing_8_neighbours__3_swaps_per_neighbour_20000_iterations__experiment_info.pkl')
+
+
+# file_paths_2 = [
+#     'data/conflict_test/SimulatedAnnealing_8_neighbours__3_swaps_per_neighbour_20000_iterations__experiment_info.pkl',
+#     'data/neighbour_n_exp_3_swaps/SimulatedAnnealing_n_neighbours_8_n_swaps_per_neighbour_3_iterations_20000__experiment_info.pkl'
+# ]
+
+# total_malus = []
+# for i, filepath in enumerate(file_paths_2):
+#     loaded_data = load_pickle_data(filepath)
+#     malus_per_file = get_result_from_idiv_values(loaded_data)
+#     total_malus.extend(malus_per_file)
+
+# print(total_malus)
+# print(len(total_malus))
+# exp_list = [exp_3, exp_4, exp_5]
+# for exp in exp_list:
+#     for result_dict in exp.results:
+#         result = result_dict.get('score')
+#         if result < 1000:
+#             total_malus.append(result)
+
+# print(total_malus)
+# print(len(total_malus))
+
+# plot_malus_histogram(total_malus, info='neighbours: 8, swaps: 3, iterations: 20000, temp: 1', suptitle='Simulated Annealing Malus Point Distribution', export=True, output_file_name='data/Sim_ann_8n_3s')
+   
 

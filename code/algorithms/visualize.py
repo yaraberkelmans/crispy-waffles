@@ -78,7 +78,7 @@ def plot_malus_iter_connected(scores_per_iter_alg, output_file_name, title='Malu
     
 
 
-def plot_malus_histogram(malus_points_list, output_file_name, bins=20, title='Histogram of Malus Points'):
+def plot_malus_histogram(malus_points_list, output_file_name=None, bins=20, info=None, export=False, suptitle='Histogram of Malus Points'):
     """
     This function creates a histogram of malus points to visualize their distribution.
     """
@@ -87,15 +87,18 @@ def plot_malus_histogram(malus_points_list, output_file_name, bins=20, title='Hi
     min_malus = min(malus_points_list)
 
     # plot histogram
-    plt.hist(malus_points_list, bins=bins, color='blue', edgecolor='black')
+    sns.histplot(malus_points_list, kde= True, edgecolor='black')
     plt.axvline(average_malus, color='red', linestyle='--', label=f'Average = {round(average_malus)}')
     plt.axvline(min_malus, color='green', linestyle='-', label=f'Minimum = {round(min_malus)}')
-    plt.title(title)
+    plt.title(info, loc='left', fontsize=10)
     plt.xlabel('Malus Points')
     plt.ylabel('Frequency')
+    plt.suptitle(suptitle)
     plt.legend()
+    if export:
+        plt.savefig(output_file_name)
     plt.show()
-    plt.savefig(output_file_name)
+   
     
 
 
