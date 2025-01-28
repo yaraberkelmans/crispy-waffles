@@ -4,7 +4,7 @@ import seaborn as sns
 import pickle
 import csv
 
-from .malus import *
+from ..algorithms.malus import *
 
 
 def visualize_timetable(timetable_file):
