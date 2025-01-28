@@ -232,11 +232,11 @@ if __name__ == "__main__":
 
 
 # plot for temps
-file_paths_temps = ["data/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=1_experiment_instance.pkl",
-                    "data/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=2.5_experiment_instance.pkl",
-                     "data/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=5_experiment_instance.pkl",
-                      "data/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=10_experiment_instance.pkl",
-                       "data/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=20_experiment_instance.pkl",
-                        "data/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=50_experiment_instance.pkl"]
+file_paths_temps = ["results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=1_experiment_instance.pkl",
+                    "results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=2.5_experiment_instance.pkl",
+                     "results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=5_experiment_instance.pkl",
+                      "results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=10_experiment_instance.pkl",
+                       "results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=20_experiment_instance.pkl",
+                        "results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=50_experiment_instance.pkl"]
 
-plot_temperature(file_paths_temps, output_file_name= 'data/average_malus_per_temp', export=True)
+plot_temperature(file_paths_temps, output_file_name= None, export=False)
