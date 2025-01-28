@@ -70,11 +70,11 @@ if __name__ == "__main__":
 
     # experiment = Experiment(timetable, iterations=10)
 
-    # run SimAnn
-    sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, 'data/final_runs_3/', verbose=True, verbose_alg=False, 
-                                                 neighbours=9, swaps_per_neighbour=2, iterations=20000, temperature=2.5)
-    print("Simulated Annealing Summary:", sim_ann_summary)
-    print('Malus per cat', experiment.malus_per_cat)
+    # # run SimAnn
+    # sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, 'data/final_runs_3/', verbose=True, verbose_alg=False, 
+    #                                              neighbours=9, swaps_per_neighbour=2, iterations=20000, temperature=2.5)
+    # print("Simulated Annealing Summary:", sim_ann_summary)
+    # print('Malus per cat', experiment.malus_per_cat)
 
 
     ## ---------------------------------- Format for loading in timetable and exporting to csv --------------------------------
@@ -126,6 +126,7 @@ if __name__ == "__main__":
         "data/final_runs/SimulatedAnnealing_9_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
     ]
 
+
     # malus_df = load_experiment_data(file_paths)
         
     # print(malus_df.head(10))
@@ -133,6 +134,41 @@ if __name__ == "__main__":
     # plot_experiment_results(malus_df)
 
 # ----------------------- Experiment loader --------------------------
-exp = load_pickle_data('data/final_runs/SimulatedAnnealing_9_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl')
-print(exp.results)
+exp = load_pickle_data('data/neighbour_n_exp_3_swaps/HillClimber_n_neighbours_8_n_swaps_per_neighbour_3_iterations_20000__experiment_info.pkl')
+print(exp)
+
+
+
+
+
+
+
+
+
+
+
+
+
+# file_paths_best_timetable_only = [
+#     ''
+# ]
+# best_timetables = collect_best_timetables(root_dir="data")
+# for timetable in best_timetables:
+#     malus_points = calculate_malus(timetable))
+
+malus_list = []
+count = 0
+for alg_run in exp:
+    last_value = alg_run[max(alg_run.keys())]
+    if last_value < 1000:
+        malus_list.append(last_value)
+        count += 1
+print(malus_list)
+print(count )
+plot_malus_histogram(malus_list)
+    # if last_value < 1000:
+    #     malus_per_run
+
+   
+
 
