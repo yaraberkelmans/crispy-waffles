@@ -232,7 +232,7 @@ def plot_experiment_results(malus_df, output_file_name=None, export=False):
     if export: 
         plt.savefig(output_file_name)
     plt.show()
-    plt.savefig(output_file_name)
+    
 
 
 
@@ -241,5 +241,40 @@ def plot_experiment_results(malus_df, output_file_name=None, export=False):
 
 
 
-def plot_temperature(filepath, output_file_name):
-    pass
+def plot_temperature(file_paths, output_file_name= None, export= False):
+    """
+    This function plots the average malus points from each run in the experiment for each temperature.
+    Parameters: 
+    - file_paths: a list of file_paths
+    - output_file_name: a name if we want to export as a picture, defaults to None
+    - export: boolean, only exports as a file if set to True
+    """
+    for file_path in file_paths:
+        experiment = load_pickle_data(file_path)
+        scores = experiment.summary.get("all_scores")
+        
+        average_scores=[]
+        number = 0
+        total_points = 0
+
+        # exclude scores above 1000 (invalid timetables) and 
+        for score in scores:
+            if score < 1000:
+                number += 1
+                total_points += score
+        average = total_points/number 
+        average_scores.append(average)
+        
+        # get the name out of the file_path
+        temp = file_path.split("Temp=")[-1].split("_")[0]
+
+        # plot a bar for each temperature
+        plt.bar(temp, average_scores)
+    
+    plt.xlabel("Temperature")
+    plt.ylabel("Average Malus Points")
+    plt.title("Average Malus Points per Temperature")
+
+    if export: 
+        plt.savefig(output_file_name)
+    plt.show()

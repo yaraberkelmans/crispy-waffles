@@ -79,17 +79,17 @@ if __name__ == "__main__":
     - 20
     - 50
 
-    In verband met beperkt resterende tijd, hebben we er voor gekozen om elke Temperatuur 10 keer te runnen, elk met 5000 iteraties
+    In verband met beperkt resterende tijd, hebben we er voor gekozen om elke Temperatuur 10 keer te runnen, elk met 5000 iteraties.
     """
     # # -------------------------------------------------------Simulated Annealing -----------------------------------------------
 
-    experiment = Experiment(timetable, iterations=10)
+    # experiment = Experiment(timetable, iterations=10)
 
-    # run SimAnn
-    sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, 'data/temperature_experiments/', verbose=True, verbose_alg=False, 
-                                                 neighbours=8, swaps_per_neighbour=3, iterations=5000, temperature=5)
-    print("Simulated Annealing Summary:", sim_ann_summary)
-    print('Malus per cat', experiment.malus_per_cat)
+    # # run SimAnn
+    # sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, 'data/temperature_experiments/', verbose=True, verbose_alg=False, 
+    #                                              neighbours=8, swaps_per_neighbour=3, iterations=5000, temperature=5)
+    # print("Simulated Annealing Summary:", sim_ann_summary)
+    # print('Malus per cat', experiment.malus_per_cat)
 
 
     # # ---------------------------------- Format for loading in timetable and exporting to csv -----------------------------------
@@ -225,7 +225,18 @@ if __name__ == "__main__":
 
 
 
-low_malus_timetable = load_pickle_data('data/conflict_test/29_malus_SimulatedAnnealing_8_neighbours__3_swaps_per_neighbour_20000_iterations__best_timetable.pkl')
-timetable_to_csv(low_malus_timetable, 'best_timetable_29_malus')
-pivot = visualize_timetable('best_timetable_29_malus.csv')
-save_timetable_to_html(pivot, 'best_timetable_ever_made_in_the_history_of_lectures_en_lesroosters_better_than_verenigde_bond_dieren_ofzo_made_by_the_crispy_waffles.html')
+# low_malus_timetable = load_pickle_data('data/conflict_test/29_malus_SimulatedAnnealing_8_neighbours__3_swaps_per_neighbour_20000_iterations__best_timetable.pkl')
+# timetable_to_csv(low_malus_timetable, 'best_timetable_29_malus')
+# pivot = visualize_timetable('best_timetable_29_malus.csv')
+# save_timetable_to_html(pivot, 'best_timetable_ever_made_in_the_history_of_lectures_en_lesroosters_better_than_verenigde_bond_dieren_ofzo_made_by_the_crispy_waffles.html')
+
+
+# plot for temps
+file_paths_temps = ["data/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=1_experiment_instance.pkl",
+                    "data/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=2.5_experiment_instance.pkl",
+                     "data/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=5_experiment_instance.pkl",
+                      "data/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=10_experiment_instance.pkl",
+                       "data/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=20_experiment_instance.pkl",
+                        "data/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=50_experiment_instance.pkl"]
+
+plot_temperature(file_paths_temps, output_file_name= 'data/average_malus_per_temp', export=True)
