@@ -87,7 +87,6 @@ def random_student_activity_assignment(timetable):
                     random_student = random.choice(valid_students)
                     new_timetable.add_student_to_activity(random_student, activity)
 
-
             # place remaining students in the last activity
             last_activity = course.activities[activity_type][-1]
             valid_students = [st for st in course.student_list if st not in last_activity.student_list 
