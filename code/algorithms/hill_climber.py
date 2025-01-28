@@ -90,8 +90,6 @@ class HillClimber():
         for iteration in range(iterations):
             neighbour_list = []
             
-            if iteration == 0:
-                print(f'Algorithm running, starting first iteration at {self.value} maluspoints')
             if iteration % 500 == 0:
                 print(f'Now at iteration {iteration} with {self.value} malus points')
 

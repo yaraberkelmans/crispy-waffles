@@ -85,17 +85,17 @@ if __name__ == "__main__":
     #         with open(file_name, "wb") as f:
     #             pickle.dump(experiment, f)
 
-    # file_paths = [
-    #     "test_data/experiment_sim_ann_1_7.pkl",
-    #     "test_data/experiment_sim_ann_1_8.pkl",
-    #     "test_data/experiment_sim_ann_1_9.pkl",
-    #     "test_data/experiment_sim_ann_2_7.pkl",
-    #     "test_data/experiment_sim_ann_2_8.pkl",
-    #     "test_data/experiment_sim_ann_2_9.pkl",
-    #     "test_data/experiment_sim_ann_3_7.pkl",
-    #     "test_data/experiment_sim_ann_3_8.pkl",
-    #     "test_data/experiment_sim_ann_3_9.pkl",
-    # ]
+    file_paths = [
+        "data/final_runs/SimulatedAnnealing_7_neighbours_1_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+        "data/final_runs/SimulatedAnnealing_7_neighbours_2_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+        "data/final_runs/SimulatedAnnealing_7_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+        "data/final_runs/SimulatedAnnealing_8_neighbours_1_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+        "data/final_runs/SimulatedAnnealing_8_neighbours_2_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+        "data/final_runs/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+        "data/final_runs/SimulatedAnnealing_9_neighbours_1_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+        "data/final_runs/SimulatedAnnealing_9_neighbours_2_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+        "data/final_runs/SimulatedAnnealing_9_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    ]
 
     # malus_df = load_experiment_data(file_paths)
         

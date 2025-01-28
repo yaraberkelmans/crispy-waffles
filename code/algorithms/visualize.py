@@ -271,18 +271,18 @@ def load_experiment_data(file_paths):
             combined_data.append({
                 "total_malus": total_malus,
                 "swaps_per_neighbour": experiment.alg_params["swaps_per_neighbour"],
-                "neighbours": experiment.alg_params["neighbours_"]
+                "neighbours": experiment.alg_params["neighbours"]
             })
 
     return pd.DataFrame(combined_data)
 
 def plot_experiment_results(malus_df): 
     sns.set_theme(style= "darkgrid")
-    plot = sns.displot(malus_df, x = "total_malus", col = "swaps_per_neighbour", row="neighbours",  binwidth=3, height=3, facet_kws=dict(margin_titles=True),
+    plot = sns.displot(malus_df, x = "total_malus", col = "swaps_per_neighbour", row="neighbours",  binwidth=10, height=3, facet_kws=dict(margin_titles=True),
     )
 
     plot.set_axis_labels("Total Malus Points", "Frequenty")
-    plot.set_titlesplot.set_titles(row_template="Neighbours = {row_name}", col_template="Swaps = {col_name}")
+    plot.set_titles(row_template="Neighbours = {row_name}", col_template="Swaps = {col_name}")
     plt.show()
 
 
