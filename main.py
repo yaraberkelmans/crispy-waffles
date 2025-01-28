@@ -101,33 +101,33 @@ if __name__ == "__main__":
 
     # testing the experiment plot function 
 
-    swaps_per_neighbour_values = [1, 2, 3]
-    neighbours_values = [7, 8, 9]
+    # swaps_per_neighbour_values = [1, 2, 3]
+    # neighbours_values = [7, 8, 9]
 
 
-    import os
-    os.makedirs("test_data", exist_ok=True)
+    # import os
+    # os.makedirs("test_data", exist_ok=True)
 
-    for swaps in swaps_per_neighbour_values:
-        for neighbours in neighbours_values:
+    # for swaps in swaps_per_neighbour_values:
+    #     for neighbours in neighbours_values:
          
-            experiment = Experiment(timetable, iterations=20) 
+    #         experiment = Experiment(timetable, iterations=20) 
             
     
-            experiment.run_algorithm(
-                SimulatedAnnealing,
-                folder_path="test_data/",
-                file_name_addition=f"sim_ann_{swaps}_{neighbours}",
-                verbose=False,
-                neighbours_=neighbours,
-                swaps_per_neighbour=swaps,
-                iterations=10,
-                temperature=1  
-            )
+    #         experiment.run_algorithm(
+    #             SimulatedAnnealing,
+    #             folder_path="test_data/",
+    #             file_name_addition=f"sim_ann_{swaps}_{neighbours}",
+    #             verbose=False,
+    #             neighbours_=neighbours,
+    #             swaps_per_neighbour=swaps,
+    #             iterations=10,
+    #             temperature=1  
+    #         )
             
-            file_name = f"test_data/experiment_sim_ann_{swaps}_{neighbours}.pkl"
-            with open(file_name, "wb") as f:
-                pickle.dump(experiment, f)
+    #         file_name = f"test_data/experiment_sim_ann_{swaps}_{neighbours}.pkl"
+    #         with open(file_name, "wb") as f:
+    #             pickle.dump(experiment, f)
 
     file_paths = [
         "data/final_runs/SimulatedAnnealing_7_neighbours_1_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
@@ -145,9 +145,9 @@ if __name__ == "__main__":
         
     print(malus_df)
         
-    plot_experiment_results(malus_df)
+    plot_experiment_results(malus_df, 'test_plot')
 
 # # ------------------------------------------------------------ Experiment loader ----------------------------------------------
 # exp = load_pickle_data('data/final_runs/SimulatedAnnealing_9_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl')
-# print(exp.results)
+# print(exp.calculate_average_malus())
 

@@ -47,14 +47,15 @@ def save_timetable_to_html(pivot_table, output_file_name):
     with open(output_file_name, 'w') as f:
         f.write(html_content)
 
-
-def plot_malus_iter(scores_per_iter_alg, output_file_name, title='Malus points per iteration'):
+# TODO: pas docstring aan
+def plot_malus_iter_connected(scores_per_iter_alg, output_file_name, title='Malus points per iteration'):
     """
     This function plots the progress of the malus points per iteration in one algorithm run. It takes the iterations and malus_points as arguments, 
     which are both lists.
     """
     total_iters = 0
     malus_points_list = []
+
     for alg_dict in scores_per_iter_alg:
         malus_points_list.extend(alg_dict.values())
         total_iters += len(alg_dict.keys())
@@ -98,7 +99,7 @@ def plot_malus_histogram(malus_points_list, output_file_name, bins=20, title='Hi
     
 
 
-def barplot_malus(timetable, output_file_name):
+def barplot_malus_per_category(timetable, output_file_name):
     """
     This function creates a barplot showing showing the distribution of malus points across different categories.  
     """
@@ -141,8 +142,8 @@ def load_pickle_data(filepath):
         variable = pickle.load(f)
     return variable
 
-
-def plot_malus_iter_test(score_dict_list, output_file_name, title='Malus per iteration'):
+# TODO: pas docstring aan
+def plot_malus_iter_disconnected(score_dict_list, output_file_name, title='Malus per iteration'):
     """
     This function plots the malus points per iteration from a list of dictionaries containing maluspoints. 
     """
