@@ -6,13 +6,13 @@ Vakken bestaan uit vakactiviteiten: hoorcolleges en/of werkcolleges en/of practi
 Alle zalen zijn voor alledrie collegetypes geschikt.
 Bij hoorcolleges moeten alle ingeschreven studenten ineens bedeeld worden.
 Een college duurt van 9:00-11:00, 11:00-13:00, 13:00-15:00 of 15:00-17:00 op een werkdag. Eén zo’n periode van twee uur wordt een tijdsslot genoemd. 
-  Alleen de grootste zaal C0.110 heeft ook een avondslot van 17:00 tot 19:00
+Alleen de grootste zaal C0.110 heeft ook een avondslot van 17:00 tot 19:00
 Een geldig weekrooster is een weekrooster waarvoor aan alle roosterbare activiteiten van ieder vak een tijdsslot met een zaal hebben. We noemen het paar tijdsslot-zaal een zaalslot.
 Een zaalslot kan enkel gebruikt worden voor één activiteit.
 
 ## Aan de slag
 ### Vereisten
-Deze codebase is volledig geschreven in Pythin 3.12.4. 
+Deze codebase is volledig geschreven in Python 3.12.4. (misschien ook HTML)
 
 ## Scores
 De uiteindelijke score van een rooster wordt berekend aan de hand van maluspunten, waarbij:
