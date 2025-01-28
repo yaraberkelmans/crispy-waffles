@@ -278,8 +278,9 @@ def load_experiment_data(file_paths):
 
 def plot_experiment_results(malus_df): 
     sns.set_theme(style= "darkgrid")
-    plot = sns.displot(malus_df, x = "total_malus", col = "swaps_per_neighbour", row="neighbours",  binwidth=10, height=3, facet_kws=dict(margin_titles=True),
+    plot = sns.displot(malus_df, x = "total_malus", col = "swaps_per_neighbour", row="neighbours", binrange=(0,100), binwidth=5, height=3, facet_kws=dict(margin_titles=True),
     )
+   
 
     plot.set_axis_labels("Total Malus Points", "Frequenty")
     plot.set_titles(row_template="Neighbours = {row_name}", col_template="Swaps = {col_name}")
