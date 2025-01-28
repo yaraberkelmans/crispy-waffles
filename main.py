@@ -38,7 +38,36 @@ if __name__ == "__main__":
     # print('Malus per cat', experiment.malus_per_cat)
 
 
+    """
+    ------------------------------------------------------- Simulated Annealing -------------------------------------------------
+
+    Script: Voor het uitvoeren van een experiment in Simulated Annealing hebben we een experiment class die wordt aangeroepen met 
+    bepaalde waardes. Hiervoor hebben we gebruik gemaakt van parallel running, en iedere keer de waardes aangepast om die versie
+    vervolgens in een nieuwe terminal te laten runnen. Als we dit achter elkaar hadden gedaan was het een hele lange run geworden, 
+    en dit af ons de modelijkheid om binnen een redelijke tijd met meerdere waardes te kunnen experimenteren. 
+    
+    Voor het eerste experiment hebben we het aantal neighbours en swaps gevarieerd. Met waardes van:
+
+    - 7 neighbours en 1 swaps per neighbour
+    - 7 neighbours en 2 swaps per neighbour
+    - 7 neighbours en 3 swaps per neighbour
+    - 8 neighbours en 1 swaps per neighbour
+    - 8 neighbours en 2 swaps per neighbour
+    - 8 neighbours en 3 swaps per neighbour
+    - 9 neighbours en 1 swaps per neighbour
+    - 9 neighbours en 2 swaps per neighbour
+    - 9 neighbours en 3 swaps per neighbour
+
+    Het algoritme slaat deze experimenten automatisch op als aparte en verschillende pickle files, het geeft namelijk een naam op 
+    basis van de parameters, welke bij elk experiment verschillend zijn. Ook maakt de experiment automatisch een folder aan die je 
+    mee kan geven.
+    We hebben elk experiment 30 keer gerund met 20.000 iteraties per algoritme.
+
+    Voor het tweede experiment hebben we gekeken naar een goede Temperatuur voor Simulated Annealling. De manier van experimenteren
+    blijft hetzelfde, maar hierbij varieren we alleen de temperatuur. Hierin hebben we neighbours op 8 gehouden en swaps op 3. 
+    """
     # # -------------------------------------------------------Simulated Annealing -----------------------------------------------
+
     # experiment = Experiment(timetable, iterations=10)
 
     # # run SimAnn
