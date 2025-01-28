@@ -48,7 +48,7 @@ def save_timetable_to_html(pivot_table, output_file_name):
         f.write(html_content)
 
 
-def plot_malus_iter(scores_per_iter_alg, title='Malus points per iteration', output_file_name):
+def plot_malus_iter(scores_per_iter_alg, output_file_name, title='Malus points per iteration'):
     """
     This function plots the progress of the malus points per iteration in one algorithm run. It takes the iterations and malus_points as arguments, 
     which are both lists.
@@ -77,7 +77,7 @@ def plot_malus_iter(scores_per_iter_alg, title='Malus points per iteration', out
     
 
 
-def plot_malus_histogram(malus_points_list, bins=20, title='Histogram of Malus Points',  output_file_name):
+def plot_malus_histogram(malus_points_list, output_file_name, bins=20, title='Histogram of Malus Points'):
     """
     This function creates a histogram of malus points to visualize their distribution.
     """
@@ -120,7 +120,7 @@ def barplot_malus(timetable, output_file_name):
     plt.savefig(output_file_name)
     
 
-def malus_per_experiment_step(malus_points, title='Malus points distribution', output_file_name):
+def malus_per_experiment_step(malus_points, output_file_name, title='Malus points distribution'):
     """
     This function plots the distribution of malus points of the resulting timetables of the iterations of the experiment.
     """
@@ -142,7 +142,7 @@ def load_pickle_data(filepath):
     return variable
 
 
-def plot_malus_iter_test(score_dict_list, title='Malus per iteration', output_file_name):
+def plot_malus_iter_test(score_dict_list, output_file_name, title='Malus per iteration'):
     """
     This function plots the malus points per iteration from a list of dictionaries containing maluspoints. 
     """
@@ -202,8 +202,7 @@ def load_experiment_data(file_paths):
                 "total_malus": total_malus,
                 "swaps_per_neighbour": experiment.alg_params["swaps_per_neighbour"],
                 "neighbours": experiment.alg_params["neighbours"]
-                "neighbours": experiment.alg_params["neighbours"]
-            })
+                })
 
     return pd.DataFrame(combined_data)
 
