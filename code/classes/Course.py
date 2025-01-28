@@ -1,5 +1,7 @@
 import csv
 from collections import defaultdict
+
+
 class Course():
     """
     This class represents a course with lectures, tutorials, labs, and students.
@@ -8,38 +10,19 @@ class Course():
         self.course_name = course_name
         self.lectures_n = int(lectures_n)
         self.tutorial_n = int(tutorial_n)
-        self.student_list = []
         self.lab_n = int(lab_n)
+
+        self.student_list = []
         self.e_students = int(e_students)
         self.all_student_list = []
-        self.actual_lab_n = 0
-        self.actual_tut_n = 0
+
         if tutorial_cap:
             self.tutorial_cap = int(tutorial_cap)
         if lab_cap:
             self.lab_cap = int(lab_cap)
+
         self.activities = defaultdict(list)
 
-
-    def add_students_tut(self, student_list, capacity):
-        """
-        This method adds a certain list of students to seperate tutorial groups, based on the tutorials_cap per tutorial group. The tutorials are in a dictionary with the
-        tutorial number as key and a list of students as values.
-        """
-        for x in range(1,len(self.student_list)+1):
-            stud_per_tut = len(self.student_list)/ self.expected_tut_n
-            self.tutorials[x] = student_list[round(((x-1) * stud_per_tut)):round((x *stud_per_tut))]
-        print(len(self.tutorials.keys()))
-
-    def add_students_lab(self, student_list):
-        """
-        This method adds a certain list of students to seperate lab groups, based on the lab_cap per lab group. The labs are in a dictionary with the
-        lab number as key and a list of students as values.
-        """
-        for x in range(1,self.expected_lab_n+1):
-            stud_per_lab = len(student_list)/ self.expected_lab_n
-            self.labs[x] = student_list[round(((x-1) * stud_per_lab)):round((x *stud_per_lab))]
-        print(len(self.labs.keys()))
 
     def add_actual_students_to_courses(self):
         """
@@ -48,6 +31,7 @@ class Course():
         for student in self.all_student_list:
             if self.course_name in student.courses:
                 self.student_list.append(student)
+
 
     def add_individual_student(self, student):
         """
@@ -62,11 +46,6 @@ class Course():
         else:
             print('Student already in course')
     
-    def remove_student(self, student):
-        """
-        This method removes an individual student from the students list of the course.
-        """
-        pass
 
     def count_groups(self):
         """
@@ -104,7 +83,6 @@ class Tutorial():
         self.name = name
         self.timeslot = None
         self.location = None
-        self.over_capacity = False
         self.initial_capacity = initial_capacity
         self.activity_type = 'Tutorial'
 
@@ -120,7 +98,6 @@ class Lab():
         self.course = course  
         self.capacity = lab_cap
         self.student_list = []
-        self.over_capacity = 0
         self.name = name
         self.timeslot = None
         self.location = None
@@ -142,7 +119,6 @@ class Lecture():
         self.name = name
         self.timeslot = None
         self.location = None
-        self.over_capacity = 0
         self.activity_type = 'Lecture'
 
         # to avoid conflict in random student activity assignment

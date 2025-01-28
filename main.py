@@ -1,5 +1,14 @@
+import csv
+import sys
+import copy
+import pickle
+
+#
+import cProfile
+import pstats
+#
+
 from code.classes.timetable import Timetable
-from code.classes.Timeslot import Timeslot
 from code.algorithms.randomize import random_course_assignment
 from code.algorithms.randomize import random_student_course_assignment
 from code.algorithms.randomize import random_student_activity_assignment
@@ -11,15 +20,6 @@ from code.algorithms.visualize import *
 from code.classes.experiment import Experiment
 from code.algorithms.simulated_annealing import SimulatedAnnealing
 
-import csv
-import sys
-import copy
-import pickle
-
-#
-import cProfile
-import pstats
-#
 
 if __name__ == "__main__":
     
@@ -28,6 +28,11 @@ if __name__ == "__main__":
     timetable.generate_initial_timetable()
     sys.setrecursionlimit(10**6)
 
+    """
+    ------------------------------------------------------------ Hill Climber -----------------------------------------------------
+    Script:
+
+    """
     # # -------------------------------------------------------- Hill Climber -----------------------------------------------------
     # experiment = Experiment(timetable, iterations=10)
 
@@ -64,7 +69,17 @@ if __name__ == "__main__":
     We hebben elk experiment 30 keer gerund met 20.000 iteraties per algoritme.
 
     Voor het tweede experiment hebben we gekeken naar een goede Temperatuur voor Simulated Annealling. De manier van experimenteren
-    blijft hetzelfde, maar hierbij varieren we alleen de temperatuur. Hierin hebben we neighbours op 8 gehouden en swaps op 3. 
+    blijft hetzelfde, maar hierbij varieren we alleen de temperatuur. Hierin hebben we neighbours op 8 gehouden en swaps op 3.
+    De temperaturen die zijn getest:
+
+    - 1
+    - 2.5
+    - 5
+    - 10
+    - 20
+    - 50
+
+    In verband met beperkt resterende tijd, hebben we er voor gekozen om elke Temperatuur 10 keer te runnen, elk met 5000 iteraties
     """
     # # -------------------------------------------------------Simulated Annealing -----------------------------------------------
 
@@ -77,7 +92,7 @@ if __name__ == "__main__":
     # print('Malus per cat', experiment.malus_per_cat)
 
 
-    ## ---------------------------------- Format for loading in timetable and exporting to csv --------------------------------
+    # # ---------------------------------- Format for loading in timetable and exporting to csv -----------------------------------
     # input_file_path = None
     # stored_timetable = load_pickle_file(input_file_path)
 
@@ -96,7 +111,7 @@ if __name__ == "__main__":
     # for swaps in swaps_per_neighbour_values:
     #     for neighbours in neighbours_values:
          
-    #         experiment = Experiment(timetable, iterations=5) 
+    #         experiment = Experiment(timetable, iterations=20) 
             
     
     #         experiment.run_algorithm(
@@ -127,11 +142,11 @@ if __name__ == "__main__":
     ]
 
 
-    # malus_df = load_experiment_data(file_paths)
+    malus_df = load_experiment_data(file_paths)
         
-    # print(malus_df.head(10))
+    print(malus_df)
         
-    # plot_experiment_results(malus_df)
+    plot_experiment_results(malus_df, 'test_plot')
 
 # ----------------------- Experiment loader --------------------------
 exp = load_pickle_data('data/neighbour_n_exp_3_swaps/HillClimber_n_neighbours_8_n_swaps_per_neighbour_3_iterations_20000__experiment_info.pkl')
