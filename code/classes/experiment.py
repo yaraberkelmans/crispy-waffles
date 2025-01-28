@@ -84,8 +84,6 @@ class Experiment():
         # calculate the average malus points per category
         #self.calculate_average_malus()
         
-        
-
         # generate summary statistics for every experiment iteration
         self.scores = [result["score"] for result in self.results]
         self.summary = {"best_score": self.best_score,

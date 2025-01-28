@@ -193,3 +193,7 @@ def extract_parameters_from_filename_simple(filename):
 
     return {"neighbours": neighbours, "swaps": swaps}   
 
+def plot_neighbours_vs_swaps(malus_data)
+    malus_
+
+

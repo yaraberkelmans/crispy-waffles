@@ -217,8 +217,3 @@ def plot_experiment_results(malus_df, output_file_name):
     plot.set_titles(row_template="Neighbours = {row_name}", col_template="Swaps = {col_name}")
     plt.show()
     plt.savefig(output_file_name)
-
-
-
-
-# test 
