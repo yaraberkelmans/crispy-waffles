@@ -70,8 +70,9 @@ In verband met beperkt resterende tijd, hebben we er voor gekozen om elke Temper
 Alle resultaten van deze experimenten zijn vervolgens opgeslagen als pickle bestand in het mapje results/pickle_files en de 
 experiment instances kunnen van daaruit worden ingeladen om te gerbuiken voor verschillende plots. De functies voor het plotten staan uitgecomment 
 onder in de main.py.
+De uiteindelijke plots van de experimenten staan in results/plots.
 
-### Structuur
+## Structuur
 
 De hierop volgende lijst beschrijft de belangrijkste mappen en files in het project, en waar je ze kan vinden:
 
@@ -80,6 +81,10 @@ De hierop volgende lijst beschrijft de belangrijkste mappen en files in het proj
   - **/code/classes**: bevat de 6 benodigde classes voor deze case
   - **/code/visualisation**: bevat de code voor de visualisatie
 - **/data**: bevat de verschillende databestanden die nodig zijn om experimenten en het rooster te visualiseren
+- **/results**:
+  - **/results/best_timetable_data**: bevat de data voor de uiteindelijk best gevonden timetable
+  - **/results/pickle_files**: bevat alle folders met pickle files voor beste timetables en hun experiment
+  - **/results/plots**: bevat de plots die uit de experimenten zijn gevormd
 
 ## Auteurs
 - Yara Berkelmans
