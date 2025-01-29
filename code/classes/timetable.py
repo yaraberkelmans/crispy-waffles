@@ -1,10 +1,10 @@
 import csv
 import os
-from .Timeslot import Timeslot
-from .Course import Course, Tutorial, Lab, Lecture
+from .timeslot import Timeslot
+from .course import Course, Tutorial, Lab, Lecture
 import random
-from .Student import Student
-from .Location import Location
+from .student import Student
+from .location import Location
 from collections import defaultdict
 
 from typing import Dict

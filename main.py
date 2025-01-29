@@ -9,7 +9,7 @@ from code.classes.experiment import Experiment
 from code.algorithms.simulated_annealing import SimulatedAnnealing
 from code.algorithms.genetic_simulated_annealing import GeneticSimulatedAnnealing
 from code.algorithms.hill_climber import HillClimber
-from code.algorithms.randomize import randomize
+from code.algorithms.randomize import Randomize
 
 
 if __name__ == "__main__":
@@ -194,11 +194,17 @@ if __name__ == "__main__":
 
     timetable = Timetable()
     timetable.generate_initial_timetable()
-    timetable = randomize(timetable)
-    calculate_malus(timetable)
+
+    print(calculate_malus(timetable))
     
 
+    
+    randomize = Randomize(timetable)
 
+    randomize.randomize()
+    print(calculate_malus(randomize.timetable))
+    randomize.randomize()
+    print(calculate_malus(randomize.timetable))
     hill_climber = GeneticSimulatedAnnealing(timetable)
     hill_climber.run(9, 20, 20000, verbose_alg=True, heuristic=True)
     print(hill_climber.timetable.full_student_list[0].pers_timetable)

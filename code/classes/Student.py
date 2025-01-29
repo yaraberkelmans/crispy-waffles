@@ -1,4 +1,4 @@
-from .Course import Course, Tutorial, Lab, Lecture
+from .course import Course, Tutorial, Lab, Lecture
 from collections import defaultdict
 
 class Student():

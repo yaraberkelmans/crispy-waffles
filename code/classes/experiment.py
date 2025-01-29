@@ -1,7 +1,9 @@
-from code.algorithms.randomize import randomize
+from code.algorithms.randomize import Randomize
 from code.algorithms.malus import *
 from collections import defaultdict
-from code.algorithms.simulated_annealing import *
+from code.algorithms.genetic_simulated_annealing import GeneticSimulatedAnnealing
+from code.algorithms.simulated_annealing import SimulatedAnnealing
+
 import os
 import csv
 import pickle
@@ -53,8 +55,10 @@ class Experiment():
             self.malus_per_cat = {'capacity': 0, 'evening':  0, 'indiv_confl': 0, 'gap_hours': 0}
 
             # create a randomized starting timetable before running the algorithm
-            randomized_timetable = randomize(self.timetable)
-            if algorithm_class == SimulatedAnnealing:
+            randomize_algorithm = Randomize()
+            randomized_timetable = randomize_algorithm.randomize(self.timetable)
+            
+            if algorithm_class == SimulatedAnnealing or algorithm_class == GeneticSimulatedAnnealing:
                 algorithm = algorithm_class(randomized_timetable, temperature=temperature)
             else:
                 algorithm = algorithm_class(randomized_timetable)
