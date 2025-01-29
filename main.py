@@ -84,8 +84,8 @@ if __name__ == "__main__":
     experiment = Experiment(timetable, iterations=10)
 
     # run SimAnn
-    sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, 'results/pickle_files/temperature_experiments/', verbose=True, verbose_alg=True, 
-                                                 neighbours=9, swaps_per_neighbour=3, iterations=20000, temperature=1)
+    sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, 'results/pickle_files/new_runs/', verbose=True, verbose_alg=True, 
+                                                 neighbours=9, swaps_per_neighbour=1, iterations=20000, temperature=1)
     print("Simulated Annealing Summary:", sim_ann_summary)
     print('Malus per cat', experiment.malus_per_cat)
 
