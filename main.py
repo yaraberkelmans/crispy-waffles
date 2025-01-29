@@ -3,10 +3,8 @@ import sys
 import copy
 import pickle
 
-#
 import cProfile
 import pstats
-#
 
 from code.classes.timetable import Timetable
 from code.algorithms.randomize import random_course_assignment
@@ -16,7 +14,7 @@ from code.algorithms.randomize import randomize
 from code.algorithms.randomize import *
 from code.algorithms.malus import calculate_malus
 from code.algorithms.hill_climber import HillClimber
-from code.algorithms.visualize import *
+from code.visualize.visualize import *
 from code.classes.experiment import Experiment
 from code.algorithms.simulated_annealing import SimulatedAnnealing
 
