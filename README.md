@@ -26,10 +26,11 @@ De uiteindelijke score van een rooster wordt berekend aan de hand van maluspunte
 Een voorbeeld kan gerund worden door het aanroepen van:
 
 ```
-python main.py
+python main.py algorithm output_file_path 
 ```
 
 Het bestand geeft een voorbeeld voor gebruik van de verschillende functies en het aanmaken van een rooster.
+
 
 ### Experimenten
 Voor het uitvoeren van een experiment in Simulated Annealing hebben we een experiment class die wordt aangeroepen met 
