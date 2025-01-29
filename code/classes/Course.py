@@ -1,4 +1,3 @@
-import csv
 from collections import defaultdict
 
 
@@ -40,8 +39,8 @@ class Course():
         if student not in self.student_list and self not in student.pers_activities: 
             self.student_list.append(student)
 
-            # pas op! maakt elke keer lege lijst met activities aan, swappen met werkgroep
-            student.pers_activities[self] = []
+            # # pas op! maakt elke keer lege lijst met activities aan, swappen met werkgroep
+            # student.pers_activities[self] = []
             
         else:
             print('Student already in course')

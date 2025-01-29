@@ -1,17 +1,6 @@
-import csv
 import sys
-import copy
-import pickle
-
-import cProfile
-import pstats
 
 from code.classes.timetable import Timetable
-from code.algorithms.randomize import random_course_assignment
-from code.algorithms.randomize import random_student_course_assignment
-from code.algorithms.randomize import random_student_activity_assignment
-from code.algorithms.randomize import randomize
-from code.algorithms.randomize import *
 from code.algorithms.malus import calculate_malus
 from code.algorithms.hill_climber import HillClimber
 from code.visualize.visualize import *
@@ -26,11 +15,6 @@ if __name__ == "__main__":
     timetable.generate_initial_timetable()
     sys.setrecursionlimit(10**6)
 
-    """
-    ------------------------------------------------------------ Hill Climber -----------------------------------------------------
-    Script:
-
-    """
     # # # -------------------------------------------------------- Hill Climber -----------------------------------------------------
     # experiment = Experiment(timetable, iterations=30)
 
@@ -44,7 +28,7 @@ if __name__ == "__main__":
     """
     ------------------------------------------------------- Simulated Annealing -------------------------------------------------
 
-    Script: Voor het uitvoeren van een experiment in Simulated Annealing hebben we een experiment class die wordt aangeroepen met 
+    Voor het uitvoeren van een experiment in Simulated Annealing hebben we een experiment class die wordt aangeroepen met 
     bepaalde waardes. Hiervoor hebben we gebruik gemaakt van parallel running, en iedere keer de waardes aangepast om die versie
     vervolgens in een nieuwe terminal te laten runnen. Als we dit achter elkaar hadden gedaan was het een hele lange run geworden, 
     en dit af ons de modelijkheid om binnen een redelijke tijd met meerdere waardes te kunnen experimenteren. 
@@ -81,11 +65,11 @@ if __name__ == "__main__":
     """
     # # -------------------------------------------------------Simulated Annealing -----------------------------------------------
 
-    # experiment = Experiment(timetable, iterations=10)
+    # experiment = Experiment(timetable, iterations=20)
 
     # # run SimAnn
     # sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, 'results/pickle_files/temperature_experiments/', verbose=True, verbose_alg=False, 
-    #                                              neighbours=8, swaps_per_neighbour=3, iterations=5000, temperature=5)
+    #                                              neighbours=8, swaps_per_neighbour=3, iterations=10000, temperature=10)
     # print("Simulated Annealing Summary:", sim_ann_summary)
     # print('Malus per cat', experiment.malus_per_cat)
 
@@ -97,56 +81,26 @@ if __name__ == "__main__":
     # output_file_path = None
     # timetable_to_csv(stored_timetable, output_file_path)
 
-    # testing the experiment plot function 
-
-    # swaps_per_neighbour_values = [1, 2, 3]
-    # neighbours_values = [7, 8, 9]
-
-
-    # import os
-    # os.makedirs("test_data", exist_ok=True)
-
-    # for swaps in swaps_per_neighbour_values:
-    #     for neighbours in neighbours_values:
-         
-    #         experiment = Experiment(timetable, iterations=20) 
-            
-    
-    #         experiment.run_algorithm(
-    #             SimulatedAnnealing,
-    #             folder_path="test_data/",
-    #             file_name_addition=f"sim_ann_{swaps}_{neighbours}",
-    #             verbose=False,
-    #             neighbours_=neighbours,
-    #             swaps_per_neighbour=swaps,
-    #             iterations=10,
-    #             temperature=1  
-    #         )
-            
-    #         file_name = f"test_data/experiment_sim_ann_{swaps}_{neighbours}.pkl"
-    #         with open(file_name, "wb") as f:
-    #             pickle.dump(experiment, f)
-
-#     # file_paths = [
-#     #     "results/pickle_files/final_runs/SimulatedAnnealing_7_neighbours_1_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-#     #     "results/pickle_files/final_runs/SimulatedAnnealing_7_neighbours_2_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-#     #     "results/pickle_files/final_runs/SimulatedAnnealing_7_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-#     #     "results/pickle_files/final_runs/SimulatedAnnealing_8_neighbours_1_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-#     #     "results/pickle_files/final_runs/SimulatedAnnealing_8_neighbours_2_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-#     #     "results/pickle_files/final_runs/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-#     #     "results/pickle_files/final_runs/SimulatedAnnealing_9_neighbours_1_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-#     #     "results/pickle_files/final_runs/SimulatedAnnealing_9_neighbours_2_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-#     #     "results/pickle_files/final_runs/SimulatedAnnealing_9_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-#     # ]
+    # file_paths = [
+    #     "results/pickle_files/final_runs/SimulatedAnnealing_7_neighbours_1_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "results/pickle_files/final_runs/SimulatedAnnealing_7_neighbours_2_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "results/pickle_files/final_runs/SimulatedAnnealing_7_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "results/pickle_files/final_runs/SimulatedAnnealing_8_neighbours_1_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "results/pickle_files/final_runs/SimulatedAnnealing_8_neighbours_2_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "results/pickle_files/final_runs/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "results/pickle_files/final_runs/SimulatedAnnealing_9_neighbours_1_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "results/pickle_files/final_runs/SimulatedAnnealing_9_neighbours_2_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "results/pickle_files/final_runs/SimulatedAnnealing_9_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    # ]
 
 
-# #     # malus_df = load_experiment_data(file_paths)
+    # malus_df = load_experiment_data(file_paths)
         
 # #     # print(malus_df)
         
-# #     # plot_experiment_results(malus_df, 'test_plot')
+    # plot_experiment_results(malus_df, 'neighbours_and_swaps')
 
-# # # ----------------------- Experiment loader --------------------------
+# # # ---------------------------------------------------------- Experiment loader -----------------------------------------------------------------
 # # # exp = load_pickle_data('results/pickle_files/neighbour_n_exp_3_swaps/HillClimber_n_neighbours_8_n_swaps_per_neighbour_3_iterations_20000__experiment_info.pkl')
 # # # print(exp)
 
@@ -229,12 +183,18 @@ if __name__ == "__main__":
 # save_timetable_to_html(pivot, 'best_timetable_ever_made_in_the_history_of_lectures_en_lesroosters_better_than_verenigde_bond_dieren_ofzo_made_by_the_crispy_waffles.html')
 
 
-# plot for temps
-file_paths_temps = ["results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=1_experiment_instance.pkl",
-                    "results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=2.5_experiment_instance.pkl",
-                     "results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=5_experiment_instance.pkl",
-                      "results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=10_experiment_instance.pkl",
-                       "results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=20_experiment_instance.pkl",
-                        "results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=50_experiment_instance.pkl"]
+# # plot for temps
+# file_paths_temps = ["results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=1_experiment_instance.pkl",
+#                     "results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=2.5_experiment_instance.pkl",
+#                      "results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=5_experiment_instance.pkl",
+#                       "results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=10_experiment_instance.pkl",
+#                        "results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=20_experiment_instance.pkl",
+#                         "results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=50_experiment_instance.pkl"]
 
-plot_temperature(file_paths_temps, output_file_name= None, export=False)
+# plot_temperature(file_paths_temps, output_file_name= None, export=False)
+
+    
+    timetable_29 = load_pickle_data('results/pickle_files/conflict_test/29_malus_SimulatedAnnealing_8_neighbours__3_swaps_per_neighbour_20000_iterations__best_timetable.pkl')
+    print(timetable_29.full_student_list[5].pers_timetable)
+    # [0]
+
