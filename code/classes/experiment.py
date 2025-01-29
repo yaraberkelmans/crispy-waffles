@@ -143,6 +143,9 @@ class Experiment():
             
 
     def check_folder_existence(self, folder_path):
+        """
+        Check if the folder is already in the repository and otherwise create a folder with that name
+        """
         if not os.path.exists(folder_path):
             os.makedirs(folder_path)  
         

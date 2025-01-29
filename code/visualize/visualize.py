@@ -48,7 +48,6 @@ def save_timetable_to_html(pivot_table, output_file_name):
         f.write(html_content)
 
 
-# TODO: pas docstring aan
 def plot_malus_iter_connected(scores_per_iter_alg, output_file_name=None, info=None, export =False, suptitle='Malus points per iteration'):
     """
     This function plots the progress of the malus points per iteration in one algorithm run. It takes the iterations and malus_points as arguments, 
@@ -149,7 +148,7 @@ def load_pickle_data(filepath):
         variable = pickle.load(f)
     return variable
 
-# TODO: pas docstring aan
+
 def plot_malus_iter_disconnected(score_dict_list, output_file_name=None, info=None, export=False, suptitle='Malus per iteration'):
     """
     This function plots the malus points per iteration from a list of dictionaries containing maluspoints. 
@@ -233,13 +232,6 @@ def plot_experiment_results(malus_df, output_file_name=None, export=False):
         plt.savefig(output_file_name)
     plt.show()
     
-
-
-
-
-
-
-
 
 def plot_temperature(file_paths, output_file_name= None, export= False):
     """
