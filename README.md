@@ -13,6 +13,17 @@ Een zaalslot kan enkel gebruikt worden voor één activiteit.
 ## Aan de slag
 ### Vereisten
 Deze codebase is volledig geschreven in Python 3.12.4. (misschien ook HTML)
+In requirements.txt staan alle benodigde packages om de code succesvol te draaien. Deze zijn gemakkelijk te installeren via pip dmv. de volgende instructie:
+```
+pip install -r requirements.txt
+```
+
+Of via conda:
+
+```
+conda install --file requirements.txt
+```
+
 
 ## Scores
 De uiteindelijke score van een rooster wordt berekend aan de hand van maluspunten, waarbij:

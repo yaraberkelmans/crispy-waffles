@@ -39,7 +39,6 @@ class Timetable():
             for time in self.times:
                 self.timetable[Timeslot(day, time)] = {}
     
-    # TODO: incorporate this function in create timetable or init func in a handy way to simplify (defaultdict maybe)
     def initialize_locations(self):
         """
         This method fills the timetable with locations for each timeslot and initializes them with None.
@@ -51,7 +50,6 @@ class Timetable():
                 else:
                     self.timetable[timeslot][location] = None
 
-    #TODO: een universele functie maken van alle load functies
     def load_courses(self, input_file):
         """
         This method loads courses from a CSV file and adds them to the courses list. 
@@ -104,7 +102,6 @@ class Timetable():
         course based on the activities count, and adds these activities to each respective 
         course's activities list and the timetable activity list. 
         """
-        # TODO: Make it list comprehension instead of loop
         # loop over each courses' activities
         for course, activities_count_dict in self.activities_per_course.items():
             for activity_type, activity_amount in activities_count_dict.items():
@@ -130,9 +127,7 @@ class Timetable():
                 
                     course.activities[activity_type].append(activity)
                     self.activity_list.append(activity)
-                    # print(f'activity {activity_name} added!')
-        # print(f'Timetable activities list {self.activity_list}')
-        # print(f'length: {len(self.activity_list)}')
+     
 
     def add_student_to_activity(self, student, activity): # still not a scheduled activity
         """
@@ -140,17 +135,12 @@ class Timetable():
         activity is not full and then updates the activity student list and the students'
         personal activities.
         """
-        #if activity not in self.activity_list:
-        #    print(f'activity {activity} does not exist.')
-        
         # check if student is not already in activity and student will fit in activity
         if student not in activity.student_list and student in activity.course.student_list and (len(activity.student_list) + 1) <= activity.capacity :
             activity.student_list.append(student)
             student.pers_activities[activity.course].append(activity)
             if activity.timeslot:
                 student.fill_pers_timetable(activity)
-        # else:
-        #    print(f'Student {student.name} already in activity {activity}.')
 
 
     def add_actual_students_to_courses(self):
@@ -183,16 +173,12 @@ class Timetable():
             self.remove_student_from_activity(student, activity_out)
             self.add_student_to_activity(student, activity_in)
             
-        # else:
-        #     print(f'Tried to add student {student}, to filled activity {activity_in}')
 
     def switch_students(self, student_1, student_2, activity_1, activity_2):
         """
         This method switches two students from the same course between two activities if
         they are not in the same activity.
         """
-        # self.swap_student_activity(student_1, activity_1, activity_2)
-        # self.swap_student_activity(student_2, activity_2, activity_1)
         if student_1 in activity_2.course.student_list and student_2 not in activity_1.student_list:
             self.remove_student_from_activity(student_1, activity_1)
             self.remove_student_from_activity(student_2, activity_2)
@@ -219,7 +205,7 @@ class Timetable():
             for student in activity.student_list:
                 student.fill_pers_timetable(activity)
 
-    # probably unnecessary
+
     def switch_activity_in_timetable(self, activity, new_timeslot, new_location):
         """
         This method moves an activity to a new timeslot and location.  
@@ -257,7 +243,10 @@ class Timetable():
                     self.empty_locations[timeslot].append(location)
 
     def add_new_activity_to_course(self, course, activity_type):
-         # make names for each activity based on their activity type
+        """
+        This method adds a new activity of a certain activity_type to the timetable and course. 
+        """
+         # make names for each activity based on their activity type where i is the number for the activity
         i = len(course.activities[activity_type]) + 1
         activity_name = f'{activity_type} {i}'
 

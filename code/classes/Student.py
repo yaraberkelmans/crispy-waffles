@@ -36,7 +36,13 @@ class Student():
         return True
     
     def fill_pers_timetable(self, activity):
+        """
+        This method adds the timeslot of an activity to the pers_timetable of a student.
+        """
         self.pers_timetable[activity.timeslot.day].append(activity.timeslot.time)
 
     def remove_activity_pers_timetable(self, activity):
+        """
+        This method removes the timeslot of an activity from the pers_timetable of a student.
+        """
         self.pers_timetable[activity.timeslot.day].remove(activity.timeslot.time)
