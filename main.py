@@ -9,58 +9,79 @@ from code.classes.experiment import Experiment
 from code.algorithms.simulated_annealing import SimulatedAnnealing
 from code.algorithms.genetic_simulated_annealing import GeneticSimulatedAnnealing
 from code.algorithms.hill_climber import HillClimber
-from code.algorithms.randomize import randomize
+from code.algorithms.randomize import Randomize
 
 
 if __name__ == "__main__":
     sys.setrecursionlimit(10**6)
-    # parser= argparse.ArgumentParser(description="Run algorithm with custom parameters.")
+    parser= argparse.ArgumentParser(description="Run algorithm with custom parameters.")
 
-    # # type of algorithm and output_file_path
-    # parser.add_argument("algorithm", type=str, choices=["SimulatedAnnealing", "HillClimber"], help="Algorithm to run (SimulatedAnnealing or HillClimber)")    
-    # parser.add_argument("output_file_path", type=str, help="Creates a new output_file_path")
+    # type of algorithm and output_file_path
+    parser.add_argument("algorithm", type=str, 
+                        choices=["HillClimber","GeneticHillClimber","SimulatedAnnealing","GeneticSimulatedAnnealing"], 
+                        help="Algorithm to run ((Genetic)HillClimber or (Genetic) SimulatedAnnealing)")
+    parser.add_argument("output_file_path", type=str, help="Creates a new output_file_path")
 
-    # # experiment parameters
-    # parser.add_argument("--experiment_iters", type=int, default=20, help="Number of iters the experiment should run")
-    # parser.add_argument("--neighbours", type=int, default=8, help="Number of neighbours")
-    # parser.add_argument("--swaps", type=int, default=1, help="Number of swaps per neighbour")
-    # parser.add_argument("--iterations", type=int, default=20000, help="Number of iterations")
-    # parser.add_argument("--temperature", type=float, default=1.0, help="Initial temperature")
+    # experiment parameters
+    parser.add_argument("--experiment_iters", type=int, default=20, help="Number of iters the experiment should run")
+    parser.add_argument("--neighbours", type=int, default=8, help="Number of neighbours")
+    parser.add_argument("--swaps", type=int, default=1, help="Number of swaps per neighbour")
+    parser.add_argument("--iterations", type=int, default=20000, help="Number of iterations")
+    parser.add_argument("--temperature", type=float, default=1.0, help="Initial temperature")
     
-    # # parse the arguments
-    # args = parser.parse_args()
+    # parse the arguments
+    args = parser.parse_args()
 
-    # # initialize timetable
-    # timetable = Timetable()
-    # timetable.generate_initial_timetable()
-    # experiment = Experiment(timetable, args.experiment_iters)
+    # initialize timetable
+    timetable = Timetable()
+    timetable.generate_initial_timetable()
+    experiment = Experiment(timetable, args.experiment_iters)
     
+    # ------------------------------------------------------- Randomize -----------------------------------------------------------
+    if args.algorithm == "Randomize" :
+        randomize_summary = experiment.run(Randomize, args.output_file_path)
+        print("Randomize Summary", randomize_summary)
+        print("Malus per cat", experiment.malus_per_cat)
+
+
+
     # ----------------------------------------------------- Hill Climber ----------------------------------------------------------
-
-    # if args.algorithm == 'HillClimber':
-    #     hill_climber_summary = experiment.run(HillClimber, args.output_file_path, verbose=True, verbose_alg=False,
-    #                                             swaps_per_neighbour=args.swaps, iterations= args.iterations)
-    #     print("Hill Climber Summary:", hill_climber_summary)
-    #     print('Malus per cat', experiment.malus_per_cat)
-
-
-    # # ------------------------------------------------ Genetic Hill Climber -----------------------------------------------------
-    # if args.algorithm == 'GeneticHillClimber':
-
-    #     genetic_hill_climber_summary = experiment.run_algorithm(GeneticHillClimber, args.output_file_path, verbose=True, verbose_alg=False, 
-    #                                                neighbours=args.neighbours, swaps_per_neighbour=args.swaps, 
-    #                                                iterations=args.iterations)
-    #     print("Genetic Hill Climber Summary:", genetic_hill_climber_summary)
-    #     print('Malus per cat', experiment.malus_per_cat)
+    if args.algorithm == "HillClimber":
+        hill_climber_summary = experiment.run(HillClimber, args.output_file_path, verbose=True, verbose_alg=False,
+                                                swaps_per_neighbour=args.swaps, iterations= args.iterations)
+        print("Hill Climber Summary:", hill_climber_summary)
+        print("Malus per cat", experiment.malus_per_cat)
 
 
-    # # ----------------------------------------------------- Simulated Annealing -------------------------------------------------
-    # if args.algorithm == "SimulatedAnnealing":
-    #     sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, args.output_file_path, verbose=True, verbose_alg=False, 
-    #                                                neighbours=args.neighbours, swaps_per_neighbour=args.swaps, 
-    #                                                iterations=args.iterations, temperature=args.temperature)
-    #     print("Simulated Annealing Summary:", sim_ann_summary)
-    #     print('Malus per cat', experiment.malus_per_cat)
+
+    # -------------------------------------------------- Genetic Hill Climber -----------------------------------------------------
+    if args.algorithm == "GeneticHillClimber":
+
+        genetic_hill_climber_summary = experiment.run_algorithm(GeneticHillClimber, args.output_file_path, verbose=True, verbose_alg=False, 
+                                                   neighbours=args.neighbours, swaps_per_neighbour=args.swaps, 
+                                                   iterations=args.iterations)
+        print("Genetic Hill Climber Summary:", genetic_hill_climber_summary)
+        print("Malus per cat", experiment.malus_per_cat)
+
+
+
+    # --------------------------------------------------- Simulated Annealing -----------------------------------------------------
+    if args.algorithm == "SimulatedAnnealing":
+        sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, args.output_file_path, verbose=True, verbose_alg=False, 
+                                                   swaps_per_neighbour=args.swaps, iterations=args.iterations, temperature=args.temperature)
+        print("Simulated Annealing Summary:", sim_ann_summary)
+        print("Malus per cat", experiment.malus_per_cat)
+
+
+
+    # ------------------------------------------------- Genetic Simulated Annealing -----------------------------------------------
+    if args.algorithm == "GeneticSimulatedAnnealing":
+        genetic_sim_ann_summary = experiment.run_algorithm(GeneticSimulatedAnnealing, args.output_file_path, verbose=True, verbose_alg=False, 
+                                                   neighbours=args.neighbours, swaps_per_neighbour=args.swaps, 
+                                                   iterations=args.iterations, temperature=args.temperature)
+        print("Genetic Simulated Annealing Summary:", genetic_sim_ann_summary)
+        print("Malus per cat", experiment.malus_per_cat)
+
 
 
     # # ---------------------------------- Format for loading in timetable and exporting to csv ---------------------------------
@@ -192,20 +213,20 @@ if __name__ == "__main__":
     # print(calculate_malus(timetable_29))
     # [0]
 
-    timetable = Timetable()
-    timetable.generate_initial_timetable()
-    timetable = randomize(timetable)
-    calculate_malus(timetable)
+    # timetable = Timetable()
+    # timetable.generate_initial_timetable()
+    # timetable = randomize(timetable)
+    # calculate_malus(timetable)
     
 
 
-    hill_climber = GeneticSimulatedAnnealing(timetable)
-    hill_climber.run(9, 20, 20000, verbose_alg=True, heuristic=True)
-    print(hill_climber.timetable.full_student_list[0].pers_timetable)
-    print(hill_climber.timetable.full_student_list[0])
-    print(hill_climber.timetable.full_student_list[0].pers_activities)
+    # hill_climber = GeneticSimulatedAnnealing(timetable)
+    # hill_climber.run(9, 20, 20000, verbose_alg=True, heuristic=True)
+    # print(hill_climber.timetable.full_student_list[0].pers_timetable)
+    # print(hill_climber.timetable.full_student_list[0])
+    # print(hill_climber.timetable.full_student_list[0].pers_activities)
 
-    print(len(timetable.activity_list))
+    # print(len(timetable.activity_list))
     # for student in hill_climber.timetable.full_student_list:
     #     p
     #     for course, course_activities in student.pers_activities.items():
