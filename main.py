@@ -83,13 +83,13 @@ if __name__ == "__main__":
     """
     # # -------------------------------------------------------Simulated Annealing -----------------------------------------------
 
-    # experiment = Experiment(timetable, iterations=10)
+    experiment = Experiment(timetable, iterations=10)
 
-    # # run SimAnn
-    # sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, 'results/pickle_files/temperature_experiments/', verbose=True, verbose_alg=False, 
-    #                                              neighbours=8, swaps_per_neighbour=3, iterations=5000, temperature=5)
-    # print("Simulated Annealing Summary:", sim_ann_summary)
-    # print('Malus per cat', experiment.malus_per_cat)
+    # run SimAnn
+    sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, 'results/pickle_files/temperature_experiments/', verbose=True, verbose_alg=True, 
+                                                 neighbours=9, swaps_per_neighbour=3, iterations=20000, temperature=1)
+    print("Simulated Annealing Summary:", sim_ann_summary)
+    print('Malus per cat', experiment.malus_per_cat)
 
 
     # # ---------------------------------- Format for loading in timetable and exporting to csv -----------------------------------
