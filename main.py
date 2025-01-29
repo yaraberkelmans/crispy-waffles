@@ -3,7 +3,7 @@ import argparse
 
 from code.classes.timetable import Timetable
 from code.algorithms.malus import calculate_malus
-from code.algorithms.hill_climber import HillClimber
+from code.algorithms.hill_climber_advanced import HillClimber
 from code.visualize.visualize import *
 from code.classes.experiment import Experiment
 from code.algorithms.simulated_annealing import SimulatedAnnealing
@@ -33,28 +33,26 @@ if __name__ == "__main__":
     experiment = Experiment(timetable, args.experiment_iters)
     
 
-    # # -------------------------------------------------------- Hill Climber -----------------------------------------------------
-    # # run Hill Climber
-    # if args.algorithm == 'HillClimber':
+    # -------------------------------------------------------- Hill Climber -----------------------------------------------------
+    if args.algorithm == 'HillClimber':
 
-    #     hill_climber_summary = experiment.run_algorithm( HillClimber, args.output_file_path, verbose=True, verbose_alg=False, 
-    #                                                neighbours=args.neighbours, swaps_per_neighbour=args.swaps, 
-    #                                                iterations=args.iterations)
-    #     print("Hill Climber Summary:", hill_climber_summary)
-    #     print('Malus per cat', experiment.malus_per_cat)
-
-
-    # # -------------------------------------------------------Simulated Annealing -----------------------------------------------
-    # # run SimAnn
-    # if args.algorithm == "SimulatedAnnealing":
-    #     sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, args.output_file_path, verbose=True, verbose_alg=False, 
-    #                                                neighbours=args.neighbours, swaps_per_neighbour=args.swaps, 
-    #                                                iterations=args.iterations, temperature=args.temperature)
-    #     print("Simulated Annealing Summary:", sim_ann_summary)
-    #     print('Malus per cat', experiment.malus_per_cat)
+        hill_climber_summary = experiment.run_algorithm(HillClimber, args.output_file_path, verbose=True, verbose_alg=False, 
+                                                   neighbours=args.neighbours, swaps_per_neighbour=args.swaps, 
+                                                   iterations=args.iterations)
+        print("Hill Climber Summary:", hill_climber_summary)
+        print('Malus per cat', experiment.malus_per_cat)
 
 
-    # # ---------------------------------- Format for loading in timetable and exporting to csv -----------------------------------
+    # ----------------------------------------------------- Simulated Annealing -------------------------------------------------
+    if args.algorithm == "SimulatedAnnealing":
+        sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, args.output_file_path, verbose=True, verbose_alg=False, 
+                                                   neighbours=args.neighbours, swaps_per_neighbour=args.swaps, 
+                                                   iterations=args.iterations, temperature=args.temperature)
+        print("Simulated Annealing Summary:", sim_ann_summary)
+        print('Malus per cat', experiment.malus_per_cat)
+
+
+    # # ---------------------------------- Format for loading in timetable and exporting to csv ---------------------------------
     # input_file_path = None
     # stored_timetable = load_pickle_file(input_file_path)
 
