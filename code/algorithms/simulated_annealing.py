@@ -1,7 +1,7 @@
 import random
 import math
 
-from .hill_climber import HillClimber
+from .hill_climber_advanced import HillClimber
 
 
 class SimulatedAnnealing(HillClimber):

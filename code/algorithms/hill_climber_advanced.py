@@ -83,13 +83,17 @@ class HillClimber():
     # TODO ADD DOCSTRINGS!!! echt doen hoorrr
     def run(self, neighbours, swaps_per_neighbour, iterations, verbose_alg = False):
         """
-        
+        This method runs the Hill climber algorithm. It takes in the parameters: neighbours
+        (the amount of neighbours generated each iteration), swaps per neighbour (the amount
+        of swaps applied to each neighbour), iterations (the amount of iterations the algorithm
+        runs) and verbose_alg, which prints updates every iteration.
         """
         self.iterations = iterations
         
         for iteration in range(iterations):
             neighbour_list = []
             
+            # print an update statement every 500 iterations
             if iteration % 500 == 0:
                 print(f'Now at iteration {iteration} with {self.value} malus points')
 
@@ -100,26 +104,38 @@ class HillClimber():
                 neighbour_list.append(self.generate_individual_neighbour(swaps_per_neighbour))
             
             self.choose_best_neighbour(neighbour_list)
-            improved = self.check_solution()
-
-            self.iteration_values[iteration] = self.value
-
-            if improved:
-                self.best_iteration = iteration
-
-            i_since_last_best = iteration - self.best_iteration
+           
+            if self.restart_condition(iteration):
+                print('Restart conditions met, now restarting Algorithm.')
+                return self.value
             
-            # if the value of the best timetable is not less than 50 at iteration 10000 the loop stops
-            if iteration == 10000 and self.value > 1000:
-                return self.value
-
-            # if there hasnt been an improvement in 1000 iterations the loop stops
-            if i_since_last_best == 1000:
-                print(f'{iteration} iterations')
-
-                return self.value
         
         return self.value
 
 
+    def restart_condition(self, iteration):
+        """
+        This method checks if the stop conditions for restarting an algorithm have
+        been met. If so the method returns True and the hill climber loop stops.
+        If not the method returns false and the algorithm will keep running.
+        """
+        improved = self.check_solution()
 
+        self.iteration_values[iteration] = self.value
+
+        if improved:
+            self.best_iteration = iteration
+
+        i_since_last_best = iteration - self.best_iteration
+        
+        # if the value of the best timetable is not less than 50 at iteration 10000 the loop stops
+        if iteration == 10000 and self.value > 1000:
+            return True
+
+        # if there hasnt been an improvement in 1000 iterations the loop stops
+        if i_since_last_best == 1000:
+            print(f'{iteration} iterations')
+
+            return True
+        
+        return False

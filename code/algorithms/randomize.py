@@ -119,7 +119,7 @@ def random_swap(timetable):
     random_swap_function = random.choice([timetable.switch_students, 
                                           timetable.switch_activities_in_timetable, 
                                           timetable.switch_activity_in_timetable, 
-                                          switch_conflict_student])
+                                          switch_conflict_student, switch_individual_student])
     
     return random_swap_function
 
@@ -249,6 +249,51 @@ def switch_conflict_student(timetable):
     
     return timetable
 
+def switch_individual_student(timetable):
+    """
+    """
+    for i in range(20):
+        random_student = random.choice(timetable.full_student_list)
+
+        random_course = random.choice(list(random_student.pers_activities.keys()))
+
+        student_activity_list = random_student.pers_activities[random_course]
+        random_activity = random.choice(student_activity_list)
+
+        # go to next iteration of loop if chosen activity type is lecture
+        if random_activity.activity_type == 'Lecture':
+            continue
+
+        
+        activity_type = random_activity.activity_type
+
+        # check if there are at least 2 groups for chosen activity type
+        if len(random_course.activities[activity_type]) < 2:
+            continue
+        
+        # make sure to avoid infinite loop if all other groups are full
+        attempt = 0
+        random_new_group = random.choice(random_course.activities[activity_type])
+
+        # if the same activity is chosen as new activity or new activity is at or over capacity pick new activity again
+        while random_activity == random_new_group or len(random_new_group.student_list) >= random_new_group.capacity:
+            random_new_group = random.choice(random_course.activities[activity_type])
+            attempt += 1
+            if attempt > 10:
+                break
+        
+        # if after the while loop new activity still is same as conflict activity or chosen group is full continue
+        if random_activity == random_new_group or len(random_new_group.student_list) >= random_new_group.capacity:
+            continue
+
+        timetable.swap_student_activity(random_student, random_activity, random_new_group)
+        check_individual_conflicts(timetable)
+
+        return timetable
+    
+    return timetable
+
+def add_activity_to_course(timetable)
 
 def apply_random_swap(timetable):
     """
@@ -267,6 +312,9 @@ def apply_random_swap(timetable):
 
     if random_function == switch_conflict_student:
         swapped_timetable = switch_conflict_student(timetable)
+
+    if random_function == switch_individual_student:
+        swapped_timetable = switch_individual_student(timetable)
 
     return swapped_timetable
 

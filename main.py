@@ -65,11 +65,11 @@ if __name__ == "__main__":
     """
     # # -------------------------------------------------------Simulated Annealing -----------------------------------------------
 
-    # experiment = Experiment(timetable, iterations=20)
+    experiment = Experiment(timetable, iterations=20)
 
     # run SimAnn
-    sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, 'results/pickle_files/new_runs/', verbose=True, verbose_alg=True, 
-                                                 neighbours=9, swaps_per_neighbour=1, iterations=20000, temperature=1)
+    sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, 'results/pickle_files/new_runs_2/', verbose=True, verbose_alg=True, 
+                                                 neighbours=8, swaps_per_neighbour=2, iterations=30000, temperature=1)
     print("Simulated Annealing Summary:", sim_ann_summary)
     print('Malus per cat', experiment.malus_per_cat)
 
@@ -194,7 +194,12 @@ if __name__ == "__main__":
 # plot_temperature(file_paths_temps, output_file_name= None, export=False)
 
     
-    timetable_29 = load_pickle_data('results/pickle_files/conflict_test/29_malus_SimulatedAnnealing_8_neighbours__3_swaps_per_neighbour_20000_iterations__best_timetable.pkl')
-    print(timetable_29.full_student_list[5].pers_timetable)
+    # timetable_29 = load_pickle_data('results/pickle_files/conflict_test/29_malus_SimulatedAnnealing_8_neighbours__3_swaps_per_neighbour_20000_iterations__best_timetable.pkl')
+    # for student in timetable_29.full_student_list:
+    #     for course, course_activities in student.pers_activities.items():
+    #         for activity in course_activities:
+    #             student.fill_pers_timetable(activity)
+    
+    # print(calculate_malus(timetable_29))
     # [0]
 
