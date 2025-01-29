@@ -94,7 +94,7 @@ def random_student_activity_assignment(timetable):
             
             for student in valid_students:
                 new_timetable.add_student_to_activity(student, last_activity)
-
+            
     return new_timetable
 
 

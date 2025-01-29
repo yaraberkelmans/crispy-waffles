@@ -38,8 +38,3 @@ class Student():
     
     def fill_pers_timetable(self, activity):
         self.pers_timetable[activity.timeslot.day].append(activity.timeslot.time)
-
-    def update_pers_timetable(self, activity):
-        self.pers_timetable = defaultdict(list)
-        for activity in self.activities:
-            self.pers_timetable[activity.timeslot.day].append(activity.timeslot.time)

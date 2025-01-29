@@ -179,7 +179,7 @@ class Timetable():
         if len(activity_in.student_list) < activity_in.capacity:
             self.remove_student_from_activity(student, activity_out)
             self.add_student_to_activity(student, activity_in)
-            student.update_pers_timetable(activity_in)
+            student.fill_pers_timetable(activity_in)
         # else:
         #     print(f'Tried to add student {student}, to filled activity {activity_in}')
 
@@ -195,8 +195,8 @@ class Timetable():
             self.remove_student_from_activity(student_2, activity_2)
             self.add_student_to_activity(student_1, activity_2)
             self.add_student_to_activity(student_2, activity_1)
-            student_1.update_pers_timetable(activity_2)
-            student_2.update_pers_timetable(activity_1)
+            student_1.fill_pers_timetable(activity_2)
+            student_2.fill_pers_timetable(activity_1)
     
     def remove_activity_from_timetable(self, activity):
         """
