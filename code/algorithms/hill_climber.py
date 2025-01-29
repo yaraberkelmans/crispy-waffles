@@ -110,11 +110,11 @@ class HillClimber():
             i_since_last_best = iteration - self.best_iteration
             
             # if the value of the best timetable is not less than 50 at iteration 10000 the loop stops
-            if iteration == 10000 and self.value > 50:
+            if iteration == 10000 and self.value > 1000:
                 return self.value
 
             # if there hasnt been an improvement in 1000 iterations the loop stops
-            if i_since_last_best == 1000 and self.value > 37:
+            if i_since_last_best == 1000:
                 print(f'{iteration} iterations')
 
                 return self.value
