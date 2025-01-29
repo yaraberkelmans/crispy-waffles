@@ -147,6 +147,8 @@ class Timetable():
         if student not in activity.student_list and student in activity.course.student_list and (len(activity.student_list) + 1) <= activity.capacity :
             activity.student_list.append(student)
             student.pers_activities[activity.course].append(activity)
+            if activity.timeslot:
+                student.fill_pers_timetable(activity)
         # else:
         #    print(f'Student {student.name} already in activity {activity}.')
 
@@ -170,7 +172,8 @@ class Timetable():
         if student in activity.student_list:
             activity.student_list.remove(student)
             student.pers_activities[activity.course].remove(activity)
-            
+            if activity.timeslot:
+                student.pers_timetable[activity.timeslot.day].remove(activity.timeslot.time)
     
     def swap_student_activity(self, student, activity_out, activity_in):
         """
@@ -179,7 +182,7 @@ class Timetable():
         if len(activity_in.student_list) < activity_in.capacity:
             self.remove_student_from_activity(student, activity_out)
             self.add_student_to_activity(student, activity_in)
-            student.fill_pers_timetable(activity_in)
+            
         # else:
         #     print(f'Tried to add student {student}, to filled activity {activity_in}')
 
@@ -195,14 +198,15 @@ class Timetable():
             self.remove_student_from_activity(student_2, activity_2)
             self.add_student_to_activity(student_1, activity_2)
             self.add_student_to_activity(student_2, activity_1)
-            student_1.fill_pers_timetable(activity_2)
-            student_2.fill_pers_timetable(activity_1)
+        
     
     def remove_activity_from_timetable(self, activity):
         """
         This method removes an activity from the timetable by setting its timeslot and location to None. 
         """
         self.timetable[activity.timeslot][activity.location] = None
+        for student in activity.student_list:
+            student.remove_activity_pers_timetable(activity)
 
     def add_activity_to_timetable(self, activity, new_timeslot, new_location):
         """
@@ -212,6 +216,8 @@ class Timetable():
             self.timetable[new_timeslot][new_location] = activity
             activity.location = new_location
             activity.timeslot = new_timeslot
+            for student in activity.student_list:
+                student.fill_pers_timetable(activity)
 
     # probably unnecessary
     def switch_activity_in_timetable(self, activity, new_timeslot, new_location):
@@ -235,6 +241,7 @@ class Timetable():
 
         self.remove_activity_from_timetable(activity_1)
         self.remove_activity_from_timetable(activity_2)
+        
         self.add_activity_to_timetable(activity_1, old_timeslot_act_2, old_location_act_2)
         self.add_activity_to_timetable(activity_2, old_timeslot_act_1, old_location_act_1)
 
@@ -273,7 +280,7 @@ class Timetable():
         return activity  
 
        
-        
+    
     
 
 

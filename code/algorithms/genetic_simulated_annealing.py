@@ -1,11 +1,10 @@
 import random
 import math
 
-from .hill_climber import HillClimber
-from .malus import calculate_malus
+from .genetic_hill_climber import GeneticHillClimber
 
 
-class SimulatedAnnealing(HillClimber):
+class GeneticSimulatedAnnealing(GeneticHillClimber):
     """
     The SimulatedAnnealing class performs a random change to the timetable, just as in HillClimber.
     Most of the functions are similar to those of the HillClimber class, which is why
@@ -31,15 +30,15 @@ class SimulatedAnnealing(HillClimber):
         """
         self.T = self.T - (self.T0 / self.iterations)
 
-    def check_solution(self, new_timetable):
+    def check_solution(self):
         """
         Checks and accepts better solutions than the current solution.
         Also sometimes accepts solutions that are worse, depending on the current
         temperature.
         """
-        new_value = calculate_malus(new_timetable)
+        new_value = self.best_neighbour_value
         old_value = self.value
-        
+
         # calculate the probability of accepting this new timetable
         delta = new_value - old_value
 
@@ -61,7 +60,7 @@ class SimulatedAnnealing(HillClimber):
 
         # pull a random number between 0 and 1 and see if we accept the timetable!
         if random.random() < probability:
-            self.timetable = new_timetable
+            self.timetable = self.best_neighbour
             self.value = new_value
             
             if new_value < old_value:

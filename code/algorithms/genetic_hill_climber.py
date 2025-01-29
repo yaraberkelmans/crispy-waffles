@@ -28,7 +28,7 @@ class GeneticHillClimber(Algorithm):
         timetable.
         """
         for i in range(number_of_swaps):
-            self.apply_random_swap(new_timetable)
+            self.apply_random_swap()
 
     def generate_individual_neighbour(self, n_swaps):
         """
@@ -64,6 +64,7 @@ class GeneticHillClimber(Algorithm):
                 self.best_neighbour_value = neighbour_malus
                 self.best_neighbour = neighbour
 
+
     def check_solution(self):
         """
         This method checks if the malus score of the best neighbour is lower
@@ -81,7 +82,7 @@ class GeneticHillClimber(Algorithm):
             return True
 
     # TODO ADD DOCSTRINGS!!! echt doen hoorrr
-    def run(self, neighbours, swaps_per_neighbour, iterations, verbose_alg = False):
+    def run(self, neighbours, swaps_per_neighbour, iterations, verbose_alg=False, heuristic=False):
         """
         This method runs the Hill climber algorithm. It takes in the parameters: neighbours
         (the amount of neighbours generated each iteration), swaps per neighbour (the amount
@@ -89,22 +90,26 @@ class GeneticHillClimber(Algorithm):
         runs) and verbose_alg, which prints updates every iteration.
         """
         self.iterations = iterations
-        
+        self.swaps = swaps_per_neighbour
+
         for iteration in range(iterations):
             neighbour_list = []
             
             # print an update statement every 500 iterations
             if iteration % 500 == 0:
-                print(f'Now at iteration {iteration} with {self.value} malus points')
+                print(f'Now at iteration {iteration} with {self.value} malus points ')
 
             if verbose_alg:
-                print(f'Iteration {iteration}/{iterations} now running, value of timetable malus points is now {self.value}')
+                print(f'Iteration {iteration}/{iterations} now running, value of timetable malus points is now {self.value} and amount of swaps is {self.swaps}')
             
             for i in range(neighbours):
                 neighbour_list.append(self.generate_individual_neighbour(swaps_per_neighbour))
             
             self.choose_best_neighbour(neighbour_list)
-           
+            
+            if heuristic:
+                self.decrease_swaps(iteration)
+       
             if self.restart_condition(iteration):
                 print('Restart conditions met, now restarting Algorithm.')
                 return self.value
@@ -139,3 +144,10 @@ class GeneticHillClimber(Algorithm):
             return True
         
         return False
+    
+              
+    def decrease_swaps(self, iteration):
+        if iteration % 250 == 0 and iteration > 1:
+            if self.swaps > 2:
+                self.swaps = self.swaps - 1
+        

@@ -37,3 +37,6 @@ class Student():
     
     def fill_pers_timetable(self, activity):
         self.pers_timetable[activity.timeslot.day].append(activity.timeslot.time)
+
+    def remove_activity_pers_timetable(self, activity):
+        self.pers_timetable[activity.timeslot.day].remove(activity.timeslot.time)
