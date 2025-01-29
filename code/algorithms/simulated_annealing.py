@@ -1,10 +1,10 @@
 import random
 import math
 
-from .hill_climber_advanced import HillClimber
+from .hill_climber_advanced import GeneticHillClimber
 
 
-class SimulatedAnnealing(HillClimber):
+class SimulatedAnnealing(GeneticHillClimber):
     """
     The SimulatedAnnealing class performs a random change to the timetable, just as in HillClimber.
     Most of the functions are similar to those of the HillClimber class, which is why

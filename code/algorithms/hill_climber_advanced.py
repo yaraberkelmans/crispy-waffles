@@ -1,12 +1,11 @@
 import copy
 import random
 import math
-
-from .randomize import apply_random_swap
+from .algorithm_mutations import Algorithm
 from .malus import calculate_malus
 
 
-class HillClimber():
+class GeneticHillClimber(Algorithm):
     """
     This class creates instances of the Hill Climbing algorithm. The algorithm works by
     generating n amount of neighbours, which are deepcopy's of the current best timetable
@@ -17,7 +16,8 @@ class HillClimber():
     timetable, the timetable is not updated and the next iteration of the algorithm starts.
     """
     def __init__(self, timetable):
-        self.timetable = timetable
+        super().__init__(timetable)
+
         self.value = calculate_malus(timetable)
         self.iteration_values = {}
         self.best_iteration = 0
@@ -28,7 +28,7 @@ class HillClimber():
         timetable.
         """
         for i in range(number_of_swaps):
-            apply_random_swap(new_timetable)
+            self.apply_random_swap(new_timetable)
 
     def generate_individual_neighbour(self, n_swaps):
         """
@@ -37,7 +37,7 @@ class HillClimber():
         """
         timetable = copy.deepcopy(self.timetable)
         for i in range(n_swaps):
-            apply_random_swap(timetable)
+            self.apply_random_swap(timetable)
 
         return timetable
     

@@ -249,12 +249,33 @@ class Timetable():
                 if self.timetable[timeslot][location] == None:
                     self.empty_locations[timeslot].append(location)
 
-    # probably unnecessary
-    def sort_priority_queue(self):
-        """
-        This method sorts the students with individual conflicts in ascending order based on their conflict malus points.  
-        """
-        self.conflict_students.sort(key=lambda student: student.conflict_points)
+    def add_new_activity_to_course(self, course, activity_type):
+         # make names for each activity based on their activity type
+        i = len(course.activities[activity_type]) + 1
+        activity_name = f'{activity_type} {i}'
+
+        # make an instance of each activity
+        if activity_type == 'Tutorial':
+            initial_capacity = course.tutorial_cap
+            activity = Tutorial(course, course.tutorial_cap, initial_capacity, activity_name)
+
+        elif activity_type == 'Lab':
+            initial_capacity = course.lab_cap
+            activity = Lab(course, course.lab_cap, initial_capacity, activity_name)
+          
+        if activity:
+            course.activities[activity_type].append(activity)
+            self.activity_list.append(activity)  
+        else:
+            print(f'activity type {activity_type} not recognized')    
+            return 
+
+        return activity  
+
+       
+        
+    
+
 
 
     def generate_initial_timetable(self):

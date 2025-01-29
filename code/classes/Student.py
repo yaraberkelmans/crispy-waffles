@@ -12,13 +12,14 @@ class Student():
         self.first_name = first_name
         self.last_name = last_name
         self.name = f'{first_name} {last_name}'
-        self.conflict_points = 0
-
+    
         # key is course, value is a list of activities
         self.pers_activities = defaultdict(list)
 
         # key is day, value is list of timeslots that are being used
         self.pers_timetable = defaultdict(list)
+
+        self.gap_hours = defaultdict(list)
     
     def __repr__(self) -> str:
         return f"{self.first_name} {self.last_name}, {self.student_id}"

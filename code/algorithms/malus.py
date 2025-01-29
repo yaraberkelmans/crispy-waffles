@@ -56,7 +56,7 @@ def check_individual_conflicts(timetable, malus=1):
                     timeslot_counts[timeslot] += 1
                     conflict_dict[timeslot].append(activity)
 
-        student.conflict_points = 0
+        
         student.conflict_activities = {}
         
         for timeslot, count in timeslot_counts.items():
@@ -70,7 +70,7 @@ def check_individual_conflicts(timetable, malus=1):
                 student.conflict_activities[timeslot] = conflict_dict[timeslot]
 
                 # keep track of students with conflict for queue
-                student.conflict_points += individual_points
+                
                 timetable.conflict_students.append(student)
     # print(f'total points for individual conflicts is {total_points}')
     return total_points
