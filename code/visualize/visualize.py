@@ -147,10 +147,12 @@ def plot_malus_iter_disconnected(score_dict_list, output_file_name=None, info=No
             
         plt.plot(x_values, y_values, color='b' )#lw=0.5)
 
+    average_malus = sum(x_values)/ len(x_values)
+
     plt.title(info, loc='left', fontsize=10)
     plt.suptitle(suptitle)
 
-    plt.axhline(average_malus,xmin=0, xmax=len(malus_points_list), color = 'r', ls= '--', label= f'Average = {round(average_malus)}')
+    plt.axhline(average_malus,xmin=0, xmax=len(score_dict_list), color = 'r', ls= '--', label= f'Average = {round(average_malus)}')
     plt.xlabel('iterations')
     plt.ylabel('malus points')
     if export:
