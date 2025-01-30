@@ -7,7 +7,7 @@ from .malus import calculate_malus
 
 class GeneticHillClimber(Algorithm):
     """
-    This class creates instances of the Hill Climbing algorithm. The algorithm works by
+    This class creates instances of the Genetic Hill Climbing algorithm. The algorithm works by
     generating n amount of neighbours, which are deepcopy's of the current best timetable
     with x amount of random swaps applied to it. Then the best neighbour is chosen based on 
     the neighbour that has the least malus points. If the best neighbour has a malus score 
@@ -22,6 +22,7 @@ class GeneticHillClimber(Algorithm):
         self.iteration_values = {}
         self.best_iteration = 0
 
+
     def mutate_timetable(self, new_timetable, number_of_swaps):
         """
         This method applies n amount of random swaps to the current best
@@ -29,6 +30,7 @@ class GeneticHillClimber(Algorithm):
         """
         for i in range(number_of_swaps):
             self.apply_random_swap()
+
 
     def generate_individual_neighbour(self, n_swaps):
         """
@@ -55,7 +57,7 @@ class GeneticHillClimber(Algorithm):
         for neighbour in neighbours:
             neighbour_malus = calculate_malus(neighbour)
 
-            # with the first neighbour always overwrite the best neighbour
+            # make the first neighbour always overwrite the best neighbour
             if self.best_neighbour_value == None:
                 self.best_neighbour_value = neighbour_malus
                 self.best_neighbour = neighbour
@@ -81,13 +83,15 @@ class GeneticHillClimber(Algorithm):
 
             return True
 
-    # TODO ADD DOCSTRINGS!!! echt doen hoorrr
+
     def run(self, neighbours, swaps_per_neighbour, iterations, verbose_alg=False, heuristic=False):
         """
-        This method runs the Hill climber algorithm. It takes in the parameters: neighbours
-        (the amount of neighbours generated each iteration), swaps per neighbour (the amount
-        of swaps applied to each neighbour), iterations (the amount of iterations the algorithm
-        runs) and verbose_alg, which prints updates every iteration.
+        This method runs the Genetic Hill climber algorithm. It takes in the parameters: 
+        - neighbours: the amount of neighbours generated each iteration
+        - swaps per neighbour: the amount of swaps applied to each neighbour
+        - iterations: the amount of iterations the algorithm runs
+        - verbose_alg: if True, prints updates at every iteration.
+        - heuristic: if True, lowers the swaps_per_neighbour at every 250 iterations to become more specific
         """
         self.iterations = iterations
         self.swaps = swaps_per_neighbour
@@ -133,7 +137,7 @@ class GeneticHillClimber(Algorithm):
 
         i_since_last_best = iteration - self.best_iteration
         
-        # if the value of the best timetable is not less than 50 at iteration 10000 the loop stops
+        # if the value of the best timetable is not less than 1000 at iteration 10000 the loop stops
         if iteration == 10000 and self.value > 1000:
             return True
 
@@ -147,6 +151,10 @@ class GeneticHillClimber(Algorithm):
     
               
     def decrease_swaps(self, iteration):
+        """
+        This method decreases the number of swaps with 1 every 250 iterations.
+        However, the swaps minimum number is 2.
+        """
         if iteration % 250 == 0 and iteration > 1:
             if self.swaps > 2:
                 self.swaps = self.swaps - 1
