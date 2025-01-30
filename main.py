@@ -95,25 +95,41 @@ if __name__ == "__main__":
 
 
 
+    # 
+
+
     # ---------------------------------------------- Plot different neighbours against swaps ------------------------------------
-    # file_paths = [
-    #     "results/pickle_files/final_runs/SimulatedAnnealing_7_neighbours_1_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-    #     "results/pickle_files/final_runs/SimulatedAnnealing_7_neighbours_2_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-    #     "results/pickle_files/final_runs/SimulatedAnnealing_7_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-    #     "results/pickle_files/final_runs/SimulatedAnnealing_8_neighbours_1_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-    #     "results/pickle_files/final_runs/SimulatedAnnealing_8_neighbours_2_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-    #     "results/pickle_files/final_runs/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-    #     "results/pickle_files/final_runs/SimulatedAnnealing_9_neighbours_1_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-    #     "results/pickle_files/final_runs/SimulatedAnnealing_9_neighbours_2_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
-    #     "results/pickle_files/final_runs/SimulatedAnnealing_9_neighbours_3_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    # -- Genetic Hill Climber --
+        # file_paths_hc = [
+    #     "results/pickle_files/for_real/GeneticHillClimber_3_neighbours_10_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "results/pickle_files/for_real/GeneticHillClimber_5_neighbours_10_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "results/pickle_files/for_real/GeneticHillClimber_7_neighbours_10_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "results/pickle_files/for_real/GeneticHillClimber_9_neighbours_10_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "results/pickle_files/for_real/wouter_runs/GeneticHillClimber_15_neighbours_10_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "results/pickle_files/for_real/wouter_runs/GeneticHillClimber_20_neighbours_10_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
     # ]
 
+    # malus_df_hc = load_experiment_data(file_paths_hc)
+        
+    # print(malus_df_hc)
+        
+    # plot_experiment_results(malus_df_hc, 'neighbours_plot')
 
-    # malus_df = load_experiment_data(file_paths)
+    # -- Genetic Simulated Annealing --
+    # file_paths_sa = [
+    #     "results/pickle_files/for_real/GeneticSimulatedAnnealing_3_neighbours_10_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "results/pickle_files/for_real/GeneticSimulatedAnnealing_5_neighbours_10_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "results/pickle_files/for_real/GeneticSimulatedAnnealing_7_neighbours_10_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "results/pickle_files/for_real/GeneticSimulatedAnnealing_9_neighbours_10_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "results/pickle_files/for_real/wouter_runs/GeneticSimulatedAnnealing_15_neighbours_10_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    #     "results/pickle_files/for_real/wouter_runs/GeneticSimulatedAnnealing_20_neighbours_10_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
+    # ]
+
+    # malus_df_sa = load_experiment_data(file_paths_sa)
         
-    # print(malus_df)
+    # print(malus_df_sa)
         
-    # plot_experiment_results(malus_df, 'neighbours_and_swaps')
+    # plot_experiment_results(malus_df_sa, 'neighbours_plot')
 
 
 
@@ -138,5 +154,15 @@ if __name__ == "__main__":
 
     # plot_temperature(file_paths_temps, output_file_name= None, export=False)
 
+    
+
+    # ---------------------------------------------------------------- Plot Bar Chart -------------------------------------------------------------
+    # best_timetable = load_pickle_data()
+    # barplot_malus_per_category(best_timetable)
+
+
+    # ------------------------------------------------------ Plot single iteration distribution ---------------------------------------------------
+    # best_experiment= load_pickle_data()
+    # plot_malus_iter(iteration_to_plot, best_experiment.indiv_scores)
     
  

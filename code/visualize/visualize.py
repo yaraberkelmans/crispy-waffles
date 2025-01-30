@@ -253,3 +253,28 @@ def plot_temperature(file_paths, output_file_name= None, export= False):
     if export: 
         plt.savefig(output_file_name)
     plt.show()
+
+
+def plot_malus_iter(iteration_to_plot, scores_per_experiment, title='Malus points per iteration'):
+    """
+    This function plots the progress of the malus points per iteration in one algorithm run. It takes the iterations and malus_points as arguments, 
+    which are both lists.
+    """
+    algorithm_instance = scores_per_experiment[iteration_to_plot]
+
+    iter_list = list(algorithm_instance.keys())
+    malus_points_list = list(algorithm_instance.values())
+    
+    average_malus = sum(malus_points_list)/ len(malus_points_list)
+    min_malus = min(malus_points_list)
+    min_malus_idx= malus_points_list.index(min_malus)
+
+    # plot functions
+    plt.plot(iter_list, malus_points_list, label= 'Malus points')
+    plt.plot(min_malus_idx, min_malus, color = 'g', marker='o', label= f'Minimum = {round(min_malus)}')
+    plt.title(title)
+    plt.axhline(average_malus,xmin=0, xmax=len(malus_points_list), color = 'r', ls= '--', label= f'Average = {round(average_malus)}')
+    plt.xlabel('iterations')
+    plt.ylabel('malus points')
+    plt.legend()
+    plt.show()
