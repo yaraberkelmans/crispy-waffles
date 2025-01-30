@@ -118,25 +118,23 @@ if __name__ == "__main__":
 
 
     # ---------------------------------------------------------- Experiment loader -----------------------------------------------------------------
-    # low_malus_timetable = load_pickle_data('results/pickle_files/conflict_test/29_malus_SimulatedAnnealing_8_neighbours__3_swaps_per_neighbour_20000_iterations__best_timetable.pkl')
+    # low_malus_timetable = load_pickle_data('results/pickle_files/for_real/29_malus_SimulatedAnnealing_8_neighbours__3_swaps_per_neighbour_20000_iterations__best_timetable.pkl')
     # timetable_to_csv(low_malus_timetable, 'best_timetable_29_malus')
 
 
 
     # --------------------------------------------------------- Export to html file ----------------------------------------------------------------
     # pivot = visualize_timetable('best_timetable_29_malus.csv')
-    # save_timetable_to_html(pivot, 'best_timetable_ever_made_in_the_history_of_lectures_en_lesroosters_better_than_verenigde_bond_dieren_ofzo_made_by_the_crispy_waffles.html')
+    # save_timetable_to_html(pivot, 'best_timetable_html_file.html')
 
 
 
     # ------------------------------------------------ Plot temperature of different SA experiments ------------------------------------------------
     # # plot for temps
-    # file_paths_temps = ["results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=1_experiment_instance.pkl",
-    #                     "results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=2.5_experiment_instance.pkl",
-    #                      "results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=5_experiment_instance.pkl",
-    #                       "results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=10_experiment_instance.pkl",
-    #                        "results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=20_experiment_instance.pkl",
-    #                         "results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=50_experiment_instance.pkl"]
+    # file_paths_temps = ["results/pickle_files/for_real/wouter_runs/GeneticSimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=1_experiment_instance.pkl",
+    #                      "results/pickle_files/for_real/wouter_runs/GeneticSimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=5_experiment_instance.pkl",
+    #                       "results/pickle_files/for_real/wouter_runs/GeneticSimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=10_experiment_instance.pkl",
+    #                         "results/pickle_files/for_real/wouter_runs/GeneticSimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=50_experiment_instance.pkl"]
 
     # plot_temperature(file_paths_temps, output_file_name= None, export=False)
 
