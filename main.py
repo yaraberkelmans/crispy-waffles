@@ -48,8 +48,8 @@ if __name__ == "__main__":
 
     # ----------------------------------------------------- Hill Climber ----------------------------------------------------------
     if args.algorithm == "HillClimber":
-        hill_climber_summary = experiment.run_algorithm(HillClimber, args.output_file_path, verbose=True, verbose_alg=True,
-                                                number_of_swaps=args.swaps, iterations= args.iterations)
+        hill_climber_summary = experiment.run_algorithm(HillClimber, args.output_file_path, verbose=True, verbose_alg=False,
+                                                heuristic=True, number_of_swaps=args.swaps, iterations= args.iterations)
         print("Hill Climber Summary:", hill_climber_summary)
         print("Malus per cat", experiment.malus_per_cat)
 
@@ -58,8 +58,8 @@ if __name__ == "__main__":
     # -------------------------------------------------- Genetic Hill Climber -----------------------------------------------------
     if args.algorithm == "GeneticHillClimber":
 
-        genetic_hill_climber_summary = experiment.run_algorithm(GeneticHillClimber, args.output_file_path, verbose=True, verbose_alg=True, 
-                                                   neighbours=args.neighbours, swaps_per_neighbour=args.swaps, 
+        genetic_hill_climber_summary = experiment.run_algorithm(GeneticHillClimber, args.output_file_path, verbose=True, verbose_alg=False, 
+                                                   heuristic=True, neighbours=args.neighbours, swaps_per_neighbour=args.swaps, 
                                                    iterations=args.iterations)
         print("Genetic Hill Climber Summary:", genetic_hill_climber_summary)
         print("Malus per cat", experiment.malus_per_cat)
@@ -68,8 +68,8 @@ if __name__ == "__main__":
 
     # --------------------------------------------------- Simulated Annealing -----------------------------------------------------
     if args.algorithm == "SimulatedAnnealing":
-        sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, args.output_file_path, verbose=True, verbose_alg=True, 
-                                                   number_of_swaps=args.swaps, iterations=args.iterations, temperature=args.temperature)
+        sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, args.output_file_path, verbose=True, verbose_alg=False, 
+                                                   heuristic=True, number_of_swaps=args.swaps, iterations=args.iterations, temperature=args.temperature)
         print("Simulated Annealing Summary:", sim_ann_summary)
         print("Malus per cat", experiment.malus_per_cat)
 
@@ -77,8 +77,8 @@ if __name__ == "__main__":
 
     # ------------------------------------------------- Genetic Simulated Annealing -----------------------------------------------
     if args.algorithm == "GeneticSimulatedAnnealing":
-        genetic_sim_ann_summary = experiment.run_algorithm(GeneticSimulatedAnnealing, args.output_file_path, verbose=True, verbose_alg=True, 
-                                                   neighbours=args.neighbours, swaps_per_neighbour=args.swaps, 
+        genetic_sim_ann_summary = experiment.run_algorithm(GeneticSimulatedAnnealing, args.output_file_path, verbose=True, verbose_alg=False, 
+                                                   heuristic=True, neighbours=args.neighbours, swaps_per_neighbour=args.swaps, 
                                                    iterations=args.iterations, temperature=args.temperature)
         print("Genetic Simulated Annealing Summary:", genetic_sim_ann_summary)
         print("Malus per cat", experiment.malus_per_cat)
@@ -205,41 +205,4 @@ if __name__ == "__main__":
     # plot_temperature(file_paths_temps, output_file_name= None, export=False)
 
     
-    # timetable_29 = load_pickle_data('results/pickle_files/conflict_test/29_malus_SimulatedAnnealing_8_neighbours__3_swaps_per_neighbour_20000_iterations__best_timetable.pkl')
-    # for student in timetable_29.full_student_list:
-    #     for course, course_activities in student.pers_activities.items():
-    #         for activity in course_activities:
-    #             student.fill_pers_timetable(activity)
-    
-    # print(calculate_malus(timetable_29))
-    # [0]
-
-    # timetable = Timetable()
-    # timetable.generate_initial_timetable()
-
-    # print(calculate_malus(timetable))
-    
-
-    # # randomize 1 
-    # randomize = Randomize(timetable)
-
-    # rara = randomize.randomize()
-    # print(calculate_malus(rara))
-
-    # # randomize 22
-    # randomize = Randomize(timetable)
-    # swumbo = randomize.randomize()
-    # print(calculate_malus(swumbo))
-    # hill_climber = GeneticSimulatedAnnealing(swumbo)
-    # hill_climber.run(9, 20, 20000, verbose_alg=True, heuristic=True)
-    # print(hill_climber.timetable.full_student_list[0].pers_timetable)
-    # print(hill_climber.timetable.full_student_list[0])
-    # print(hill_climber.timetable.full_student_list[0].pers_activities)
-
-    # print(len(timetable.activity_list))
-    # for student in hill_climber.timetable.full_student_list:
-    #     p
-    #     for course, course_activities in student.pers_activities.items():
-    #         for activity in course_activities:
-    #             student.fill_pers_timetable(activity)
-    # print(calculate_malus(hill_climber.timetable))
+ 

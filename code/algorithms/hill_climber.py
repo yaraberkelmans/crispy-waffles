@@ -49,6 +49,11 @@ class HillClimber(Algorithm):
         self.iterations = iterations
 
         for iteration in range(iterations):
+
+            # print an update statement every 500 iterations
+            if iteration % 500 == 0:
+                print(f'Now at iteration {iteration} with {self.value} malus points ')
+
             if verbose_alg:
                 print(f'Iteration {iteration}/{iterations} now running, value of timetable malus points is now {self.value}')
             
@@ -60,6 +65,7 @@ class HillClimber(Algorithm):
                 self.decrease_swaps(iteration)
 
             if self.check_reset_conditions(iteration, new_timetable):
+                print('Restart conditions met, now restarting Algorithm.')
                 return self.value
             
         return self.value
@@ -77,7 +83,7 @@ class HillClimber(Algorithm):
                 self.best_iteration = iteration
 
         i_since_last_best = iteration - self.best_iteration
-        if i_since_last_best == 500:
+        if i_since_last_best == 1000:
             print(f'{iteration} iterations')
             self.iterations = iteration
 
