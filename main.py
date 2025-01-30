@@ -25,6 +25,7 @@ if __name__ == "__main__":
 
     # experiment parameters
     parser.add_argument("--experiment_iters", type=int, default=20, help="Number of iters the experiment should run")
+    parser.add_argument("--heur", type=bool, default=True, help="Apply heuristic of decreasing swaps")
     parser.add_argument("--neighbours", type=int, default=8, help="Number of neighbours")
     parser.add_argument("--swaps", type=int, default=10, help="Number of swaps per neighbour")
     parser.add_argument("--iterations", type=int, default=20000, help="Number of iterations")
@@ -49,7 +50,7 @@ if __name__ == "__main__":
     # ----------------------------------------------------- Hill Climber ----------------------------------------------------------
     if args.algorithm == "HillClimber":
         hill_climber_summary = experiment.run_algorithm(HillClimber, args.output_file_path, verbose=True, verbose_alg=False,
-                                                heuristic=True, number_of_swaps=args.swaps, iterations= args.iterations)
+                                                heuristic=args.heur, number_of_swaps=args.swaps, iterations= args.iterations)
         print("Hill Climber Summary:", hill_climber_summary)
         print("Malus per cat", experiment.malus_per_cat)
 
@@ -59,7 +60,7 @@ if __name__ == "__main__":
     if args.algorithm == "GeneticHillClimber":
 
         genetic_hill_climber_summary = experiment.run_algorithm(GeneticHillClimber, args.output_file_path, verbose=True, verbose_alg=False, 
-                                                   heuristic=True, neighbours=args.neighbours, swaps_per_neighbour=args.swaps, 
+                                                   heuristic=args.heur, neighbours=args.neighbours, swaps_per_neighbour=args.swaps, 
                                                    iterations=args.iterations)
         print("Genetic Hill Climber Summary:", genetic_hill_climber_summary)
         print("Malus per cat", experiment.malus_per_cat)
@@ -69,7 +70,7 @@ if __name__ == "__main__":
     # --------------------------------------------------- Simulated Annealing -----------------------------------------------------
     if args.algorithm == "SimulatedAnnealing":
         sim_ann_summary = experiment.run_algorithm(SimulatedAnnealing, args.output_file_path, verbose=True, verbose_alg=False, 
-                                                   heuristic=True, number_of_swaps=args.swaps, iterations=args.iterations, temperature=args.temperature)
+                                                   heuristic=args.heur, number_of_swaps=args.swaps, iterations=args.iterations, temperature=args.temperature)
         print("Simulated Annealing Summary:", sim_ann_summary)
         print("Malus per cat", experiment.malus_per_cat)
 
@@ -78,7 +79,7 @@ if __name__ == "__main__":
     # ------------------------------------------------- Genetic Simulated Annealing -----------------------------------------------
     if args.algorithm == "GeneticSimulatedAnnealing":
         genetic_sim_ann_summary = experiment.run_algorithm(GeneticSimulatedAnnealing, args.output_file_path, verbose=True, verbose_alg=False, 
-                                                   heuristic=True, neighbours=args.neighbours, swaps_per_neighbour=args.swaps, 
+                                                   heuristic=args.heur, neighbours=args.neighbours, swaps_per_neighbour=args.swaps, 
                                                    iterations=args.iterations, temperature=args.temperature)
         print("Genetic Simulated Annealing Summary:", genetic_sim_ann_summary)
         print("Malus per cat", experiment.malus_per_cat)
