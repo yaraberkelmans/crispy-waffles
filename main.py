@@ -10,7 +10,7 @@ from code.algorithms.simulated_annealing import SimulatedAnnealing
 from code.algorithms.genetic_simulated_annealing import GeneticSimulatedAnnealing
 from code.algorithms.hill_climber import HillClimber
 from code.algorithms.randomize import Randomize
-from code.algorithms.randomize import Randomize
+
 
 
 if __name__ == "__main__":
