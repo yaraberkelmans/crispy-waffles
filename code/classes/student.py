@@ -20,9 +20,11 @@ class Student():
         self.pers_timetable = defaultdict(list)
 
         self.gap_hours = defaultdict(list)
+
     
     def __repr__(self) -> str:
         return f"{self.first_name} {self.last_name}, {self.student_id}"
+
     
     def check_validity(self, activity):  
         """
@@ -33,13 +35,16 @@ class Student():
             if type(activity) == Tutorial or type(activity) == Lab:
                 if isinstance(activity, type(value)):
                     return False
+
         return True
     
+
     def fill_pers_timetable(self, activity):
         """
         This method adds the timeslot of an activity to the pers_timetable of a student.
         """
         self.pers_timetable[activity.timeslot.day].append(activity.timeslot.time)
+        
 
     def remove_activity_pers_timetable(self, activity):
         """

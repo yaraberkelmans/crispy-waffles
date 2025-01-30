@@ -36,8 +36,32 @@ De uiteindelijke score van een rooster wordt berekend aan de hand van maluspunte
 Een voorbeeld kan gerund worden door het aanroepen van:
 
 ```
-python main.py algorithm output_file_path 
+python main.py algorithm output_file_path [--experiment_iters] [--neighbours] [--swaps] [--iterations] [--temperature]
 ```
+
+de parse argumenten en opties:
+algorithm - Kies uit een van de volgende algoritmen:
+- Randomize
+- Hill climber
+- Genetic hill climber
+- Simulated annealing
+- Genetic simulated annealing
+
+Type: str
+
+output_file_path - Het relatieve path om de bestanden naar te exporteren. Type: str
+
+[--experiment_iters] - Het aantal iteraties dat het experiment runt. Standaard: 10, Type: int
+
+[--heur] - Een boolean waarmee de decrease swaps heuristiek aan of uit gezet kan worden. Standaard: True, Type: bool
+
+[--neighbours] - Het aantal neighbours per iteratie van het algoritme (alleen voor de genetische algoritmen). Standaard: 8, Type: int
+
+[--swaps] - Het aantal swaps per neighbour. Standaard: 10, Type: int
+
+[--iterations] - Het aantal iterations per run van het algoritme. Standaard: 10, Type: int
+
+[--temperature] - De starttemperatuur (alleen voor Simulated annealing en genetic simulated annealing). Standaard: 1.0, Type: float
 
 Het bestand geeft een voorbeeld voor gebruik van de verschillende functies en het aanmaken van een rooster.
 

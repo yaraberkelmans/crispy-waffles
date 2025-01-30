@@ -6,6 +6,7 @@ class Location():
         self.room_id = room_id
         self.capacity = int(capacity)
         self.available = True
+        
 
     def __repr__(self) -> str:
         return f"{self.room_id} capacity: {self.capacity}"

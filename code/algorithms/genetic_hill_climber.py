@@ -111,7 +111,6 @@ class GeneticHillClimber(Algorithm):
                 print('Restart conditions met, now restarting Algorithm.')
                 return self.value
             
-        
         return self.value
 
 

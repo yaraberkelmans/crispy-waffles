@@ -223,7 +223,7 @@ class Algorithm():
 
     def apply_random_swap(self, timetable):
         """
-        This function applies the random swap chosen in the random_swap function.
+        This method applies the random swap chosen in the random_swap function.
         """
         random_function = self.random_swap()
         
@@ -247,9 +247,10 @@ class Algorithm():
         
         return swapped_timetable
     
+
     def random_swap(self):
         """
-        This function randomly chooses 1 out of 6 swaps. The 6 swaps are: switch_students,
+        This method randomly chooses 1 out of 6 swaps. The 6 swaps are: switch_students,
         switch_activities_in_timetable, switch_activity_in_timetable, switch_conflict_student,
         switch_individual_student and add_new_activity_to_course. 
         """
@@ -263,23 +264,27 @@ class Algorithm():
         
         return random_swap_function
 
+
     def pick_random_student(self, timetable):
         """
         This method picks a random student from the full course list
         """
         return random.choice(timetable.full_student_list)
+
     
     def pick_random_activity(self, timetable):
         """
         This method picks a random activity from all activities in the timetable
         """
         return random.choice(timetable.activity_list)
+
     
     def pick_random_course(self, timetable):
         """
         This method picks a random course from all courses in the timetable
         """
         return random.choice(timetable.courses)
+
 
     def pick_activity_from_course(self, activity_type, course):
         """
