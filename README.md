@@ -51,13 +51,13 @@ Type: str
 
 output_file_path - Het relatieve path om de bestanden naar te exporteren. Type: str
 
-[--experiment_iters] - Het aantal iteraties dat het experiment runt. Standaard: 20, Type: int
+[--experiment_iters] - Het aantal iteraties dat het experiment runt. Standaard: 10, Type: int
 
 [--heur] - Een boolean waarmee de decrease swaps heuristiek aan of uit gezet kan worden. Standaard: True, Type: bool
 
 [--neighbours] - Het aantal neighbours per iteratie van het algoritme (alleen voor de genetische algoritmen). Standaard: 8, Type: int
 
-[--swaps] - Het aantal swaps per neighbour. Standaard: 8, Type: int
+[--swaps] - Het aantal swaps per neighbour. Standaard: 10, Type: int
 
 [--iterations] - Het aantal iterations per run van het algoritme. Standaard: 10, Type: int
 
