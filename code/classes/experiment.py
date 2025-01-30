@@ -55,8 +55,8 @@ class Experiment():
             self.malus_per_cat = {'capacity': 0, 'evening':  0, 'indiv_confl': 0, 'gap_hours': 0}
 
             # create a randomized starting timetable before running the algorithm
-            randomize_algorithm = Randomize()
-            randomized_timetable = randomize_algorithm.randomize(self.timetable)
+            randomize_algorithm = Randomize(self.timetable)
+            randomized_timetable = randomize_algorithm.randomize()
             
             if algorithm_class == SimulatedAnnealing or algorithm_class == GeneticSimulatedAnnealing:
                 algorithm = algorithm_class(randomized_timetable, temperature=temperature)
