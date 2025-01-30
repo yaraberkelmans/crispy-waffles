@@ -4,7 +4,7 @@ from .malus import *
 
 class Randomize():
     """
-    This class represents the randomization algoriithm, which is also the baseline
+    This class represents the randomization algorithm, which is also the baseline
     algorithm of this software. The randomization algorithm first randomly assigns 
     students to activity groups, such as tutorials and labs and then randomly assigns
     activities to timeslot and location pairs.
@@ -34,11 +34,15 @@ class Randomize():
         new_timetable_dict = self.timetable.timetable
         activities_added = 0
 
+        # while we still have activities to assign to timeslots, continue the loop
         while activities_added < activity_count:
+
+            # randomly choose a timeslot and room for a random activity
             random_timeslot = random.choice(list(new_timetable_dict.keys()))
             random_room = random.choice(list(new_timetable_dict[random_timeslot]))
             random_activity = random.choice(list(new_activities_list))
             
+            # only if the timeslot and room are still empty we assign the activity
             if new_timetable_dict[random_timeslot][random_room] == None:
                 new_timetable_dict[random_timeslot][random_room] = random_activity
                 random_activity.timeslot = random_timeslot
@@ -47,6 +51,8 @@ class Randomize():
             
                 for student in random_activity.student_list:
                     student.fill_pers_timetable(random_activity)
+                
+                # keep track of the added activities
                 activities_added += 1
 
         
@@ -76,14 +82,14 @@ class Randomize():
         This function randomly assigns students to activities within their courses,
         taking the capacity constraints of the activity into account. 
         """
-        self.timetable
-
-        for course in self.timetable.courses: # not your timetable
+        for course in self.timetable.courses:
             
             for activity_type in course.activities.keys():
 
+                # loop over all the activities except the last one
                 for activity in course.activities[activity_type][:-1]:
 
+                    # if there is still room in the activity and the student is valid for placement add student the activity
                     while len(activity.student_list) < activity.initial_capacity:
                         valid_students = [st for st in course.student_list if st not in activity.student_list 
                                         and st.check_validity(activity)]
