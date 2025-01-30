@@ -67,37 +67,14 @@ Het bestand geeft een voorbeeld voor gebruik van de verschillende functies en he
 
 
 ### Experimenten
-Voor het uitvoeren van een experiment in Simulated Annealing kan een experiment class worden aangeroepen met 
-bepaalde waardes. Hiervoor kan gebruik worden gemaakt van parallel running, door iedere keer de waardes aan te passen om die versie
+Voor het uitvoeren van een experiment, kan een experiment class worden aangeroepen met 
+bepaalde waardes van de parameters. Hiervoor kan gebruik worden gemaakt van parallel running, door iedere keer de argumenten aan te passen in de commandline en
 vervolgens in een nieuwe terminal te laten runnen. Zo is het modelijk om binnen een redelijke tijd met meerdere waardes te kunnen experimenteren. 
     
-De experimenten kunnen gerunt worden met (bijvoorbeeld) de volgende waardes:
-
-- 7 neighbours en 1 swaps per neighbour
-- 7 neighbours en 2 swaps per neighbour
-- 7 neighbours en 3 swaps per neighbour
-- 8 neighbours en 1 swaps per neighbour
-- 8 neighbours en 2 swaps per neighbour
-- 8 neighbours en 3 swaps per neighbour
-- 9 neighbours en 1 swaps per neighbour
-- 9 neighbours en 2 swaps per neighbour
-- 9 neighbours en 3 swaps per neighbour
-
-Het algoritme slaat deze experimenten automatisch op als aparte en verschillende pickle files, het geeft namelijk een naam op 
-basis van de parameters, welke bij elk experiment verschillend zijn. Ook maakt de experiment automatisch een folder aan die je 
-mee kan geven.
-
-Voor het tweede experiment kan worden gekeken naar een goede Temperatuur voor Simulated Annealling. De manier van experimenteren
-blijft hetzelfde, maar hierbij kan er gevarieert worden met de temperatuur. Mogelijke waardes voor temperatuur kunnen zijn: 
-- 1
-- 2.5
-- 5
-- 10
-- 20
-- 50
+De experimenten kunnen gerunt worden met (bijvoorbeeld) de standaard waardes, zie hierboven. 
 
 Alle resultaten van deze experimenten worden opgeslagen als pickle bestand in het mapje results/pickle_files en de 
-experiment instances kunnen van daaruit worden ingeladen om te gerbuiken voor verschillende plots.
+experiment instances kunnen van daaruit worden ingeladen om te gerbuiken voor verschillende plots en analyes
 
 ## Structuur
 
