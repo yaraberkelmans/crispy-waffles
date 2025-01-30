@@ -3,13 +3,17 @@ import random
 from .malus import *
 
 class Algorithm():
+    """
+    This class is the superclass for algorithms that use swap functions. It initializes a timetable and the start value of 
+    an algorithm and provides all the functions for other algorithms.
+    """
     def __init__(self, timetable):
         self.timetable = copy.deepcopy(timetable) 
         self.value = calculate_malus(self.timetable)
 
     def random_students_swap(self, timetable):
         """
-        This function randomly chooses a course, then chooses a random activity type
+        This method randomly chooses a course, then chooses a random activity type
         either tutorial or lab and then chooses two different groups within this course
         and activity type to pick a student out of each of the groups and then switches them
         from group. 
@@ -27,15 +31,13 @@ class Algorithm():
             while activity_type == 'Lecture' or len(random_course.activities[activity_type]) < 2:
                 activity_type = random.choice(list(random_course.activities.keys()))
 
+            # pick two random activities to perform the swap on
             random_activity_1 = self.pick_activity_from_course(activity_type, random_course)
             random_activity_2 = self.pick_activity_from_course(activity_type, random_course)
-            
             
             # avoids choosing same activity group
             if (random_activity_1 == random_activity_2) or (not random_activity_1.student_list) or (not random_activity_2.student_list):
                 continue
-                # random_activity_2 = self.pick_activity_from_course(activity_type, random_course)
-                # random_activity_2 = self.pick_activity_from_course(activity_type, random_course)
 
             random_student_1 = random.choice(random_activity_1.student_list)
             random_student_2 = random.choice(random_activity_2.student_list)
@@ -47,9 +49,10 @@ class Algorithm():
 
     def random_activities_swap(self, timetable):
         """
-        This function chooses two random activities and then switches their timeslots
+        This method chooses two random activities and then switches their timeslots
         and locations to switch them around in the timetable.
         """
+        # pick two random activities to perform the swap on
         random_activity_1 = self.pick_random_activity(timetable)
         random_activity_2 = self.pick_random_activity(timetable)
         
@@ -63,7 +66,7 @@ class Algorithm():
 
     def random_activity_location_swap(self, timetable):
         """
-        This function randomly chooses an activity to switch to a random empty
+        This method randomly chooses an activity to switch to a random empty
         location.
         """
         random_activity = self.pick_random_activity(timetable)
@@ -72,12 +75,13 @@ class Algorithm():
         timetable.find_empty_locations()
 
         if timetable.empty_locations:
-        # choose from empty locations
+
+            # choose from empty locations
             random_timeslot = random.choice(list(timetable.empty_locations.keys()))
             random_location = random.choice(list(timetable.empty_locations[random_timeslot]))
         
-        # choose random activity instead of new random empty location to avoid infinite loop if all location
-        # capacities are smaller then length activity student list
+            # choose new random activity instead of new random empty location to avoid infinite loop if 
+            # all location capacities are smaller then length activity student list
             while random_location.capacity < len(random_activity.student_list):
                 random_activity = self.pick_random_activity(timetable)
             
@@ -88,15 +92,13 @@ class Algorithm():
 
     def switch_conflict_student(self, timetable):
         """
-        This function chooses a student out of all students that have conflicting activities. It
+        This method chooses a student out of all students that have conflicting activities. It
         tries to do this 20 times to prevent choosing a student that only has lectures as 
         conflicting activities (because each student following a course attends each lecture) or
         choosing a student for who all conflicting activity groups are full.
         """
-        
         # make sure to stop after 20 attempts if all conflict students only have lectures 
         # or for every student every other group for conflict activity type is full
-
         for i in range(20):
             random_student = random.choice(timetable.conflict_students)
 
@@ -140,6 +142,8 @@ class Algorithm():
 
     def switch_individual_student(self, timetable):
         """
+        This method picks one student from the total student list and switches one of its activities
+        with another activity.
         """
         for i in range(20):
             random_student = self.pick_random_student(timetable)
@@ -173,7 +177,8 @@ class Algorithm():
             # if after the while loop new activity still is same as conflict activity or chosen group is full continue
             if random_activity == random_new_activity or len(random_new_activity.student_list) >= random_new_activity.capacity:
                 continue
-
+            
+            # actually swap the student and check for new conflicts
             timetable.swap_student_activity(random_student, random_activity, random_new_activity)
             check_individual_conflicts(timetable)
 
@@ -182,6 +187,12 @@ class Algorithm():
         return timetable
 
     def add_new_activity_to_course(self, timetable):
+        """
+        This method adds a new activity group to the course, of type Tutorial or Lab.
+        It chooses one of the conflict student and generates a new activity of one of the activities
+        of that student, and immediately places that student in the new activity. The new activities
+        are placed into empty timeslots.
+        """
         for i in range(10):
             conflict_student = random.choice(timetable.conflict_students)
             conflict_timeslot = random.choice(list(conflict_student.conflict_activities.keys()))
@@ -192,9 +203,11 @@ class Algorithm():
             
             timetable.find_empty_locations()
             
+            # only add a new activity if there are still empty timeslots
             if timetable.empty_locations:
                 new_activity = timetable.add_new_activity_to_course(conflict_activity.course, conflict_activity.activity_type)
                 
+                # only pick a timeslot and location if the new_activity has been made and then swap the student to that activity
                 if new_activity:
                     new_timeslot = random.choice(list(timetable.empty_locations.keys()))
                     new_location = random.choice(timetable.empty_locations[new_timeslot])
@@ -251,14 +264,26 @@ class Algorithm():
         return random_swap_function
 
     def pick_random_student(self, timetable):
+        """
+        This method picks a random student from the full course list
+        """
         return random.choice(timetable.full_student_list)
     
     def pick_random_activity(self, timetable):
+        """
+        This method picks a random activity from all activities in the timetable
+        """
         return random.choice(timetable.activity_list)
     
     def pick_random_course(self, timetable):
+        """
+        This method picks a random course from all courses in the timetable
+        """
         return random.choice(timetable.courses)
 
     def pick_activity_from_course(self, activity_type, course):
+        """
+        This method picks one ranodm activity from the activities in a specific course
+        """
         return random.choice(course.activities[activity_type])
     
