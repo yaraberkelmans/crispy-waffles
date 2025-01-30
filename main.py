@@ -92,6 +92,9 @@ if __name__ == "__main__":
     # output_file_path = None
     # timetable_to_csv(stored_timetable, output_file_path)
 
+
+
+    # ---------------------------------------------- Plot different neighbours against swaps ------------------------------------
     # file_paths = [
     #     "results/pickle_files/final_runs/SimulatedAnnealing_7_neighbours_1_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
     #     "results/pickle_files/final_runs/SimulatedAnnealing_7_neighbours_2_swaps_per_neighbour_20000_iterations__Temp=1_experiment_instance.pkl",
@@ -111,14 +114,21 @@ if __name__ == "__main__":
         
     # plot_experiment_results(malus_df, 'neighbours_and_swaps')
 
+
+
     # ---------------------------------------------------------- Experiment loader -----------------------------------------------------------------
-  
     # low_malus_timetable = load_pickle_data('results/pickle_files/conflict_test/29_malus_SimulatedAnnealing_8_neighbours__3_swaps_per_neighbour_20000_iterations__best_timetable.pkl')
     # timetable_to_csv(low_malus_timetable, 'best_timetable_29_malus')
+
+
+
+    # --------------------------------------------------------- Export to html file ----------------------------------------------------------------
     # pivot = visualize_timetable('best_timetable_29_malus.csv')
     # save_timetable_to_html(pivot, 'best_timetable_ever_made_in_the_history_of_lectures_en_lesroosters_better_than_verenigde_bond_dieren_ofzo_made_by_the_crispy_waffles.html')
 
 
+
+    # ------------------------------------------------ Plot temperature of different SA experiments ------------------------------------------------
     # # plot for temps
     # file_paths_temps = ["results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=1_experiment_instance.pkl",
     #                     "results/pickle_files/temperature_experiments/SimulatedAnnealing_8_neighbours_3_swaps_per_neighbour_5000_iterations__Temp=2.5_experiment_instance.pkl",
