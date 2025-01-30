@@ -56,7 +56,7 @@ class Experiment():
 
             # create a randomized starting timetable before running the algorithm
             randomize_algorithm = Randomize(self.timetable)
-            randomized_timetable = randomize_algorithm.randomize()
+            randomized_timetable = randomize_algorithm.run()
             
             if algorithm_class == SimulatedAnnealing or algorithm_class == GeneticSimulatedAnnealing:
                 algorithm = algorithm_class(randomized_timetable, temperature=temperature)
