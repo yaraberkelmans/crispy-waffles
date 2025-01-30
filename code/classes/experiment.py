@@ -50,24 +50,31 @@ class Experiment():
 
         for iter in range(self.iterations):
             if verbose:
-                print(f'Algorithm {iter} now running!')
+                print(f'{algorithm_class} algorithm {iter} now running!')
 
             self.malus_per_cat = {'capacity': 0, 'evening':  0, 'indiv_confl': 0, 'gap_hours': 0}
 
             # create a randomized starting timetable before running the algorithm
             randomize_algorithm = Randomize(self.timetable)
             randomized_timetable = randomize_algorithm.run()
+
             
-            if algorithm_class == SimulatedAnnealing or algorithm_class == GeneticSimulatedAnnealing:
-                algorithm = algorithm_class(randomized_timetable, temperature=temperature)
+            if algorithm_class != Randomize:
+                if algorithm_class == SimulatedAnnealing or algorithm_class == GeneticSimulatedAnnealing:
+                    algorithm = algorithm_class(randomized_timetable, temperature=temperature)
+                else:
+                    algorithm = algorithm_class(randomized_timetable)
+
+                score = algorithm.run(**algorithm_params)
+                self.all_timetables[iter].append(algorithm.timetable)
+
+                # add a dictionary to the list with malus points per iteration for each algorithm run
+                self.indiv_scores.append(algorithm.iteration_values)
+
             else:
-                algorithm = algorithm_class(randomized_timetable)
-            score = algorithm.run(**algorithm_params)
-            self.all_timetables[iter].append(algorithm.timetable)
-
-            # add a dictionary to the list with malus points per iteration for each algorithm run
-            self.indiv_scores.append(algorithm.iteration_values)
-
+                algorithm = randomize_algorithm
+                score = calculate_malus(randomized_timetable)
+               
             # save the result for this iteration
             self.results.append({"iteration": iter, "score": score})
 
@@ -82,8 +89,8 @@ class Experiment():
                 if verbose:
                     print(f"New best timetable saved at score {score}")
             
-            self.update_total_malus(algorithm)
             # calculate the malus points per category for this timetable and add to the total dictionary
+            self.update_total_malus(algorithm)
             
             with open(f'{self.output_file_name}_experiment_instance.pkl', "wb") as f:
                 pickle.dump(self, f)

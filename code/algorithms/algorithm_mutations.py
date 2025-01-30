@@ -64,6 +64,7 @@ class Algorithm():
 
         return timetable
 
+
     def random_activity_location_swap(self, timetable):
         """
         This method randomly chooses an activity to switch to a random empty
@@ -140,6 +141,7 @@ class Algorithm():
         
         return timetable
 
+
     def switch_individual_student(self, timetable):
         """
         This method picks one student from the total student list and switches one of its activities
@@ -185,6 +187,7 @@ class Algorithm():
             return timetable
         
         return timetable
+
 
     def add_new_activity_to_course(self, timetable):
         """
@@ -246,13 +249,10 @@ class Algorithm():
     
     def random_swap(self):
         """
-        This function randomly chooses 1 out of 4 swaps. The 4 swaps are: switch_students,
-        switch_activities_in_timetable, switch_activity_in_timetable and switch_student.
-        Also if gap hour malus points are under 30, there is a 51.25% chance switch_student
-        gets picked to prioritize swapping students with individual conflict when approaching the end.
+        This function randomly chooses 1 out of 6 swaps. The 6 swaps are: switch_students,
+        switch_activities_in_timetable, switch_activity_in_timetable, switch_conflict_student,
+        switch_individual_student and add_new_activity_to_course. 
         """
-
-     
         # choose a random swap
         random_swap_function = random.choice([self.random_students_swap, 
                                             self.random_activities_swap, 
