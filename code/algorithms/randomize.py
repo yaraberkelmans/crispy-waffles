@@ -12,7 +12,7 @@ class Randomize():
     def __init__(self, timetable):
         self.timetable = copy.deepcopy(timetable)
 
-    def randomize(self):
+    def run(self):
         """
         This function creates a new random timetable by random assigning courses, activities and students to timeslots and rooms.
         """
