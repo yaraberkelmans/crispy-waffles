@@ -6,9 +6,9 @@ from .genetic_hill_climber import GeneticHillClimber
 
 class GeneticSimulatedAnnealing(GeneticHillClimber):
     """
-    The SimulatedAnnealing class performs a random change to the timetable, just as in HillClimber.
-    Most of the functions are similar to those of the HillClimber class, which is why
-    we use that as a parent class.
+    The Genetic Simulated Annealing class performs a random change to the timetable, just as in 
+    Genetic Hill Climber. Most of the functions are similar to those of the Genetic Hill Climber class, 
+    which is why we use that as a parent class.
 
     Each improvement or equivalent solution is kept for the next iteration.
     Also sometimes accepts solutions that are worse, depending on the current temperature.

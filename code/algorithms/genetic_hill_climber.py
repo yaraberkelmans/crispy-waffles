@@ -23,15 +23,6 @@ class GeneticHillClimber(Algorithm):
         self.best_iteration = 0
 
 
-    def mutate_timetable(self, new_timetable, number_of_swaps):
-        """
-        This method applies n amount of random swaps to the current best
-        timetable.
-        """
-        for i in range(number_of_swaps):
-            self.apply_random_swap()
-
-
     def generate_individual_neighbour(self, n_swaps):
         """
         This method generates a single neighbour by deepcopying the current 
@@ -91,7 +82,7 @@ class GeneticHillClimber(Algorithm):
         - swaps per neighbour: the amount of swaps applied to each neighbour
         - iterations: the amount of iterations the algorithm runs
         - verbose_alg: if True, prints updates at every iteration.
-        - heuristic: if True, lowers the swaps_per_neighbour at every 250 iterations to become more specific
+        - heuristic: if True, lowers the swaps_per_neighbour at every 250 iterations to become more specific.
         """
         self.iterations = iterations
         self.swaps = swaps_per_neighbour
@@ -106,9 +97,11 @@ class GeneticHillClimber(Algorithm):
             if verbose_alg:
                 print(f'Iteration {iteration}/{iterations} now running, value of timetable malus points is now {self.value} and amount of swaps is {self.swaps}')
             
+            # generate all neighbours and add to the neighbour_list
             for i in range(neighbours):
                 neighbour_list.append(self.generate_individual_neighbour(swaps_per_neighbour))
             
+            # choose the best neighbour out of the list
             self.choose_best_neighbour(neighbour_list)
             
             if heuristic:
@@ -132,9 +125,11 @@ class GeneticHillClimber(Algorithm):
 
         self.iteration_values[iteration] = self.value
 
+        # update best_iteration if the value has been improved at current iteration
         if improved:
             self.best_iteration = iteration
 
+        # calculate how long ago a best score was reached
         i_since_last_best = iteration - self.best_iteration
         
         # if the value of the best timetable is not less than 1000 at iteration 10000 the loop stops
