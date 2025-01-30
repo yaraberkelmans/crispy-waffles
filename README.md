@@ -51,7 +51,7 @@ Type: str
 
 output_file_path - Het relatieve path om de bestanden naar te exporteren. Type: str
 
-[--experiment_iters] - Het aantal iteraties dat het experiment runt. Standaard: 10, Type: int
+[--experiment_iters] - Het aantal iteraties dat het experiment runt. Standaard: 20, Type: int
 
 [--heur] - Een boolean waarmee de decrease swaps heuristiek aan of uit gezet kan worden. Standaard: True, Type: bool
 
@@ -59,9 +59,9 @@ output_file_path - Het relatieve path om de bestanden naar te exporteren. Type: 
 
 [--swaps] - Het aantal swaps per neighbour. Standaard: 10, Type: int
 
-[--iterations] - Het aantal iterations per run van het algoritme. Standaard: 10, Type: int
+[--iterations] - Het aantal iterations per run van het algoritme. Standaard: 20.000, Type: int
 
-[--temperature] - De starttemperatuur (alleen voor Simulated annealing en genetic simulated annealing). Standaard: 1.0, Type: float
+[--temperature] - De starttemperatuur (alleen voor Simulated annealing en genetic simulated annealing). Standaard: 1,0, Type: float
 
 Het bestand geeft een voorbeeld voor gebruik van de verschillende functies en het aanmaken van een rooster.
 
