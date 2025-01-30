@@ -65,9 +65,7 @@ def plot_malus_iter_connected(scores_per_iter_alg, output_file_name=None, info=N
     average_malus = sum(malus_points_list)/ len(malus_points_list)
     min_malus = min(malus_points_list)
     
-    # plot functions
     plt.plot(iter_list, malus_points_list, label= 'Malus points')
-    # plt.plot(min_malus_idx, min_malus, color = 'g', marker='o', label= f'Minimum = {round(min_malus)}')
     plt.title(info, loc='left', fontsize=10)
     plt.suptitle(suptitle)
     plt.axhline(average_malus,xmin=0, xmax=len(malus_points_list), color = 'r', ls= '--', label= f'Average = {round(average_malus)}')
@@ -115,20 +113,6 @@ def barplot_malus_per_category(timetable, output_file_name=None, info=None, expo
     plt.bar(malus_types, malus_values, color=['red','blue', 'green', 'purple'])
     plt.xlabel('Malus Type')
     plt.ylabel('Malus Points')
-    plt.title(info, loc='left', fontsize=10)
-    plt.suptitle(suptitle)
-    if export:
-        plt.savefig(output_file_name)
-    plt.show()
-    
-
-def malus_per_experiment_step(malus_points, output_file_name=None, info=None, export=False, suptitle='Malus points distribution'):
-    """
-    This function plots the distribution of malus points of the resulting timetables of the iterations of the experiment.
-    """
-    plt.hist(malus_points)
-    plt.xlabel('Malus Points')
-    plt.ylabel('Frequency')
     plt.title(info, loc='left', fontsize=10)
     plt.suptitle(suptitle)
     if export:
