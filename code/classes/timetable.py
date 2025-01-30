@@ -269,11 +269,6 @@ class Timetable():
         return activity  
 
        
-    
-    
-
-
-
     def generate_initial_timetable(self):
         """
         This method generates and creates the initial timetable. 
