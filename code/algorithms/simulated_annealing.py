@@ -22,10 +22,11 @@ class SimulatedAnnealing(HillClimber):
         # starting temperature and current temperature
         self.T0 = temperature
         self.T = temperature
+
         
     def update_temperature(self):
         """
-        This function implements a *linear* cooling scheme.
+        This method implements a *linear* cooling scheme.
         Temperature will become zero after all iterations passed to the run()
         method have passed.
         """
@@ -33,7 +34,7 @@ class SimulatedAnnealing(HillClimber):
 
     def check_solution(self, new_timetable):
         """
-        Checks and accepts better solutions than the current solution.
+        This method checks and accepts better solutions than the current solution.
         Also sometimes accepts solutions that are worse, depending on the current
         temperature.
         """

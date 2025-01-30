@@ -83,11 +83,9 @@ def plot_malus_histogram(malus_points_list, output_file_name=None, bins=20, info
     """
     This function creates a histogram of malus points to visualize their distribution.
     """
-
     average_malus = sum(malus_points_list) / len(malus_points_list)
     min_malus = min(malus_points_list)
 
-    # plot histogram
     sns.histplot(malus_points_list, kde= True, edgecolor='black')
     plt.axvline(average_malus, color='red', linestyle='--', label=f'Average = {round(average_malus)}')
     plt.axvline(min_malus, color='green', linestyle='-', label=f'Minimum = {round(min_malus)}')
@@ -111,7 +109,6 @@ def barplot_malus_per_category(timetable, output_file_name=None, info=None, expo
     gap_malus = check_gap_hours(timetable)
 
     malus_values = [capacity_malus, evening_malus, conflict_malus, gap_malus]
-
     malus_types = ['Capacity', 'Evening slots', 'Individual conflicts' , 'Gap hours']
 
     plt.figure(figsize=(10,6))
@@ -169,7 +166,7 @@ def plot_malus_iter_disconnected(score_dict_list, output_file_name=None, info=No
     plt.title(info, loc='left', fontsize=10)
     plt.suptitle(suptitle)
 
-    #plt.axhline(average_malus,xmin=0, xmax=len(malus_points_list), color = 'r', ls= '--', label= f'Average = {round(average_malus)}')
+    plt.axhline(average_malus,xmin=0, xmax=len(malus_points_list), color = 'r', ls= '--', label= f'Average = {round(average_malus)}')
     plt.xlabel('iterations')
     plt.ylabel('malus points')
     if export:

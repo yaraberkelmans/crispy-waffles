@@ -14,9 +14,8 @@ class Randomize():
 
     def run(self):
         """
-        This function creates a new random timetable by random assigning courses, activities and students to timeslots and rooms.
+        This method creates a new random timetable by random assigning courses, activities and students to timeslots and rooms.
         """
-        
         self.random_student_activity_assignment()
         self.random_course_assignment()
 
@@ -25,9 +24,8 @@ class Randomize():
 
     def random_course_assignment(self):
         """
-        This function randomly assigns activities to timeslots and rooms in the timetable until all activities are assigned.
+        This method randomly assigns activities to timeslots and rooms in the timetable until all activities are assigned.
         """
-       
         new_activities_list = copy.copy(self.timetable.activity_list)
         activity_count = len(new_activities_list)
 
@@ -56,11 +54,9 @@ class Randomize():
                 activities_added += 1
 
         
-
-
     def random_student_course_assignment(self, timetable):
         """
-        This function randomly assigns students to courses 
+        This method randomly assigns students to courses 
         until the expected number of students per course is met.
         """
         new_timetable = timetable
@@ -79,7 +75,7 @@ class Randomize():
 
     def random_student_activity_assignment(self):
         """
-        This function randomly assigns students to activities within their courses,
+        This method randomly assigns students to activities within their courses,
         taking the capacity constraints of the activity into account. 
         """
         for course in self.timetable.courses:

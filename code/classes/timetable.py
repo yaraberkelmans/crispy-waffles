@@ -39,6 +39,7 @@ class Timetable():
             for time in self.times:
                 self.timetable[Timeslot(day, time)] = {}
     
+
     def initialize_locations(self):
         """
         This method fills the timetable with locations for each timeslot and initializes them with None.
@@ -49,6 +50,7 @@ class Timetable():
                     continue
                 else:
                     self.timetable[timeslot][location] = None
+
 
     def load_courses(self, input_file):
         """
@@ -62,6 +64,7 @@ class Timetable():
                                 row['#Practica'], row['Max. stud. Practicum'],
                                 row['Verwacht'])
                 self.courses.append(course)
+
     
     def load_students(self, input_file):
         """
@@ -74,6 +77,7 @@ class Timetable():
                 student = Student(row['Achternaam'], row['Voornaam'], 
                                 row['Stud.Nr.'],[row['Vak1'], row['Vak2'], row['Vak3'], row['Vak4'], row['Vak5']])
                 self.full_student_list.append(student)
+
     
     def load_locations(self, input_file):
         """
@@ -85,6 +89,7 @@ class Timetable():
                 location = Location(row['Zaalnummer'], row['Max. capaciteit'])
                 self.locations.append(location)
 
+
     def get_activities_count(self):
         """
         This method calculates and stores the number of lectures, tutorials and labs for each course 
@@ -95,6 +100,7 @@ class Timetable():
             self.activities_per_course[course] = {'Lecture': course.lectures_n,
                                                            'Tutorial': course.expected_tut_n,
                                                            'Lab': course.expected_lab_n}
+
 
     def name_activities(self):  
         """
@@ -194,6 +200,7 @@ class Timetable():
         for student in activity.student_list:
             student.remove_activity_pers_timetable(activity)
 
+
     def add_activity_to_timetable(self, activity, new_timeslot, new_location):
         """
         This method add an activity to a new timeslot and location in the timetable if the slot is still available. 
@@ -231,6 +238,7 @@ class Timetable():
         self.add_activity_to_timetable(activity_1, old_timeslot_act_2, old_location_act_2)
         self.add_activity_to_timetable(activity_2, old_timeslot_act_1, old_location_act_1)
 
+
     def find_empty_locations(self):
         """
         This method loops over all timeslot and location pairs and finds adds all pairs 
@@ -241,6 +249,7 @@ class Timetable():
             for location in self.timetable[timeslot]:
                 if self.timetable[timeslot][location] == None:
                     self.empty_locations[timeslot].append(location)
+
 
     def add_new_activity_to_course(self, course, activity_type):
         """
@@ -273,12 +282,22 @@ class Timetable():
         """
         This method generates and creates the initial timetable. 
         """
-        self.load_courses('data/vakken.csv') # adds course obj to self
+        #  load all data and create instances   
+        self.load_courses('data/vakken.csv')
         self.load_students('data/studenten_en_vakken.csv')
         self.load_locations('data/zalen.csv')
+
         self.add_actual_students_to_courses()
-        self.get_activities_count() # creates expected numbers, does not add activity
-        self.name_activities() # adds activity to course.activity
-        self.create_timetable() # makes empty .self attr
-        self.initialize_locations() # turns empty into None
+
+        # create expected numbers does not add activity
+        self.get_activities_count() 
+
+        # add activity to course.activity
+        self.name_activities() 
+
+         # make empty .self attr
+        self.create_timetable()
+
+        # turn empty into None
+        self.initialize_locations() 
 

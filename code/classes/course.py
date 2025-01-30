@@ -39,9 +39,6 @@ class Course():
         if student not in self.student_list and self not in student.pers_activities: 
             self.student_list.append(student)
 
-            # # pas op! maakt elke keer lege lijst met activities aan, swappen met werkgroep
-            # student.pers_activities[self] = []
-            
         else:
             print('Student already in course')
     
@@ -70,6 +67,7 @@ class Course():
             
     def __repr__(self) -> str:
         return f"{self.course_name}"
+
 
 class Tutorial():
     """
@@ -120,7 +118,7 @@ class Lecture():
         self.location = None
         self.activity_type = 'Lecture'
 
-        # to avoid conflict in random student activity assignment
+        # avoid conflict in random student activity assignment
         self.initial_capacity = len(course.student_list)
 
     def __repr__(self):

@@ -21,6 +21,7 @@ class HillClimber(Algorithm):
         for i in range(number_of_swaps):
             self.apply_random_swap(new_timetable)
 
+
     def check_solution(self, new_timetable):
         """
         This method checks if the malus score of the new_timetable is lower
@@ -88,6 +89,7 @@ class HillClimber(Algorithm):
             self.iterations = iteration
 
             return True
+        
         
     def decrease_swaps(self, iteration):
         """
