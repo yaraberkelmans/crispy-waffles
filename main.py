@@ -26,7 +26,7 @@ if __name__ == "__main__":
     # experiment parameters
     parser.add_argument("--experiment_iters", type=int, default=20, help="Number of iters the experiment should run")
     parser.add_argument("--neighbours", type=int, default=8, help="Number of neighbours")
-    parser.add_argument("--swaps", type=int, default=1, help="Number of swaps per neighbour")
+    parser.add_argument("--swaps", type=int, default=10, help="Number of swaps per neighbour")
     parser.add_argument("--iterations", type=int, default=20000, help="Number of iterations")
     parser.add_argument("--temperature", type=float, default=1.0, help="Initial temperature")
     
