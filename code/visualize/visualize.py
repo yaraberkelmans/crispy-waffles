@@ -149,10 +149,12 @@ def plot_malus_iter_disconnected(score_dict_list, output_file_name=None, info=No
             
         plt.plot(x_values, y_values, color='b' )#lw=0.5)
 
+    average_malus = sum(x_values)/ len(x_values)
+
     plt.title(info, loc='left', fontsize=10)
     plt.suptitle(suptitle)
 
-    plt.axhline(average_malus,xmin=0, xmax=len(malus_points_list), color = 'r', ls= '--', label= f'Average = {round(average_malus)}')
+    plt.axhline(average_malus,xmin=0, xmax=len(score_dict_list), color = 'r', ls= '--', label= f'Average = {round(average_malus)}')
     plt.xlabel('iterations')
     plt.ylabel('malus points')
     if export:
@@ -224,9 +226,13 @@ def plot_temperature(file_paths, output_file_name= None, export= False):
     - output_file_name: a name if we want to export as a picture, defaults to None
     - export: boolean, only exports as a file if set to True
     """
+    scores=[]
     for file_path in file_paths:
         experiment = load_pickle_data(file_path)
-        scores = experiment.summary.get("all_scores")
+        iters_scores = experiment.results
+        for dict in iters_scores:
+            malus = dict.get("score")
+            scores.append(malus)
         
         average_scores=[]
         number = 0
@@ -253,18 +259,41 @@ def plot_temperature(file_paths, output_file_name= None, export= False):
     if export: 
         plt.savefig(output_file_name)
     plt.show()
+def plot_malus_iter(iteration_to_plot, scores_per_experiment, title='Malus points per iteration', output_file_name= None, export=False):
+    """
+    This function plots the progress of the malus points per iteration in one algorithm run. It takes the iterations and malus_points as arguments, 
+    which are both lists.
+    """
+    algorithm_instance = scores_per_experiment[iteration_to_plot]
 
+    iter_list = list(algorithm_instance.keys())
+    malus_points_list = list(algorithm_instance.values())
+    
+    average_malus = sum(malus_points_list)/ len(malus_points_list)
+    min_malus = min(malus_points_list)
+    min_malus_idx= malus_points_list.index(min_malus)
+
+    # plot functions
+    plt.plot(iter_list, malus_points_list, label= 'Malus points')
+    plt.plot(min_malus_idx, min_malus, color = 'g', marker='o', label= f'Minimum = {round(min_malus)}')
+    plt.title(title)
+    plt.axhline(average_malus,xmin=0, xmax=len(malus_points_list), color = 'r', ls= '--', label= f'Average = {round(average_malus)}')
+    plt.xlabel('iterations')
+    plt.ylabel('malus points')
+    plt.legend()
+    if export: 
+        plt.savefig(output_file_name)
+    plt.show()
 
 def get_scores(file_name):
-    scores = []  
+scores = []  
 
-    with open(file_name, mode="r", encoding="utf-8") as file:
-        reader = csv.reader(file) 
+with open(file_name, mode="r", encoding="utf-8") as file:
+    reader = csv.reader(file) 
 
-        for row in reader:
-            for item in row:  
-                data_dict = ast.literal_eval(item)  
-                scores.append(data_dict['score'])  
+    for row in reader:
+        for item in row:  
+            data_dict = ast.literal_eval(item)  
+            scores.append(data_dict['score'])  
 
-    return scores
-
+return scores
