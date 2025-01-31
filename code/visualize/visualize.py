@@ -286,14 +286,14 @@ def plot_malus_iter(iteration_to_plot, scores_per_experiment, title='Malus point
     plt.show()
 
 def get_scores(file_name):
-scores = []  
+    scores = []  
 
-with open(file_name, mode="r", encoding="utf-8") as file:
-    reader = csv.reader(file) 
+    with open(file_name, mode="r", encoding="utf-8") as file:
+        reader = csv.reader(file) 
 
-    for row in reader:
-        for item in row:  
-            data_dict = ast.literal_eval(item)  
-            scores.append(data_dict['score'])  
+        for row in reader:
+            for item in row:  
+                data_dict = ast.literal_eval(item)  
+                scores.append(data_dict['score'])  
 
-return scores
+    return scores
