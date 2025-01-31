@@ -138,10 +138,10 @@ if __name__ == "__main__":
 
 
     # --------------------------------------------------------- Export to html file ----------------------------------------------------------------
-    input_csv = "results/best_timetable_data/best_timetable.csv"
-    output_name = 'results/best_timetable_data/best_timetable.html'
-    pivot = visualize_timetable(input_csv)
-    save_timetable_to_html(pivot, output_name)
+    # input_csv = "results/best_timetable_data/best_timetable.csv"
+    # output_name = 'results/best_timetable_data/best_timetable.html'
+    # pivot = visualize_timetable(input_csv)
+    # save_timetable_to_html(pivot, output_name)
 
 
 
@@ -165,9 +165,7 @@ if __name__ == "__main__":
     # best_experiment= load_pickle_data("results/pickle_files/for_real/wouter_runs/GeneticSimulatedAnnealing_True_heuristic_9_neighbours_10_swaps_per_neighbour_20000_iterations__Temp=10.0_experiment_instance.pkl")
     # print(best_experiment.results)
     # plot_malus_iter(2, best_experiment.indiv_scores, output_file_name='results/plots/best_timetable_malus_per_iter', export=True)
-
-
-    # ----------------------------------------------------------------- Plot Histogram ------------------------------------------------------------
-
     
-    
+  
+    malus_point_list = get_scores('results/pickle_files/for_real/2/HillClimber_True_heuristic_5_number_of_swaps_20000_iterations__Results.csv')
+    plot_malus_histogram(malus_point_list, output_file_name='results/plots/HC_5S_heur_TRUE', bins='auto', info='Starting swaps: 5, Iterations: 20000, N=20', export=True, suptitle='Histogram of Malus Points - Hill Climber', binwidth=None)
