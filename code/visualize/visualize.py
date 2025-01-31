@@ -224,9 +224,13 @@ def plot_temperature(file_paths, output_file_name= None, export= False):
     - output_file_name: a name if we want to export as a picture, defaults to None
     - export: boolean, only exports as a file if set to True
     """
+    scores=[]
     for file_path in file_paths:
         experiment = load_pickle_data(file_path)
-        scores = experiment.summary.get("all_scores")
+        iters_scores = experiment.results
+        for dict in iters_scores:
+            malus = dict.get("score")
+            scores.append(malus)
         
         average_scores=[]
         number = 0
@@ -255,7 +259,7 @@ def plot_temperature(file_paths, output_file_name= None, export= False):
     plt.show()
 
 
-def plot_malus_iter(iteration_to_plot, scores_per_experiment, title='Malus points per iteration'):
+def plot_malus_iter(iteration_to_plot, scores_per_experiment, title='Malus points per iteration', output_file_name= None, export=False):
     """
     This function plots the progress of the malus points per iteration in one algorithm run. It takes the iterations and malus_points as arguments, 
     which are both lists.
@@ -277,4 +281,6 @@ def plot_malus_iter(iteration_to_plot, scores_per_experiment, title='Malus point
     plt.xlabel('iterations')
     plt.ylabel('malus points')
     plt.legend()
+    if export: 
+        plt.savefig(output_file_name)
     plt.show()
