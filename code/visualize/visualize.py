@@ -97,7 +97,7 @@ def plot_malus_histogram(malus_points_list, output_file_name=None, bins=20, info
     plt.show()
    
     
-def barplot_malus_per_category(timetable, output_file_name=None, info=None, export=False, suptitle= 'Distribution of Malus Points'):
+def barplot_malus_per_category(timetable, output_file_name=None, info=None, export=False, suptitle= 'Distribution of Malus Points per category'):
     """
     This function creates a barplot showing showing the distribution of malus points across different categories.  
     """
@@ -106,6 +106,8 @@ def barplot_malus_per_category(timetable, output_file_name=None, info=None, expo
     conflict_malus = check_individual_conflicts(timetable)
     gap_malus = check_gap_hours(timetable)
 
+    total_malus= calculate_malus(timetable)
+
     malus_values = [capacity_malus, evening_malus, conflict_malus, gap_malus]
     malus_types = ['Capacity', 'Evening slots', 'Individual conflicts' , 'Gap hours']
 
@@ -113,7 +115,7 @@ def barplot_malus_per_category(timetable, output_file_name=None, info=None, expo
     plt.bar(malus_types, malus_values, color=['red','blue', 'green', 'purple'])
     plt.xlabel('Malus Type')
     plt.ylabel('Malus Points')
-    plt.title(info, loc='left', fontsize=10)
+    plt.title(f"Total malus points = {total_malus}, {info}", loc='left', fontsize=10)
     plt.suptitle(suptitle)
     if export:
         plt.savefig(output_file_name)
@@ -200,17 +202,18 @@ def load_experiment_data(file_paths):
     return pd.DataFrame(combined_data)
 
 
-def plot_experiment_results(malus_df, output_file_name=None, export=False): 
+def plot_experiment_results(malus_df, suptitle=None, output_file_name=None, export=False): 
     """
     This function plots the combinations of number of neigbours vs. the number of swaps and their distribution of maluspoints. 
     """
     sns.set_theme(style= "darkgrid")
-    plot = sns.displot(malus_df, x = "total_malus", col = "swaps_per_neighbour", row="neighbours", binrange=(0,100), binwidth=5, height=3, facet_kws=dict(margin_titles=True),
+    plot = sns.displot(malus_df, x = "total_malus", col = "neighbours", row="swaps_per_neighbour", binrange=(50,250), binwidth=5, height=3, facet_kws=dict(margin_titles=True),
     )
    
 
     plot.set_axis_labels("Total Malus Points", "Frequenty")
-    plot.set_titles(row_template="Neighbours = {row_name}", col_template="Swaps = {col_name}")
+    plot.set_titles(row_template="Swaps = {row_name}", col_template="Neighbours = {col_name}")
+    plt.suptitle(suptitle)
     if export: 
         plt.savefig(output_file_name)
     plt.show()
