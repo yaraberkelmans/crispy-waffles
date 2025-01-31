@@ -86,19 +86,6 @@ if __name__ == "__main__":
     #     print("Malus per cat", experiment.malus_per_cat)
 
 
-
-    # # ---------------------------------- Format for loading in timetable and exporting to csv ---------------------------------
-    # input_file_path = None
-    # stored_timetable = load_pickle_file(input_file_path)
-
-    # output_file_path = None
-    # timetable_to_csv(stored_timetable, output_file_path)
-
-
-
-    # 
-
-
     # ---------------------------------------------- Plot different neighbours against swaps ------------------------------------
     # -- Genetic Hill Climber --
         # file_paths_hc = [
@@ -138,11 +125,21 @@ if __name__ == "__main__":
     # low_malus_timetable = load_pickle_data('results/pickle_files/for_real/29_malus_SimulatedAnnealing_8_neighbours__3_swaps_per_neighbour_20000_iterations__best_timetable.pkl')
     # timetable_to_csv(low_malus_timetable, 'best_timetable_29_malus')
 
+    # ---------------------------------- Format for loading in timetable and exporting to csv ---------------------------------
+    # input_file_path = 'results/pickle_files/for_real/wouter_runs/GeneticSimulatedAnnealing_True_heuristic_9_neighbours_10_swaps_per_neighbour_20000_iterations__Temp=10.0_best_timetable.pkl'
+    # stored_timetable = load_pickle_data(input_file_path)
+
+    # output_file_path = 'results/best_timetable_data/best_timetable'
+    # timetable_to_csv(stored_timetable, output_file_path)
+
+
 
 
     # --------------------------------------------------------- Export to html file ----------------------------------------------------------------
-    # pivot = visualize_timetable('best_timetable_29_malus.csv')
-    # save_timetable_to_html(pivot, 'best_timetable_html_file.html')
+    input_csv = "results/best_timetable_data/best_timetable.csv"
+    output_name = 'results/best_timetable_data/best_timetable.html'
+    pivot = visualize_timetable(input_csv)
+    save_timetable_to_html(pivot, output_name)
 
 
 
@@ -163,8 +160,7 @@ if __name__ == "__main__":
 
 
     # ------------------------------------------------------ Plot single iteration distribution ---------------------------------------------------
-    best_experiment= load_pickle_data("results/pickle_files/for_real/wouter_runs/GeneticSimulatedAnnealing_True_heuristic_9_neighbours_10_swaps_per_neighbour_20000_iterations__Temp=10.0_experiment_instance.pkl")
-    print(best_experiment.results)
-    plot_malus_iter(2, best_experiment.indiv_scores, output_file_name='results/plots/best_timetable_malus_per_iter', export=True)
+    # best_experiment= load_pickle_data("results/pickle_files/for_real/wouter_runs/GeneticSimulatedAnnealing_True_heuristic_9_neighbours_10_swaps_per_neighbour_20000_iterations__Temp=10.0_experiment_instance.pkl")
+    # print(best_experiment.results)
+    # plot_malus_iter(2, best_experiment.indiv_scores, output_file_name='results/plots/best_timetable_malus_per_iter', export=True)
     
- 
