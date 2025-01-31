@@ -1,6 +1,7 @@
 import sys
 import argparse
 
+
 from code.classes.timetable import Timetable
 from code.algorithms.malus import calculate_malus
 from code.algorithms.genetic_hill_climber import GeneticHillClimber
@@ -138,5 +139,6 @@ if __name__ == "__main__":
 
     # plot_temperature(file_paths_temps, output_file_name= None, export=False)
 
-    
+    #-------------------------------------------------------- Pickle experiment data loader --------------------------------------------------------
+           
  

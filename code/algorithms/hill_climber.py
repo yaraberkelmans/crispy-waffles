@@ -97,5 +97,5 @@ class HillClimber(Algorithm):
         However, the swaps minimum number is 2.
         """
         if iteration % 250 == 0 and iteration > 1:
-            if self.swaps > 2:
+            if self.swaps > 1:
                 self.swaps = self.swaps - 1
