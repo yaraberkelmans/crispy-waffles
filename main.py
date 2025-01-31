@@ -136,10 +136,10 @@ if __name__ == "__main__":
 
 
     # --------------------------------------------------------- Export to html file ----------------------------------------------------------------
-    input_csv = "results/best_timetable_data/best_timetable.csv"
-    output_name = 'results/best_timetable_data/best_timetable.html'
-    pivot = visualize_timetable(input_csv)
-    save_timetable_to_html(pivot, output_name)
+    # input_csv = "results/best_timetable_data/best_timetable.csv"
+    # output_name = 'results/best_timetable_data/best_timetable.html'
+    # pivot = visualize_timetable(input_csv)
+    # save_timetable_to_html(pivot, output_name)
 
 
 
@@ -164,3 +164,6 @@ if __name__ == "__main__":
     # print(best_experiment.results)
     # plot_malus_iter(2, best_experiment.indiv_scores, output_file_name='results/plots/best_timetable_malus_per_iter', export=True)
     
+  
+    malus_point_list = get_scores('results/pickle_files/for_real/2/HillClimber_True_heuristic_10_number_of_swaps_20000_iterations__Results.csv')
+    plot_malus_histogram(malus_point_list, output_file_name='results/plots/HC_10S_heur_TRUE', bins='auto', info='Starting swaps: 10, Iterations: 20000, N=20', export=True, suptitle='Histogram of Malus Points - Hill Climber', binwidth=None)
