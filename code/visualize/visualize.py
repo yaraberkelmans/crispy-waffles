@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns 
 import pickle
 import csv
+import ast 
+import csv
 
 from ..algorithms.malus import *
 
@@ -77,17 +79,17 @@ def plot_malus_iter_connected(scores_per_iter_alg, output_file_name=None, info=N
     plt.show()
     
 
-def plot_malus_histogram(malus_points_list, output_file_name=None, bins=20, info=None, export=False, suptitle='Histogram of Malus Points'):
+def plot_malus_histogram(malus_points_list, output_file_name=None, bins='auto', info=None, export=False, suptitle='Histogram of Malus Points', binwidth=None):
     """
     This function creates a histogram of malus points to visualize their distribution.
     """
     average_malus = sum(malus_points_list) / len(malus_points_list)
     min_malus = min(malus_points_list)
 
-    sns.histplot(malus_points_list, kde= True, edgecolor='black')
+    sns.histplot(malus_points_list, bins=bins, binwidth=binwidth, kde= True, edgecolor='black')
     plt.axvline(average_malus, color='red', linestyle='--', label=f'Average = {round(average_malus)}')
     plt.axvline(min_malus, color='green', linestyle='-', label=f'Minimum = {round(min_malus)}')
-    plt.title(info, loc='left', fontsize=10)
+    plt.title(info, loc='left', fontsize=8)
     plt.xlabel('Malus Points')
     plt.ylabel('Frequency')
     plt.suptitle(suptitle)
@@ -260,8 +262,6 @@ def plot_temperature(file_paths, output_file_name= None, export= False):
     if export: 
         plt.savefig(output_file_name)
     plt.show()
-
-
 def plot_malus_iter(iteration_to_plot, scores_per_experiment, title='Malus points per iteration', output_file_name= None, export=False):
     """
     This function plots the progress of the malus points per iteration in one algorithm run. It takes the iterations and malus_points as arguments, 
@@ -287,3 +287,16 @@ def plot_malus_iter(iteration_to_plot, scores_per_experiment, title='Malus point
     if export: 
         plt.savefig(output_file_name)
     plt.show()
+
+def get_scores(file_name):
+    scores = []  
+
+    with open(file_name, mode="r", encoding="utf-8") as file:
+        reader = csv.reader(file) 
+
+        for row in reader:
+            for item in row:  
+                data_dict = ast.literal_eval(item)  
+                scores.append(data_dict['score'])  
+
+    return scores
