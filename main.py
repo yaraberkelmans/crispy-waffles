@@ -101,7 +101,8 @@ if __name__ == "__main__":
         
     print(malus_df_hc)
         
-    plot_experiment_results(malus_df_hc, 'Genetic Hill Climber with Iterations = 20.000', output_file_name='results/plots/neighbours_exp_ghc', export=True)
+    plot_experiment_results(malus_df_hc, 'Genetic Hill Climber with Iterations = 20.000')
+    # , output_file_name='results/plots/neighbours_exp_ghc', export=True
 
     # -- Genetic Simulated Annealing --
     file_paths_sa = [
@@ -117,7 +118,8 @@ if __name__ == "__main__":
         
     print(malus_df_sa)
         
-    plot_experiment_results(malus_df_sa, suptitle='Genetic Simulated Annealing with Temperature = 1 and Iterations = 20.000',output_file_name='results/plots/neighbours_exp_gsa', export=True)
+    plot_experiment_results(malus_df_sa, suptitle='Genetic Simulated Annealing with Temperature = 1 and Iterations = 20.000')
+    # ,output_file_name='results/plots/neighbours_exp_gsa', export=True
 
 
 
