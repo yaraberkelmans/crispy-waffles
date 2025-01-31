@@ -101,7 +101,8 @@ if __name__ == "__main__":
         
     print(malus_df_hc)
         
-    plot_experiment_results(malus_df_hc, 'Genetic Hill Climber with Iterations = 20.000', output_file_name='results/plots/neighbours_exp_ghc', export=True)
+    plot_experiment_results(malus_df_hc, 'Genetic Hill Climber with Iterations = 20.000')
+    # , output_file_name='results/plots/neighbours_exp_ghc', export=True
 
     # -- Genetic Simulated Annealing --
     file_paths_sa = [
@@ -117,7 +118,8 @@ if __name__ == "__main__":
         
     print(malus_df_sa)
         
-    plot_experiment_results(malus_df_sa, suptitle='Genetic Simulated Annealing with Temperature = 1 and Iterations = 20.000',output_file_name='results/plots/neighbours_exp_gsa', export=True)
+    plot_experiment_results(malus_df_sa, suptitle='Genetic Simulated Annealing with Temperature = 1 and Iterations = 20.000')
+    # ,output_file_name='results/plots/neighbours_exp_gsa', export=True
 
 
 
@@ -163,4 +165,9 @@ if __name__ == "__main__":
     # best_experiment= load_pickle_data("results/pickle_files/for_real/wouter_runs/GeneticSimulatedAnnealing_True_heuristic_9_neighbours_10_swaps_per_neighbour_20000_iterations__Temp=10.0_experiment_instance.pkl")
     # print(best_experiment.results)
     # plot_malus_iter(2, best_experiment.indiv_scores, output_file_name='results/plots/best_timetable_malus_per_iter', export=True)
+
+
+    # ----------------------------------------------------------------- Plot Histogram ------------------------------------------------------------
+
+    
     
